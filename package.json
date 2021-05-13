@@ -1,0 +1,51 @@
+{
+  "name": "canvacard",
+  "version": "5.1.0",
+  "description": "Potente paquete de manipulación de imágenes para principiantes.",
+  "main": "index.js",
+  "scripts": {
+    "docs": "docgen --source src --custom docs/index.yml --output docs/docs.json",
+    "docs:test": "docgen --source src --custom docs/index.yml",
+    "test": "cd test && node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrGobi/canvacard.git"
+  },
+  "keywords": [
+    "canvacard",
+    "canvas",
+    "image",
+    "manipulation",
+    "easy",
+    "simple",
+    "fast",
+    "api",
+    "rank",
+    "card",
+    "rankcard",
+    "welcomer",
+    "leaver",
+    "spotify",
+    "memegen"
+  ],
+  "author": "SrGobi",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SrGobi/canvacard/issues"
+  },
+  "dependencies": {
+    "@canvacord/assets": "^1.0.2",
+    "@canvacord/emoji-parser": "^1.0.1",
+    "canvas": "^2.7.0",
+    "gifencoder": "^2.0.1",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.40",
+    "captcha-canvas": "^2.2.2",
+    "discord-canvascard": "github:srgobi/discord-canvascard",
+    "discord.js-docgen": "github:discordjs/docgen"
+  }
+}
