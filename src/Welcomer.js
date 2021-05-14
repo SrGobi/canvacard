@@ -53,6 +53,7 @@ class Welcomer extends Base {
         this.setMemberCount(100);
         this.setGuildName("Discord Server");
         this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
+        this.setBackground(`https://i.imgur.com/aClDVjh.jpg`);
         this.setColor("border", "#4D5E94");
         this.setColor("username-box", "#4D5E94");
         this.setColor("discriminator-box", "#4D5E94");
