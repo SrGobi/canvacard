@@ -1,10 +1,6 @@
 const { Base } = require("discord-canvascard");
 const Util = require("./Util");
 
-/**
- * @property {object} background Datos de antecedentes de la tarjeta de rango
- */
-
 class Welcomer extends Base {
 
     /**
@@ -22,18 +18,11 @@ class Welcomer extends Base {
             })
      */
     constructor() {
-        super();
-
         /**
          * Título creado con Canvacard
          * @type {string}
          */
         this.textTitle = "WELCOME";
-        /**
-         * Datos de la tarjeta de clasificación
-         * @type {CanvacardRankData}
-         */
-        this.data = {background: {type: "color",image: "#23272A"}};
 
         /**
          * Mensaje de texto creado con Canvacard
@@ -62,35 +51,13 @@ class Welcomer extends Base {
         this.setMemberCount(100);
         this.setGuildName("Discord Server");
         this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
-        this.setBackground(`https://i.imgur.com/aClDVjh.jpg`);
+        this.setBackground("COLOR", "#2c2f33" ||"IMAGE", `https://i.imgur.com/aClDVjh.jpg`);
         this.setColor("border", "#4D5E94");
         this.setColor("username-box", "#4D5E94");
         this.setColor("discriminator-box", "#4D5E94");
         this.setColor("message-box", "#4D5E94");
         this.setColor("title", "#4D5E94");
         this.setColor("avatar", "#4D5E94");
-    }
-
-    /**
-     * Establecer imagen / color de fondo
-     * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-     * @param {string|Buffer} [data] Color o imagen de fondo
-     */
-    setBackground(type, data) {
-        if (!data) throw new Error("Falta campo: datos");
-        switch(type) {
-            case "COLOR":
-                this.data.background.type = "color";
-                this.data.background.image = data && typeof data === "string" ? data : "#23272A";
-                break;
-            case "IMAGE":
-                this.data.background.type = "image";
-                this.data.background.image = data;
-                break;
-            default:
-                throw new Error(`Tipo de fondo no admitido "${type}"`);
-        }
-        return this;
     }
 
     /**
