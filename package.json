@@ -1,6 +1,6 @@
 {
   "name": "canvacard",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "scripts": {
