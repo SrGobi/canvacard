@@ -50,11 +50,13 @@ class Welcomer extends Base {
     __updateData() {
         this.setUsername("Discord User");
         this.setDiscriminator("0000");
+        this.setDescription("Descipción");
         this.setMemberCount(100);
         this.setGuildName("Discord Server");
         this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
         this.setBackground("COLOR", "#2c2f33" ||"IMAGE", `https://i.imgur.com/aClDVjh.jpg`);
-        this.setColor("colorCircle", "#FFFFFF")
+        this.setOpacityBorder("0.4")
+        this.setColorCircle("#FFFFFF")
         this.setColor("border", "#4D5E94");
         this.setColor("username-box", "#4D5E94");
         this.setColor("discriminator-box", "#4D5E94");
@@ -65,7 +67,7 @@ class Welcomer extends Base {
 
     /**
      * Establecer color
-     * @param {"title"|"title-border"|"avatar"|"colorCircle"|"username"|"username-box"|"hashtag"|"discriminator"|"discriminator-box"|"message"|"message-box"|"member-count"|"background"|"border"} id
+     * @param {"title"|"title-border"|"avatar"|"username"|"username-box"|"hashtag"|"discriminator"|"discriminator-box"|"message"|"message-box"|"member-count"|"background"|"border"} id
      * @param {string} color Código de color HTML5
      * @returns {Welcomer}
      */

@@ -44,7 +44,40 @@ rank.build()
 ```
 
 ### Preview
-![RankCard](https://raw.githubusercontent.com/SrGobi/canvacard/v5/test/images/RankCard.png)
+![RankCard](https://i.imgur.com/j7m8T5x.png)
+
+## Welcomer Card
+
+```js
+const canvacard = require("canvacard");
+const img = "https://cdn.discordapp.com/embed/avatars/0.png";
+const background = "https://i.imgur.com/ulr1KDT.png";
+
+const welcomer = new canvacard.Welcomer()
+    .setUsername("SrGobi")
+    .setDiscriminator("5100")
+    .setDescription("Descripción personalizable")
+    .setGuildName("ESP CUSTOMS")
+    .setBackground('IMAGE', background)
+    .setAvatar(img)
+    .setOpacityBorder("0.5")
+    .setColorCircle("#FFFFFF")
+    .setColor("border", "#4D5E94")
+    .setColor("username-box", "#4D5E94")
+    .setColor("discriminator-box", "#4D5E94")
+    .setColor("message-box", "#4D5E94")
+    .setColor("title", "#4D5E94")
+    .setColor("avatar", "#4D5E94")
+
+welcomer.build()
+    .then(data => {
+        const attachment = new Discord.MessageAttachment(data, "WelcomerCard.png");
+        message.channel.send(attachment);
+    });
+```
+
+### Preview
+![WelcomerCard](https://i.imgur.com/ulr1KDT.png)
 
 ## Other Examples
 
