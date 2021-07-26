@@ -24,19 +24,19 @@ class Welcomer extends Base {
          * Título creado con Canvacard
          * @type {string}
          */
-        this.textTitle = "WELCOME";
+        this.titulo = "WELCOME";
 
         /**
          * Mensaje de texto creado con Canvacard
          * @type {string}
          */
-        this.textMessage = "Welcome to {server}";
+        this.subtitulo = "Welcome to {server}";
 
         /**
          * Color del título creado con canvacard
          * @type {string}
          */
-        this.colorTitle = "#03A9F4";
+        this.colorTitulo = "#03A9F4";
         
         // actualizar datos predeterminados
         this.__updateData();
@@ -47,27 +47,25 @@ class Welcomer extends Base {
      * @private
      * @ignore
      */
-    __updateData() {
-        this.setUsername("Discord User");
-        this.setDiscriminator("0000");
-        this.setDescription("Descipción");
-        this.setMemberCount(100);
-        this.setGuildName("Discord Server");
+     __updateData() {
         this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
         this.setBackground("COLOR", "#2c2f33" ||"IMAGE", `https://i.imgur.com/aClDVjh.jpg`);
-        this.setOpacityBorder("0.4")
-        this.setColorCircle("#FFFFFF")
+        this.setTitulo("Titulo personalizable!");
+        this.setSubtitulo("Subtitulo personalizable!");
+        this.setColorTitulo("#FFFFFF");
+        this.setColorSubtitulo("#5865f2");
+        this.setColorCircle("#FFFFFF");
+        this.setColorBorder("#000000");
+        this.setOpacityBorder("0.4");
         this.setColor("border", "#4D5E94");
-        this.setColor("username-box", "#4D5E94");
-        this.setColor("discriminator-box", "#4D5E94");
-        this.setColor("message-box", "#4D5E94");
-        this.setColor("title", "#4D5E94");
+        this.setColor("titulo", "#4D5E94");
+        this.setColor("subtitulo", "#4D5E94");
         this.setColor("avatar", "#4D5E94");
     }
 
     /**
      * Establecer color
-     * @param {"title"|"title-border"|"avatar"|"username"|"username-box"|"hashtag"|"discriminator"|"discriminator-box"|"message"|"message-box"|"member-count"|"background"|"border"} id
+     * @param {"titulo"|"titulo-border"|"titulo-box"|"subtitulo"|"subtitulo-border"|"subtitulo-box"|"avatar"|"background"|"border"} id
      * @param {string} color Código de color HTML5
      * @returns {Welcomer}
      */

@@ -7,9 +7,8 @@ class Leaver extends Base {
      * Creador de imágenes de abandono
      * @example
      * const card = new canvacard.Leaver()
-            .setUsername("SrGobi")
-            .setDiscriminator("5100")
-            .setGuildName("SrGobi Studio");
+            .setTitulo("Titulo personalizable");
+            .setSubtitulo("Descripcion personalizable");
 
         card.build()
             .then(data => {
@@ -23,19 +22,19 @@ class Leaver extends Base {
          * Título creado con Canvacard
          * @type {string}
          */
-        this.textTitle = "GOODBYE";
+        this.Titulo = "GOODBYE";
 
         /**
          * Mensaje de texto creado con Canvacard
          * @type {string}
          */
-        this.textMessage = "¡Te extrañaremos!";
+        this.Subtitulo = "¡Te extrañaremos!";
 
         /**
          * Color del título creado con canvacard
          * @type {string}
          */
-        this.colorTitle = "#03A9F4";
+        this.colorTitulo = "#03A9F4";
 
         // actualizar datos predeterminados
         this.__updateData();
@@ -48,22 +47,24 @@ class Leaver extends Base {
      * @ignore
      */
     __updateData() {
-        this.setUsername("Discord User");
-        this.setDiscriminator("0000");
-        this.setMemberCount(100);
-        this.setGuildName("Discord Server");
         this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
-        this.setColor("border", "#ff4a4a");
-        this.setColor("username-box", "#ff4a4a");
-        this.setColor("discriminator-box", "#ff4a4a");
-        this.setColor("message-box", "#ff4a4a");
-        this.setColor("title", "#ff4a4a");
-        this.setColor("avatar", "#ff4a4a");
+        this.setBackground("COLOR", "#2c2f33" ||"IMAGE", `https://i.imgur.com/aClDVjh.jpg`);
+        this.setTitulo("Titulo personalizable!")
+        this.setSubtitulo("Subtitulo personalizable!")
+        this.setColorTitulo("#FFFFFF");
+        this.setColorSubtitulo("#5865f2");
+        this.setColorCircle("#FFFFFF");
+        this.setColorBorder("#000000");
+        this.setOpacityBorder("0.4");
+        this.setColor("border", "#4D5E94");
+        this.setColor("titulo", "#4D5E94");
+        this.setColor("subtitulo", "#4D5E94");
+        this.setColor("avatar", "#4D5E94");
     }
 
     /**
      * Establecer color
-     * @param {"title"|"title-border"|"avatar"|"username"|"username-box"|"hashtag"|"discriminator"|"discriminator-box"|"message"|"message-box"|"member-count"|"background"|"border"} id
+     * @param {"titulo"|"titulo-border"|"titulo-box"|"subtitulo"|"subtitulo-border"|"subtitulo-box"|"avatar"|"background"|"border"} id
      * @param {string} color Código de color HTML5
      * @returns {Leaver}
      */

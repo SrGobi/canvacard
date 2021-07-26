@@ -54,20 +54,17 @@ const img = "https://cdn.discordapp.com/embed/avatars/0.png";
 const background = "https://i.imgur.com/ulr1KDT.png";
 
 const welcomer = new canvacard.Welcomer()
-    .setUsername("SrGobi")
-    .setDiscriminator("5100")
-    .setDescription("Descripción personalizable")
-    .setGuildName("ESP CUSTOMS")
-    .setBackground('IMAGE', background)
     .setAvatar(img)
-    .setOpacityBorder("0.5")
-    .setColorCircle("#FFFFFF")
-    .setColor("border", "#4D5E94")
-    .setColor("username-box", "#4D5E94")
-    .setColor("discriminator-box", "#4D5E94")
-    .setColor("message-box", "#4D5E94")
-    .setColor("title", "#4D5E94")
-    .setColor("avatar", "#4D5E94")
+    .setBackground('IMAGE', background)
+    .setTitulo("WELCOME")
+    .setSubtitulo("Subtitulo personalizable!")
+    .setTitulo("Titulo personalizable!")
+    .setSubtitulo("Subtitulo personalizable!")
+    .setColorTitulo("#FFFFFF");
+    .setColorSubtitulo("#5865f2");
+    .setColorCircle("#FFFFFF");
+    .setColorBorder("#000000");
+    .setOpacityBorder("0.4");
 
 welcomer.build()
     .then(data => {
