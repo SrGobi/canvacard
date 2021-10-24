@@ -44,7 +44,7 @@
   "bugs": {
     "url": "https://github.com/SrGobi/Canvacord/issues"
   },
-  "homepage": "https://www.npmjs.com/package/canvacard",
+  "homepage": "https://canvacard.srgobi.com/index.html",
   "dependencies": {
     "@canvacord/assets": "^2.1.0",
     "@canvacord/emoji-parser": "^1.0.1",
