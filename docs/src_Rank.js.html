@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Adding meta -->
+    
+
+    <!-- Adding external script-->
+    
+
+    <!-- Adding external style-->
+    
+
+    <!-- Adding scripts-->
+    
+
+    <!-- Adding style-->
+    
+
+    <!-- Adding overlay script-->
+    
+
+    <!-- Adding overlay style-->
+    
+
+
+    <title>
+      src/Rank.js
+    </title>
+
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/third-party/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/third-party/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/reset.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-base.css">
+    <link type="text/css" rel="stylesheet" href="styles/clean-jsdoc-theme-light.css">
+    
+    <svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    style="display:none">
+    <defs>
+        <symbol id="copy-icon" viewbox="0 0 488.3 488.3">
+            <g>
+                <path
+                    d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z" />
+                <path
+                    d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z" />
+            </g>
+        </symbol>
+        <symbol id='search-icon' viewBox="0 0 512 512">
+            <g>
+                <g>
+                    <path
+                        d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z" />
+                </g>
+            </g>
+            <g>
+                <g>
+                    <path
+                        d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z" />
+                </g>
+            </g>
+        </symbol>
+        <symbol id="down-icon" viewBox="0 0 16 16">
+            <path 
+                fill-rule="evenodd" 
+                clip-rule="evenodd" 
+                d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"
+            >
+            </path>
+        </symbol>
+    </defs>
+</svg>
+  </head>
+
+  <body>
+
+    <nav class="navbar" id="navbar">
+      <div class="navbar-heading" id="navbar-heading"><a href="index.html"><h2 class="navbar-heading-text">Home</h2></a></div><div class="search-box" id="search-box"><div class="search-box-input-container"><input class="search-box-input" type="text" placeholder="Search..." id="search-box-input" /><svg class="search-icon" alt="search-icon"><use xlink:href="#search-icon"></use></svg></div><div class="search-item-container" id="search-item-container"><ul class="search-item-ul" id="search-item-ul"></ul></div></div><div class="sidebar-main-content" id="sidebar-main-content"><div class="accordion collapsed" id="7518544" > <h3 class="accordion-heading">Classes<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion collapsed child" id=5034168><div class="accordion-heading child"><a href="Canvacard.html">Canvacard</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Canvacard.html#.__wait">__wait</a></li><li data-type='method'><a href="Canvacard.html#.affect">affect</a></li><li data-type='method'><a href="Canvacard.html#.beautiful">beautiful</a></li><li data-type='method'><a href="Canvacard.html#.bed">bed</a></li><li data-type='method'><a href="Canvacard.html#.blur">blur</a></li><li data-type='method'><a href="Canvacard.html#.brightness">brightness</a></li><li data-type='method'><a href="Canvacard.html#.burn">burn</a></li><li data-type='method'><a href="Canvacard.html#.changemymind">changemymind</a></li><li data-type='method'><a href="Canvacard.html#.circle">circle</a></li><li data-type='method'><a href="Canvacard.html#.clyde">clyde</a></li><li data-type='method'><a href="Canvacard.html#.color">color</a></li><li data-type='method'><a href="Canvacard.html#.colorfy">colorfy</a></li><li data-type='method'><a href="Canvacard.html#.convolute">convolute</a></li><li data-type='method'><a href="Canvacard.html#.createProgressBar">createProgressBar</a></li><li data-type='method'><a href="Canvacard.html#.darkness">darkness</a></li><li data-type='method'><a href="Canvacard.html#.delete">delete</a></li><li data-type='method'><a href="Canvacard.html#.distracted">distracted</a></li><li data-type='method'><a href="Canvacard.html#.facepalm">facepalm</a></li><li data-type='method'><a href="Canvacard.html#.fuse">fuse</a></li><li data-type='method'><a href="Canvacard.html#.gradient">gradient</a></li><li data-type='method'><a href="Canvacard.html#.greyscale">greyscale</a></li><li data-type='method'><a href="Canvacard.html#.guildIcon">guildIcon</a></li><li data-type='method'><a href="Canvacard.html#.hitler">hitler</a></li><li data-type='method'><a href="Canvacard.html#.invert">invert</a></li><li data-type='method'><a href="Canvacard.html#.jail">jail</a></li><li data-type='method'><a href="Canvacard.html#.jokeOverHead">jokeOverHead</a></li><li data-type='method'><a href="Canvacard.html#.kiss">kiss</a></li><li data-type='method'><a href="Canvacard.html#.ohno">ohno</a></li><li data-type='method'><a href="Canvacard.html#.opinion">opinion</a></li><li data-type='method'><a href="Canvacard.html#.phub">phub</a></li><li data-type='method'><a href="Canvacard.html#.pixelate">pixelate</a></li><li data-type='method'><a href="Canvacard.html#.quote">quote</a></li><li data-type='method'><a href="Canvacard.html#.rainbow">rainbow</a></li><li data-type='method'><a href="Canvacard.html#.rectangle">rectangle</a></li><li data-type='method'><a href="Canvacard.html#.registerFonts">registerFonts</a></li><li data-type='method'><a href="Canvacard.html#.reply">reply</a></li><li data-type='method'><a href="Canvacard.html#.resize">resize</a></li><li data-type='method'><a href="Canvacard.html#.rip">rip</a></li><li data-type='method'><a href="Canvacard.html#.sepia">sepia</a></li><li data-type='method'><a href="Canvacard.html#.sharpen">sharpen</a></li><li data-type='method'><a href="Canvacard.html#.shit">shit</a></li><li data-type='method'><a href="Canvacard.html#.slap">slap</a></li><li data-type='method'><a href="Canvacard.html#.spank">spank</a></li><li data-type='method'><a href="Canvacard.html#.threshold">threshold</a></li><li data-type='method'><a href="Canvacard.html#.tictactoe">tictactoe</a></li><li data-type='method'><a href="Canvacard.html#.trash">trash</a></li><li data-type='method'><a href="Canvacard.html#.trigger">trigger</a></li><li data-type='method'><a href="Canvacard.html#.wanted">wanted</a></li><li data-type='method'><a href="Canvacard.html#.wasted">wasted</a></li><li data-type='method'><a href="Canvacard.html#.write">write</a></li><li data-type='method'><a href="Canvacard.html#.youtube">youtube</a></li></ul></li><li class="accordion collapsed child" id=7773305><div class="accordion-heading child"><a href="Leaver.html">Leaver</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Leaver.html#build">build</a></li><li data-type='method'><a href="Leaver.html#setColor">setColor</a></li><li data-type='method'><a href="Leaver.html#setMemberCount">setMemberCount</a></li></ul></li><li class="accordion collapsed child" id=903929><div class="accordion-heading child"><a href="Rank.html">Rank</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Rank.html#build">build</a></li><li data-type='method'><a href="Rank.html#registerFonts">registerFonts</a></li><li data-type='method'><a href="Rank.html#renderEmojis">renderEmojis</a></li><li data-type='method'><a href="Rank.html#setAvatar">setAvatar</a></li><li data-type='method'><a href="Rank.html#setBackground">setBackground</a></li><li data-type='method'><a href="Rank.html#setCurrentXP">setCurrentXP</a></li><li data-type='method'><a href="Rank.html#setCustomStatusColor">setCustomStatusColor</a></li><li data-type='method'><a href="Rank.html#setDiscriminator">setDiscriminator</a></li><li data-type='method'><a href="Rank.html#setLevel">setLevel</a></li><li data-type='method'><a href="Rank.html#setLevelColor">setLevelColor</a></li><li data-type='method'><a href="Rank.html#setOverlay">setOverlay</a></li><li data-type='method'><a href="Rank.html#setProgressBar">setProgressBar</a></li><li data-type='method'><a href="Rank.html#setProgressBarTrack">setProgressBarTrack</a></li><li data-type='method'><a href="Rank.html#setRank">setRank</a></li><li data-type='method'><a href="Rank.html#setRankColor">setRankColor</a></li><li data-type='method'><a href="Rank.html#setRequiredXP">setRequiredXP</a></li><li data-type='method'><a href="Rank.html#setStatus">setStatus</a></li><li data-type='method'><a href="Rank.html#setUsername">setUsername</a></li></ul></li><li class="accordion collapsed child" id=1463091><div class="accordion-heading child"><a href="Spotify.html">Spotify</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Spotify.html#build">build</a></li><li data-type='method'><a href="Spotify.html#setAlbum">setAlbum</a></li><li data-type='method'><a href="Spotify.html#setAuthor">setAuthor</a></li><li data-type='method'><a href="Spotify.html#setBackground">setBackground</a></li><li data-type='method'><a href="Spotify.html#setEndTimestamp">setEndTimestamp</a></li><li data-type='method'><a href="Spotify.html#setImage">setImage</a></li><li data-type='method'><a href="Spotify.html#setProgressBar">setProgressBar</a></li><li data-type='method'><a href="Spotify.html#setStartTimestamp">setStartTimestamp</a></li><li data-type='method'><a href="Spotify.html#setTitle">setTitle</a></li></ul></li><li class="accordion collapsed child" id=1276899><div class="accordion-heading child"><a href="Util.html">Util</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Util.html#.discordTime">discordTime</a></li><li data-type='method'><a href="Util.html#.discordTime">discordTime</a></li><li data-type='method'><a href="Util.html#.formatHex">formatHex</a></li><li data-type='method'><a href="Util.html#.formatHex">formatHex</a></li><li data-type='method'><a href="Util.html#.formatTime">formatTime</a></li><li data-type='method'><a href="Util.html#.formatTime">formatTime</a></li><li data-type='method'><a href="Util.html#.getAcronym">getAcronym</a></li><li data-type='method'><a href="Util.html#.getAcronym">getAcronym</a></li><li data-type='method'><a href="Util.html#.getLines">getLines</a></li><li data-type='method'><a href="Util.html#.getLines">getLines</a></li><li data-type='method'><a href="Util.html#.invertColor">invertColor</a></li><li data-type='method'><a href="Util.html#.invertColor">invertColor</a></li><li data-type='method'><a href="Util.html#.renderEmoji">renderEmoji</a></li><li data-type='method'><a href="Util.html#.renderEmoji">renderEmoji</a></li><li data-type='method'><a href="Util.html#.shorten">shorten</a></li><li data-type='method'><a href="Util.html#.shorten">shorten</a></li><li data-type='method'><a href="Util.html#.toAbbrev">toAbbrev</a></li><li data-type='method'><a href="Util.html#.toAbbrev">toAbbrev</a></li><li data-type='method'><a href="Util.html#.validateHex">validateHex</a></li><li data-type='method'><a href="Util.html#.validateHex">validateHex</a></li></ul></li><li class="accordion collapsed child" id=1131564><div class="accordion-heading child"><a href="Welcomer.html">Welcomer</a><svg><use xlink:href="#down-icon"></use></svg></div><ul class='methods accordion-content'><li data-type='method'><a href="Welcomer.html#build">build</a></li><li data-type='method'><a href="Welcomer.html#setColor">setColor</a></li><li data-type='method'><a href="Welcomer.html#setMemberCount">setMemberCount</a></li></ul></li></ul> </div><div class="accordion collapsed" id="6932600" > <h3 class="accordion-heading">Global<svg><use xlink:href="#down-icon"></use></svg></h3><ul class="accordion-content"><li class="accordion-list" id=""><a href="global.html#CanvacardRankData">CanvacardRankData</a></li><li class="accordion-list" id=""><a href="global.html#ConvolutionMatrix">ConvolutionMatrix</a></li><li class="accordion-list" id=""><a href="global.html#load">load</a></li><li class="accordion-list" id=""><a href="global.html#Plugins">Plugins</a></li><li class="accordion-list" id=""><a href="global.html#SpotifyDataBG">SpotifyDataBG</a></li><li class="accordion-list" id=""><a href="global.html#SpotifyProgressBarData">SpotifyProgressBarData</a></li></ul> </div></div>
+      
+
+    </nav>
+    <div class="navbar-ham" id="navbar-ham">
+      <div>
+        <div class="first"></div>
+        <div class="second"></div>
+        <div class="third"></div>
+      </div>
+    </div>
+
+    <div id="main" class="main-content">
+      
+      <h1 id='page-title' class="page-title">
+        src/Rank.js
+      </h1>
+      
+
+      
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const Canvas = require("canvas");
+const Util = require("./Util");
+const assets = require("./Assets");
+
+/**
+ * @typedef {object} CanvacardRankData
+ * @property {number} width Ancho de la tarjeta de rango
+ * @property {number} height Altura de la tarjeta de rango
+ * @property {object} background Datos de antecedentes de la tarjeta de rango
+ * @property {"image"|"color"} [background.type="color"] Tipo de fondo
+ * @property {string|Buffer} [background.image="#23272A"] Imagen de fondo (o color)
+ * @property {object} progressBar Datos de la barra de progreso
+ * @property {boolean} [progressBar.rounded=true] Si la barra de progreso debe redondearse
+ * @property {number} [progressBar.x=275.5] Barra de progreso X
+ * @property {number} [progressBar.y=183.75] Barra de progreso Y
+ * @property {number} [progressBar.height=37.5] Altura de la barra de progreso
+ * @property {number} [progressBar.width=596.5] Ancho de la barra de progreso
+ * @property {object} [progressBar.track] Pista de la barra de progreso
+ * @property {string} [progressBar.track.color="#484b4E"] Color de la pista de la barra de progreso
+ * @property {object} [progressBar.bar] Datos de la barra de progreso
+ * @property {"color"|"gradient"} [progressBar.bar.type="color"] Tipo de barra de progreso
+ * @property {string|string[]} [progressBar.bar.color="#FFFFFF"] Color de la barra de la barra de progreso
+ * @property {object} overlay Superposición de la barra de progreso
+ * @property {boolean} [overlay.display=true] Si debería mostrar superposición
+ * @property {number} [overlay.level=0.5] Nivel de opacidad de superposición
+ * @property {string} [overlay.color="#333640"] Superposición de color de fondo
+ * @property {object} avatar Datos de avatar de la tarjeta de rango
+ * @property {string|Buffer} [avatar.source=null] Fuente de avatar
+ * @property {number} [avatar.x=70] X
+ * @property {number} [avatar.y=50] Y
+ * @property {number} [avatar.height=180] altura
+ * @property {number} [avatar.width=180] ancho
+ * @property {object} status Estado de la tarjeta de rango
+ * @property {number} [status.width=5] Ancho de estado
+ * @property {"online"|"dnd"|"idle"|"offline"|"streaming"} [status.type] Tipo de estado
+ * @property {string} [status.color="#43B581"] Color de estado
+ * @property {boolean} [status.circle=false] ¿Estado circular?
+ * @property {object} rank Datos de rango de la tarjeta de clasificación
+ * @property {boolean} [rank.display=true] Si debe mostrar rango
+ * @property {number} [rank.data=1] El rango
+ * @property {string} [rank.textColor="#FFFFFF"] Rango de color del texto
+ * @property {string} [rank.color="#F3F3F3"] Color de rango
+ * @property {string} [rank.displayText="RANK"] Texto de visualización de rango
+ * @property {object} level Datos de nivel de tarjeta de rango
+ * @property {boolean} [level.display=true] Si debería mostrar el nivel
+ * @property {number} [level.data=1] El nivel
+ * @property {string} [level.textColor="#FFFFFF"] color de texto de nivel
+ * @property {string} [level.color="#F3F3F3"] color de nivel
+ * @property {string} [level.displayText="LEVEL"] texto de visualización de nivel
+ * @property {object} currentXP Tarjeta de rango xp actual
+ * @property {number} [currentXP.data=0] XP actual
+ * @property {string} [currentXP.color="#FFFFFF"] Carta de rango color xp actual
+ * @property {object} requiredXP Tarjeta de rango requerida xp
+ * @property {number} [requiredXP.data=0] requerido xp
+ * @property {string} [requiredXP.color="#FFFFFF"] Se requiere tarjeta de rango xp color
+ * @property {object} discriminator Discriminador de cartas de rango
+ * @property {number|string} [discriminator.discrim=null] El discriminador
+ * @property {string} [discriminator.color="rgba(255, 255, 255, 0.4)"] Color del discriminador de la tarjeta de rango
+ * @property {object} username Datos de nombre de usuario
+ * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
+ * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
+ * @property {boolean} [renderEmojis=false] Si debería renderizar emojis
+ */
+
+class Rank {
+
+    /**
+     * Crea una carta de rango
+     * @example 
+     * const rank = new canvacard.Rank()
+            .setAvatar(img)
+            .setCurrentXP(203)
+            .setRequiredXP(500)
+            .setStatus("dnd")
+            .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
+            .setUsername("SrGobi")
+            .setDiscriminator("5100");
+        
+        rank.build()
+            .then(data => {
+                canvacard.write(data, "RankCard.png");
+            })
+     */
+    constructor() {
+
+        /**
+         * Datos de la tarjeta de clasificación
+         * @type {CanvacardRankData}
+         */
+        this.data = {
+            width: 934,
+            height: 282,
+            background: {
+                type: "color",
+                image: "#23272A"
+            },
+            progressBar: {
+                rounded: true,
+                x: 275.5,
+                y: 183.75,
+                height: 37.5,
+                width: 596.5,
+                track: {
+                    color: "#484b4E"
+                },
+                bar: {
+                    type: "color",
+                    color: "#FFFFFF"
+                }
+            },
+            overlay: {
+                display: true,
+                level: 0.5,
+                color: "#333640"
+            },
+            avatar: {
+                source: null,
+                x: 70,
+                y: 50,
+                height: 180,
+                width: 180
+            },
+            status: {
+                width: 5,
+                type: "online",
+                color: "#43B581",
+                circle: false
+            },
+            rank: {
+                display: true,
+                data: 1,
+                textColor: "#FFFFFF",
+                color: "#F3F3F3",
+                displayText: "RANK"
+            },
+            level: {
+                display: true,
+                data: 1,
+                textColor: "#FFFFFF",
+                color: "#F3F3F3",
+                displayText: "LEVEL"
+            },
+            currentXP: {
+                data: 0,
+                color: "#FFFFFF"
+            },
+            requiredXP: {
+                data: 0,
+                color: "#FFFFFF"
+            },
+            discriminator: {
+                discrim: null,
+                color: "rgba(255, 255, 255, 0.4)"
+            },
+            username: {
+                name: null,
+                color: "#FFFFFF"
+            },
+            renderEmojis: false
+        };
+
+        // Cargar fuentes predeterminadas
+        this.registerFonts();
+    }
+
+    /**
+     * Fuente Loads
+     * @param {any[]} fontArray Matriz de fuentes
+     * @returns {Rank}
+     */
+    registerFonts(fontArray = []) {
+        if (!fontArray.length) {
+            setTimeout(() => {
+                // default fonts
+                Canvas.registerFont(assets.font.get("MANROPE_BOLD"), {
+                    family: "Manrope",
+                    weight: "bold",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("MANROPE_REGULAR"), {
+                    family: "Manrope",
+                    weight: "regular",
+                    style: "normal"
+                });
+            }, 250);
+        } else {
+            fontArray.forEach(font => {
+                Canvas.registerFont(font.path, font.face);
+            });
+        }
+
+        return this;
+    }
+
+    /**
+     * Si debe representar el nombre de usuario con emojis (si corresponde)
+     * @param {boolean} [apply=false] Configúrelo en "verdadero" para renderizar emojis.
+     * @returns {Rank}
+     */
+    renderEmojis(apply = false) {
+        this.data.renderEmojis = !!apply;
+        return this;
+    }
+
+    /**
+     * Establecer nombre de usuario
+     * @param {string} name Nombre de usuario
+     * @param {string} color Color del nombre de usuario
+     * @returns {Rank}
+     */
+    setUsername(name, color = "#FFFFFF") {
+        if (typeof name !== "string") throw new Error(`Se esperaba que el nombre de usuario fuera una cadena, recibido ${typeof name}!`);
+        this.data.username.name = name;
+        this.data.username.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
+        return this;
+    }
+
+    /**
+     * Establecer discriminador
+     * @param {string|number} discriminator Discriminador de usuario
+     * @param {string} color Color discriminador
+     * @returns {Rank}
+     */
+    setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.7)") {
+        this.data.discriminator.discrim = !isNaN(discriminator) &amp;&amp; `${discriminator}`.length === 4 ? discriminator : null;
+        this.data.discriminator.color = color &amp;&amp; typeof color === "string" ? color : "rgba(255, 255, 255, 0.7)";
+        return this;
+    }
+
+    /**
+     * Establecer el estilo de la barra de progreso
+     * @param {string|string[]} color Color de la barra de progreso
+     * @param {"COLOR"|"GRADIENT"} [fillType] Tipo de barra de progreso
+     * @param {boolean} [rounded=true] Si la barra de progreso debe tener bordes redondeados
+     * @returns {Rank}
+     */
+    setProgressBar(color, fillType = "COLOR", rounded = true) {
+
+        switch (fillType) {
+            case "COLOR":
+                if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido ${typeof color}!`);
+                this.data.progressBar.bar.color = color;
+                this.data.progressBar.bar.type = "color";
+                this.data.progressBar.rounded = !!rounded;
+                break;
+            case "GRADIENT":
+                if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Matriz, recibido ${typeof color}!`);
+                this.data.progressBar.bar.color = color.slice(0, 2);
+                this.data.progressBar.bar.type = "gradient";
+                this.data.progressBar.rounded = !!rounded;
+                break;
+            default:
+                throw new Error(`Tipo de barra de progreso no admitido "${type}"!`);
+        }
+
+        return this;
+
+    }
+
+    /**
+     * Establecer pista de la barra de progreso
+     * @param {string} color Color de la pista
+     * @returns {Rank}
+     */
+    setProgressBarTrack(color) {
+        if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido "${typeof color}"!`);
+        this.data.progressBar.track.color = color;
+
+        return this;
+    }
+
+    /**
+     * Establecer superposición de tarjetas
+     * @param {string} color Color de superposición
+     * @param {number} [level=0.5] Nivel de opacidad
+     * @param {boolean} [display=true] SI debería mostrar superposición
+     * @returns {Rank}
+     */
+    setOverlay(color, level = 0.5, display = true) {
+        if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido "${typeof color}"!`);
+        this.data.overlay.color = color;
+        this.data.overlay.display = !!display;
+        this.data.overlay.level = level &amp;&amp; typeof level === "number" ? level : 0.5;
+        return this;
+    }
+
+    /**
+     * Establecer xp requerido
+     * @param {number} data Requerido xp
+     * @param {string} color Color
+     * @returns {Rank}
+     */
+    setRequiredXP(data, color = "#FFFFFF") {
+        if (typeof data !== "number") throw new Error(`El tipo de datos xp requerido debe ser un número, recibido ${typeof data}!`);
+        this.data.requiredXP.data = data;
+        this.data.requiredXP.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
+        return this;
+    }
+
+    /**
+     * Establecer xp actual
+     * @param {number} data XP actual
+     * @param {string} color Color
+     * @returns {Rank}
+     */
+    setCurrentXP(data, color = "#FFFFFF") {
+        if (typeof data !== "number") throw new Error(`El tipo de datos xp actual debe ser un número, recibido ${typeof data}!`);
+        this.data.currentXP.data = data;
+        this.data.currentXP.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
+        return this;
+    }
+
+    /**
+     * Establecer rango
+     * @param {number} data Posición actual
+     * @param {string} text Mostrar texto
+     * @param {boolean} [display=true] Si debe mostrar rango
+     * @returns {Rank}
+     */
+    setRank(data, text = "RANK", display = true) {
+        if (typeof data !== "number") throw new Error(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
+        this.data.rank.data = data;
+        this.data.rank.display = !!display;
+        if (!text || typeof text !== "string") text = "RANK";
+        this.data.rank.displayText = text;
+
+        return this;
+    }
+
+    /**
+     * Establecer color de visualización de rango
+     * @param {string} text color de texto
+     * @param {string} number Color del número
+     * @returns {Rank}
+     */
+    setRankColor(text = "#FFFFFF", number = "#FFFFFF") {
+        if (!text || typeof text !== "string") text = "#FFFFFF";
+        if (!number || typeof number !== "string") number = "#FFFFFF";
+        this.data.rank.textColor = text;
+        this.data.rank.color = number;
+        return this;
+    }
+
+    /**
+     * Establecer color de nivel
+     * @param {string} text color de texto
+     * @param {string} number color del número
+     * @returns {Rank}
+     */
+    setLevelColor(text = "#FFFFFF", number = "#FFFFFF") {
+        if (!text || typeof text !== "string") text = "#FFFFFF";
+        if (!number || typeof number !== "string") number = "#FFFFFF";
+        this.data.level.textColor = text;
+        this.data.level.color = number;
+        return this;
+    }
+
+    /**
+     * Establecer nivel
+     * @param {number} data Nivel actual
+     * @param {string} text Mostrar texto
+     * @param {boolean} [display=true] Si debería mostrar el nivel
+     * @returns {Rank}
+     */
+    setLevel(data, text = "LEVEL", display = true) {
+        if (typeof data !== "number") throw new Error(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
+        this.data.level.data = data;
+        this.data.level.display = !!display;
+        if (!text || typeof text !== "string") text = "LEVEL";
+        this.data.level.displayText = text;
+
+        return this;
+    }
+
+    /**
+     * Establecer color de estado personalizado
+     * @param {string} color Color para establecer
+     * @returns {Rank}
+     */
+    setCustomStatusColor(color) {
+        if (!color || typeof color !== "string") throw new Error("¡Color no válido!");
+        this.data.status.color = color;
+        return this;
+    }
+
+    /**
+     * Establecer estado
+     * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status Estatus de usuario
+     * @param {boolean} circle Si el icono de estado debe ser circular.
+     * @param {number|boolean} width Ancho de estado
+     * @returns {Rank}
+     */
+    setStatus(status, circle = false, width = 5) {
+        switch(status) {
+            case "online":
+                this.data.status.type = "online";
+                this.data.status.color = "#43B581";
+                break;
+            case "idle":
+                this.data.status.type = "idle";
+                this.data.status.color = "#FAA61A";
+                break;
+            case "dnd":
+                this.data.status.type = "dnd";
+                this.data.status.color = "#F04747";
+                break;
+            case "offline":
+                this.data.status.type = "offline";
+                this.data.status.color = "#747F8E";
+                break;
+            case "streaming":
+                this.data.status.type = "streaming";
+                this.data.status.color = "#593595";
+                break;
+            default:
+                throw new Error(`Estado inválido "${status}"`);
+        }
+
+        if (width !== false) this.data.status.width = typeof width === "number" ? width : 5;
+        else this.data.status.width = false;
+        if ([true, false].includes(circle)) this.data.status.circle = circle;
+
+        return this;
+    }
+
+    /**
+     * Establecer imagen / color de fondo
+     * @param {"COLOR"|"IMAGE"} type Tipo de fondo
+     * @param {string|Buffer} [data] Color o imagen de fondo
+     * @returns {Rank}
+     */
+    setBackground(type, data) {
+        if (!data) throw new Error("Falta campo: datos");
+        switch(type) {
+            case "COLOR":
+                this.data.background.type = "color";
+                this.data.background.image = data &amp;&amp; typeof data === "string" ? data : "#23272A";
+                break;
+            case "IMAGE":
+                this.data.background.type = "image";
+                this.data.background.image = data;
+                break;
+            default:
+                throw new Error(`Tipo de fondo no admitido "${type}"`);
+        }
+
+        return this;
+    }
+
+    /**
+     * Avatar de usuario
+     * @param {string|Buffer} data Datos de avatar
+     * @returns {Rank}
+     */
+    setAvatar(data) {
+        if (!data) throw new Error(`Tipo de avatar no válido "${typeof data}"!`);
+        this.data.avatar.source = data;
+        return this;
+    }
+
+    /**
+     * Construye carta de rango
+     * @param {object} ops Fuentes
+     * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
+     * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
+     * @returns {Promise&lt;Buffer>}
+     */
+    async build(ops = { fontX: "Manrope", fontY: "Manrope" }) {
+        if (typeof this.data.currentXP.data !== "number") throw new Error(`Se esperaba que currentXP sea un número recibido ${typeof this.data.currentXP.data}!`);
+        if (typeof this.data.requiredXP.data !== "number") throw new Error(`Se esperaba que requiredXP sea un número recibido ${typeof this.data.requiredXP.data}!`);
+        if (!this.data.avatar.source) throw new Error("¡No se encontró la fuente del avatar!");
+        if (!this.data.username.name) throw new Error("Falta el nombre de usuario");
+
+        let bg = null;
+        if (this.data.background.type === "image") bg = await Canvas.loadImage(this.data.background.image);
+        let avatar = await Canvas.loadImage(this.data.avatar.source);
+
+        // crear instancia de lienzo
+        const canvas = Canvas.createCanvas(this.data.width, this.data.height);
+        const ctx = canvas.getContext("2d");
+
+        // crear fondo
+        if (!!bg) {
+            ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+        } else {
+            ctx.fillStyle = this.data.background.image;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // agregar superposición
+        if (!!this.data.overlay.display) {
+            ctx.globalAlpha = this.data.overlay.level || 1;
+            ctx.fillStyle = this.data.overlay.color;
+            ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
+        }
+
+        // restablecer la transparencia
+        ctx.globalAlpha = 1;
+
+        // dibujar nombre de usuario
+        ctx.font = `bold 36px ${ops.fontX}`;
+        ctx.fillStyle = this.data.username.color;
+        ctx.textAlign = "start";
+        const name = Util.shorten(this.data.username.name, 10);
+
+         // aplicar nombre de usuario
+        !this.data.renderEmojis ? ctx.fillText(`${name}`, 257 + 18.5, 164) : await Util.renderEmoji(ctx, name, 257 + 18.5, 164);
+
+         // dibujar discriminador
+        if (!this.data.discriminator.discrim) throw new Error("¡Falta discriminador!");
+        const discrim = `${this.data.discriminator.discrim}`;
+        if (discrim) {
+            ctx.font = `36px ${ops.fontY}`;
+            ctx.fillStyle = this.data.discriminator.color;
+            ctx.textAlign = "center";
+            ctx.strokeText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
+            ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
+        }
+ 
+         // nivel
+        if (this.data.level.display &amp;&amp; !isNaN(this.data.level.data)) {
+            ctx.font = `bold 36px ${ops.fontX}`;
+            ctx.fillStyle = this.data.level.textColor;
+            ctx.strokeText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
+            ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
+ 
+            ctx.font = `bold 32px ${ops.fontX}`;
+            ctx.fillStyle = this.data.level.color;
+            ctx.textAlign = "end";
+            ctx.strokeText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
+            ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
+        }
+ 
+         // rango
+        if (this.data.rank.display &amp;&amp; !isNaN(this.data.rank.data)) {
+            ctx.font = `bold 36px ${ops.fontX}`;
+            ctx.fillStyle = this.data.rank.textColor;
+            ctx.strokeText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
+            ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
+ 
+            ctx.font = `bold 32px ${ops.fontX}`;
+            ctx.fillStyle = this.data.rank.color;
+            ctx.textAlign = "end";
+            ctx.strokeText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
+            ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
+        }
+ 
+         // mostrar progreso
+        ctx.font = `bold 30px ${ops.fontX}`;
+        ctx.fillStyle = this.data.requiredXP.color;
+        ctx.textAlign = "start";
+        ctx.lineWidth = 1;
+        ctx.strokeText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
+        ctx.fillText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
+        
+
+        ctx.fillStyle = this.data.currentXP.color;
+        ctx.lineWidth = 1;
+        ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
+        ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
+ 
+         // dibujar barra de progreso
+        ctx.beginPath();
+        if (!!this.data.progressBar.rounded) {
+             // bg
+            ctx.fillStyle = this.data.progressBar.track.color;
+            ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
+            ctx.lineWidth = 5;
+            ctx.stroke();
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
+            ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
+            ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
+            ctx.fill();
+ 
+            ctx.beginPath();
+             // aplicar color
+            if (this.data.progressBar.bar.type === "gradient") {
+                let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0);
+                this.data.progressBar.bar.color.forEach((color, index) => {
+                    gradientContext.addColorStop(index, color);
+                });
+                ctx.fillStyle = gradientContext;
+            } else {
+                ctx.fillStyle = this.data.progressBar.bar.color;
+            }
+ 
+             // barra de progreso
+            ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
+            ctx.lineWidth = 3;
+            ctx.stroke();
+            ctx.fill();
+            ctx.fillRect(257 + 18.5, 147.5 + 36.25, this._calculateProgress, 37.5);
+            ctx.arc(257 + 18.5 + this._calculateProgress, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
+            ctx.fill();
+        } else {
+ 
+             // barra de progreso
+            ctx.fillStyle = this.data.progressBar.bar.color;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
+            ctx.fillRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
+ 
+             // contorno
+            ctx.beginPath();
+            ctx.strokeStyle = this.data.progressBar.track.color;
+            ctx.lineWidth = 7;
+            ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this.data.progressBar.width, this.data.progressBar.height);
+        }
+ 
+        ctx.save();
+ 
+         // circulo
+        ctx.beginPath();
+        ctx.arc(125 + 10, 125 + 20, 100, 0, Math.PI * 2, true);
+        ctx.lineWidth = 4;
+        ctx.stroke();
+        ctx.closePath();
+        ctx.clip();
+ 
+         // dibujar avatar
+        ctx.drawImage(avatar, 35, 45, this.data.avatar.width + 20, this.data.avatar.height + 20);
+        ctx.restore();
+ 
+        // estado usuario
+        if (!!this.data.status.circle) {
+            ctx.beginPath();
+            ctx.fillStyle = this.data.status.color;
+            ctx.arc(215, 205, 20, 0, 2 * Math.PI);
+            ctx.lineWidth = 4;
+            ctx.stroke();
+            ctx.fill();
+            ctx.closePath();
+        } else if (!this.data.status.circle &amp;&amp; this.data.status.width !== false) {
+            ctx.beginPath();
+            ctx.arc(135, 145, 100, 0, Math.PI * 2, true);
+            ctx.strokeStyle = this.data.status.color;
+            ctx.lineWidth = this.data.status.width;
+            ctx.stroke();
+        }
+
+        return canvas.toBuffer();
+    }
+
+    /**
+     * Calcula el progreso
+     * @type {number}
+     * @private
+     * @ignore
+     */
+    get _calculateProgress() {
+        const cx = this.data.currentXP.data;
+        const rx = this.data.requiredXP.data;
+
+        if (rx &lt;= 0) return 1;
+        if (cx > rx) return this.data.progressBar.width;
+
+        let width = (cx * 615) / rx;
+        if (width > this.data.progressBar.width) width = this.data.progressBar.width;
+        return width;
+    }
+
+}
+
+module.exports = Rank;</code></pre>
+        </article>
+    </section>
+
+
+
+
+    </div>
+
+    <footer class="footer" id="footer">
+      
+    </footer>
+
+    <script src="scripts/third-party/prettify.js"></script>
+    <script src="scripts/third-party/lang-css.js"></script>
+    <script type="text/javascript" src="scripts/misc.js"></script>
+
+    <script>prettyPrint();</script>
+    <script src="scripts/linenumber.js"></script>
+    <script src="scripts/fix-code-block.js"></script>
+    <script src="scripts/fix-navbar.js"></script>
+    
+      <script src="scripts/search.js"></script>
+      <script src="scripts/third-party/fuse.js"></script>
+      <script>
+        var list = [{"title":"Canvacard","link":"<a href=\"Canvacard.html\">Canvacard</a>"},{"title":"Canvacard.__wait","link":"<a href=\"Canvacard.html#.__wait\">Canvacard.__wait &rtrif; undefined</a>"},{"title":"Canvacard.affect","link":"<a href=\"Canvacard.html#.affect\">Canvacard.affect &rtrif; undefined</a>"},{"title":"Canvacard.beautiful","link":"<a href=\"Canvacard.html#.beautiful\">Canvacard.beautiful &rtrif; undefined</a>"},{"title":"Canvacard.bed","link":"<a href=\"Canvacard.html#.bed\">Canvacard.bed &rtrif; undefined</a>"},{"title":"Canvacard.blur","link":"<a href=\"Canvacard.html#.blur\">Canvacard.blur &rtrif; undefined</a>"},{"title":"Canvacard.brightness","link":"<a href=\"Canvacard.html#.brightness\">Canvacard.brightness &rtrif; undefined</a>"},{"title":"Canvacard.burn","link":"<a href=\"Canvacard.html#.burn\">Canvacard.burn &rtrif; undefined</a>"},{"title":"Canvacard.changemymind","link":"<a href=\"Canvacard.html#.changemymind\">Canvacard.changemymind &rtrif; undefined</a>"},{"title":"Canvacard.circle","link":"<a href=\"Canvacard.html#.circle\">Canvacard.circle &rtrif; undefined</a>"},{"title":"Canvacard.clyde","link":"<a href=\"Canvacard.html#.clyde\">Canvacard.clyde &rtrif; undefined</a>"},{"title":"Canvacard.color","link":"<a href=\"Canvacard.html#.color\">Canvacard.color &rtrif; undefined</a>"},{"title":"Canvacard.colorfy","link":"<a href=\"Canvacard.html#.colorfy\">Canvacard.colorfy &rtrif; undefined</a>"},{"title":"Canvacard.convolute","link":"<a href=\"Canvacard.html#.convolute\">Canvacard.convolute &rtrif; undefined</a>"},{"title":"Canvacard.createProgressBar","link":"<a href=\"Canvacard.html#.createProgressBar\">Canvacard.createProgressBar &rtrif; undefined</a>"},{"title":"Canvacard.darkness","link":"<a href=\"Canvacard.html#.darkness\">Canvacard.darkness &rtrif; undefined</a>"},{"title":"Canvacard.delete","link":"<a href=\"Canvacard.html#.delete\">Canvacard.delete &rtrif; undefined</a>"},{"title":"Canvacard.distracted","link":"<a href=\"Canvacard.html#.distracted\">Canvacard.distracted &rtrif; undefined</a>"},{"title":"Canvacard.facepalm","link":"<a href=\"Canvacard.html#.facepalm\">Canvacard.facepalm &rtrif; undefined</a>"},{"title":"Canvacard.fuse","link":"<a href=\"Canvacard.html#.fuse\">Canvacard.fuse &rtrif; undefined</a>"},{"title":"Canvacard.gradient","link":"<a href=\"Canvacard.html#.gradient\">Canvacard.gradient &rtrif; undefined</a>"},{"title":"Canvacard.greyscale","link":"<a href=\"Canvacard.html#.greyscale\">Canvacard.greyscale &rtrif; undefined</a>"},{"title":"Canvacard.guildIcon","link":"<a href=\"Canvacard.html#.guildIcon\">Canvacard.guildIcon &rtrif; undefined</a>"},{"title":"Canvacard.hitler","link":"<a href=\"Canvacard.html#.hitler\">Canvacard.hitler &rtrif; undefined</a>"},{"title":"Canvacard.invert","link":"<a href=\"Canvacard.html#.invert\">Canvacard.invert &rtrif; undefined</a>"},{"title":"Canvacard.jail","link":"<a href=\"Canvacard.html#.jail\">Canvacard.jail &rtrif; undefined</a>"},{"title":"Canvacard.jokeOverHead","link":"<a href=\"Canvacard.html#.jokeOverHead\">Canvacard.jokeOverHead &rtrif; undefined</a>"},{"title":"Canvacard.kiss","link":"<a href=\"Canvacard.html#.kiss\">Canvacard.kiss &rtrif; undefined</a>"},{"title":"Canvacard.ohno","link":"<a href=\"Canvacard.html#.ohno\">Canvacard.ohno &rtrif; undefined</a>"},{"title":"Canvacard.opinion","link":"<a href=\"Canvacard.html#.opinion\">Canvacard.opinion &rtrif; undefined</a>"},{"title":"Canvacard.phub","link":"<a href=\"Canvacard.html#.phub\">Canvacard.phub &rtrif; undefined</a>"},{"title":"Canvacard.pixelate","link":"<a href=\"Canvacard.html#.pixelate\">Canvacard.pixelate &rtrif; undefined</a>"},{"title":"Canvacard.quote","link":"<a href=\"Canvacard.html#.quote\">Canvacard.quote &rtrif; undefined</a>"},{"title":"Canvacard.rainbow","link":"<a href=\"Canvacard.html#.rainbow\">Canvacard.rainbow &rtrif; undefined</a>"},{"title":"Canvacard.rectangle","link":"<a href=\"Canvacard.html#.rectangle\">Canvacard.rectangle &rtrif; undefined</a>"},{"title":"Canvacard.registerFonts","link":"<a href=\"Canvacard.html#.registerFonts\">Canvacard.registerFonts &rtrif; undefined</a>"},{"title":"Canvacard.reply","link":"<a href=\"Canvacard.html#.reply\">Canvacard.reply &rtrif; undefined</a>"},{"title":"Canvacard.resize","link":"<a href=\"Canvacard.html#.resize\">Canvacard.resize &rtrif; undefined</a>"},{"title":"Canvacard.rip","link":"<a href=\"Canvacard.html#.rip\">Canvacard.rip &rtrif; undefined</a>"},{"title":"Canvacard.sepia","link":"<a href=\"Canvacard.html#.sepia\">Canvacard.sepia &rtrif; undefined</a>"},{"title":"Canvacard.sharpen","link":"<a href=\"Canvacard.html#.sharpen\">Canvacard.sharpen &rtrif; undefined</a>"},{"title":"Canvacard.shit","link":"<a href=\"Canvacard.html#.shit\">Canvacard.shit &rtrif; undefined</a>"},{"title":"Canvacard.slap","link":"<a href=\"Canvacard.html#.slap\">Canvacard.slap &rtrif; undefined</a>"},{"title":"Canvacard.spank","link":"<a href=\"Canvacard.html#.spank\">Canvacard.spank &rtrif; undefined</a>"},{"title":"Canvacard.threshold","link":"<a href=\"Canvacard.html#.threshold\">Canvacard.threshold &rtrif; undefined</a>"},{"title":"Canvacard.tictactoe","link":"<a href=\"Canvacard.html#.tictactoe\">Canvacard.tictactoe &rtrif; undefined</a>"},{"title":"Canvacard.trash","link":"<a href=\"Canvacard.html#.trash\">Canvacard.trash &rtrif; undefined</a>"},{"title":"Canvacard.trigger","link":"<a href=\"Canvacard.html#.trigger\">Canvacard.trigger &rtrif; undefined</a>"},{"title":"Canvacard.wanted","link":"<a href=\"Canvacard.html#.wanted\">Canvacard.wanted &rtrif; undefined</a>"},{"title":"Canvacard.wasted","link":"<a href=\"Canvacard.html#.wasted\">Canvacard.wasted &rtrif; undefined</a>"},{"title":"Canvacard.write","link":"<a href=\"Canvacard.html#.write\">Canvacard.write &rtrif; undefined</a>"},{"title":"Canvacard.youtube","link":"<a href=\"Canvacard.html#.youtube\">Canvacard.youtube &rtrif; undefined</a>"},{"title":"Leaver","link":"<a href=\"Leaver.html\">Leaver</a>"},{"title":"Leaver#build","link":"<a href=\"Leaver.html#build\">Leaver &rtrif; build</a>"},{"title":"Leaver#setColor","link":"<a href=\"Leaver.html#setColor\">Leaver &rtrif; setColor</a>"},{"title":"Leaver#setMemberCount","link":"<a href=\"Leaver.html#setMemberCount\">Leaver &rtrif; setMemberCount</a>"},{"title":"Rank","link":"<a href=\"Rank.html\">Rank</a>"},{"title":"Rank#build","link":"<a href=\"Rank.html#build\">Rank &rtrif; build</a>"},{"title":"Rank#registerFonts","link":"<a href=\"Rank.html#registerFonts\">Rank &rtrif; registerFonts</a>"},{"title":"Rank#renderEmojis","link":"<a href=\"Rank.html#renderEmojis\">Rank &rtrif; renderEmojis</a>"},{"title":"Rank#setAvatar","link":"<a href=\"Rank.html#setAvatar\">Rank &rtrif; setAvatar</a>"},{"title":"Rank#setBackground","link":"<a href=\"Rank.html#setBackground\">Rank &rtrif; setBackground</a>"},{"title":"Rank#setCurrentXP","link":"<a href=\"Rank.html#setCurrentXP\">Rank &rtrif; setCurrentXP</a>"},{"title":"Rank#setCustomStatusColor","link":"<a href=\"Rank.html#setCustomStatusColor\">Rank &rtrif; setCustomStatusColor</a>"},{"title":"Rank#setDiscriminator","link":"<a href=\"Rank.html#setDiscriminator\">Rank &rtrif; setDiscriminator</a>"},{"title":"Rank#setLevel","link":"<a href=\"Rank.html#setLevel\">Rank &rtrif; setLevel</a>"},{"title":"Rank#setLevelColor","link":"<a href=\"Rank.html#setLevelColor\">Rank &rtrif; setLevelColor</a>"},{"title":"Rank#setOverlay","link":"<a href=\"Rank.html#setOverlay\">Rank &rtrif; setOverlay</a>"},{"title":"Rank#setProgressBar","link":"<a href=\"Rank.html#setProgressBar\">Rank &rtrif; setProgressBar</a>"},{"title":"Rank#setProgressBarTrack","link":"<a href=\"Rank.html#setProgressBarTrack\">Rank &rtrif; setProgressBarTrack</a>"},{"title":"Rank#setRank","link":"<a href=\"Rank.html#setRank\">Rank &rtrif; setRank</a>"},{"title":"Rank#setRankColor","link":"<a href=\"Rank.html#setRankColor\">Rank &rtrif; setRankColor</a>"},{"title":"Rank#setRequiredXP","link":"<a href=\"Rank.html#setRequiredXP\">Rank &rtrif; setRequiredXP</a>"},{"title":"Rank#setStatus","link":"<a href=\"Rank.html#setStatus\">Rank &rtrif; setStatus</a>"},{"title":"Rank#setUsername","link":"<a href=\"Rank.html#setUsername\">Rank &rtrif; setUsername</a>"},{"title":"Spotify","link":"<a href=\"Spotify.html\">Spotify</a>"},{"title":"Spotify#build","link":"<a href=\"Spotify.html#build\">Spotify &rtrif; build</a>"},{"title":"Spotify#setAlbum","link":"<a href=\"Spotify.html#setAlbum\">Spotify &rtrif; setAlbum</a>"},{"title":"Spotify#setAuthor","link":"<a href=\"Spotify.html#setAuthor\">Spotify &rtrif; setAuthor</a>"},{"title":"Spotify#setBackground","link":"<a href=\"Spotify.html#setBackground\">Spotify &rtrif; setBackground</a>"},{"title":"Spotify#setEndTimestamp","link":"<a href=\"Spotify.html#setEndTimestamp\">Spotify &rtrif; setEndTimestamp</a>"},{"title":"Spotify#setImage","link":"<a href=\"Spotify.html#setImage\">Spotify &rtrif; setImage</a>"},{"title":"Spotify#setProgressBar","link":"<a href=\"Spotify.html#setProgressBar\">Spotify &rtrif; setProgressBar</a>"},{"title":"Spotify#setStartTimestamp","link":"<a href=\"Spotify.html#setStartTimestamp\">Spotify &rtrif; setStartTimestamp</a>"},{"title":"Spotify#setTitle","link":"<a href=\"Spotify.html#setTitle\">Spotify &rtrif; setTitle</a>"},{"title":"Util","link":"<a href=\"Util.html\">Util</a>"},{"title":"Util.discordTime","link":"<a href=\"Util.html#.discordTime\">Util.discordTime &rtrif; undefined</a>"},{"title":"Util.discordTime","link":"<a href=\"Util.html#.discordTime\">Util.discordTime &rtrif; undefined</a>"},{"title":"Util.formatHex","link":"<a href=\"Util.html#.formatHex\">Util.formatHex &rtrif; undefined</a>"},{"title":"Util.formatHex","link":"<a href=\"Util.html#.formatHex\">Util.formatHex &rtrif; undefined</a>"},{"title":"Util.formatTime","link":"<a href=\"Util.html#.formatTime\">Util.formatTime &rtrif; undefined</a>"},{"title":"Util.formatTime","link":"<a href=\"Util.html#.formatTime\">Util.formatTime &rtrif; undefined</a>"},{"title":"Util.getAcronym","link":"<a href=\"Util.html#.getAcronym\">Util.getAcronym &rtrif; undefined</a>"},{"title":"Util.getAcronym","link":"<a href=\"Util.html#.getAcronym\">Util.getAcronym &rtrif; undefined</a>"},{"title":"Util.getLines","link":"<a href=\"Util.html#.getLines\">Util.getLines &rtrif; undefined</a>"},{"title":"Util.getLines","link":"<a href=\"Util.html#.getLines\">Util.getLines &rtrif; undefined</a>"},{"title":"Util.invertColor","link":"<a href=\"Util.html#.invertColor\">Util.invertColor &rtrif; undefined</a>"},{"title":"Util.invertColor","link":"<a href=\"Util.html#.invertColor\">Util.invertColor &rtrif; undefined</a>"},{"title":"Util.renderEmoji","link":"<a href=\"Util.html#.renderEmoji\">Util.renderEmoji &rtrif; undefined</a>"},{"title":"Util.renderEmoji","link":"<a href=\"Util.html#.renderEmoji\">Util.renderEmoji &rtrif; undefined</a>"},{"title":"Util.shorten","link":"<a href=\"Util.html#.shorten\">Util.shorten &rtrif; undefined</a>"},{"title":"Util.shorten","link":"<a href=\"Util.html#.shorten\">Util.shorten &rtrif; undefined</a>"},{"title":"Util.toAbbrev","link":"<a href=\"Util.html#.toAbbrev\">Util.toAbbrev &rtrif; undefined</a>"},{"title":"Util.toAbbrev","link":"<a href=\"Util.html#.toAbbrev\">Util.toAbbrev &rtrif; undefined</a>"},{"title":"Util.validateHex","link":"<a href=\"Util.html#.validateHex\">Util.validateHex &rtrif; undefined</a>"},{"title":"Util.validateHex","link":"<a href=\"Util.html#.validateHex\">Util.validateHex &rtrif; undefined</a>"},{"title":"Welcomer","link":"<a href=\"Welcomer.html\">Welcomer</a>"},{"title":"Welcomer#build","link":"<a href=\"Welcomer.html#build\">Welcomer &rtrif; build</a>"},{"title":"Welcomer#setColor","link":"<a href=\"Welcomer.html#setColor\">Welcomer &rtrif; setColor</a>"},{"title":"Welcomer#setMemberCount","link":"<a href=\"Welcomer.html#setMemberCount\">Welcomer &rtrif; setMemberCount</a>"},{"title":"CanvacardRankData","link":"<a href=\"global.html#CanvacardRankData\">CanvacardRankData</a>"},{"title":"ConvolutionMatrix","link":"<a href=\"global.html#ConvolutionMatrix\">ConvolutionMatrix</a>"},{"title":"load","link":"<a href=\"global.html#load\">load</a>"},{"title":"Plugins","link":"<a href=\"global.html#Plugins\">Plugins</a>"},{"title":"SpotifyDataBG","link":"<a href=\"global.html#SpotifyDataBG\">SpotifyDataBG</a>"},{"title":"SpotifyProgressBarData","link":"<a href=\"global.html#SpotifyProgressBarData\">SpotifyProgressBarData</a>"}];
+        var options = 
+          setupSearch(list, options)
+      </script>
+    
+
+    
+
+    
+
+    
+
+    
+
+
+  </body>
+
+</html>

@@ -54,8 +54,8 @@ rank.build()
 ```
 
 ### Preview
-![RankCard](./imgs/xp-card-preview.png)
-![RankCard](./imgs/xp-card-preview1.png)
+![RankCard](https://i.imgur.com/fgqOnhH.png)
+![RankCard](https://i.imgur.com/QBP7kO6.png)
 
 ## Welcomer Card
 
@@ -85,7 +85,8 @@ welcomer.build()
 ```
 
 ### Preview
-![WelcomerCard](./imgs/welcome-card.png)
+![WelcomerCard](https://i.imgur.com/FrVcMdr.png)
+![WelcomerCard](https://i.imgur.com/ulr1KDT.png)
 
 ## Otros ejemplos
 
