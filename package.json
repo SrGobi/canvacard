@@ -1,6 +1,6 @@
 {
   "name": "canvacard",
-  "version": "5.1.6",
+  "version": "5.1.7",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
@@ -44,7 +44,7 @@
   "bugs": {
     "url": "https://github.com/SrGobi/Canvacord/issues"
   },
-  "homepage": "https://canvacard.js.org",
+  "homepage": "https://www.npmjs.com/package/canvacard",
   "dependencies": {
     "@canvacord/assets": "^2.1.0",
     "@canvacord/emoji-parser": "^1.0.1",
