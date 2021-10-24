@@ -25,7 +25,7 @@ class Util {
     }
 
     /**
-     * Convierte la marca de tiempo regular en discordia como el tiempo
+     * Convierte la marca de tiempo regular en discord como el tiempo
      * @param {Date|number} time Marca de tiempo para convertir
      * @returns {string}
      */

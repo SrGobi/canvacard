@@ -9,8 +9,8 @@ class Welcomer extends Base {
      * @example
      * const card = new canvacard.Welcomer()
             .setUsername("SrGobi")
-            .setDiscriminator("5100")
-            .setGuildName("SrGobi Studio");
+            .setDiscriminator("0001")
+            .setGuildName("Esp Customs");
 
         card.build()
             .then(data => {

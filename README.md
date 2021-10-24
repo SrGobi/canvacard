@@ -11,30 +11,40 @@ $ npm i canvacard
 
 # Features
 - Súper simple y fácil de usar 😎
-- Más rápido que canvacard v4 🚀
+- Más rápido que canvacard v6 🚀
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
 - Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
 - Orientado a objetos 💻
 - Apto para principiantes 🤓
 - Soporta emojis 😀
 
-# Examples
+# Ejemplos
 ## Rank Card
 
 ```js
 const canvacard = require("canvacard");
 const img = "https://cdn.discordapp.com/embed/avatars/0.png";
+const background = "https://i.imgur.com/ulr1KDT.png";
 
 const userData = getDataSomehow();
 
 const rank = new canvacard.Rank()
     .setAvatar(img)
+    .setBackground('IMAGE', background)
     .setCurrentXP(userData.xp)
     .setRequiredXP(userData.requiredXP)
-    .setStatus("dnd")
-    .setProgressBar("#FFFFFF", "COLOR")
+    .setRank(userData.rank)
+    .setRankColor("#FFFFFF")
+    .setLevel(userData.level)
+    .setLevelColor("#FFFFFF")
+    .setStatus("online", true)
+    .setCustomStatusColor("#23272A")
+    .setOverlay("#23272A", 1 || 0, true)
+    .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
+    .setProgressBarTrack("#000000")
     .setUsername("SrGobi")
-    .setDiscriminator("5100");
+    .setDiscriminator("0001");
+    .renderEmojis(true)
 
 rank.build()
     .then(data => {
@@ -44,7 +54,8 @@ rank.build()
 ```
 
 ### Preview
-![RankCard](https://i.imgur.com/j7m8T5x.png)
+![RankCard](./imgs/xp-card-preview.png)
+![RankCard](./imgs/xp-card-preview1.png)
 
 ## Welcomer Card
 
@@ -74,9 +85,9 @@ welcomer.build()
 ```
 
 ### Preview
-![WelcomerCard](https://i.imgur.com/ulr1KDT.png)
+![WelcomerCard](./imgs/welcome-card.png)
 
-## Other Examples
+## Otros ejemplos
 
 ```js
 const Discord = require("discord.js");
@@ -87,7 +98,7 @@ client.on("ready", () => {
     console.log("¡Estoy en línea!");
 });
 
-client.on("message", async (message) => {
+client.on("messageCreate", async (message) => {
     if (message.author.bot) return;
     if (message.content === "!triggered") {
         let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
@@ -100,5 +111,5 @@ client.on("message", async (message) => {
 client.login("Tu_Bot_Token_aqui");
 ```
 
-# Note
-> ⚠ | Para usar `Canvacard#Welcomer`/`Canvacard#Leaver`/`Canvacard#CaptchaGen`, es posible que deba instalar paquetes como **[discord-canvascard](https://npmjs.com/package/discord-canvascard)** & **[captcha-canvas](https://npmjs.com/package/captcha-canvas)**.
+# Nota
+> ⚠ | Para usar `Canvacard#Welcomer`/`Canvacard#Leaver`/`Canvacard#CaptchaGen`, es posible que deba instalar paquetes como **[discord-canvascardcard](https://www.npmjs.com/package/discord-canvascard)** & **[captcha-canvas](https://npmjs.com/package/captcha-canvas)**.

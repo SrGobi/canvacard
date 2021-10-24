@@ -50,13 +50,13 @@ class Spotify {
         this.album = null;
 
         /**
-         * Marca de tiempo de inicio de presencia de discordia
+         * Marca de tiempo de inicio de presencia de discord
          * @type {number}
          */
         this.start = null;
 
         /**
-         * Marca de tiempo de finalización de presencia de discordia
+         * Marca de tiempo de finalización de presencia de discord
          * @type {number}
          */
         this.end = null;

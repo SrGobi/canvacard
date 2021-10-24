@@ -1,5 +1,15 @@
 {
-    "plugins": [
-        "node_modules/jsdoc-strip-async-await"
-    ]
+    "source": {
+        "include": ["index.js", "./typings", "./src", "./plugins", "./libs"],
+        "exclude": "node_modules/|docs"
+    },
+    "plugins": [],
+    "opts": {
+        "template": "./node_modules/clean-jsdoc-theme",
+        "theme_opts": {
+            "theme": "light"
+        },
+        "encoding": "utf8",
+        "destination": "docs/"
+    }
 }

@@ -171,14 +171,14 @@ class Rank {
     registerFonts(fontArray = []) {
         if (!fontArray.length) {
             setTimeout(() => {
-                // fuentes predeterminadas
-                Canvas.registerFont(assets("FONT").MANROPE_BOLD, {
+                // default fonts
+                Canvas.registerFont(assets.font.get("MANROPE_BOLD"), {
                     family: "Manrope",
                     weight: "bold",
                     style: "normal"
                 });
 
-                Canvas.registerFont(assets("FONT").MANROPE_REGULAR, {
+                Canvas.registerFont(assets.font.get("MANROPE_REGULAR"), {
                     family: "Manrope",
                     weight: "regular",
                     style: "normal"
@@ -222,9 +222,9 @@ class Rank {
      * @param {string} color Color discriminador
      * @returns {Rank}
      */
-    setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.4)") {
+    setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.7)") {
         this.data.discriminator.discrim = !isNaN(discriminator) && `${discriminator}`.length === 4 ? discriminator : null;
-        this.data.discriminator.color = color && typeof color === "string" ? color : "rgba(255, 255, 255, 0.4)";
+        this.data.discriminator.color = color && typeof color === "string" ? color : "rgba(255, 255, 255, 0.7)";
         return this;
     }
 
@@ -504,65 +504,79 @@ class Rank {
         ctx.textAlign = "start";
         const name = Util.shorten(this.data.username.name, 10);
 
-        // aplicar nombre de usuario
+         // aplicar nombre de usuario
         !this.data.renderEmojis ? ctx.fillText(`${name}`, 257 + 18.5, 164) : await Util.renderEmoji(ctx, name, 257 + 18.5, 164);
 
-        // dibujar discriminador
+         // dibujar discriminador
         if (!this.data.discriminator.discrim) throw new Error("¡Falta discriminador!");
         const discrim = `${this.data.discriminator.discrim}`;
         if (discrim) {
             ctx.font = `36px ${ops.fontY}`;
             ctx.fillStyle = this.data.discriminator.color;
             ctx.textAlign = "center";
+            ctx.strokeText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
             ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
         }
-
-        // nivel de llenado
+ 
+         // nivel
         if (this.data.level.display && !isNaN(this.data.level.data)) {
             ctx.font = `bold 36px ${ops.fontX}`;
             ctx.fillStyle = this.data.level.textColor;
+            ctx.strokeText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
             ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
-
+ 
             ctx.font = `bold 32px ${ops.fontX}`;
             ctx.fillStyle = this.data.level.color;
             ctx.textAlign = "end";
+            ctx.strokeText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
             ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
         }
-
-        // llenar el rango
+ 
+         // rango
         if (this.data.rank.display && !isNaN(this.data.rank.data)) {
             ctx.font = `bold 36px ${ops.fontX}`;
             ctx.fillStyle = this.data.rank.textColor;
+            ctx.strokeText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
             ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
-
+ 
             ctx.font = `bold 32px ${ops.fontX}`;
             ctx.fillStyle = this.data.rank.color;
             ctx.textAlign = "end";
+            ctx.strokeText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
             ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
         }
-
-        // mostrar progreso
+ 
+         // mostrar progreso
         ctx.font = `bold 30px ${ops.fontX}`;
         ctx.fillStyle = this.data.requiredXP.color;
         ctx.textAlign = "start";
+        ctx.lineWidth = 1;
+        ctx.strokeText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
         ctx.fillText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
         
-        ctx.fillStyle = this.data.currentXP.color;
-        ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
 
-        // dibujar barra de progreso
+        ctx.fillStyle = this.data.currentXP.color;
+        ctx.lineWidth = 1;
+        ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
+        ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
+ 
+         // dibujar barra de progreso
         ctx.beginPath();
         if (!!this.data.progressBar.rounded) {
-            // bg
+             // bg
             ctx.fillStyle = this.data.progressBar.track.color;
+            ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
+            ctx.lineWidth = 5;
+            ctx.stroke();
+            ctx.fill();
+            ctx.lineWidth = 3;
+            ctx.strokeRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
+            ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
             ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
             ctx.fill();
-            ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
-            ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
-            ctx.fill();
-
+ 
             ctx.beginPath();
-            // aplicar color
+             // aplicar color
             if (this.data.progressBar.bar.type === "gradient") {
                 let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0);
                 this.data.progressBar.bar.color.forEach((color, index) => {
@@ -572,43 +586,51 @@ class Rank {
             } else {
                 ctx.fillStyle = this.data.progressBar.bar.color;
             }
-
-            // barra de progreso
+ 
+             // barra de progreso
             ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
+            ctx.lineWidth = 3;
+            ctx.stroke();
             ctx.fill();
             ctx.fillRect(257 + 18.5, 147.5 + 36.25, this._calculateProgress, 37.5);
             ctx.arc(257 + 18.5 + this._calculateProgress, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
             ctx.fill();
         } else {
-
-            // barra de progreso
+ 
+             // barra de progreso
             ctx.fillStyle = this.data.progressBar.bar.color;
+            ctx.lineWidth = 1;
+            ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
             ctx.fillRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
-
-            // contorno
+ 
+             // contorno
             ctx.beginPath();
             ctx.strokeStyle = this.data.progressBar.track.color;
             ctx.lineWidth = 7;
             ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this.data.progressBar.width, this.data.progressBar.height);
         }
-
+ 
         ctx.save();
-
-        // circulo
+ 
+         // circulo
         ctx.beginPath();
         ctx.arc(125 + 10, 125 + 20, 100, 0, Math.PI * 2, true);
+        ctx.lineWidth = 4;
+        ctx.stroke();
         ctx.closePath();
         ctx.clip();
-
-        // dibujar avatar
+ 
+         // dibujar avatar
         ctx.drawImage(avatar, 35, 45, this.data.avatar.width + 20, this.data.avatar.height + 20);
         ctx.restore();
-
-        // estado del sorteo
+ 
+        // estado usuario
         if (!!this.data.status.circle) {
             ctx.beginPath();
             ctx.fillStyle = this.data.status.color;
             ctx.arc(215, 205, 20, 0, 2 * Math.PI);
+            ctx.lineWidth = 4;
+            ctx.stroke();
             ctx.fill();
             ctx.closePath();
         } else if (!this.data.status.circle && this.data.status.width !== false) {

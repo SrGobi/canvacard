@@ -1,8 +1,8 @@
-// Created and maintained by SrGobi
+// Creado y mantenido por SrGobi
 
 const Canvacard = require("./src/Canvacard");
 
-// load default fonts
+// Cargar fuentes predeterminadas
 try {
     setTimeout(() => {
         Canvacard.registerFonts();
@@ -10,7 +10,7 @@ try {
 } catch(e) {}
 
 /**
- * @param {stirng} moduleName module name
+ * @param {stirng} moduleName Nombre del módulo
  */
 function load(moduleName) {
     try {
@@ -22,6 +22,7 @@ function load(moduleName) {
 
 module.exports = {
     Canvas: Canvacard,
+    Canvacard,
     ConvolutionMatrix: Canvacard.CONVOLUTION_MATRIX,
     Rank: require("./src/Rank"),
     Spotify: require("./src/Spotify"),
