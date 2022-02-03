@@ -416,6 +416,11 @@ class Canvacard {
                 weight: "regular",
                 style: "normal"
             });
+            Canvas.registerFont(Canvacard.assets.font.get("UNI_SANS"), {
+                family: "Sans Heavy",
+                weight: "bold",
+                style: "heavy"
+            });
         } else {
             fontArray.forEach(font => {
                 Canvas.registerFont(font.path, font.face);
