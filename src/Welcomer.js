@@ -1,5 +1,7 @@
 const { Base } = require("discord-canvascard");
 const Util = require("./Util");
+const Canvas = require("canvas");
+const assets = require("./Assets");
 
 class Welcomer extends Base {
 
@@ -37,9 +39,42 @@ class Welcomer extends Base {
          * @type {string}
          */
         this.colorTitulo = "#03A9F4";
+
+        // Cargar fuentes predeterminadas
+        this.registerFonts();
         
         // actualizar datos predeterminados
         this.__updateData();
+    }
+
+    /**
+     * Fuente Loads
+     * @param {any[]} fontArray Matriz de fuentes
+     * @returns {Welcomer}
+     */
+     registerFonts(fontArray = []) {
+        if (!fontArray.length) {
+            setTimeout(() => {
+                // default fonts
+                Canvas.registerFont(assets.font.get("UNI_SANS"), {
+                    family: "Sans Heavy",
+                    weight: "bold",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("UNI_SANS"), {
+                    family: "Sans Heavy",
+                    weight: "regular",
+                    style: "normal"
+                });
+            }, 250);
+        } else {
+            fontArray.forEach(font => {
+                Canvas.registerFont(font.path, font.face);
+            });
+        }
+
+        return this;
     }
 
     /**
