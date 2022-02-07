@@ -664,7 +664,10 @@ declare module "canvacard" {
         /**
          * <p>Crea una imagen de bienvenida</p>
          */
-        build(): Promise<Buffer>;
+        build(ops: {
+            fontX?: string;
+            fontY?: string;
+        }): Promise<Buffer>;
     }
     /**
      * <p>Generador de imágenes de abandono</p>
