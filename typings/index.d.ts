@@ -664,6 +664,12 @@ declare module "canvacard" {
         /**
          * <p>Crea una imagen de bienvenida</p>
          */
+        /**
+         * <p>Construye carta de bienvenida</p>
+         * @param ops - <p>Fuentes</p>
+         * @param [ops.fontX = "Manrope"] - <p>Familia tipográfica Bold</p>
+         * @param [ops.fontY = "Manrope"] - <p>Familia tipográfica regular</p>
+         */
         build(ops: {
             fontX?: string;
             fontY?: string;
@@ -697,93 +703,99 @@ declare module "canvacard" {
          * <p>Título creado con Canvacard</p>
          */
         textTitle: string;
-         /**
-          * <p>Subtítulo creado con Canvacard</p>
-          */
+        /**
+         * <p>Subtítulo creado con Canvacard</p>
+         */
         textSubtitle: string;
-         /**
-          * <p>Mensaje de texto creado con Canvacard</p>
-          */
+        /**
+         * <p>Mensaje de texto creado con Canvacard</p>
+         */
         textMessage: string;
-         /**
-          * <p>Borde de opacidad creado con canvacard</p>
-          */
+        /**
+         * <p>Borde de opacidad creado con canvacard</p>
+         */
         opacityBorder: string;
-         /**
-          * <p>Color de borde creado con canvacard</p>
-          */
+        /**
+         * <p>Color de borde creado con canvacard</p>
+         */
         colorBorder: string;
-         /**
-          * <p>Color de círculo creado con canvacard</p>
-          */
+        /**
+         * <p>Color de círculo creado con canvacard</p>
+         */
         colorCircle: string;
-         /**
-          * <p>Color de subtítulo creado con canvacard</p>
-          */
+        /**
+         * <p>Color de subtítulo creado con canvacard</p>
+         */
         colorSubtitle: string;
-         /**
-          * <p>Color de título creado con canvacard</p>
-          */
+        /**
+         * <p>Color de título creado con canvacard</p>
+         */
         colorTitle: string;
-         /**
-          * <p>Establecer color</p>
-          * @param color - <p>Código de color HTML5</p>
-          */
+        /**
+         * <p>Establecer color</p>
+         * @param color - <p>Código de color HTML5</p>
+         */
         setColor(id: "title" | "title-border" | "avatar" | "username" | "username-box" | "hashtag" | "discriminator" | "discriminator-box" | "message" | "message-box" | "member-count" | "background" | "border", color: string): Welcomer;
-         /**
-          * <p>Establecer opacidad</p>
-          * @param opacityBorder - <p>Código de opacidad HTML5</p>
-          */
+        /**
+         * <p>Establecer opacidad</p>
+         * @param opacityBorder - <p>Código de opacidad HTML5</p>
+         */
         setOpacityBorder(opacityBorder: string): Greeting;
-         /**
-          * <p>Establecer color</p>
-          * @param colorBorder - <p>Código de color HTML5</p>
-          */
+        /**
+         * <p>Establecer color</p>
+         * @param colorBorder - <p>Código de color HTML5</p>
+         */
         setColorBorder(colorBorder: string): Greeting;
-         /**
-          * <p>Establecer color</p>
-          * @param colorCircle - <p>Código de color HTML5</p>
-          */
+        /**
+         * <p>Establecer color</p>
+         * @param colorCircle - <p>Código de color HTML5</p>
+         */
         setColorCircle(colorCircle: string): Greeting;
-         /**
-          * <p>Establecer color</p>
-          * @param colorSubtitle - <p>Código de color HTML5</p>
-          */
+        /**
+         * <p>Establecer color</p>
+         * @param colorSubtitle - <p>Código de color HTML5</p>
+         */
         setColorSubtitulo(colorSubtitle: string): Greeting;
-         /**
-          * <p>Establecer color</p>
-          * @param colorTitle - <p>Código de color HTML5</p>
-          */
+        /**
+         * <p>Establecer color</p>
+         * @param colorTitle - <p>Código de color HTML5</p>
+         */
         setColorTitulo(colorTitle: string): Greeting;
-         /**
-          * <p>Recuento de miembros de ser</p>
-          * @param memberCount - <p>Recuento de miembros del gremio</p>
-          */
+        /**
+         * <p>Recuento de miembros de ser</p>
+         * @param memberCount - <p>Recuento de miembros del gremio</p>
+         */
         setMemberCount(memberCount?: number | string): Welcomer;
-         /**
-          * <p>Establecer subtítulo</p>
-          * @param textSubtitle - <p>Subtítulo para configurar</p>
-          */
+        /**
+         * <p>Establecer subtítulo</p>
+         * @param textSubtitle - <p>Subtítulo para configurar</p>
+         */
         setSubtitulo(textSubtitle: string): Greeting;
-         /**
-          * <p>Establecer título</p>
-          * @param textTitle - <p>Título para establecer</p>
-          */
+        /**
+         * <p>Establecer título</p>
+         * @param textTitle - <p>Título para establecer</p>
+         */
         setTitulo(textTitle: string): Greeting;
-         /**
-          * <p>Establecer imagen / color de fondo</p>
-          * @param type - <p>Tipo de fondo</p>
-          * @param [data] - <p>Color o imagen de fondo</p>
-          */
+        /**
+         * <p>Establecer imagen / color de fondo</p>
+         * @param type - <p>Tipo de fondo</p>
+         * @param [data] - <p>Color o imagen de fondo</p>
+         */
         setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): Greeting;
-         /**
-          * <p>Avatar de usuario</p>
-          * @param data - <p>Datos de avatar</p>
-          */
+        /**
+         * <p>Avatar de usuario</p>
+         * @param data - <p>Datos de avatar</p>
+         */
         setAvatar(data: string | Buffer): Greeting;
-         /**
-          * <p>Crea una imagen de abandono</p>
-          */
+        /**
+         * <p>Crea una imagen de abandono</p>
+         */
+        /**
+         * <p>Construye carta de abandono</p>
+         * @param ops - <p>Fuentes</p>
+         * @param [ops.fontX = "Manrope"] - <p>Familia tipográfica Bold</p>
+         * @param [ops.fontY = "Manrope"] - <p>Familia tipográfica regular</p>
+         */
         build(ops: {
             fontX?: string;
             fontY?: string;
