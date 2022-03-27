@@ -380,9 +380,27 @@ class Canvacard {
 
         if (!fontArray.length) {
             await Canvacard.__wait();
-            // default fonts
+            // Default fonts
+            Canvas.registerFont(Canvacard.assets.font.get("UNI_SANS"), {
+                family: "Sans Heavy",
+                weight: "bold",
+                style: "normal"
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("BURBANK_BIG_CONSDENSED"), {
+                family: "Burkank Big Condensed",
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("KEEP_CALM_MED"), {
+                family: "Keep Calm Medium",
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("LUCKIEST_GUY"), {
+                family: "Luckiest Guy",
+            });
+
             Canvas.registerFont(Canvacard.assets.font.get("MANROPE_BOLD"), {
-                family: "Manrope",
+                family: "Manrope Bold",
                 weight: "bold",
                 style: "normal"
             });
@@ -393,20 +411,14 @@ class Canvacard {
                 style: "normal"
             });
 
-            Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
-                family: "Whitney",
-                weight: "regular",
-                style: "normal"
-            });
-
-            Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_BOOK"), {
-                family: "Whitney",
-                weight: "bold",
+            Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_BLACK"), {
+                family: "Roboto Black",
+                weight: "black",
                 style: "normal"
             });
 
             Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_LIGHT"), {
-                family: "Roboto",
+                family: "Roboto Light",
                 weight: "light",
                 style: "normal"
             });
@@ -416,10 +428,29 @@ class Canvacard {
                 weight: "regular",
                 style: "normal"
             });
-            Canvas.registerFont(Canvacard.assets.font.get("UNI_SANS"), {
-                family: "Sans Heavy",
+
+            Canvas.registerFont(Canvacard.assets.font.get("SKETCH_MATCH"), {
+                family: "SketchMatch"
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("THE_BOLT_FONT"), {
+                family: "The Bolt Font",
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("TWEMOJI"), {
+                family: "Twitter Color Emoji"
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_BOOK"), {
+                family: "Whitney-Book",
                 weight: "bold",
-                style: "heavy"
+                style: "normal"
+            });
+
+            Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
+                family: "Whitney",
+                weight: "regular",
+                style: "normal"
             });
         } else {
             fontArray.forEach(font => {
@@ -812,7 +843,7 @@ class Canvacard {
             }
         };
 
-        // background
+        // Background
         ctx.fillStyle = color.bg;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -835,7 +866,7 @@ class Canvacard {
 
         ctx.stroke();
 
-        // apply
+        // Apply
         Object.keys(fill).forEach(x => {
             if (!fill[x] || !["X", "O"].includes(fill[x])) return;
             const data = params[x];

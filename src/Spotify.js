@@ -91,29 +91,96 @@ class Spotify {
             color: "#1DB954"
         };
 
-        this.__registerFonts();
+        this.registerFonts();
     }
 
     /**
-     * Registrar fuentes
-     * @returns {void}
-     * @ignore
-     * @private
+     * Cargar fuentes
+     * @param {any[]} fontArray Matriz de fuentes
+     * @returns {Spotify}
      */
-    __registerFonts() {
-        setTimeout(() => {
-            Canvas.registerFont(assets("FONT").MANROPE_REGULAR, {
-                family: "Manrope",
-                weight: "regular",
-                style: "normal"
-            });
+     registerFonts(fontArray = []) {
+        if (!fontArray.length) {
+            setTimeout(() => {
+                // Default fonts
+                Canvas.registerFont(assets.font.get("UNI_SANS"), {
+                    family: "Sans Heavy",
+                    weight: "bold",
+                    style: "normal"
+                });
 
-            Canvas.registerFont(assets("FONT").MANROPE_BOLD, {
-                family: "Manrope",
-                weight: "bold",
-                style: "normal"
+                Canvas.registerFont(assets.font.get("BURBANK_BIG_CONSDENSED"), {
+                    family: "Burkank Big Condensed",
+                });
+
+                Canvas.registerFont(assets.font.get("KEEP_CALM_MED"), {
+                    family: "Keep Calm Medium",
+                });
+
+                Canvas.registerFont(assets.font.get("LUCKIEST_GUY"), {
+                    family: "Luckiest Guy",
+                });
+
+                Canvas.registerFont(assets.font.get("MANROPE_BOLD"), {
+                    family: "Manrope Bold",
+                    weight: "bold",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("MANROPE_REGULAR"), {
+                    family: "Manrope",
+                    weight: "regular",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("ROBOTO_BLACK"), {
+                    family: "Roboto Black",
+                    weight: "black",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("ROBOTO_LIGHT"), {
+                    family: "Roboto Light",
+                    weight: "light",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("ROBOTO_REGULAR"), {
+                    family: "Roboto",
+                    weight: "regular",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("SKETCH_MATCH"), {
+                    family: "SketchMatch"
+                });
+
+                Canvas.registerFont(assets.font.get("THE_BOLT_FONT"), {
+                    family: "The Bolt Font",
+                });
+
+                Canvas.registerFont(assets.font.get("TWEMOJI"), {
+                    family: "Twitter Color Emoji"
+                });
+
+                Canvas.registerFont(assets.font.get("WHITNEY_BOOK"), {
+                    family: "Whitney-Book",
+                    weight: "bold",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("WHITNEY_MEDIUM"), {
+                    family: "Whitney",
+                    weight: "regular",
+                    style: "normal"
+                });
+            }, 250);
+        } else {
+            fontArray.forEach(font => {
+                Canvas.registerFont(font.path, font.face);
             });
-        }, 250);
+        }
+        return this;
     }
 
     /**
@@ -232,9 +299,12 @@ class Spotify {
 
     /**
      * Esta función convierte los datos sin procesar en una tarjeta de presencia de Spotify.
+     * @param {object} ops Fuentes
+     * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
+     * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
      * @returns {Promise<Buffer>}
      */
-    async build() {
+    async build(ops = { fontX: "Manrope", fontY: "Manrope" }) {
         if (!this.title) throw new Error('Falta el "título" en las opciones.');
         if (!this.artist) throw new Error('Falta "artista" en las opciones.');
         if (!this.start) throw new Error('Falta "inicio" en las opciones.');
@@ -265,29 +335,29 @@ class Spotify {
 
         // dibujar el nombre de la canción
         ctx.fillStyle = "#FFFFFF";
-        ctx.font = "bold 20px Manrope";
+        ctx.font = `bold 20px ${ops.fontX}`;
         await Util.renderEmoji(ctx, Util.shorten(this.title, 30), 170, 40);
 
         // dibujar el nombre del artista
         ctx.fillStyle = "#F1F1F1";
-        ctx.font = "14px Manrope";
+        ctx.font = `14px ${ops.fontY}`;
         await Util.renderEmoji(ctx, `por ${Util.shorten(this.artist, 40)}`, 170, 70);
 
         // agregar álbum
         if (this.album && typeof this.album === "string") {
             ctx.fillStyle = "#F1F1F1";
-            ctx.font = "14px Manrope";
+            ctx.font = `14px ${ops.fontY}`;
             await Util.renderEmoji(ctx, `en ${Util.shorten(this.album, 40)}`, 170, 90);
         }
 
         // punto final
         ctx.fillStyle = "#B3B3B3";
-        ctx.font = "14px Manrope";
+        ctx.font = `14px ${ops.fontY}`;
         await Util.renderEmoji(ctx, ending, 430, 130);
 
         // Progreso
         ctx.fillStyle = "#B3B3B3";
-        ctx.font = "14px Manrope";
+        ctx.font = `14px ${ops.fontY}`;
         await Util.renderEmoji(ctx, progressF, 170, 130);
 
         // pista de la barra de progreso

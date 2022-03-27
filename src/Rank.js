@@ -59,7 +59,7 @@ const assets = require("./Assets");
  * @property {object} username Datos de nombre de usuario
  * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
  * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
- * @property {boolean} [renderEmojis=false] Si debería renderizar emojis
+ * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
  */
 
 class Rank {
@@ -164,16 +164,34 @@ class Rank {
     }
 
     /**
-     * Fuente Loads
+     * Cargar fuentes
      * @param {any[]} fontArray Matriz de fuentes
      * @returns {Rank}
      */
     registerFonts(fontArray = []) {
         if (!fontArray.length) {
             setTimeout(() => {
-                // default fonts
+                // Default fonts
+                Canvas.registerFont(assets.font.get("UNI_SANS"), {
+                    family: "Sans Heavy",
+                    weight: "bold",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("BURBANK_BIG_CONSDENSED"), {
+                    family: "Burkank Big Condensed",
+                });
+
+                Canvas.registerFont(assets.font.get("KEEP_CALM_MED"), {
+                    family: "Keep Calm Medium",
+                });
+
+                Canvas.registerFont(assets.font.get("LUCKIEST_GUY"), {
+                    family: "Luckiest Guy",
+                });
+
                 Canvas.registerFont(assets.font.get("MANROPE_BOLD"), {
-                    family: "Manrope",
+                    family: "Manrope Bold",
                     weight: "bold",
                     style: "normal"
                 });
@@ -183,22 +201,63 @@ class Rank {
                     weight: "regular",
                     style: "normal"
                 });
+
+                Canvas.registerFont(assets.font.get("ROBOTO_BLACK"), {
+                    family: "Roboto Black",
+                    weight: "black",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("ROBOTO_LIGHT"), {
+                    family: "Roboto Light",
+                    weight: "light",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("ROBOTO_REGULAR"), {
+                    family: "Roboto",
+                    weight: "regular",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("SKETCH_MATCH"), {
+                    family: "SketchMatch"
+                });
+
+                Canvas.registerFont(assets.font.get("THE_BOLT_FONT"), {
+                    family: "The Bolt Font",
+                });
+
+                Canvas.registerFont(assets.font.get("TWEMOJI"), {
+                    family: "Twitter Color Emoji"
+                });
+
+                Canvas.registerFont(assets.font.get("WHITNEY_BOOK"), {
+                    family: "Whitney-Book",
+                    weight: "bold",
+                    style: "normal"
+                });
+
+                Canvas.registerFont(assets.font.get("WHITNEY_MEDIUM"), {
+                    family: "Whitney",
+                    weight: "regular",
+                    style: "normal"
+                });
             }, 250);
         } else {
             fontArray.forEach(font => {
                 Canvas.registerFont(font.path, font.face);
             });
         }
-
         return this;
     }
 
     /**
      * Si debe representar el nombre de usuario con emojis (si corresponde)
-     * @param {boolean} [apply=false] Configúrelo en "verdadero" para renderizar emojis.
+     * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
      * @returns {Rank}
      */
-    renderEmojis(apply = false) {
+    renderEmojis(apply = true) {
         this.data.renderEmojis = !!apply;
         return this;
     }
