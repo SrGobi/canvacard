@@ -1,41 +1,81 @@
+const { Base } = require("discord-canvascard");
+const Util = require("./Util");
 const Canvas = require("canvas");
 const assets = require("./Assets");
-const { formatVariable } = require("canvacard/utils/functions");
 
-/**
- * @typedef {object} CanvacardLeaverData
- * @property {object} backgroundGlobal Datos de antecedentes de la tarjeta de rango
- * @property {"image"|"color"} [backgroundGlobal.type="color"] Tipo de fondo
- * @property {string|Buffer} [backgroundGlobal.image="#23272A"] Imagen de fondo (o color)
- */
-
-class Leaver {
+class Leaver extends Base {
 
     /**
-     * Welcome image builder
+     * Leaver image builder
      * @example
-     * const card = new canvacard.Leaver()
-            .setUsername("SrGobi")
-            .setDiscriminator("0001")
-            .setGuildName("Esp Customs");
-
-        card.build()
-            .then(data => {
-                canvacard.write(data, "leaver.png");
-            })
+     *  const LeaverCardURL = await new Leaver()
+            .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
+            .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
+            .setTitulo("Titulo de la Tarjeta")
+            .setSubtitulo("Subtitulo de la Tarjeta")
+            .setOpacityBorder("0.5")
+            .setColorTitulo(#FFFFFF)
+            .setColorSubtitulo(#FFFFFF)
+            .setColorCircle(#FFFFFF)
+            .setColorBorder(#FFFFFF)
+            .build({
+            fontX: "Roboto Black",
+            fontY: "Roboto",
+            });
+        await channel.send({ files: [{ attachment: LeaverCardURL, name: 'leaver-card.png' }] })
      */
     constructor() {
-
+        super();
+        /**
+         * Fondo de la tarjeta
+         * @type {"COLOR"|"IMAGE"}
+         */
         this.data = {backgroundGlobal: {type: "color",image: "#23272A"}};
+        /**
+         * Avatar de la tarjeta
+         * @type {object}
+         */
         this.avatar = `${__dirname}/../../assets/img/default-avatar.png`;
+        /**
+         * Título creado con Canvacard
+         * @type {string}
+         */
         this.titulo = "Titulo personalizable!";
+        /**
+         * Subtítulo creado con Canvacard
+         * @type {string}
+         */
         this.subtitulo = "Descripcion personalizable!";
+        /**
+         * Color del título creado con Canvacard
+         * @type {string}
+         */
         this.colorTitulo = "#FFFFFF";
+        /**
+         * Color del Subtítulo creado con Canvacard
+         * @type {string}
+         */
         this.colorSubtitulo = "#5865f2";
+        /**
+         * Color del circulo
+         * @type {string}
+         */
         this.colorCircle= "#FFFFFF";
+        /**
+         * Color del borde
+         * @type {string}
+         */
         this.colorBorder = "#000000";
+        /**
+         * Opacidad del borde
+         * @type {number|string}
+         */
         this.opacityBorder = "0.4";
-        this.colorBackground = "000000";
+        /**
+         * Color del fondo
+         * @type {string}
+         */
+        this.colorBackground = "#000000";
         // Cargar fuentes predeterminadas
         this.registerFonts();
         // Actualizar datos predeterminados
@@ -47,7 +87,7 @@ class Leaver {
      * @param {any[]} fontArray Matriz de fuentes
      * @returns {Leaver}
      */
-    registerFonts(fontArray = []) {
+     registerFonts(fontArray = []) {
         if (!fontArray.length) {
             setTimeout(() => {
                 // Default fonts
@@ -136,7 +176,7 @@ class Leaver {
      * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
      * @returns {Leaver}
      */
-    renderEmojis(apply = true) {
+     renderEmojis(apply = true) {
         this.data.renderEmojis = !!apply;
         return this;
     }
@@ -169,47 +209,86 @@ class Leaver {
      * @returns {Leaver}
      */
     setColor(id, color) {
-        const formattedVariable = formatVariable("color", id);
-        if (this[formattedVariable]) this[formattedVariable] = color;
+        super.setColor(id, color);
         return this;
     }
+    /**
+     * Valor del avatar
+     * @param {object} value
+     * @returns {Leaver}
+     */
     setAvatar(value) {
         this.avatar = value;
         return this;
     }
 
+    /**
+     * Valor del título
+     * @param {string} value
+     * @returns {Leaver}
+     */
     setTitulo(value) {
         this.titulo = value;
         return this;
     }
 
+    /**
+     * Valor del subtítulo
+     * @param {string} value
+     * @returns {Leaver}
+     */
     setSubtitulo(value) {
         this.subtitulo = value;
         return this;
     }
+    /**
+     * Valor del color del título
+     * @param {string} value
+     * @returns {Leaver}
+     */
     setColorTitulo(value) {
         this.colorTitulo = value;
         return this;
     }
+    /**
+     * Valor del color del subtítulo
+     * @param {string} value
+     * @returns {Leaver}
+     */
     setColorSubtitulo(value) {
         this.colorSubtitulo = value;
         return this;
     }
+    /**
+     * Valor del color del círculo
+     * @param {string} value
+     * @returns {Leaver}
+     */
     setColorCircle(value) {
         this.colorCircle = value;
         return this;
     }
 
+    /**
+     * Valor del color del borde
+     * @param {string} value
+     * @returns {Leaver}
+     */
     setColorBorder(value) {
         this.colorBorder = value;
         return this;
     }
 
+    /**
+     * Valor del color del borde
+     * @param {number|string} value
+     * @returns {Leaver}
+     */
     setOpacityBorder(value) {
         this.opacityBorder = value;
         return this;
     }
-    
+
     /**
      * Establecer imagen / color de fondo
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo
@@ -233,13 +312,13 @@ class Leaver {
     }
 
     /**
-     * Construye la tarjeta de salida
+     * Construye la tarjeta de abandono
      * @param {object} ops Fuentes
      * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
      * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
      * @returns {Promise<Buffer>}
      */
-    async build(ops = { fontX: "Manrope", fontY: "Manrope" }) {
+     async build(ops = { fontX: "Manrope", fontY: "Manrope" }) {
         // Crear lienzo
         const canvas = Canvas.createCanvas(1024, 450);
         const ctx = canvas.getContext("2d");
