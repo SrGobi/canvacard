@@ -11,7 +11,7 @@ $ npm i canvacard
 
 # Features
 - Súper simple y fácil de usar 😎
-- Más rápido que canvacard v6 🚀
+- Más rápido que canvacard v4 🚀
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
 - Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
 - Orientado a objetos 💻
@@ -53,9 +53,19 @@ rank.build()
   });
 ```
 
-### Preview
-![RankCard](https://i.imgur.com/fgqOnhH.png)
-![RankCard](https://i.imgur.com/QBP7kO6.png)
+<details open>
+<summary>PREVIEW</summary>
+<br>
+  <a>
+    <img src="https://i.imgur.com/fgqOnhH.png">
+  </a>
+  <a>
+    <img src="https://i.imgur.com/QBP7kO6.png">
+  </a>
+  <a>
+    <img src="https://i.imgur.com/V8vpyKL.png">
+  </a>
+</details>
 
 ## Welcomer Card
 
@@ -83,10 +93,19 @@ welcomer.build()
     message.channel.send(attachment);
   });
 ```
-
-### Preview
-![WelcomerCard](https://i.imgur.com/FrVcMdr.png)
-![WelcomerCard](https://i.imgur.com/ulr1KDT.png)
+<details open>
+<summary>PREVIEW</summary>
+<br>
+  <a>
+    <img src="https://i.imgur.com/6TIEcZ3.png">
+  </a>
+  <a>
+    <img src="https://i.imgur.com/ulr1KDT.png">
+  </a>
+  <a>
+    <img src="https://i.imgur.com/vwF5aNy.png">
+  </a>
+</details>
 
 ## Otros ejemplos
 
@@ -111,6 +130,17 @@ client.on("messageCreate", async (message) => {
 
 client.login("Tu_Bot_Token_aqui");
 ```
+
+<details open>
+<summary>PREVIEW</summary>
+<br>
+  <a>
+    <img src="https://i.imgur.com/tOGNj5d.png">
+  </a>
+  <a>
+    <img src="https://i.imgur.com/tNbpx68.jpg">
+  </a>
+</details>
 
 # Nota
 > ⚠ | Para usar `Canvacard#Welcomer`/`Canvacard#Leaver`/`Canvacard#CaptchaGen`, es posible que deba instalar paquetes como **[discord-canvascardcard](https://www.npmjs.com/package/discord-canvascard)** & **[captcha-canvas](https://npmjs.com/package/captcha-canvas)**.
