@@ -32,20 +32,80 @@ class FortniteStats {
 */
 
   constructor() {
-    this.token = null;
-    this.platform = null;
-    this.user = null;
+    /**
+     * Token
+     * @type {string}
+     */
+    this.token = "642ce759-161a-4241-b10f-957a94c7305a";
+    /**
+     * Plaraforma
+     * @type {string}
+     */
+    this.platform = "pc";
+    /**
+     * Nombre de usuario
+     * @type {string}
+     */
+    this.user = "BLD SRGOBI";
+    /**
+     * Texto del footer
+     * @type {string}
+     */
     this.textFooter = "Generado con canvascard - fortnitetracker.com";
+    /**
+     * Texto AvengersKills
+     * @type {string}
+     */
     this.textAverageKills = "KILLS/MATCH";
+    /**
+     * Texto AverageKill
+     * @type {string}
+     */
     this.textAverageKill = "KILL/MATCH";
+    /**
+     * Texto Porcejtage victoria
+     * @type {string}
+     */
     this.textWPercent = "W%";
+    /**
+     * Texto Porcejtage victorias
+     * @type {string}
+     */
     this.textWinPercent = "WIN%";
+    /**
+     * Texto KD
+     * @type {string}
+     */
     this.textKD = "K/D";
+    /**
+     * Texto Victorias
+     * @type {string}
+     */
     this.textWins = "WINS";
+    /**
+     * Texto Victoria
+     * @type {string}
+     */
     this.textWin = "WIN";
+    /**
+     * Texto Kills
+     * @type {string}
+     */
     this.textKills = "KILLS";
+    /**
+     * Texto Kill
+     * @type {string}
+     */
     this.textKill = "KILL";
+    /**
+     * Texto Partidas jugadas
+     * @type {string}
+     */
     this.textMatches = "MATCHES";
+    /**
+     * Texto Partida jugada
+     * @type {string}
+     */
     this.textMatch = "MATCH";
 
     this.data = null;
@@ -63,21 +123,41 @@ class FortniteStats {
     this.data = tdata.code === 404 ? false : tdata
   }
 
+  /**
+   * Valor del Token
+   * @param {string} value
+   * @returns {FortniteStats}
+   */
   setToken(value) {
     this.token = value;
     return this;
   }
 
+  /**
+   * Valor de la plataforma
+   * @param {string} value
+   * @returns {FortniteStats}
+   */
   setPlatform(value) {
     this.platform = value;
     return this;
   }
 
+  /**
+   * Valor del usuario
+   * @param {string} value
+   * @returns {FortniteStats}
+   */
   setUser(value) {
     this.user = value;
     return this;
   }
 
+  /**
+   * Valor del texto
+   * @param {string} value
+   * @returns {FortniteStats}
+   */
   setText(variable, value) {
     const formattedVariable = formatVariable("text", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;

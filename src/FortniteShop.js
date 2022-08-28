@@ -50,40 +50,93 @@ class FortniteShop {
    */
 
   constructor() {
-    this.token = null;
+    /**
+     * Token
+     * @type {string}
+     */
+    this.token = "642ce759-161a-4241-b10f-957a94c7305a";
+    /**
+     * Texto del encabezado
+     * @type {string}
+     */
     this.textHeader = "TIENDA DE ARTÍCULOS FORTNITE";
+    /**
+     * Texto del dia
+     * @type {string}
+     */
     this.textDaily = "DIARIO";
+    /**
+     * Texto de destacados
+     * @type {string}
+     */
     this.textFeatured = "DESTACADOS";
+    /**
+     * Textos de datos
+     * @type {string}
+     */
     this.textDate = "Tienda Fortnite de {date}";
+    /**
+     * Texto del footer
+     * @type {string}
+     */
     this.textFooter = "Generado con canvascard";
     this.options = {
       lang: "es",
       dateFormat: "dddd, MMMM Do YYYY",
     };
+    /**
+     * imagen de fondo
+     * @type {string}
+     */
     this.background = `${__dirname}/../assets/img/fortnite/shop/background.png`;
   }
 
+  /**
+   * Valor del Token
+   * @param {string} value
+   * @returns {FortniteShop}
+   */
   setToken(value) {
     this.token = value;
     return this;
   }
 
+  /**
+   * Valor del background
+   * @param {string} value
+   * @returns {FortniteShop}
+   */
   setBackground(value) {
     this.background = value;
     return this;
   }
 
+  /**
+   * Valor del texto
+   * @param {string} value
+   * @returns {FortniteShop}
+   */
   setText(variable, value) {
     const formattedVariable = formatVariable("text", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
   }
 
+  /**
+   * Valor del idioma
+   * @param {string} value
+   * @returns {FortniteShop}
+   */
   lang(value) {
     this.options.lang = value;
     return this;
   }
 
+  /**
+   * Valor del formato de fecha
+   * @param {string} value
+   * @returns {FortniteShop}
+   */
   dateFormat(value) {
     this.options.dateFormat = value;
     return this;
