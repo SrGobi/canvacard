@@ -10,9 +10,9 @@ declare class Leaver {
     data: "COLOR" | "IMAGE";
     /**
      * Avatar de la tarjeta
-     * @type {object}
+     * @type {string}
      */
-    avatar: object;
+    avatar: string;
     /**
      * Título creado con Canvacard
      * @type {string}
@@ -80,10 +80,10 @@ declare class Leaver {
     setColor(id: "titulo" | "titulo-border" | "titulo-box" | "subtitulo" | "subtitulo-border" | "subtitulo-box" | "avatar" | "background" | "border", color: string): Leaver;
     /**
      * Valor del avatar
-     * @param {object} value
+     * @param {string|Buffer} value
      * @returns {Leaver}
      */
-    setAvatar(value: object): Leaver;
+    setAvatar(value: string | Buffer): Leaver;
     /**
      * Valor del título
      * @param {string} value

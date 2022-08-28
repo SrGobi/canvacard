@@ -37,7 +37,7 @@ class Welcomer extends Base {
     this.data = { backgroundGlobal: { type: "color", image: "#23272A" } };
     /**
      * Avatar de la tarjeta
-     * @type {object}
+     * @type {string}
      */
     this.avatar = `${__dirname}/../../assets/img/default-avatar.png`;
     /**
@@ -218,7 +218,7 @@ class Welcomer extends Base {
   }
   /**
    * Valor del avatar
-   * @param {object} value
+   * @param {string|Buffer} value
    * @returns {Welcomer}
    */
   setAvatar(value) {

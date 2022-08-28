@@ -16,38 +16,81 @@ class Greeting {
     this.colorBackground = "000000";
   }
 
+  /**
+   * Set Avatar
+   * @param {string|Buffer} value 
+   * @returns {Greeting}
+   */
   setAvatar(value) {
     this.avatar = value;
     return this;
   }
 
+  /**
+   * Set Titulo
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setTitulo(value) {
     this.titulo = value;
     return this;
   }
 
+  /**
+   * Set Subtitulo
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setSubtitulo(value) {
     this.subtitulo = value;
     return this;
   }
+
+  /**
+   * Set Color de Titulo
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setColorTitulo(value) {
     this.colorTitulo = value;
     return this;
   }
+
+  /**
+   * Set Color de Subtitulo
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setColorSubtitulo(value) {
     this.colorSubtitulo = value;
     return this;
   }
+
+  /**
+   * Set Color de circulo de avatar
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setColorCircle(value) {
     this.colorCircle = value;
     return this;
   }
 
+  /**
+   * Set Color borde de la tarjeta
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setColorBorder(value) {
     this.colorBorder = value;
     return this;
   }
 
+  /**
+   * Set Opacidad de borde de la tarjeta
+   * @param {string} value 
+   * @returns {Greeting}
+   */
   setOpacityBorder(value) {
     this.opacityBorder = value;
     return this;
@@ -75,18 +118,36 @@ class Greeting {
     return this;
   }
 
+  /**
+   * Sets colors
+   * @param {string} variable variable La variable para establecer el color en
+   * @param {string} value value El color
+   * @returns {Greeting}
+   */
   setColor(variable, value) {
     const formattedVariable = formatVariable("color", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
   }
 
+  /**
+   * Sets text
+   * @param {string} variable variable La variable para establecer el texto en
+   * @param {string} value value El texto
+   * @returns {Greeting}
+   */
   setText(variable, value) {
     const formattedVariable = formatVariable("text", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
   }
 
+  /**
+   * Sets Opacity
+   * @param {string} variable varible La variable para establecer la opacidad en
+   * @param {number} value value La opacidad
+   * @returns {Greeting}
+   */
   setOpacity(variable, value) {
     const formattedVariable = formatVariable("opacity", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
