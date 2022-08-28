@@ -1,6 +1,17 @@
 const Canvas = require("canvas");
 const fortnite = require("fortnite-9812");
-const { formatVariable } = require("../utils/functions");
+
+/**
+ * Obtiene variables y tipos
+ * @param {object} prefix El tipo de variable
+ * @param {object} variable La variable a cambiar
+ * @returns La variable formateada
+ */
+ const formatVariable = (prefix, variable) => {
+  const formattedVariable = variable.toLowerCase()
+    .split("-").map((word) => word.charAt(0).toUpperCase() + word.substr(1, word.length).toLowerCase()).join("");
+  return prefix + formattedVariable;
+}
 
 /**
  * Creador de imagen de estadisticas de fortnite
