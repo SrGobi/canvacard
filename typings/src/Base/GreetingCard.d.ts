@@ -1,12 +1,44 @@
 export = Greeting;
 declare class Greeting {
+    /**
+     * Avatar de la tarjeta
+     * @type {string}
+     */
     avatar: string;
+    /**
+     * Título creado con Canvacard
+     * @type {string}
+     */
     titulo: string;
+    /**
+     * Subtítulo creado con Canvacard
+     * @type {string}
+     */
     subtitulo: string;
+    /**
+     * Color del título creado con Canvacard
+     * @type {string}
+     */
     colorTitulo: string;
+    /**
+     * Color del Subtítulo creado con Canvacard
+     * @type {string}
+     */
     colorSubtitulo: string;
+    /**
+     * Color del circulo
+     * @type {string}
+     */
     colorCircle: string;
+    /**
+     * Color del borde
+     * @type {string}
+     */
     colorBorder: string;
+    /**
+     * Color del fondo
+     * @type {string}
+     */
     colorBackground: string;
     /**
      * Sets color

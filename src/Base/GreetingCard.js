@@ -14,13 +14,45 @@ const Canvas = require("canvas");
 class Greeting {
 
   constructor() {
+    /**
+     * Avatar de la tarjeta
+     * @type {string}
+     */
     this.avatar = `${__dirname}/../../assets/img/default-avatar.png`;
+    /**
+     * Título creado con Canvacard
+     * @type {string}
+     */
     this.titulo = "Titulo personalizable!";
+    /**
+     * Subtítulo creado con Canvacard
+     * @type {string}
+     */
     this.subtitulo = "Descripcion personalizable!";
+    /**
+     * Color del título creado con Canvacard
+     * @type {string}
+     */
     this.colorTitulo = "#FFFFFF";
+    /**
+     * Color del Subtítulo creado con Canvacard
+     * @type {string}
+     */
     this.colorSubtitulo = "#5865f2";
+    /**
+     * Color del circulo
+     * @type {string}
+     */
     this.colorCircle = "#FFFFFF";
+    /**
+     * Color del borde
+     * @type {string}
+     */
     this.colorBorder = "#000000";
+    /**
+     * Color del fondo
+     * @type {string}
+     */
     this.colorBackground = "000000";
   }
   /**
