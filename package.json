@@ -1,6 +1,6 @@
 {
   "name": "canvacard",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
@@ -12,7 +12,8 @@
     "typings"
   ],
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "types": "tsc"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,8 @@
     "welcomer",
     "leaver",
     "spotify",
-    "memegen"
+    "memegen",
+    "fortnite"
   ],
   "author": "SrGobi",
   "funding": {
@@ -48,17 +50,19 @@
   "dependencies": {
     "@canvacard/assets": "^1.0.1",
     "@canvacard/emoji-parser": "^1.0.1",
-    "canvas": "^2.9.1",
-    "clean-jsdoc-theme": "^3.3.4",
+    "canvas": "^2.9.3",
+    "fortnite": "^4.3.2",
+    "fortnite-9812": "^1.0.4",
     "gifencoder": "^2.0.1",
-    "moment": "^2.29.1",
+    "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
-    "@discordjs/docgen": "discordjs/docgen",
-    "@types/node": "^16.4.7",
+    "@discordjs/docgen": "^0.12.1",
+    "@types/node": "^17.0.45",
     "captcha-canvas": "^3.1.0",
-    "discord-canvascard": "github:SrGobi/discord-canvascard",
-    "jsdoc": "^3.6.10"
+    "clean-jsdoc-theme": "^4.1.7",
+    "jsdoc": "^3.6.11",
+    "typescript": "^4.8.2"
   }
 }

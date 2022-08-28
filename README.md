@@ -29,28 +29,28 @@ const background = "https://i.imgur.com/ulr1KDT.png";
 const userData = getDataSomehow();
 
 const rank = new canvacard.Rank()
-    .setAvatar(img)
-    .setBackground('IMAGE', background)
-    .setCurrentXP(userData.xp)
-    .setRequiredXP(userData.requiredXP)
-    .setRank(userData.rank)
-    .setRankColor("#FFFFFF")
-    .setLevel(userData.level)
-    .setLevelColor("#FFFFFF")
-    .setStatus("online", true)
-    .setCustomStatusColor("#23272A")
-    .setOverlay("#23272A", 1 || 0, true)
-    .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
-    .setProgressBarTrack("#000000")
-    .setUsername("SrGobi")
-    .setDiscriminator("0001");
-    .renderEmojis(true)
+  .setAvatar(img)
+  .setBackground('IMAGE', background)
+  .setCurrentXP(userData.xp)
+  .setRequiredXP(userData.requiredXP)
+  .setRank(userData.rank)
+  .setRankColor("#FFFFFF")
+  .setLevel(userData.level)
+  .setLevelColor("#FFFFFF")
+  .setStatus("online", true)
+  .setCustomStatusColor("#23272A")
+  .setOverlay("#23272A", 1 || 0, true)
+  .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
+  .setProgressBarTrack("#000000")
+  .setUsername("SrGobi")
+  .setDiscriminator("0001");
+  .renderEmojis(true)
 
 rank.build()
-    .then(data => {
-        const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-        message.channel.send(attachment);
-    });
+  .then(data => {
+    const attachment = new Discord.MessageAttachment(data, "RankCard.png");
+    message.channel.send(attachment);
+  });
 ```
 
 ### Preview
@@ -65,23 +65,23 @@ const img = "https://cdn.discordapp.com/embed/avatars/0.png";
 const background = "https://i.imgur.com/ulr1KDT.png";
 
 const welcomer = new canvacard.Welcomer()
-    .setAvatar(img)
-    .setBackground('IMAGE', background)
-    .setTitulo("WELCOME")
-    .setSubtitulo("Subtitulo personalizable!")
-    .setTitulo("Titulo personalizable!")
-    .setSubtitulo("Subtitulo personalizable!")
-    .setColorTitulo("#FFFFFF");
-    .setColorSubtitulo("#5865f2");
-    .setColorCircle("#FFFFFF");
-    .setColorBorder("#000000");
-    .setOpacityBorder("0.4");
+  .setAvatar(img)
+  .setBackground('IMAGE', background)
+  .setTitulo("WELCOME")
+  .setSubtitulo("Subtitulo personalizable!")
+  .setTitulo("Titulo personalizable!")
+  .setSubtitulo("Subtitulo personalizable!")
+  .setColorTitulo("#FFFFFF");
+  .setColorSubtitulo("#5865f2");
+  .setColorCircle("#FFFFFF");
+  .setColorBorder("#000000");
+  .setOpacityBorder("0.4");
 
 welcomer.build()
-    .then(data => {
-        const attachment = new Discord.MessageAttachment(data, "WelcomerCard.png");
-        message.channel.send(attachment);
-    });
+  .then(data => {
+    const attachment = new Discord.MessageAttachment(data, "WelcomerCard.png");
+    message.channel.send(attachment);
+  });
 ```
 
 ### Preview
@@ -96,17 +96,17 @@ const client = new Discord.Client();
 const canvacard = require("canvacard");
 
 client.on("ready", () => {
-    console.log("¡Estoy en línea!");
+  console.log("¡Estoy en línea!");
 });
 
 client.on("messageCreate", async (message) => {
-    if (message.author.bot) return;
-    if (message.content === "!triggered") {
-        let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
-        let image = await canvacard.Canvas.trigger(avatar);
-        let attachment = new Discord.MessageAttachment(image, "triggered.gif");
-        return message.channel.send(attachment);
-    }
+  if (message.author.bot) return;
+  if (message.content === "!triggered") {
+    let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+    let image = await canvacard.Canvas.trigger(avatar);
+    let attachment = new Discord.MessageAttachment(image, "triggered.gif");
+    return message.channel.send(attachment);
+  }
 });
 
 client.login("Tu_Bot_Token_aqui");
