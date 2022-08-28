@@ -39,7 +39,7 @@ class Leaver extends Base {
      * Avatar de la tarjeta
      * @type {string}
      */
-    this.avatar = `${__dirname}/../../assets/img/default-avatar.png`;
+    this.avatar = `${__dirname}/../assets/img/default-avatar.png`;
     /**
      * Título creado con Canvacard
      * @type {string}

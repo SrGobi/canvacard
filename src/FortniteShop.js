@@ -60,7 +60,7 @@ class FortniteShop {
       lang: "es",
       dateFormat: "dddd, MMMM Do YYYY",
     };
-    this.background = `${__dirname}/../../assets/img/fortnite/shop/background.png`;
+    this.background = `${__dirname}/../assets/img/fortnite/shop/background.png`;
   }
 
   setToken(value) {
@@ -166,7 +166,7 @@ class FortniteShop {
 
     let shop = await fortniteClient.fnbrShop();
 
-    const filesDir = `${__dirname}/../../assets/img/fortnite/shop/cache`;
+    const filesDir = `${__dirname}/../assets/img/fortnite/shop/cache`;
 
     fs.readdir(filesDir, function (err, files) {
       //error de manejo
@@ -179,14 +179,14 @@ class FortniteShop {
           if (Number(file.split("_")[0]) < Date.now() - 86400000 * 5) {
             console.log(file);
             fs.unlinkSync(
-              `${__dirname}/../../assets/img/fortnite/shop/cache/${file}`
+              `${__dirname}/../assets/img/fortnite/shop/cache/${file}`
             );
           }
         }
       });
     });
 
-    const path = `${__dirname}/../../assets/img/fortnite/shop/cache/${new Date(
+    const path = `${__dirname}/../assets/img/fortnite/shop/cache/${new Date(
       shop.data.date
     ).getTime()}_${this.options.lang}.png`;
 

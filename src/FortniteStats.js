@@ -93,7 +93,7 @@ class FortniteStats {
       ctx = canvas.getContext("2d");
 
     // Estadísticas de fondo
-    let background = await Canvas.loadImage(`${__dirname}/../../assets/img/fortnite/stats/background.png`);
+    let background = await Canvas.loadImage(`${__dirname}/../assets/img/fortnite/stats/background.png`);
     // Esto usa las dimensiones del lienzo para estirar la imagen en todo el lienzo.
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     let grd1 = ctx.createLinearGradient(0, 0, 210, 210);
@@ -146,10 +146,10 @@ class FortniteStats {
     ctx.fillRect(671, 605, 257, 4);
     ctx.globalAlpha = 1;
     // Dibujar xbox, pc or psn logo
-    let iconPlatform = await Canvas.loadImage(`${__dirname}/../../assets/img/fortnite/stats/${this.platform}.png`);
+    let iconPlatform = await Canvas.loadImage(`${__dirname}/../assets/img/fortnite/stats/${this.platform}.png`);
     ctx.drawImage(iconPlatform, 62, 43, 60, 60);
     // Dibujar corona logo
-    let iconCrown = await Canvas.loadImage(`${__dirname}/../../assets/img/fortnite/stats/crown.png`);
+    let iconCrown = await Canvas.loadImage(`${__dirname}/../assets/img/fortnite/stats/crown.png`);
     ctx.drawImage(iconCrown, canvas.width - 280, 41, 60, 60);
     // Dibujar nombre de usuario
     ctx.fillStyle = "#ffffff";
