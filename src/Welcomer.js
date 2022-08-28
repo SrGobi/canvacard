@@ -1,4 +1,4 @@
-const { Base } = require("./Base/GreetingCard");
+const Base = require("./Base/GreetingCard");
 const Util = require("./Util");
 const Canvas = require("canvas");
 const assets = require("./Assets");
@@ -384,7 +384,6 @@ class Welcomer extends Base {
 
     return canvas.toBuffer();
   }
-
 }
 
 module.exports = Welcomer;

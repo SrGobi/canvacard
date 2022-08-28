@@ -14,7 +14,6 @@ const Canvas = require("canvas");
 class Greeting {
 
   constructor() {
-    this.data = { backgroundGlobal: { type: "color", image: "#23272A" } };
     this.avatar = `${__dirname}/../../assets/img/default-avatar.png`;
     this.titulo = "Titulo personalizable!";
     this.subtitulo = "Descripcion personalizable!";
@@ -22,119 +21,15 @@ class Greeting {
     this.colorSubtitulo = "#5865f2";
     this.colorCircle = "#FFFFFF";
     this.colorBorder = "#000000";
-    this.opacityBorder = "0.4";
     this.colorBackground = "000000";
   }
-
   /**
-   * Set Avatar
-   * @param {string|Buffer} value 
-   * @returns {Greeting}
-   */
-  setAvatar(value) {
-    this.avatar = value;
-    return this;
-  }
-
-  /**
-   * Set Titulo
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setTitulo(value) {
-    this.titulo = value;
-    return this;
-  }
-
-  /**
-   * Set Subtitulo
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setSubtitulo(value) {
-    this.subtitulo = value;
-    return this;
-  }
-
-  /**
-   * Set Color de Titulo
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setColorTitulo(value) {
-    this.colorTitulo = value;
-    return this;
-  }
-
-  /**
-   * Set Color de Subtitulo
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setColorSubtitulo(value) {
-    this.colorSubtitulo = value;
-    return this;
-  }
-
-  /**
-   * Set Color de circulo de avatar
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setColorCircle(value) {
-    this.colorCircle = value;
-    return this;
-  }
-
-  /**
-   * Set Color borde de la tarjeta
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setColorBorder(value) {
-    this.colorBorder = value;
-    return this;
-  }
-
-  /**
-   * Set Opacidad de borde de la tarjeta
-   * @param {string} value 
-   * @returns {Greeting}
-   */
-  setOpacityBorder(value) {
-    this.opacityBorder = value;
-    return this;
-  }
-
-  /**
-   * Establecer imagen / color de fondo
-   * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-   * @param {string|Buffer} [data] Color o imagen de fondo
-   */
-  setBackground(type, data) {
-    if (!data) throw new Error("Falta campo: datos");
-    switch (type) {
-      case "COLOR":
-        this.data.backgroundGlobal.type = "color";
-        this.data.backgroundGlobal.image = data && typeof data === "string" ? data : "#23272A";
-        break;
-      case "IMAGE":
-        this.data.backgroundGlobal.type = "image";
-        this.data.backgroundGlobal.image = data;
-        break;
-      default:
-        throw new Error(`Tipo de fondo no admitido "${type}"`);
-    }
-    return this;
-  }
-
-  /**
-   * Sets colors
+   * Sets color
    * @param {string} variable variable La variable para establecer el color en
    * @param {string} value value El color
    * @returns {Greeting}
    */
-  setColor(variable, value) {
+   setColor(variable, value) {
     const formattedVariable = formatVariable("color", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
