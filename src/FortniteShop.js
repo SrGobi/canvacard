@@ -228,7 +228,7 @@ class FortniteShop {
         }
       } else {
         let background = await Canvas.loadImage(
-          `${__dirname}/../../assets/img/fortnite/shop/background.png`
+          `${__dirname}/../assets/img/fortnite/shop/background.png`
         );
         if (canvas.height > 2026) {
           ctx.drawImage(
