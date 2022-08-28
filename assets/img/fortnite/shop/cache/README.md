@@ -1,0 +1,1 @@
+Esta carpeta guarda el lienzo (tienda fortnite) unos días para optimizar el tiempo de respuesta.
