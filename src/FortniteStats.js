@@ -1,5 +1,5 @@
 const Canvas = require("canvas");
-const fortnite = require("fortnite-9812");
+const fortnite = require("fortnite");
 
 /**
  * Obtiene variables y tipos
