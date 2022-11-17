@@ -1,4 +1,5 @@
 # Canvacard
+
 Potente herramienta de manipulación de imágenes para manipular imágenes fácilmente.
 
 # Installation
@@ -8,8 +9,11 @@ $ npm i canvacard
 ```
 
 [![NPM](https://nodei.co/npm/canvacard.png)](https://nodei.co/npm/canvacard/)
+[![Downloads](https://img.shields.io/npm/dt/canvacard.svg?maxAge=3600)](https://www.npmjs.com/package/canvacard)
+[![NPM Version](https://img.shields.io/npm/v/canvacard.svg?maxAge=3600)](https://www.npmjs.com/package/canvacard)
 
 # Features
+
 - Súper simple y fácil de usar 😎
 - Más rápido que canvacard v4 🚀
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
@@ -19,6 +23,7 @@ $ npm i canvacard
 - Soporta emojis 😀
 
 # Ejemplos
+
 ## Rank Card
 
 ```js
@@ -93,6 +98,7 @@ welcomer.build()
     message.channel.send(attachment);
   });
 ```
+
 <details open>
 <summary>PREVIEW</summary>
 <br>
@@ -110,25 +116,25 @@ welcomer.build()
 ## Otros ejemplos
 
 ```js
-const Discord = require("discord.js");
+const Discord = require('discord.js');
 const client = new Discord.Client();
-const canvacard = require("canvacard");
+const canvacard = require('canvacard');
 
-client.on("ready", () => {
-  console.log("¡Estoy en línea!");
+client.on('ready', () => {
+	console.log('¡Estoy en línea!');
 });
 
-client.on("messageCreate", async (message) => {
-  if (message.author.bot) return;
-  if (message.content === "!triggered") {
-    let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
-    let image = await canvacard.Canvas.trigger(avatar);
-    let attachment = new Discord.MessageAttachment(image, "triggered.gif");
-    return message.channel.send(attachment);
-  }
+client.on('messageCreate', async (message) => {
+	if (message.author.bot) return;
+	if (message.content === '!triggered') {
+		let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+		let image = await canvacard.Canvas.trigger(avatar);
+		let attachment = new Discord.MessageAttachment(image, 'triggered.gif');
+		return message.channel.send(attachment);
+	}
 });
 
-client.login("Tu_Bot_Token_aqui");
+client.login('Tu_Bot_Token_aqui');
 ```
 
 <details open>
@@ -143,4 +149,5 @@ client.login("Tu_Bot_Token_aqui");
 </details>
 
 # Nota
+
 > ⚠ | Para usar `Canvacard#CaptchaGen`, es posible que deba instalar paquetes como **[captcha-canvas](https://npmjs.com/package/captcha-canvas)**.
