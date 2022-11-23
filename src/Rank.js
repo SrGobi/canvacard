@@ -47,6 +47,9 @@ const assets = require("./Assets");
  * @property {string} [level.textColor="#FFFFFF"] color de texto de nivel
  * @property {string} [level.color="#F3F3F3"] color de nivel
  * @property {string} [level.displayText="LEVEL"] texto de visualización de nivel
+ * @property {object} previousRankXP tarjeta xp de rango anterior opcional
+ * @property {number} [previousRankXP.data=null] xp de rango anterior opcional
+ * @property {string} [previousRankXP.color=null] Tabla de rango de color de rango xp anterior opcional
  * @property {object} currentXP Tarjeta de rango xp actual
  * @property {number} [currentXP.data=0] XP actual
  * @property {string} [currentXP.color="#FFFFFF"] Carta de rango color xp actual
@@ -139,6 +142,10 @@ class Rank {
         textColor: "#FFFFFF",
         color: "#F3F3F3",
         displayText: "LEVEL"
+      },
+      previousRankXP: {
+        data: null,
+        color: null,
       },
       currentXP: {
         data: 0,
@@ -341,6 +348,19 @@ class Rank {
     this.data.overlay.color = color;
     this.data.overlay.display = !!display;
     this.data.overlay.level = level && typeof level === "number" ? level : 0.5;
+    return this;
+  }
+
+  /**
+   * Establecer XP de rango anterior
+   * @param {number} data XP actual
+   * @param {string} color Color
+   * @returns {Rank}
+   */
+  setPreviousRankXP(data, color = "#FFFFFF") {
+    if (typeof data !== "number") throw new Error(`El tipo de datos XP de rango anterior debe ser un número, recibido ${typeof data}!`);
+    this.data.previousRankXP.data = data;
+    this.data.previousRankXP.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
@@ -710,17 +730,23 @@ class Rank {
    * @ignore
    */
   get _calculateProgress() {
+    const px = this.data.previousRankXP.data;
     const cx = this.data.currentXP.data;
     const rx = this.data.requiredXP.data;
 
     if (rx <= 0) return 1;
     if (cx > rx) return this.data.progressBar.width;
 
-    let width = (cx * 615) / rx;
-    if (width > this.data.progressBar.width) width = this.data.progressBar.width;
-    return width;
+    if (!px || px > cx) {
+      let width = (cx * 615) / rx;
+      if (width > this.data.progressBar.width) width = this.data.progressBar.width;
+      return width;
+    } else {
+      let width = ((cx - px) * 615) / (rx - px);
+      if (width > this.data.progressBar.width) width = this.data.progressBar.width;
+      return width;
+    }
   }
-
 }
 
 module.exports = Rank;
