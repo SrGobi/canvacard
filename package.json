@@ -1,0 +1,32 @@
+{
+  "name": "@canvacard/assets",
+  "version": "0.1.0",
+  "description": "canvacard Assets Repository",
+  "private": true,
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "convert": "node src/converter.js",
+    "build": "node src/jsondump.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrGobi/canvacard.git"
+  },
+  "keywords": [
+    "canvacard",
+    "assets"
+  ],
+  "author": "SrGobi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SrGobi/canvacard/issues"
+  },
+  "homepage": "https://github.com/SrGobi/canvacard#readme",
+  "dependencies": {
+    "sharp": "^0.32.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.11"
+  }
+}
