@@ -8,7 +8,7 @@ const Brightness = require("../libs/Brightness");
 const Threshold = require("../libs/Threshold");
 const Convolute = require("../libs/Convolute");
 const rect = require("../plugins/rect");
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 const Darkness = require("../libs/Darkness");
 const circle = require("../plugins/circle");
 const round = require("../plugins/round");
@@ -370,95 +370,23 @@ class Canvacard {
   }
 
   /**
-   * Cargar fuentes
-   * @param {any[]} fontArray Matriz de fuentes
-   * @returns {Promise<void>}
-   */
+     * Loads font
+     * @param {any[]} fontArray Font array
+     * @returns {Promise<void>}
+     */
   static async registerFonts(fontArray = []) {
-    if (!Canvacard.assets.font.loaded) await Canvacard.assets.font.load();
-    if (!Canvacard.assets.image.loaded) await Canvacard.assets.image.load();
-
     if (!fontArray.length) {
-      await Canvacard.__wait();
-      // Default fonts
-      Canvas.registerFont(Canvacard.assets.font.get("UNI_SANS"), {
-        family: "Sans Heavy",
-        weight: "bold",
-        style: "normal"
-      });
+      // Canvas.GlobalFonts.loadFontsFromDir(`${Canvacard.assets.ASSETS_DIR}/fonts`)
+      const fonts = Canvacard.assets.font.all();
 
-      Canvas.registerFont(Canvacard.assets.font.get("BURBANK_BIG_CONSDENSED"), {
-        family: "Burkank Big Condensed",
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("KEEP_CALM_MED"), {
-        family: "Keep Calm Medium",
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("LUCKIEST_GUY"), {
-        family: "Luckiest Guy",
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("MANROPE_BOLD"), {
-        family: "Manrope Bold",
-        weight: "bold",
-        style: "normal"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("MANROPE_REGULAR"), {
-        family: "Manrope",
-        weight: "regular",
-        style: "normal"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_BLACK"), {
-        family: "Roboto Black",
-        weight: "black",
-        style: "normal"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_LIGHT"), {
-        family: "Roboto Light",
-        weight: "light",
-        style: "normal"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_REGULAR"), {
-        family: "Roboto",
-        weight: "regular",
-        style: "normal"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("SKETCH_MATCH"), {
-        family: "SketchMatch"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("THE_BOLT_FONT"), {
-        family: "The Bolt Font",
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("TWEMOJI"), {
-        family: "Twitter Color Emoji"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_BOOK"), {
-        family: "Whitney-Book",
-        weight: "bold",
-        style: "normal"
-      });
-
-      Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
-        family: "Whitney",
-        weight: "regular",
-        style: "normal"
-      });
+      for (const font in fonts) {
+        Canvas.GlobalFonts.registerFromPath(fonts[font].path, fonts[font].name);
+      }
     } else {
       fontArray.forEach(font => {
-        Canvas.registerFont(font.path, font.face);
+        Canvas.GlobalFonts.registerFromPath(font.path, font.name || font.face?.family);
       });
     }
-
-    return;
   }
 
   /**
@@ -1333,18 +1261,6 @@ class Canvacard {
 
     const img1 = await Canvas.loadImage(avatar1);
     const img2 = await Canvas.loadImage(avatar2);
-
-    Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
-      family: "Whitney",
-      weight: "regular",
-      style: "normal"
-    });
-
-    Canvas.registerFont(Canvacard.assets.font.get("MANROPE_REGULAR"), {
-      family: "Manrope",
-      weight: "regular",
-      style: "normal"
-    });
 
     const canvas = Canvas.createCanvas(1300, 250);
     const ctx = canvas.getContext("2d");

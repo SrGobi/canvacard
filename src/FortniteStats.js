@@ -1,4 +1,4 @@
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 const fortnite = require("fortnite");
 
 /**
@@ -7,7 +7,7 @@ const fortnite = require("fortnite");
  * @param {object} variable La variable a cambiar
  * @returns La variable formateada
  */
- const formatVariable = (prefix, variable) => {
+const formatVariable = (prefix, variable) => {
   const formattedVariable = variable.toLowerCase()
     .split("-").map((word) => word.charAt(0).toUpperCase() + word.substr(1, word.length).toLowerCase()).join("");
   return prefix + formattedVariable;

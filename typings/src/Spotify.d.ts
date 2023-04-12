@@ -146,5 +146,5 @@ declare class Spotify {
      */
     private __calculateProgress;
 }
-import Canvas = require("canvas");
+import Canvas = require("@napi-rs/canvas");
 //# sourceMappingURL=Spotify.d.ts.map

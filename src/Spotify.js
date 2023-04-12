@@ -1,4 +1,4 @@
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 const Util = require("./Util");
 const assets = require("./Assets");
 

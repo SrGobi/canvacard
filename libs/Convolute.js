@@ -1,4 +1,4 @@
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 const convolute = require("../plugins/convolute");
 
 module.exports = async (img, matrix, opaque, lvl) => {

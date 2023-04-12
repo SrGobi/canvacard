@@ -4,9 +4,7 @@ const Canvacard = require("./src/Canvacard");
 
 // Cargar fuentes predeterminadas
 try {
-  setTimeout(() => {
-    Canvacard.registerFonts();
-  });
+  Canvacard.registerFonts();
 } catch (e) { }
 
 /**
@@ -33,7 +31,7 @@ module.exports = {
   FortniteStats: require("./src/FortniteStats"),
   Plugins: require("./src/Plugins"),
   Util: require("./src/Util"),
-  Assets: require("@canvacard/assets"),
+  Assets: require("./src/Assets"),
   MSX: {
     Brightness: require("./libs/Brightness"),
     Convolute: require("./libs/Convolute"),

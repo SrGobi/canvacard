@@ -173,10 +173,10 @@ declare class Canvacard {
      */
     static spank(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * Cargar fuentes
-     * @param {any[]} fontArray Matriz de fuentes
-     * @returns {Promise<void>}
-     */
+       * Loads font
+       * @param {any[]} fontArray Font array
+       * @returns {Promise<void>}
+       */
     static registerFonts(fontArray?: any[]): Promise<void>;
     /**
      * Abofetear a alguien ( ͡° ͜ʖ ͡°)

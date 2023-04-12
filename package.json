@@ -49,12 +49,10 @@
   },
   "homepage": "https://canvacard.srgobi.com/index.html",
   "dependencies": {
-    "@canvacard/assets": "^1.0.2",
-    "@canvacard/emoji-parser": "^1.0.2",
-    "canvas": "^2.11.2",
+    "@napi-rs/canvas": "^0.1.40",
     "fortnite": "^4.3.2",
     "fortnite-9812": "^1.0.4",
-    "gifencoder": "^2.0.1",
+    "@skyra/gifenc": "^1.0.1",
     "moment": "^2.29.4",
     "moment-duration-format": "^2.3.2"
   },

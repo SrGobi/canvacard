@@ -1,11 +1,11 @@
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 /**
  * Obtiene variables y tipos
  * @param {object} prefix El tipo de variable
  * @param {object} variable La variable a cambiar
  * @returns La variable formateada
  */
- const formatVariable = (prefix, variable) => {
+const formatVariable = (prefix, variable) => {
   const formattedVariable = variable.toLowerCase()
     .split("-").map((word) => word.charAt(0).toUpperCase() + word.substr(1, word.length).toLowerCase()).join("");
   return prefix + formattedVariable;
@@ -61,7 +61,7 @@ class Greeting {
    * @param {string} value value El color
    * @returns {Greeting}
    */
-   setColor(variable, value) {
+  setColor(variable, value) {
     const formattedVariable = formatVariable("color", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;

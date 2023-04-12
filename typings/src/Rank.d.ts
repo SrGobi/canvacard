@@ -44,6 +44,9 @@ export = Rank;
  * @property {string} [level.textColor="#FFFFFF"] color de texto de nivel
  * @property {string} [level.color="#F3F3F3"] color de nivel
  * @property {string} [level.displayText="LEVEL"] texto de visualización de nivel
+ * @property {object} previousRankXP tarjeta xp de rango anterior opcional
+ * @property {number} [previousRankXP.data=null] xp de rango anterior opcional
+ * @property {string} [previousRankXP.color=null] Tabla de rango de color de rango xp anterior opcional
  * @property {object} currentXP Tarjeta de rango xp actual
  * @property {number} [currentXP.data=0] XP actual
  * @property {string} [currentXP.color="#FFFFFF"] Carta de rango color xp actual
@@ -112,6 +115,13 @@ declare class Rank {
      * @returns {Rank}
      */
     setOverlay(color: string, level?: number, display?: boolean): Rank;
+    /**
+     * Establecer XP de rango anterior
+     * @param {number} data XP actual
+     * @param {string} color Color
+     * @returns {Rank}
+     */
+    setPreviousRankXP(data: number, color?: string): Rank;
     /**
      * Establecer xp requerido
      * @param {number} data Requerido xp
@@ -186,8 +196,8 @@ declare class Rank {
     /**
      * Construye carta de rango
      * @param {object} ops Fuentes
-     * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
-     * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
+     * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
+     * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
      * @returns {Promise<Buffer>}
      */
     build(ops?: {
@@ -284,6 +294,13 @@ type CanvacardRankData = {
         textColor?: string;
         color?: string;
         displayText?: string;
+    };
+    /**
+     * tarjeta xp de rango anterior opcional
+     */
+    previousRankXP: {
+        data?: number;
+        color?: string;
     };
     /**
      * Tarjeta de rango xp actual

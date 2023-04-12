@@ -106,5 +106,5 @@ declare class FortniteStats {
     setText(variable: any, value: string): FortniteStats;
     toAttachment(): Promise<false | Canvas.Canvas>;
 }
-import Canvas = require("canvas");
+import Canvas = require("@napi-rs/canvas");
 //# sourceMappingURL=FortniteStats.d.ts.map

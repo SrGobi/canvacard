@@ -1,4 +1,4 @@
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 const fortnite = require("fortnite-9812");
 const fs = require("fs");
 const moment = require("moment");

@@ -95,8 +95,8 @@ declare class Leaver extends Base {
     /**
      * Construye la tarjeta de abandono
      * @param {object} ops Fuentes
-     * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
-     * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
+     * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
+     * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
      * @returns {Promise<Buffer>}
      */
     build(ops?: {

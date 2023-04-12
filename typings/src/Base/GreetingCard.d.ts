@@ -63,5 +63,5 @@ declare class Greeting {
     setOpacity(variable: string, value: number): Greeting;
     toAttachment(): Promise<Canvas.Canvas>;
 }
-import Canvas = require("canvas");
+import Canvas = require("@napi-rs/canvas");
 //# sourceMappingURL=GreetingCard.d.ts.map

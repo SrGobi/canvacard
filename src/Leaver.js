@@ -1,6 +1,6 @@
 const Base = require("./Base/GreetingCard");
 const Util = require("./Util");
-const Canvas = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 const assets = require("./Assets");
 
 /**
@@ -95,86 +95,10 @@ class Leaver extends Base {
    * @returns {Leaver}
    */
   registerFonts(fontArray = []) {
-    if (!fontArray.length) {
-      setTimeout(() => {
-        // Default fonts
-        Canvas.registerFont(assets.font.get("UNI_SANS"), {
-          family: "Sans Heavy",
-          weight: "bold",
-          style: "normal"
-        });
+    fontArray.forEach(font => {
+      Canvas.GlobalFonts.registerFromPath(font.path, font.name || font.face?.name);
+    });
 
-        Canvas.registerFont(assets.font.get("BURBANK_BIG_CONSDENSED"), {
-          family: "Burkank Big Condensed",
-        });
-
-        Canvas.registerFont(assets.font.get("KEEP_CALM_MED"), {
-          family: "Keep Calm Medium",
-        });
-
-        Canvas.registerFont(assets.font.get("LUCKIEST_GUY"), {
-          family: "Luckiest Guy",
-        });
-
-        Canvas.registerFont(assets.font.get("MANROPE_BOLD"), {
-          family: "Manrope Bold",
-          weight: "bold",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("MANROPE_REGULAR"), {
-          family: "Manrope",
-          weight: "regular",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("ROBOTO_BLACK"), {
-          family: "Roboto Black",
-          weight: "black",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("ROBOTO_LIGHT"), {
-          family: "Roboto Light",
-          weight: "light",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("ROBOTO_REGULAR"), {
-          family: "Roboto",
-          weight: "regular",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("SKETCH_MATCH"), {
-          family: "SketchMatch"
-        });
-
-        Canvas.registerFont(assets.font.get("THE_BOLT_FONT"), {
-          family: "The Bolt Font",
-        });
-
-        Canvas.registerFont(assets.font.get("TWEMOJI"), {
-          family: "Twitter Color Emoji"
-        });
-
-        Canvas.registerFont(assets.font.get("WHITNEY_BOOK"), {
-          family: "Whitney-Book",
-          weight: "bold",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("WHITNEY_MEDIUM"), {
-          family: "Whitney",
-          weight: "regular",
-          style: "normal"
-        });
-      }, 250);
-    } else {
-      fontArray.forEach(font => {
-        Canvas.registerFont(font.path, font.face);
-      });
-    }
     return this;
   }
 
@@ -321,11 +245,11 @@ class Leaver extends Base {
   /**
    * Construye la tarjeta de abandono
    * @param {object} ops Fuentes
-   * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
-   * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
+   * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
+   * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
    * @returns {Promise<Buffer>}
    */
-  async build(ops = { fontX: "Manrope", fontY: "Manrope" }) {
+  async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
     // Crear lienzo
     const canvas = Canvas.createCanvas(1024, 450);
     const ctx = canvas.getContext("2d");
@@ -385,7 +309,7 @@ class Leaver extends Base {
     const avatar = await Canvas.loadImage(this.avatar);
     ctx.drawImage(avatar, 387, 45, 250, 250);
 
-    return canvas.toBuffer();
+    return canvas.encode("png");
   }
 }
 
