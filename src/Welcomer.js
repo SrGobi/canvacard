@@ -34,7 +34,10 @@ class Welcomer extends Base {
      * Fondo de la tarjeta
      * @type {"COLOR"|"IMAGE"}
      */
-    this.data = { backgroundGlobal: { type: "color", image: "#23272A" } };
+    this.data = {
+      backgroundGlobal: { type: "color", image: "#23272A" },
+      renderEmojis: true,
+    };
     /**
      * Avatar de la tarjeta
      * @type {string}
