@@ -9,10 +9,15 @@ declare class Welcomer extends Base {
      */
     data: "COLOR" | "IMAGE";
     /**
-     * Opacidad del borde
+     * Color del overlay
+     * @type {string}
+     */
+    colorOverlay: string;
+    /**
+     * Opacidad del overlay
      * @type {number|string}
      */
-    opacityBorder: number | string;
+    opacityOverlay: number | string;
     /**
      * Cargar fuentes
      * @param {any[]} fontArray Matriz de fuentes
@@ -75,17 +80,17 @@ declare class Welcomer extends Base {
      */
     setColorCircle(value: string): Welcomer;
     /**
-     * Valor del color del borde
+     * Valor del color del overlay
      * @param {string} value
      * @returns {Welcomer}
      */
-    setColorBorder(value: string): Welcomer;
+    setColorOverlay(value: string): Welcomer;
     /**
-     * Valor del color del borde
+     * Valor del color del overlay
      * @param {number|string} value
      * @returns {Welcomer}
      */
-    setOpacityBorder(value: number | string): Welcomer;
+    setOpacityOverlay(value: number | string): Welcomer;
     /**
      * Establecer imagen / color de fondo
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo

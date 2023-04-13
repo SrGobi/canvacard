@@ -75,17 +75,19 @@ declare class Leaver extends Base {
      */
     setColorCircle(value: string): Leaver;
     /**
-     * Valor del color del borde
+     * Valor del color del overlay
      * @param {string} value
      * @returns {Leaver}
      */
-    setColorBorder(value: string): Leaver;
+    setColorOverlay(value: string): Leaver;
+    colorOverlay: string;
     /**
-     * Valor del color del borde
+     * Valor del color del overlay
      * @param {number|string} value
      * @returns {Leaver}
      */
-    setOpacityBorder(value: number | string): Leaver;
+    setOpacityOverlay(value: number | string): Leaver;
+    opacityOverlay: string | number;
     /**
      * Establecer imagen / color de fondo
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo

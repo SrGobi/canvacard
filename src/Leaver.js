@@ -17,11 +17,11 @@ class Leaver extends Base {
         .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
         .setTitulo("Titulo de la Tarjeta")
         .setSubtitulo("Subtitulo de la Tarjeta")
-        .setOpacityBorder("0.5")
+        .setOpacityOverlay("0.5")
         .setColorTitulo(#FFFFFF)
         .setColorSubtitulo(#FFFFFF)
         .setColorCircle(#FFFFFF)
-        .setColorBorder(#FFFFFF)
+        .setColorOverlay(#FFFFFF)
         .build({
         fontX: "Roboto Black",
         fontY: "Roboto",
@@ -125,8 +125,8 @@ class Leaver extends Base {
     this.setColorTitulo("#FFFFFF");
     this.setColorSubtitulo("#5865f2");
     this.setColorCircle("#FFFFFF");
-    this.setColorBorder("#000000");
-    this.setOpacityBorder("0.4");
+    this.setColorOverlay("#000000");
+    this.setOpacityOverlay("0.4");
     this.setColor("border", "#4D5E94");
     this.setColor("titulo", "#4D5E94");
     this.setColor("subtitulo", "#4D5E94");
@@ -201,22 +201,22 @@ class Leaver extends Base {
   }
 
   /**
-   * Valor del color del borde
+   * Valor del color del overlay
    * @param {string} value
    * @returns {Leaver}
    */
-  setColorBorder(value) {
-    this.colorBorder = value;
+  setColorOverlay(value) {
+    this.colorOverlay = value;
     return this;
   }
 
   /**
-   * Valor del color del borde
+   * Valor del color del overlay
    * @param {number|string} value
    * @returns {Leaver}
    */
-  setOpacityBorder(value) {
-    this.opacityBorder = value;
+  setOpacityOverlay(value) {
+    this.opacityOverlay = value;
     return this;
   }
 
@@ -251,7 +251,7 @@ class Leaver extends Base {
    */
   async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
     // Crear lienzo
-    const canvas = Canvas.createCanvas(1024, 450);
+    const canvas = Canvas.createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");
 
     // Dibujar background
@@ -267,13 +267,13 @@ class Leaver extends Base {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // Dibujar capa
-    ctx.fillStyle = this.colorBorder;
-    ctx.globalAlpha = this.opacityBorder;
-    ctx.fillRect(0, 0, 25, canvas.height);
-    ctx.fillRect(canvas.width - 25, 0, 25, canvas.height);
-    ctx.fillRect(25, 0, canvas.width - 50, 25);
-    ctx.fillRect(25, canvas.height - 25, canvas.width - 50, 25);
+    // Dibujar overlay
+    ctx.fillStyle = this.colorOverlay;
+    ctx.globalAlpha = this.opacityOverlay;
+    ctx.rect(55, 25, canvas.width - 110, canvas.height - 50);
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = this.colorOverlay;
+    ctx.fill();
 
     // restablecer la transparencia
     ctx.globalAlpha = 1;
@@ -285,7 +285,7 @@ class Leaver extends Base {
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
     ctx.font = `60px ${ops.fontY}`;
-    ctx.fillText(this.titulo, canvas.width - 512, canvas.height - 90);
+    ctx.fillText(this.titulo, canvas.width - 550, canvas.height - 120);
 
     // Dibujar Subtitulo
     ctx.shadowBlur = 10;
@@ -293,21 +293,21 @@ class Leaver extends Base {
     ctx.fillStyle = this.colorSubtitulo;
     ctx.textAlign = "center";
     ctx.font = `30px ${ops.fontY}`;
-    ctx.fillText(this.subtitulo, canvas.width - 512, canvas.height - 40);
+    ctx.fillText(this.subtitulo, canvas.width - 550, canvas.height - 70);
 
     // Dibujar un circulo de avatar
     ctx.shadowBlur = 0;
     ctx.beginPath();
     ctx.lineWidth = 10;
     ctx.strokeStyle = this.colorCircle;
-    ctx.arc(512, 170, 125, 0, Math.PI * 2, true);
+    ctx.arc(canvas.width - 550, 190, 125, 0, Math.PI * 2, true);
     ctx.stroke();
     ctx.closePath();
     ctx.clip();
 
     // Dibujar Avatar
     const avatar = await Canvas.loadImage(this.avatar);
-    ctx.drawImage(avatar, 387, 45, 250, 250);
+    ctx.drawImage(avatar, canvas.width - 675, 65, 250, 250);
 
     return canvas.encode("png");
   }

@@ -89,8 +89,8 @@ const welcomer = new canvacard.Welcomer()
   .setColorTitulo("#FFFFFF");
   .setColorSubtitulo("#5865f2");
   .setColorCircle("#FFFFFF");
-  .setColorBorder("#000000");
-  .setOpacityBorder("0.4");
+  .setColorOverlay("#000000");
+  .setOpacityOverlay("0.4");
 
 welcomer.build()
   .then(data => {
