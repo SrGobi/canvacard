@@ -18,4 +18,4 @@ This metadata contains mapping of all the files (images/fonts).
 
 > shasum: **https://raw.githubusercontent.com/SrGobi/canvacard/assets/shasum.txt**
 
-#### Authored and maintained by DevAndromeda
+#### Authored and maintained by SrGobi
