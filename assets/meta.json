@@ -374,6 +374,15 @@
     ],
     "fonts": [
       {
+        "name": "BurbankBigCondensed-Bold.otf",
+        "size": 111828,
+        "size_formatted": "0.11 MB",
+        "file_name": "BurbankBigCondensed-Bold",
+        "ext": ".otf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/BurbankBigCondensed-Bold.otf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/BurbankBigCondensed-Bold.otf"
+      },
+      {
         "name": "GOTHAM_BOLD.ttf",
         "size": 45744,
         "size_formatted": "0.04 MB",
@@ -519,9 +528,9 @@
       }
     ]
   },
-  "total_files": 57,
+  "total_files": 58,
   "images_count": 41,
-  "fonts_count": 16,
+  "fonts_count": 17,
   "github": "https://github.com/SrGobi/canvacard",
   "website": "https://canvacard.srgobi.com",
   "npm": "https://www.npmjs.com/package/canvacard",
