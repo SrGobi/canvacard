@@ -392,6 +392,15 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/KEEPCALM_MEDIUM.ttf"
       },
       {
+        "name": "Lobster-Regular.ttf",
+        "size": 392.208,
+        "size_formatted": "0.39 MB",
+        "file_name": "Lobster-Regular",
+        "ext": ".ttf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Lobster-Regular.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Lobster-Regular.ttf"
+      },
+      {
         "name": "LUCKIESTGUY_REGULAR.ttf",
         "size": 73320,
         "size_formatted": "0.07 MB",
@@ -419,31 +428,58 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/MANROPE_REGULAR.ttf"
       },
       {
-        "name": "NOTO_COLOR_EMOJI.ttf",
-        "size": 9867108,
-        "size_formatted": "9.41 MB",
-        "file_name": "NOTO_COLOR_EMOJI",
+        "name": "Montserrat-Black.ttf",
+        "size": 109.640,
+        "size_formatted": "0.11 MB",
+        "file_name": "Montserrat-Black",
         "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/NOTO_COLOR_EMOJI.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/NOTO_COLOR_EMOJI.ttf"
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Montserrat-Black.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Montserrat-Black.ttf"
       },
       {
-        "name": "ROBOTO_LIGHT.ttf",
-        "size": 170012,
-        "size_formatted": "0.16 MB",
-        "file_name": "ROBOTO_LIGHT",
+        "name": "Montserrat-ExtraBold.ttf",
+        "size": 109.832,
+        "size_formatted": "0.11 MB",
+        "file_name": "Montserrat-ExtraBold.ttf",
         "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/ROBOTO_LIGHT.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/ROBOTO_LIGHT.ttf"
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Montserrat-ExtraBold.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Montserrat-ExtraBold.ttf"
       },
       {
-        "name": "ROBOTO_REGULAR.ttf",
-        "size": 171272,
-        "size_formatted": "0.16 MB",
-        "file_name": "ROBOTO_REGULAR",
+        "name": "NotoColorEmoji-Regular.ttf",
+        "size": 23745556,
+        "size_formatted": "22,6 MB",
+        "file_name": "NotoColorEmoji-Regular",
         "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/ROBOTO_REGULAR.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/ROBOTO_REGULAR.ttf"
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/NotoColorEmoji-Regular.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/NotoColorEmoji-Regular.ttf"
+      },
+      {
+        "name": "PTSans-Bold.ttf",
+        "size": 275408,
+        "size_formatted": "0.26 MB",
+        "file_name": "PTSans-Bold",
+        "ext": ".ttf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/PTSans-Bold.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/PTSans-Bold.ttf"
+      },
+      {
+        "name": "Roboto-Light.ttf",
+        "size": 128256,
+        "size_formatted": "0.12 MB",
+        "file_name": "Roboto-Light",
+        "ext": ".ttf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Roboto-Light.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Roboto-Light.ttf"
+      },
+      {
+        "name": "Roboto-Regular.ttf",
+        "size": 129584,
+        "size_formatted": "0.12 MB",
+        "file_name": "Roboto-Regular",
+        "ext": ".ttf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Roboto-Regular.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Roboto-Regular.ttf"
       },
       {
         "name": "SKETCHMATCH.ttf",
