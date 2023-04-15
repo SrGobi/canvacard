@@ -519,13 +519,13 @@
       }
     ]
   },
-  "total_files": 53,
+  "total_files": 57,
   "images_count": 41,
-  "fonts_count": 12,
-  "github": "https://github.com/DevAndromeda/canvacord",
-  "website": "https://canvacord.js.org",
-  "npm": "https://www.npmjs.com/package/canvacord",
+  "fonts_count": 16,
+  "github": "https://github.com/SrGobi/canvacard",
+  "website": "https://canvacard.srgobi.com",
+  "npm": "https://www.npmjs.com/package/canvacard",
   "generated_timestamp": 1660640286411,
   "generated_timestamp_iso": "2022-08-16T08:58:06.411Z",
-  "shasum": "https://raw.githubusercontent.com/DevAndromeda/canvacord/assets/shasum.txt"
+  "shasum": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/shasum.txt"
 }
