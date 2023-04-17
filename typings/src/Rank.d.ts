@@ -126,6 +126,13 @@ declare class Rank {
      */
     setRequiredXP(data: number, color?: string): Rank;
     /**
+     * Set minimum xp of the current level
+     * @param {number} data Required xp
+     * @param {string} color  Color
+     * @returns {Rank}
+    */
+    setMinXP(data: number, color?: string): Rank;
+    /**
      * Set current xp
      * @param {number} data Current xp
      * @param {string} color Color

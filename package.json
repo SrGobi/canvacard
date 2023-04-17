@@ -4,7 +4,7 @@
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
-  "bin": "./bin/canvacord.js",
+  "bin": "./bin/canvacard.js",
   "files": [
     "bin",
     "scripts",

@@ -27,12 +27,12 @@ async function main() {
     const helpMessage = `Commands usage: ${chalk.grey(`${chalk.yellow("canvacard")} ${chalk.blue("<command_name>")} [options]`)}
 ${chalk.blue("help")}               : shows this menu
 ${chalk.blue("rebuild")} ${chalk.grey(`[--force]`)}  : rebuilds assets
-${chalk.blue("version")}            : shows canvacord version info
+${chalk.blue("version")}            : shows canvacard version info
 ${chalk.blue("github")}             : returns github repository url for canvacard
 
 ${chalk.cyanBright(`Canvacard v${version}`)}`;
     if (getArgs("rebuild")) {
-        if (getArgs("--help")) return console.log(`Rebuilds assets cache.\n\nExamples:\n${chalk.blue("canvacord")} ${chalk.blue("rebuild")}\n${chalk.blue("canvacard")} ${chalk.blue("rebuild")} ${chalk.grey("--force")}`);
+        if (getArgs("--help")) return console.log(`Rebuilds assets cache.\n\nExamples:\n${chalk.blue("canvacard")} ${chalk.blue("rebuild")}\n${chalk.blue("canvacard")} ${chalk.blue("rebuild")} ${chalk.grey("--force")}`);
         return await assetsBuilder(!!getArgs("--force"));
     }
     if (getArgs("version")) return console.log(chalk.cyan(`Canvacard v${version}`));
