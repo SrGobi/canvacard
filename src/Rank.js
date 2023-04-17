@@ -514,32 +514,28 @@ class Rank {
       ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
     }
 
-    // nivel de llenado
+    // fill level
     if (this.data.level.display && !isNaN(this.data.level.data)) {
-      ctx.font = `bold 18px ${ops.fontX}`;
+      ctx.font = `bold 36px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.textColor;
-      ctx.strokeText(this.data.level.displayText, 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
-      ctx.fillText(this.data.level.displayText, 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
+      ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.color;
       ctx.textAlign = "end";
-      ctx.strokeText("#" + Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
-      ctx.fillText("#" + Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
+      ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
     }
 
-    // llenar rango
+    // fill rank
     if (this.data.rank.display && !isNaN(this.data.rank.data)) {
-      ctx.font = `bold 18px ${ops.fontX}`;
+      ctx.font = `bold 36px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.textColor;
-      ctx.strokeText(this.data.rank.displayText, 710 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
-      ctx.fillText(this.data.rank.displayText, 710 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
+      ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.color;
       ctx.textAlign = "end";
-      ctx.strokeText("#" + Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
-      ctx.fillText("#" + Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
+      ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
     }
 
     // mostrar progreso
@@ -555,6 +551,10 @@ class Rank {
     ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
     ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
 
+    ctx.lineWidth = 1;
+    ctx.strokeText("XP", 770 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
+    ctx.fillText("XP", 770 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
+    
     // dibujar la barra de progreso
     ctx.beginPath();
     if (!!this.data.progressBar.rounded) {
