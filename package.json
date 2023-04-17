@@ -4,8 +4,10 @@
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
+  "bin": "./bin/canvacord.js",
   "files": [
-    "assets",
+    "bin",
+    "scripts",
     "libs",
     "plugins",
     "src",
@@ -14,7 +16,9 @@
   ],
   "scripts": {
     "docs": "jsdoc -c jsdoc.json",
-    "types": "tsc"
+    "test": "cd test && node .",
+    "types": "tsc",
+    "postinstall": "node scripts/postinstall.mjs"
   },
   "repository": {
     "type": "git",
@@ -45,16 +49,17 @@
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/SrGobi/Canvacord/issues"
+    "url": "https://github.com/SrGobi/Canvacard/issues"
   },
   "homepage": "https://canvacard.srgobi.com/index.html",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.40",
-    "fortnite": "^4.3.2",
-    "fortnite-9812": "^1.0.4",
     "@skyra/gifenc": "^1.0.1",
+    "chalk": "^5.0.1",
     "moment": "^2.29.4",
-    "moment-duration-format": "^2.3.2"
+    "moment-duration-format": "^2.3.2",
+    "fortnite": "^4.3.2",
+    "fortnite-9812": "^1.0.4"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

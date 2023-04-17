@@ -4,71 +4,68 @@ const assets = require("./Assets");
 
 /**
  * @typedef {object} CanvacardRankData
- * @property {number} width Ancho de la tarjeta de rango
- * @property {number} height Altura de la tarjeta de rango
- * @property {object} background Datos de antecedentes de la tarjeta de rango
- * @property {"image"|"color"} [background.type="color"] Tipo de fondo
- * @property {string|Buffer} [background.image="#23272A"] Imagen de fondo (o color)
- * @property {object} progressBar Datos de la barra de progreso
- * @property {boolean} [progressBar.rounded=true] Si la barra de progreso debe redondearse
- * @property {number} [progressBar.x=275.5] Barra de progreso X
- * @property {number} [progressBar.y=183.75] Barra de progreso Y
- * @property {number} [progressBar.height=37.5] Altura de la barra de progreso
- * @property {number} [progressBar.width=596.5] Ancho de la barra de progreso
- * @property {object} [progressBar.track] Pista de la barra de progreso
- * @property {string} [progressBar.track.color="#484b4E"] Color de la pista de la barra de progreso
- * @property {object} [progressBar.bar] Datos de la barra de progreso
- * @property {"color"|"gradient"} [progressBar.bar.type="color"] Tipo de barra de progreso
- * @property {string|string[]} [progressBar.bar.color="#FFFFFF"] Color de la barra de la barra de progreso
- * @property {object} overlay Superposición de la barra de progreso
- * @property {boolean} [overlay.display=true] Si debería mostrar superposición
- * @property {number} [overlay.level=0.5] Nivel de opacidad de superposición
- * @property {string} [overlay.color="#333640"] Superposición de color de fondo
- * @property {object} avatar Datos de avatar de la tarjeta de rango
- * @property {string|Buffer} [avatar.source=null] Fuente de avatar
+ * @property {number} width Rank card width
+ * @property {number} height Rank card height
+ * @property {object} background Rank card background data
+ * @property {"image"|"color"} [background.type="color"] Background type
+ * @property {string|Buffer} [background.image="#23272A"] Background image (or color)
+ * @property {object} progressBar Progressbar data
+ * @property {boolean} [progressBar.rounded=true] If the progressbar should be rounded
+ * @property {number} [progressBar.x=275.5] Progressbar X
+ * @property {number} [progressBar.y=183.75] Progressbar Y
+ * @property {number} [progressBar.height=37.5] Progressbar height
+ * @property {number} [progressBar.width=596.5] Progressbar width
+ * @property {object} [progressBar.track] Progressbar track
+ * @property {string} [progressBar.track.color="#484b4E"] Progressbar track color
+ * @property {object} [progressBar.bar] Progressbar bar data
+ * @property {"color"|"gradient"} [progressBar.bar.type="color"] Progressbar bar type
+ * @property {string|string[]} [progressBar.bar.color="#FFFFFF"] Progressbar bar color
+ * @property {object} overlay Progressbar overlay
+ * @property {boolean} [overlay.display=true] If it should display overlay
+ * @property {number} [overlay.level=0.5] Overlay opacity level
+ * @property {string} [overlay.color="#333640"] Overlay bg color
+ * @property {object} avatar Rank card avatar data
+ * @property {string|Buffer} [avatar.source=null] Avatar source
  * @property {number} [avatar.x=70] X
  * @property {number} [avatar.y=50] Y
- * @property {number} [avatar.height=180] altura
- * @property {number} [avatar.width=180] ancho
- * @property {object} status Estado de la tarjeta de rango
- * @property {number} [status.width=5] Ancho de estado
- * @property {"online"|"dnd"|"idle"|"offline"|"streaming"} [status.type] Tipo de estado
- * @property {string} [status.color="#43B581"] Color de estado
- * @property {boolean} [status.circle=false] ¿Estado circular?
- * @property {object} rank Datos de rango de la tarjeta de clasificación
- * @property {boolean} [rank.display=true] Si debe mostrar rango
- * @property {number} [rank.data=1] El rango
- * @property {string} [rank.textColor="#FFFFFF"] Rango de color del texto
- * @property {string} [rank.color="#F3F3F3"] Color de rango
- * @property {string} [rank.displayText="RANK"] Texto de visualización de rango
- * @property {object} level Datos de nivel de tarjeta de rango
- * @property {boolean} [level.display=true] Si debería mostrar el nivel
- * @property {number} [level.data=1] El nivel
- * @property {string} [level.textColor="#FFFFFF"] color de texto de nivel
- * @property {string} [level.color="#F3F3F3"] color de nivel
- * @property {string} [level.displayText="LEVEL"] texto de visualización de nivel
- * @property {object} previousRankXP tarjeta xp de rango anterior opcional
- * @property {number} [previousRankXP.data=null] xp de rango anterior opcional
- * @property {string} [previousRankXP.color=null] Tabla de rango de color de rango xp anterior opcional
- * @property {object} currentXP Tarjeta de rango xp actual
- * @property {number} [currentXP.data=0] XP actual
- * @property {string} [currentXP.color="#FFFFFF"] Carta de rango color xp actual
- * @property {object} requiredXP Tarjeta de rango requerida xp
- * @property {number} [requiredXP.data=0] requerido xp
- * @property {string} [requiredXP.color="#FFFFFF"] Se requiere tarjeta de rango xp color
- * @property {object} discriminator Discriminador de cartas de rango
- * @property {number|string} [discriminator.discrim=null] El discriminador
- * @property {string} [discriminator.color="rgba(255, 255, 255, 0.4)"] Color del discriminador de la tarjeta de rango
- * @property {object} username Datos de nombre de usuario
- * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
- * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
- * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
+ * @property {number} [avatar.height=180] height
+ * @property {number} [avatar.width=180] width
+ * @property {object} status Rank card status
+ * @property {number} [status.width=5] Status width
+ * @property {"online"|"dnd"|"idle"|"offline"|"streaming"} [status.type] Status type
+ * @property {string} [status.color="#43B581"] Status color
+ * @property {boolean} [status.circle=false] Circualr status?
+ * @property {object} rank Rank card rank data
+ * @property {boolean} [rank.display=true] If it should display rank
+ * @property {number} [rank.data=1] The Rank
+ * @property {string} [rank.textColor="#FFFFFF"] Rank text color
+ * @property {string} [rank.color="#F3F3F3"] Rank color
+ * @property {string} [rank.displayText="RANK"] Rank display text
+ * @property {object} level Rank card level data
+ * @property {boolean} [level.display=true] If it should display level
+ * @property {number} [level.data=1] The level
+ * @property {string} [level.textColor="#FFFFFF"] level text color
+ * @property {string} [level.color="#F3F3F3"] level color
+ * @property {string} [level.displayText="LEVEL"] level display text
+ * @property {object} currentXP Rank card current xp
+ * @property {number} [currentXP.data=0] Current xp
+ * @property {string} [currentXP.color="#FFFFFF"] Rank card current xp color
+ * @property {object} requiredXP Rank card required xp
+ * @property {number} [requiredXP.data=0] required xp
+ * @property {string} [requiredXP.color="#FFFFFF"] Rank card required xp color
+ * @property {object} discriminator Rank card discriminator
+ * @property {number|string} [discriminator.discrim=null] The discriminator
+ * @property {string} [discriminator.color="rgba(255, 255, 255, 0.4)"] Rank card discriminator color
+ * @property {object} username Username Data
+ * @property {string} [username.name=null] Rank card username
+ * @property {string} [username.color="#FFFFFF"] Rank card username color
+ * @property {boolean} [renderEmojis=false] If it should render emojis
  */
 
 class Rank {
 
   /**
-   * Crea una carta de rango
+   * Creates Rank card
    * @example 
    * const rank = new canvacard.Rank()
           .setAvatar(img)
@@ -76,8 +73,8 @@ class Rank {
           .setRequiredXP(500)
           .setStatus("dnd")
           .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
-          .setUsername("SrGobi")
-          .setDiscriminator("5100");
+          .setUsername("Snowflake")
+          .setDiscriminator("0007");
       
       rank.build()
           .then(data => {
@@ -87,7 +84,7 @@ class Rank {
   constructor() {
 
     /**
-     * Datos de la tarjeta de clasificación
+     * Rank card data
      * @type {CanvacardRankData}
      */
     this.data = {
@@ -143,10 +140,6 @@ class Rank {
         color: "#F3F3F3",
         displayText: "LEVEL"
       },
-      previousRankXP: {
-        data: null,
-        color: null,
-      },
       currentXP: {
         data: 0,
         color: "#FFFFFF"
@@ -163,16 +156,16 @@ class Rank {
         name: null,
         color: "#FFFFFF"
       },
-      renderEmojis: true
+      renderEmojis: false
     };
 
-    // Cargar fuentes predeterminadas
+    // Load default fonts
     this.registerFonts();
   }
 
   /**
-   * Cargar fuentes
-   * @param {any[]} fontArray Matriz de fuentes
+   * Loads font
+   * @param {any[]} fontArray Font array
    * @returns {Rank}
    */
   registerFonts(fontArray = []) {
@@ -184,64 +177,74 @@ class Rank {
   }
 
   /**
-   * Si debe representar el nombre de usuario con emojis (si corresponde)
-   * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
+   * If it should render username with emojis (if any)
+   * @param {boolean} [apply=false] Set it to `true` to render emojis. 
    * @returns {Rank}
    */
-  renderEmojis(apply = true) {
+  renderEmojis(apply = false) {
     this.data.renderEmojis = !!apply;
     return this;
   }
 
   /**
-   * Establecer nombre de usuario
-   * @param {string} name Nombre de usuario
-   * @param {string} color Color del nombre de usuario
+   * Set font size
+   * @param {string} size
+   * @returns {Rank}
+   */
+  setFontSize(size) {
+    this.data.fontSize = size;
+    return this;
+  }
+
+  /**
+   * Set username
+   * @param {string} name Username
+   * @param {string} color Username color
    * @returns {Rank}
    */
   setUsername(name, color = "#FFFFFF") {
-    if (typeof name !== "string") throw new Error(`Se esperaba que el nombre de usuario fuera una cadena, recibido ${typeof name}!`);
+    if (typeof name !== "string") throw new Error(`Expected username to be a string, received ${typeof name}!`);
     this.data.username.name = name;
     this.data.username.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
   /**
-   * Establecer discriminador
-   * @param {string|number} discriminator Discriminador de usuario
-   * @param {string} color Color discriminador
+   * Set discriminator
+   * @param {string|number} discriminator User discriminator
+   * @param {string} color Discriminator color
    * @returns {Rank}
    */
-  setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.7)") {
+  setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.4)") {
     this.data.discriminator.discrim = !isNaN(discriminator) && `${discriminator}`.length === 4 ? discriminator : null;
-    this.data.discriminator.color = color && typeof color === "string" ? color : "rgba(255, 255, 255, 0.7)";
+    this.data.discriminator.color = color && typeof color === "string" ? color : "rgba(255, 255, 255, 0.4)";
     return this;
   }
 
   /**
-   * Establecer el estilo de la barra de progreso
-   * @param {string|string[]} color Color de la barra de progreso
-   * @param {"COLOR"|"GRADIENT"} [fillType] Tipo de barra de progreso
-   * @param {boolean} [rounded=true] Si la barra de progreso debe tener bordes redondeados
+   * Set progressbar style
+   * @param {string|string[]} color Progressbar Color
+   * @param {"COLOR"|"GRADIENT"} [fillType] Progressbar type
+   * @param {boolean} [rounded=true] If progressbar should have rounded edges
    * @returns {Rank}
    */
   setProgressBar(color, fillType = "COLOR", rounded = true) {
 
     switch (fillType) {
       case "COLOR":
-        if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido ${typeof color}!`);
+        if (typeof color !== "string") throw new Error(`Color type must be a string, received ${typeof color}!`);
         this.data.progressBar.bar.color = color;
         this.data.progressBar.bar.type = "color";
         this.data.progressBar.rounded = !!rounded;
         break;
       case "GRADIENT":
-        if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Matriz, recibido ${typeof color}!`);
+        if (!Array.isArray(color)) throw new Error(`Color type must be Array, received ${typeof color}!`);
         this.data.progressBar.bar.color = color.slice(0, 2);
         this.data.progressBar.bar.type = "gradient";
         this.data.progressBar.rounded = !!rounded;
         break;
       default:
-        throw new Error(`Tipo de barra de progreso no admitido "${type}"!`);
+        throw new Error(`Unsupported progressbar type "${fillType}"!`);
     }
 
     return this;
@@ -249,26 +252,26 @@ class Rank {
   }
 
   /**
-   * Establecer pista de la barra de progreso
-   * @param {string} color Color de la pista
+   * Set progressbar track
+   * @param {string} color Track color
    * @returns {Rank}
    */
   setProgressBarTrack(color) {
-    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido "${typeof color}"!`);
+    if (typeof color !== "string") throw new Error(`Color type must be a string, received "${typeof color}"!`);
     this.data.progressBar.track.color = color;
 
     return this;
   }
 
   /**
-   * Establecer superposición de tarjetas
-   * @param {string} color Color de superposición
-   * @param {number} [level=0.5] Nivel de opacidad
-   * @param {boolean} [display=true] SI debería mostrar superposición
+   * Set card overlay
+   * @param {string} color Overlay color
+   * @param {number} [level=0.5] Opacity level
+   * @param {boolean} [display=true] IF it should display overlay
    * @returns {Rank}
    */
   setOverlay(color, level = 0.5, display = true) {
-    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido "${typeof color}"!`);
+    if (typeof color !== "string") throw new Error(`Color type must be a string, received "${typeof color}"!`);
     this.data.overlay.color = color;
     this.data.overlay.display = !!display;
     this.data.overlay.level = level && typeof level === "number" ? level : 0.5;
@@ -276,53 +279,40 @@ class Rank {
   }
 
   /**
-   * Establecer XP de rango anterior
-   * @param {number} data XP actual
-   * @param {string} color Color
-   * @returns {Rank}
-   */
-  setPreviousRankXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de datos XP de rango anterior debe ser un número, recibido ${typeof data}!`);
-    this.data.previousRankXP.data = data;
-    this.data.previousRankXP.color = color && typeof color === "string" ? color : "#FFFFFF";
-    return this;
-  }
-
-  /**
-   * Establecer xp requerido
-   * @param {number} data Requerido xp
+   * Set required xp
+   * @param {number} data Required xp
    * @param {string} color Color
    * @returns {Rank}
    */
   setRequiredXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de datos xp requerido debe ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new Error(`Required xp data type must be a number, received ${typeof data}!`);
     this.data.requiredXP.data = data;
     this.data.requiredXP.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
   /**
-   * Establecer xp actual
-   * @param {number} data XP actual
+   * Set current xp
+   * @param {number} data Current xp
    * @param {string} color Color
    * @returns {Rank}
    */
   setCurrentXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de datos xp actual debe ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new Error(`Current xp data type must be a number, received ${typeof data}!`);
     this.data.currentXP.data = data;
     this.data.currentXP.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
   /**
-   * Establecer rango
-   * @param {number} data Posición actual
-   * @param {string} text Mostrar texto
-   * @param {boolean} [display=true] Si debe mostrar rango
+   * Set Rank
+   * @param {number} data Current Rank
+   * @param {string} text Display text
+   * @param {boolean} [display=true] If it should display rank
    * @returns {Rank}
    */
   setRank(data, text = "RANK", display = true) {
-    if (typeof data !== "number") throw new Error(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new Error(`Level data must be a number, received ${typeof data}!`);
     this.data.rank.data = data;
     this.data.rank.display = !!display;
     if (!text || typeof text !== "string") text = "RANK";
@@ -332,9 +322,9 @@ class Rank {
   }
 
   /**
-   * Establecer color de visualización de rango
-   * @param {string} text color de texto
-   * @param {string} number Color del número
+   * Set rank display color
+   * @param {string} text text color
+   * @param {string} number Number color
    * @returns {Rank}
    */
   setRankColor(text = "#FFFFFF", number = "#FFFFFF") {
@@ -346,9 +336,9 @@ class Rank {
   }
 
   /**
-   * Establecer color de nivel
-   * @param {string} text color de texto
-   * @param {string} number color del número
+   * Set level color
+   * @param {string} text text color
+   * @param {string} number number color
    * @returns {Rank}
    */
   setLevelColor(text = "#FFFFFF", number = "#FFFFFF") {
@@ -360,14 +350,14 @@ class Rank {
   }
 
   /**
-   * Establecer nivel
-   * @param {number} data Nivel actual
-   * @param {string} text Mostrar texto
-   * @param {boolean} [display=true] Si debería mostrar el nivel
+   * Set Level
+   * @param {number} data Current Level
+   * @param {string} text Display text
+   * @param {boolean} [display=true] If it should display level
    * @returns {Rank}
    */
   setLevel(data, text = "LEVEL", display = true) {
-    if (typeof data !== "number") throw new Error(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new Error(`Level data must be a number, received ${typeof data}!`);
     this.data.level.data = data;
     this.data.level.display = !!display;
     if (!text || typeof text !== "string") text = "LEVEL";
@@ -377,21 +367,21 @@ class Rank {
   }
 
   /**
-   * Establecer color de estado personalizado
-   * @param {string} color Color para establecer
+   * Set custom status color
+   * @param {string} color Color to set
    * @returns {Rank}
    */
   setCustomStatusColor(color) {
-    if (!color || typeof color !== "string") throw new Error("¡Color no válido!");
+    if (!color || typeof color !== "string") throw new Error("Invalid color!");
     this.data.status.color = color;
     return this;
   }
 
   /**
-   * Establecer estado
-   * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status Estatus de usuario
-   * @param {boolean} circle Si el icono de estado debe ser circular.
-   * @param {number|boolean} width Ancho de estado
+   * Set status
+   * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status User status
+   * @param {boolean} circle If status icon should be circular.
+   * @param {number|boolean} width Status width
    * @returns {Rank}
    */
   setStatus(status, circle = false, width = 5) {
@@ -417,7 +407,7 @@ class Rank {
         this.data.status.color = "#593595";
         break;
       default:
-        throw new Error(`Estado inválido "${status}"`);
+        throw new Error(`Invalid status "${status}"`);
     }
 
     if (width !== false) this.data.status.width = typeof width === "number" ? width : 5;
@@ -428,13 +418,13 @@ class Rank {
   }
 
   /**
-   * Establecer imagen / color de fondo
-   * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-   * @param {string|Buffer} [data] Color o imagen de fondo
+   * Set background image/color
+   * @param {"COLOR"|"IMAGE"} type Background type
+   * @param {string|Buffer} [data] Background color or image
    * @returns {Rank}
    */
   setBackground(type, data) {
-    if (!data) throw new Error("Falta campo: datos");
+    if (!data) throw new Error("Missing field : data");
     switch (type) {
       case "COLOR":
         this.data.background.type = "color";
@@ -445,45 +435,45 @@ class Rank {
         this.data.background.image = data;
         break;
       default:
-        throw new Error(`Tipo de fondo no admitido "${type}"`);
+        throw new Error(`Unsupported background type "${type}"`);
     }
 
     return this;
   }
 
   /**
-   * Avatar de usuario
-   * @param {string|Buffer} data Datos de avatar
+   * User avatar
+   * @param {string|Buffer} data Avatar data
    * @returns {Rank}
    */
   setAvatar(data) {
-    if (!data) throw new Error(`Tipo de avatar no válido "${typeof data}"!`);
+    if (!data) throw new Error(`Invalid avatar type "${typeof data}"!`);
     this.data.avatar.source = data;
     return this;
   }
 
   /**
-   * Construye carta de rango
-   * @param {object} ops Fuentes
-   * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
-   * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
+   * Builds rank card
+   * @param {object} ops Fonts
+   * @param {string} [ops.fontX="MANROPE_BOLD"] Bold font family
+   * @param {string} [ops.fontY="MANROPE_REGULAR"] Regular font family
    * @returns {Promise<Buffer>}
    */
   async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
-    if (typeof this.data.currentXP.data !== "number") throw new Error(`Se esperaba que currentXP sea un número recibido ${typeof this.data.currentXP.data}!`);
-    if (typeof this.data.requiredXP.data !== "number") throw new Error(`Se esperaba que requiredXP sea un número recibido ${typeof this.data.requiredXP.data}!`);
-    if (!this.data.avatar.source) throw new Error("¡No se encontró la fuente del avatar!");
-    if (!this.data.username.name) throw new Error("Falta el nombre de usuario");
+    if (typeof this.data.currentXP.data !== "number") throw new Error(`Expected currentXP to be a number, received ${typeof this.data.currentXP.data}!`);
+    if (typeof this.data.requiredXP.data !== "number") throw new Error(`Expected requiredXP to be a number, received ${typeof this.data.requiredXP.data}!`);
+    if (!this.data.avatar.source) throw new Error("Avatar source not found!");
+    if (!this.data.username.name) throw new Error("Missing username");
 
     let bg = null;
     if (this.data.background.type === "image") bg = await Canvas.loadImage(this.data.background.image);
     let avatar = await Canvas.loadImage(this.data.avatar.source);
 
-    // crear instancia de lienzo
+    // create canvas instance
     const canvas = Canvas.createCanvas(this.data.width, this.data.height);
     const ctx = canvas.getContext("2d");
 
-    // crear fondo
+    // create background
     if (!!bg) {
       ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
     } else {
@@ -491,97 +481,83 @@ class Rank {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // agregar superposición
+    // add overlay
     if (!!this.data.overlay.display) {
       ctx.globalAlpha = this.data.overlay.level || 1;
       ctx.fillStyle = this.data.overlay.color;
       ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
     }
 
-    // restablecer la transparencia
+    // reset transparency
     ctx.globalAlpha = 1;
 
-    // dibujar nombre de usuario
+    // draw username
     ctx.font = `bold 36px ${ops.fontX}`;
     ctx.fillStyle = this.data.username.color;
     ctx.textAlign = "start";
     const name = Util.shorten(this.data.username.name, 10);
 
-    // aplicar nombre de usuario
+    // apply username
     !this.data.renderEmojis ? ctx.fillText(`${name}`, 257 + 18.5, 164) : await Util.renderEmoji(ctx, name, 257 + 18.5, 164);
 
-    // dibujar discriminador
-    if (!this.data.discriminator.discrim) throw new Error("¡Falta discriminador!");
+    // draw discriminator
+    if (!this.data.discriminator.discrim) throw new Error("Missing discriminator!");
     const discrim = `${this.data.discriminator.discrim}`;
     if (discrim) {
       ctx.font = `36px ${ops.fontY}`;
       ctx.fillStyle = this.data.discriminator.color;
       ctx.textAlign = "center";
-      ctx.strokeText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
       ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
     }
 
-    // nivel
+    // fill level
     if (this.data.level.display && !isNaN(this.data.level.data)) {
       ctx.font = `bold 36px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.textColor;
-      ctx.strokeText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
       ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.color;
       ctx.textAlign = "end";
-      ctx.strokeText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
       ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
     }
 
-    // rango
+    // fill rank
     if (this.data.rank.display && !isNaN(this.data.rank.data)) {
       ctx.font = `bold 36px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.textColor;
-      ctx.strokeText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
       ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.color;
       ctx.textAlign = "end";
-      ctx.strokeText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
       ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
     }
 
-    // mostrar progreso
+    // show progress
     ctx.font = `bold 30px ${ops.fontX}`;
     ctx.fillStyle = this.data.requiredXP.color;
     ctx.textAlign = "start";
-    ctx.lineWidth = 1;
-    ctx.strokeText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
     ctx.fillText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
 
-
     ctx.fillStyle = this.data.currentXP.color;
-    ctx.lineWidth = 1;
-    ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
     ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
 
-    // dibujar barra de progreso
+    // draw progressbar
     ctx.beginPath();
     if (!!this.data.progressBar.rounded) {
       // bg
       ctx.fillStyle = this.data.progressBar.track.color;
-      ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
-      ctx.lineWidth = 5;
-      ctx.stroke();
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
-      ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
       ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
+      ctx.fill();
+      ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
+      ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
       ctx.fill();
 
       ctx.beginPath();
-      // aplicar color
+      // apply color
       if (this.data.progressBar.bar.type === "gradient") {
-        let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0);
+        let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0, 0, 0);
         this.data.progressBar.bar.color.forEach((color, index) => {
           gradientContext.addColorStop(index, color);
         });
@@ -590,23 +566,19 @@ class Rank {
         ctx.fillStyle = this.data.progressBar.bar.color;
       }
 
-      // barra de progreso
+      // progress bar
       ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
-      ctx.lineWidth = 3;
-      ctx.stroke();
       ctx.fill();
       ctx.fillRect(257 + 18.5, 147.5 + 36.25, this._calculateProgress, 37.5);
       ctx.arc(257 + 18.5 + this._calculateProgress, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
       ctx.fill();
     } else {
 
-      // barra de progreso
+      // progress bar
       ctx.fillStyle = this.data.progressBar.bar.color;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
       ctx.fillRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
 
-      // contorno
+      // outline
       ctx.beginPath();
       ctx.strokeStyle = this.data.progressBar.track.color;
       ctx.lineWidth = 7;
@@ -615,25 +587,21 @@ class Rank {
 
     ctx.save();
 
-    // circulo
+    // circle
     ctx.beginPath();
     ctx.arc(125 + 10, 125 + 20, 100, 0, Math.PI * 2, true);
-    ctx.lineWidth = 4;
-    ctx.stroke();
     ctx.closePath();
     ctx.clip();
 
-    // dibujar avatar
+    // draw avatar
     ctx.drawImage(avatar, 35, 45, this.data.avatar.width + 20, this.data.avatar.height + 20);
     ctx.restore();
 
-    // estado usuario
+    // draw status
     if (!!this.data.status.circle) {
       ctx.beginPath();
       ctx.fillStyle = this.data.status.color;
       ctx.arc(215, 205, 20, 0, 2 * Math.PI);
-      ctx.lineWidth = 4;
-      ctx.stroke();
       ctx.fill();
       ctx.closePath();
     } else if (!this.data.status.circle && this.data.status.width !== false) {
@@ -648,29 +616,23 @@ class Rank {
   }
 
   /**
-   * Calcula el progreso
+   * Calculates progress
    * @type {number}
    * @private
    * @ignore
    */
   get _calculateProgress() {
-    const px = this.data.previousRankXP.data;
     const cx = this.data.currentXP.data;
     const rx = this.data.requiredXP.data;
 
     if (rx <= 0) return 1;
-    if (cx > rx) return this.data.progressBar.width;
+    if (cx > rx) return parseInt(this.data.progressBar.width) || 0;
 
-    if (!px || px > cx) {
-      let width = (cx * 615) / rx;
-      if (width > this.data.progressBar.width) width = this.data.progressBar.width;
-      return width;
-    } else {
-      let width = ((cx - px) * 615) / (rx - px);
-      if (width > this.data.progressBar.width) width = this.data.progressBar.width;
-      return width;
-    }
+    let width = (cx * 615) / rx;
+    if (width > this.data.progressBar.width) width = this.data.progressBar.width;
+    return parseInt(width) || 0;
   }
+
 }
 
 module.exports = Rank;
