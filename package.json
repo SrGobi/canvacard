@@ -55,11 +55,11 @@
   "dependencies": {
     "@napi-rs/canvas": "^0.1.40",
     "@skyra/gifenc": "^1.0.1",
-    "chalk": "^5.0.1",
-    "moment": "^2.29.4",
-    "moment-duration-format": "^2.3.2",
+    "chalk": "^5.2.0",
     "fortnite": "^4.3.2",
-    "fortnite-9812": "^1.0.4"
+    "fortnite-9812": "^1.0.4",
+    "moment": "^2.29.4",
+    "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
     "@types/node": "^18.15.11",

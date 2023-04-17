@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en" style="font-size:16px"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Source: src/Rank.js</title><!--[if lt IE 9]>
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="",baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body class="dark" data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="X6qE5aHnIDlk7nsLtQz6N"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Canvacard.html">Canvacard</a></div><div class="sidebar-section-children"><a href="FortniteShop.html">FortniteShop</a></div><div class="sidebar-section-children"><a href="FortniteStats.html">FortniteStats</a></div><div class="sidebar-section-children"><a href="Leaver.html">Leaver</a></div><div class="sidebar-section-children"><a href="Rank.html">Rank</a></div><div class="sidebar-section-children"><a href="Spotify.html">Spotify</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Welcomer.html">Welcomer</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="yIGcSZLe2m4jkjvfzjzy2"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#CanvacardRankData">CanvacardRankData</a></div><div class="sidebar-section-children"><a href="global.html#ConvolutionMatrix">ConvolutionMatrix</a></div><div class="sidebar-section-children"><a href="global.html#Plugins">Plugins</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyDataBG">SpotifyDataBG</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyProgressBarData">SpotifyProgressBarData</a></div><div class="sidebar-section-children"><a href="global.html#applyText">applyText</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#load">load</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">src_Rank.js</h1></header><article><pre class="prettyprint source lang-js"><code>const Canvas = require("@napi-rs/canvas");
+    <![endif]--><script src="scripts/third-party/hljs.js" defer="defer"></script><script src="scripts/third-party/hljs-line-num.js" defer="defer"></script><script src="scripts/third-party/popper.js" defer="defer"></script><script src="scripts/third-party/tippy.js" defer="defer"></script><script src="scripts/third-party/tocbot.min.js"></script><script>var baseURL="/",locationPathname="",baseURL=(locationPathname=document.location.pathname).substr(0,locationPathname.lastIndexOf("/")+1)</script><link rel="stylesheet" href="styles/clean-jsdoc-theme.min.css"><svg aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none"><defs><symbol id="copy-icon" viewbox="0 0 488.3 488.3"><g><path d="M314.25,85.4h-227c-21.3,0-38.6,17.3-38.6,38.6v325.7c0,21.3,17.3,38.6,38.6,38.6h227c21.3,0,38.6-17.3,38.6-38.6V124    C352.75,102.7,335.45,85.4,314.25,85.4z M325.75,449.6c0,6.4-5.2,11.6-11.6,11.6h-227c-6.4,0-11.6-5.2-11.6-11.6V124    c0-6.4,5.2-11.6,11.6-11.6h227c6.4,0,11.6,5.2,11.6,11.6V449.6z"/><path d="M401.05,0h-227c-21.3,0-38.6,17.3-38.6,38.6c0,7.5,6,13.5,13.5,13.5s13.5-6,13.5-13.5c0-6.4,5.2-11.6,11.6-11.6h227    c6.4,0,11.6,5.2,11.6,11.6v325.7c0,6.4-5.2,11.6-11.6,11.6c-7.5,0-13.5,6-13.5,13.5s6,13.5,13.5,13.5c21.3,0,38.6-17.3,38.6-38.6    V38.6C439.65,17.3,422.35,0,401.05,0z"/></g></symbol><symbol id="search-icon" viewBox="0 0 512 512"><g><g><path d="M225.474,0C101.151,0,0,101.151,0,225.474c0,124.33,101.151,225.474,225.474,225.474    c124.33,0,225.474-101.144,225.474-225.474C450.948,101.151,349.804,0,225.474,0z M225.474,409.323    c-101.373,0-183.848-82.475-183.848-183.848S124.101,41.626,225.474,41.626s183.848,82.475,183.848,183.848    S326.847,409.323,225.474,409.323z"/></g></g><g><g><path d="M505.902,476.472L386.574,357.144c-8.131-8.131-21.299-8.131-29.43,0c-8.131,8.124-8.131,21.306,0,29.43l119.328,119.328    c4.065,4.065,9.387,6.098,14.715,6.098c5.321,0,10.649-2.033,14.715-6.098C514.033,497.778,514.033,484.596,505.902,476.472z"/></g></g></symbol><symbol id="font-size-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11.246 15H4.754l-2 5H.6L7 4h2l6.4 16h-2.154l-2-5zm-.8-2L8 6.885 5.554 13h4.892zM21 12.535V12h2v8h-2v-.535a4 4 0 1 1 0-6.93zM19 18a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></symbol><symbol id="add-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></symbol><symbol id="minus-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M5 11h14v2H5z"/></symbol><symbol id="dark-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M10 7a7 7 0 0 0 12 4.9v.1c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2h.1A6.979 6.979 0 0 0 10 7zm-6 5a8 8 0 0 0 15.062 3.762A9 9 0 0 1 8.238 4.938 7.999 7.999 0 0 0 4 12z"/></symbol><symbol id="light-theme-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/></symbol><symbol id="reset-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M18.537 19.567A9.961 9.961 0 0 1 12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10c0 2.136-.67 4.116-1.81 5.74L17 12h3a8 8 0 1 0-2.46 5.772l.997 1.795z"/></symbol><symbol id="down-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.7803 6.21967C13.0732 6.51256 13.0732 6.98744 12.7803 7.28033L8.53033 11.5303C8.23744 11.8232 7.76256 11.8232 7.46967 11.5303L3.21967 7.28033C2.92678 6.98744 2.92678 6.51256 3.21967 6.21967C3.51256 5.92678 3.98744 5.92678 4.28033 6.21967L8 9.93934L11.7197 6.21967C12.0126 5.92678 12.4874 5.92678 12.7803 6.21967Z"></path></symbol><symbol id="codepen-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M16.5 13.202L13 15.535v3.596L19.197 15 16.5 13.202zM14.697 12L12 10.202 9.303 12 12 13.798 14.697 12zM20 10.869L18.303 12 20 13.131V10.87zM19.197 9L13 4.869v3.596l3.5 2.333L19.197 9zM7.5 10.798L11 8.465V4.869L4.803 9 7.5 10.798zM4.803 15L11 19.131v-3.596l-3.5-2.333L4.803 15zM4 13.131L5.697 12 4 10.869v2.262zM2 9a1 1 0 0 1 .445-.832l9-6a1 1 0 0 1 1.11 0l9 6A1 1 0 0 1 22 9v6a1 1 0 0 1-.445.832l-9 6a1 1 0 0 1-1.11 0l-9-6A1 1 0 0 1 2 15V9z"/></symbol><symbol id="close-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"/></symbol><symbol id="menu-icon" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/></symbol></defs></svg></head><body class="dark" data-theme="dark"><div class="sidebar-container"><div class="sidebar" id="sidebar"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="sidebar-items-container"><div class="sidebar-section-title with-arrow" data-isopen="false" id="o1Pkea8Xk7q61XCYedoG7"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Canvacard.html">Canvacard</a></div><div class="sidebar-section-children"><a href="FortniteShop.html">FortniteShop</a></div><div class="sidebar-section-children"><a href="FortniteStats.html">FortniteStats</a></div><div class="sidebar-section-children"><a href="Leaver.html">Leaver</a></div><div class="sidebar-section-children"><a href="Rank.html">Rank</a></div><div class="sidebar-section-children"><a href="Spotify.html">Spotify</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Welcomer.html">Welcomer</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="HVtADP3omE3q5oLLJaX6L"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#CanvacardRankData">CanvacardRankData</a></div><div class="sidebar-section-children"><a href="global.html#ConvolutionMatrix">ConvolutionMatrix</a></div><div class="sidebar-section-children"><a href="global.html#Plugins">Plugins</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyDataBG">SpotifyDataBG</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyProgressBarData">SpotifyProgressBarData</a></div><div class="sidebar-section-children"><a href="global.html#applyText">applyText</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#load">load</a></div></div></div></div></div><div class="navbar-container" id="VuAckcnZhf"><nav class="navbar"><div class="navbar-left-items"></div><div class="navbar-right-items"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div><nav></nav></nav></div><div class="toc-container"><div class="toc-content"><span class="bold">On this page</span><div id="eed4d2a0bfd64539bb9df78095dec881"></div></div></div><div class="body-wrapper"><div class="main-content"><div class="main-wrapper"><section id="source-page" class="source-page"><header><h1 id="title" class="has-anchor">src_Rank.js</h1></header><article><pre class="prettyprint source lang-js"><code>const Canvas = require("@napi-rs/canvas");
 const Util = require("./Util");
 const assets = require("./Assets");
 
@@ -70,7 +70,7 @@ const assets = require("./Assets");
 class Rank {
 
   /**
-   * Crea una carta de rango
+   * Creates Rank card
    * @example 
    * const rank = new canvacard.Rank()
           .setAvatar(img)
@@ -79,7 +79,7 @@ class Rank {
           .setStatus("dnd")
           .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
           .setUsername("SrGobi")
-          .setDiscriminator("5100");
+          .setDiscriminator("6966");
       
       rank.build()
           .then(data => {
@@ -89,7 +89,7 @@ class Rank {
   constructor() {
 
     /**
-     * Datos de la tarjeta de clasificación
+     * Rank card data
      * @type {CanvacardRankData}
      */
     this.data = {
@@ -145,10 +145,6 @@ class Rank {
         color: "#F3F3F3",
         displayText: "LEVEL"
       },
-      previousRankXP: {
-        data: null,
-        color: null,
-      },
       currentXP: {
         data: 0,
         color: "#FFFFFF"
@@ -165,7 +161,7 @@ class Rank {
         name: null,
         color: "#FFFFFF"
       },
-      renderEmojis: true
+      renderEmojis: false
     };
 
     // Cargar fuentes predeterminadas
@@ -173,7 +169,7 @@ class Rank {
   }
 
   /**
-   * Cargar fuentes
+   * Carga la fuente
    * @param {any[]} fontArray Matriz de fuentes
    * @returns {Rank}
    */
@@ -186,64 +182,74 @@ class Rank {
   }
 
   /**
-   * Si debe representar el nombre de usuario con emojis (si corresponde)
-   * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
+   * Si debe mostrar el nombre de usuario con emojis (si los hay)
+   * @param {boolean} [apply=false] Establécelo a `true` para mostrar emojis. 
    * @returns {Rank}
    */
-  renderEmojis(apply = true) {
+  renderEmojis(apply = false) {
     this.data.renderEmojis = !!apply;
     return this;
   }
 
   /**
+   * Tamaño de letra
+   * @param {string} size
+   * @returns {Rank}
+   */
+  setFontSize(size) {
+    this.data.fontSize = size;
+    return this;
+  }
+
+  /**
    * Establecer nombre de usuario
-   * @param {string} name Nombre de usuario
-   * @param {string} color Color del nombre de usuario
+   * @param {string} name Username
+   * @param {string} color Username color
    * @returns {Rank}
    */
   setUsername(name, color = "#FFFFFF") {
-    if (typeof name !== "string") throw new Error(`Se esperaba que el nombre de usuario fuera una cadena, recibido ${typeof name}!`);
+    if (typeof name !== "string") throw new Error(`Se espera que el nombre de usuario sea una cadena, se recibe ${typeof name}!`);
     this.data.username.name = name;
     this.data.username.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
   /**
-   * Establecer discriminador
-   * @param {string|number} discriminator Discriminador de usuario
-   * @param {string} color Color discriminador
+   * Ajustar discriminador
+   * @param {string|number} discriminator User discriminator
+   * @param {string} color Discriminator color
    * @returns {Rank}
    */
-  setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.7)") {
+  setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.4)") {
     this.data.discriminator.discrim = !isNaN(discriminator) &amp;&amp; `${discriminator}`.length === 4 ? discriminator : null;
-    this.data.discriminator.color = color &amp;&amp; typeof color === "string" ? color : "rgba(255, 255, 255, 0.7)";
+    this.data.discriminator.color = color &amp;&amp; typeof color === "string" ? color : "rgba(255, 255, 255, 0.4)";
     return this;
   }
 
   /**
-   * Establecer el estilo de la barra de progreso
-   * @param {string|string[]} color Color de la barra de progreso
-   * @param {"COLOR"|"GRADIENT"} [fillType] Tipo de barra de progreso
-   * @param {boolean} [rounded=true] Si la barra de progreso debe tener bordes redondeados
+   * Definir el estilo de la barra de progreso
+   * @param {string|string[]} color Progressbar Color
+   * @param {"COLOR"|"GRADIENT"} [fillType] Progressbar type
+   * @param {boolean} [rounded=true] If progressbar should have rounded edges
    * @returns {Rank}
    */
   setProgressBar(color, fillType = "COLOR", rounded = true) {
 
     switch (fillType) {
       case "COLOR":
-        if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido ${typeof color}!`);
+        if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida ${typeof color}!`);
         this.data.progressBar.bar.color = color;
         this.data.progressBar.bar.type = "color";
         this.data.progressBar.rounded = !!rounded;
         break;
       case "GRADIENT":
-        if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Matriz, recibido ${typeof color}!`);
+        if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Array, recibido ${typeof color}!`);
         this.data.progressBar.bar.color = color.slice(0, 2);
         this.data.progressBar.bar.type = "gradient";
         this.data.progressBar.rounded = !!rounded;
         break;
       default:
-        throw new Error(`Tipo de barra de progreso no admitido "${type}"!`);
+        throw new Error(`Tipo de barra de progreso no compatible "${fillType}"!`);
     }
 
     return this;
@@ -251,12 +257,12 @@ class Rank {
   }
 
   /**
-   * Establecer pista de la barra de progreso
-   * @param {string} color Color de la pista
+   * Fijar la pista de la barra de progreso
+   * @param {string} color Track color
    * @returns {Rank}
    */
   setProgressBarTrack(color) {
-    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido "${typeof color}"!`);
+    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida "${typeof color}"!`);
     this.data.progressBar.track.color = color;
 
     return this;
@@ -264,13 +270,13 @@ class Rank {
 
   /**
    * Establecer superposición de tarjetas
-   * @param {string} color Color de superposición
-   * @param {number} [level=0.5] Nivel de opacidad
-   * @param {boolean} [display=true] SI debería mostrar superposición
+   * @param {string} color Overlay color
+   * @param {number} [level=0.5] Opacity level
+   * @param {boolean} [display=true] IF it should display overlay
    * @returns {Rank}
    */
   setOverlay(color, level = 0.5, display = true) {
-    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido "${typeof color}"!`);
+    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida "${typeof color}"!`);
     this.data.overlay.color = color;
     this.data.overlay.display = !!display;
     this.data.overlay.level = level &amp;&amp; typeof level === "number" ? level : 0.5;
@@ -278,39 +284,26 @@ class Rank {
   }
 
   /**
-   * Establecer XP de rango anterior
-   * @param {number} data XP actual
-   * @param {string} color Color
-   * @returns {Rank}
-   */
-  setPreviousRankXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de datos XP de rango anterior debe ser un número, recibido ${typeof data}!`);
-    this.data.previousRankXP.data = data;
-    this.data.previousRankXP.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
-    return this;
-  }
-
-  /**
    * Establecer xp requerido
-   * @param {number} data Requerido xp
+   * @param {number} data Required xp
    * @param {string} color Color
    * @returns {Rank}
    */
   setRequiredXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de datos xp requerido debe ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new Error(`El tipo de dato requerido xp debe ser un número, recibido ${typeof data}!`);
     this.data.requiredXP.data = data;
     this.data.requiredXP.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
   /**
-   * Establecer xp actual
-   * @param {number} data XP actual
+   * Fijar xp actual
+   * @param {number} data Current xp
    * @param {string} color Color
    * @returns {Rank}
    */
   setCurrentXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de datos xp actual debe ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new Error(`El tipo de dato xp actual debe ser un número, recibido ${typeof data}!`);
     this.data.currentXP.data = data;
     this.data.currentXP.color = color &amp;&amp; typeof color === "string" ? color : "#FFFFFF";
     return this;
@@ -318,9 +311,9 @@ class Rank {
 
   /**
    * Establecer rango
-   * @param {number} data Posición actual
-   * @param {string} text Mostrar texto
-   * @param {boolean} [display=true] Si debe mostrar rango
+   * @param {number} data Current Rank
+   * @param {string} text Display text
+   * @param {boolean} [display=true] If it should display rank
    * @returns {Rank}
    */
   setRank(data, text = "RANK", display = true) {
@@ -334,9 +327,9 @@ class Rank {
   }
 
   /**
-   * Establecer color de visualización de rango
-   * @param {string} text color de texto
-   * @param {string} number Color del número
+   * Establecer el color de visualización del rango
+   * @param {string} text text color
+   * @param {string} number Number color
    * @returns {Rank}
    */
   setRankColor(text = "#FFFFFF", number = "#FFFFFF") {
@@ -348,9 +341,9 @@ class Rank {
   }
 
   /**
-   * Establecer color de nivel
-   * @param {string} text color de texto
-   * @param {string} number color del número
+   * Fijar color de nivel
+   * @param {string} text text color
+   * @param {string} number number color
    * @returns {Rank}
    */
   setLevelColor(text = "#FFFFFF", number = "#FFFFFF") {
@@ -363,9 +356,9 @@ class Rank {
 
   /**
    * Establecer nivel
-   * @param {number} data Nivel actual
-   * @param {string} text Mostrar texto
-   * @param {boolean} [display=true] Si debería mostrar el nivel
+   * @param {number} data Current Level
+   * @param {string} text Display text
+   * @param {boolean} [display=true] If it should display level
    * @returns {Rank}
    */
   setLevel(data, text = "LEVEL", display = true) {
@@ -380,20 +373,20 @@ class Rank {
 
   /**
    * Establecer color de estado personalizado
-   * @param {string} color Color para establecer
+   * @param {string} color Color to set
    * @returns {Rank}
    */
   setCustomStatusColor(color) {
-    if (!color || typeof color !== "string") throw new Error("¡Color no válido!");
+    if (!color || typeof color !== "string") throw new Error("Color no válido.");
     this.data.status.color = color;
     return this;
   }
 
   /**
    * Establecer estado
-   * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status Estatus de usuario
+   * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status User status
    * @param {boolean} circle Si el icono de estado debe ser circular.
-   * @param {number|boolean} width Ancho de estado
+   * @param {number|boolean} width Anchura de estado
    * @returns {Rank}
    */
   setStatus(status, circle = false, width = 5) {
@@ -419,7 +412,7 @@ class Rank {
         this.data.status.color = "#593595";
         break;
       default:
-        throw new Error(`Estado inválido "${status}"`);
+        throw new Error(`Invalid status "${status}"`);
     }
 
     if (width !== false) this.data.status.width = typeof width === "number" ? width : 5;
@@ -430,13 +423,13 @@ class Rank {
   }
 
   /**
-   * Establecer imagen / color de fondo
-   * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-   * @param {string|Buffer} [data] Color o imagen de fondo
+   * Establecer imagen/color de fondo
+   * @param {"COLOR"|"IMAGE"} type Background type
+   * @param {string|Buffer} [data] Background color or image
    * @returns {Rank}
    */
   setBackground(type, data) {
-    if (!data) throw new Error("Falta campo: datos");
+    if (!data) throw new Error("Falta campo : data");
     switch (type) {
       case "COLOR":
         this.data.background.type = "color";
@@ -447,7 +440,7 @@ class Rank {
         this.data.background.image = data;
         break;
       default:
-        throw new Error(`Tipo de fondo no admitido "${type}"`);
+        throw new Error(`Tipo de fondo no compatible "${type}"`);
     }
 
     return this;
@@ -455,26 +448,26 @@ class Rank {
 
   /**
    * Avatar de usuario
-   * @param {string|Buffer} data Datos de avatar
+   * @param {string|Buffer} data Avatar data
    * @returns {Rank}
    */
   setAvatar(data) {
-    if (!data) throw new Error(`Tipo de avatar no válido "${typeof data}"!`);
+    if (!data) throw new Error(`Invalid avatar type "${typeof data}"!`);
     this.data.avatar.source = data;
     return this;
   }
 
   /**
-   * Construye carta de rango
-   * @param {object} ops Fuentes
-   * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
-   * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
+   * Construye la tarjeta de rango
+   * @param {object} ops Fonts
+   * @param {string} [ops.fontX="MANROPE_BOLD"] Bold font family
+   * @param {string} [ops.fontY="MANROPE_REGULAR"] Regular font family
    * @returns {Promise&lt;Buffer>}
    */
   async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
-    if (typeof this.data.currentXP.data !== "number") throw new Error(`Se esperaba que currentXP sea un número recibido ${typeof this.data.currentXP.data}!`);
-    if (typeof this.data.requiredXP.data !== "number") throw new Error(`Se esperaba que requiredXP sea un número recibido ${typeof this.data.requiredXP.data}!`);
-    if (!this.data.avatar.source) throw new Error("¡No se encontró la fuente del avatar!");
+    if (typeof this.data.currentXP.data !== "number") throw new Error(`Se espera que currentXP sea un número, se recibe ${typeof this.data.currentXP.data}!`);
+    if (typeof this.data.requiredXP.data !== "number") throw new Error(`Se espera queXP sea un número, se recibe ${typeof this.data.requiredXP.data}!`);
+    if (!this.data.avatar.source) throw new Error("No se ha encontrado la fuente del avatar.");
     if (!this.data.username.name) throw new Error("Falta el nombre de usuario");
 
     let bg = null;
@@ -493,14 +486,14 @@ class Rank {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
-    // agregar superposición
+    // añadir superposición
     if (!!this.data.overlay.display) {
       ctx.globalAlpha = this.data.overlay.level || 1;
       ctx.fillStyle = this.data.overlay.color;
       ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
     }
 
-    // restablecer la transparencia
+    // restablecer transparencia
     ctx.globalAlpha = 1;
 
     // dibujar nombre de usuario
@@ -512,8 +505,8 @@ class Rank {
     // aplicar nombre de usuario
     !this.data.renderEmojis ? ctx.fillText(`${name}`, 257 + 18.5, 164) : await Util.renderEmoji(ctx, name, 257 + 18.5, 164);
 
-    // dibujar discriminador
-    if (!this.data.discriminator.discrim) throw new Error("¡Falta discriminador!");
+    // discriminador de dibujos
+    if (!this.data.discriminator.discrim) throw new Error("Missing discriminator!");
     const discrim = `${this.data.discriminator.discrim}`;
     if (discrim) {
       ctx.font = `36px ${ops.fontY}`;
@@ -523,32 +516,32 @@ class Rank {
       ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
     }
 
-    // nivel
+    // nivel de llenado
     if (this.data.level.display &amp;&amp; !isNaN(this.data.level.data)) {
-      ctx.font = `bold 36px ${ops.fontX}`;
+      ctx.font = `bold 18px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.textColor;
-      ctx.strokeText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
-      ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
+      ctx.strokeText(this.data.level.displayText, 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
+      ctx.fillText(this.data.level.displayText, 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.color;
       ctx.textAlign = "end";
-      ctx.strokeText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
-      ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
+      ctx.strokeText("#" + Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
+      ctx.fillText("#" + Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
     }
 
-    // rango
+    // llenar rango
     if (this.data.rank.display &amp;&amp; !isNaN(this.data.rank.data)) {
-      ctx.font = `bold 36px ${ops.fontX}`;
+      ctx.font = `bold 18px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.textColor;
-      ctx.strokeText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
-      ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
+      ctx.strokeText(this.data.rank.displayText, 710 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
+      ctx.fillText(this.data.rank.displayText, 710 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.color;
       ctx.textAlign = "end";
-      ctx.strokeText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
-      ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
+      ctx.strokeText("#" + Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
+      ctx.fillText("#" + Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
     }
 
     // mostrar progreso
@@ -559,19 +552,18 @@ class Rank {
     ctx.strokeText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
     ctx.fillText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
 
-
     ctx.fillStyle = this.data.currentXP.color;
     ctx.lineWidth = 1;
     ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
     ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
 
-    // dibujar barra de progreso
+    // dibujar la barra de progreso
     ctx.beginPath();
     if (!!this.data.progressBar.rounded) {
       // bg
       ctx.fillStyle = this.data.progressBar.track.color;
       ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
-      ctx.lineWidth = 5;
+      ctx.lineWidth = 3;
       ctx.stroke();
       ctx.fill();
       ctx.lineWidth = 3;
@@ -583,7 +575,7 @@ class Rank {
       ctx.beginPath();
       // aplicar color
       if (this.data.progressBar.bar.type === "gradient") {
-        let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0);
+        let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0, 0, 0);
         this.data.progressBar.bar.color.forEach((color, index) => {
           gradientContext.addColorStop(index, color);
         });
@@ -608,7 +600,7 @@ class Rank {
       ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
       ctx.fillRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
 
-      // contorno
+      // esquema
       ctx.beginPath();
       ctx.strokeStyle = this.data.progressBar.track.color;
       ctx.lineWidth = 7;
@@ -620,7 +612,7 @@ class Rank {
     // circulo
     ctx.beginPath();
     ctx.arc(125 + 10, 125 + 20, 100, 0, Math.PI * 2, true);
-    ctx.lineWidth = 4;
+    ctx.lineWidth = this.data.status.width;
     ctx.stroke();
     ctx.closePath();
     ctx.clip();
@@ -634,7 +626,7 @@ class Rank {
       ctx.beginPath();
       ctx.fillStyle = this.data.status.color;
       ctx.arc(215, 205, 20, 0, 2 * Math.PI);
-      ctx.lineWidth = 4;
+      ctx.lineWidth = this.data.status.width;
       ctx.stroke();
       ctx.fill();
       ctx.closePath();
@@ -650,29 +642,23 @@ class Rank {
   }
 
   /**
-   * Calcula el progreso
+   * Calculates progress
    * @type {number}
    * @private
    * @ignore
    */
   get _calculateProgress() {
-    const px = this.data.previousRankXP.data;
     const cx = this.data.currentXP.data;
     const rx = this.data.requiredXP.data;
 
     if (rx &lt;= 0) return 1;
-    if (cx > rx) return this.data.progressBar.width;
+    if (cx > rx) return parseInt(this.data.progressBar.width) || 0;
 
-    if (!px || px > cx) {
-      let width = (cx * 615) / rx;
-      if (width > this.data.progressBar.width) width = this.data.progressBar.width;
-      return width;
-    } else {
-      let width = ((cx - px) * 615) / (rx - px);
-      if (width > this.data.progressBar.width) width = this.data.progressBar.width;
-      return width;
-    }
+    let width = (cx * 615) / rx;
+    if (width > this.data.progressBar.width) width = this.data.progressBar.width;
+    return parseInt(width) || 0;
   }
+
 }
 
-module.exports = Rank;</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="X6qE5aHnIDlk7nsLtQz6N"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Canvacard.html">Canvacard</a></div><div class="sidebar-section-children"><a href="FortniteShop.html">FortniteShop</a></div><div class="sidebar-section-children"><a href="FortniteStats.html">FortniteStats</a></div><div class="sidebar-section-children"><a href="Leaver.html">Leaver</a></div><div class="sidebar-section-children"><a href="Rank.html">Rank</a></div><div class="sidebar-section-children"><a href="Spotify.html">Spotify</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Welcomer.html">Welcomer</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="yIGcSZLe2m4jkjvfzjzy2"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#CanvacardRankData">CanvacardRankData</a></div><div class="sidebar-section-children"><a href="global.html#ConvolutionMatrix">ConvolutionMatrix</a></div><div class="sidebar-section-children"><a href="global.html#Plugins">Plugins</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyDataBG">SpotifyDataBG</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyProgressBarData">SpotifyProgressBarData</a></div><div class="sidebar-section-children"><a href="global.html#applyText">applyText</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#load">load</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>
+module.exports = Rank;</code></pre></article></section></div></div></div><div class="search-container" id="PkfLWpAbet" style="display:none"><div class="wrapper" id="iCxFxjkHbP"><button class="icon-button search-close-button" id="VjLlGakifb" aria-label="close search"><svg><use xlink:href="#close-icon"></use></svg></button><div class="search-box-c"><svg><use xlink:href="#search-icon"></use></svg> <input type="text" id="vpcKVYIppa" class="search-input" placeholder="Search..." autofocus></div><div class="search-result-c" id="fWwVHRuDuN"><span class="search-result-c-text">Type anything to view search result</span></div></div></div><div class="mobile-menu-icon-container"><button class="icon-button" id="mobile-menu" data-isopen="false" aria-label="menu"><svg><use xlink:href="#menu-icon"></use></svg></button></div><div id="mobile-sidebar" class="mobile-sidebar-container"><div class="mobile-sidebar-wrapper"><a href="/" class="sidebar-title sidebar-title-anchor">Home</a><div class="mobile-nav-links"></div><div class="mobile-sidebar-items-c"><div class="sidebar-section-title with-arrow" data-isopen="false" id="o1Pkea8Xk7q61XCYedoG7"><div>Classes</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="Canvacard.html">Canvacard</a></div><div class="sidebar-section-children"><a href="FortniteShop.html">FortniteShop</a></div><div class="sidebar-section-children"><a href="FortniteStats.html">FortniteStats</a></div><div class="sidebar-section-children"><a href="Leaver.html">Leaver</a></div><div class="sidebar-section-children"><a href="Rank.html">Rank</a></div><div class="sidebar-section-children"><a href="Spotify.html">Spotify</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Util.html">Util</a></div><div class="sidebar-section-children"><a href="Welcomer.html">Welcomer</a></div></div><div class="sidebar-section-title with-arrow" data-isopen="false" id="HVtADP3omE3q5oLLJaX6L"><div>Global</div><svg><use xlink:href="#down-icon"></use></svg></div><div class="sidebar-section-children-container"><div class="sidebar-section-children"><a href="global.html#CanvacardRankData">CanvacardRankData</a></div><div class="sidebar-section-children"><a href="global.html#ConvolutionMatrix">ConvolutionMatrix</a></div><div class="sidebar-section-children"><a href="global.html#Plugins">Plugins</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyDataBG">SpotifyDataBG</a></div><div class="sidebar-section-children"><a href="global.html#SpotifyProgressBarData">SpotifyProgressBarData</a></div><div class="sidebar-section-children"><a href="global.html#applyText">applyText</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#formatVariable">formatVariable</a></div><div class="sidebar-section-children"><a href="global.html#load">load</a></div></div></div><div class="mobile-navbar-actions"><div class="navbar-right-item"><button class="icon-button search-button" aria-label="open-search"><svg><use xlink:href="#search-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button theme-toggle" aria-label="toggle-theme"><svg><use class="theme-svg-use" xlink:href="#light-theme-icon"></use></svg></button></div><div class="navbar-right-item"><button class="icon-button font-size" aria-label="change-font-size"><svg><use xlink:href="#font-size-icon"></use></svg></button></div></div></div></div><script type="text/javascript" src="scripts/core.min.js"></script><script src="scripts/search.min.js" defer="defer"></script><script src="scripts/third-party/fuse.js" defer="defer"></script><script type="text/javascript">var tocbotInstance=tocbot.init({tocSelector:"#eed4d2a0bfd64539bb9df78095dec881",contentSelector:".main-content",headingSelector:"h1, h2, h3",hasInnerContainers:!0,scrollContainer:".main-content",headingsOffset:130,onClick:bringLinkToView})</script></body></html>

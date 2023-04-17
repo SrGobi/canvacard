@@ -29,7 +29,7 @@ export declare const Plugins: {
     convolute: (ctx: any, canvas: any, matrix: any, opaque: any) => any;
     rectangle: (ctx: any, x: any, y: any, height: any, width: any, color: any, stroke?: boolean, lineWidth?: number) => any;
     round: (ctx: any, x: any, y: any, width: any, height: any, radius: any) => any;
-    abbrev: (num: any) => any;
+    abbrev: (num: any) => string;
     renderEmoji: (ctx: any, message: any, x: any, y: any) => Promise<any>;
 };
 export declare const Util: typeof import("./src/Util");

@@ -11,12 +11,12 @@ class Util {
    * @hideconstructor
    */
   constructor() {
-    throw new Error(`La clase ${this.constructor.name} no puede ser instanciada!`);
+    throw new Error(`The ${this.constructor.name} class may not be instantiated!`);
   }
 
   /**
-   * Valida hexadecimal
-   * @param {string} hex Código hexadecimal para validar
+   * Validates hex
+   * @param {string} hex Hex code to validate
    * @returns {boolean}
    */
   static validateHex(hex) {
@@ -25,8 +25,8 @@ class Util {
   }
 
   /**
-   * Convierte la marca de tiempo regular en discord como el tiempo
-   * @param {Date|number} time Marca de tiempo para convertir
+   * Converts regular timestamp to discord like time
+   * @param {Date|number} time Timestamp to convert
    * @returns {string}
    */
   static discordTime(time = new Date()) {
@@ -37,8 +37,8 @@ class Util {
   }
 
   /**
-   * Formatea el tiempo
-   * @param {number} time Hora de formatear
+   * Formats time
+   * @param {number} time Time to format
    * @returns {string}
    */
   static formatTime(time) {
@@ -51,9 +51,9 @@ class Util {
   }
 
   /**
-   * Acortar el texto.
-   * @param {string} text Texto para acortar
-   * @param {number} len Longitud máxima
+   * Shorten text.
+   * @param {string} text Text to shorten 
+   * @param {number} len Max Length
    * @returns {string}
    */
   static shorten(text, len) {
@@ -63,7 +63,7 @@ class Util {
   }
 
   /**
-   * Convierte números en unidades como `1K`, `1M`, `1B` etc.
+   * Converts numbers into units like `1K`, `1M`, `1B` etc.
    * @param {number|string} num
    * @returns {string} 
    * @returns {string}
@@ -73,9 +73,9 @@ class Util {
   }
 
   /**
-   * Renderiza texto con emoji
+   * Renders text with emoji
    * @param {CanvasRenderingContext2D} ctx CanvasRenderingContext2D
-   * @param {string} msg Mensaje
+   * @param {string} msg Message
    * @param {number} x X
    * @param {number} y Y
    * @returns {Promise<void>}
@@ -85,8 +85,8 @@ class Util {
   }
 
   /**
-   * Devuelve código hexadecimal con formato
-   * @param {string} hex Código hexadecimal para formatear
+   * Returns formatted hex code
+   * @param {string} hex Hex code to format
    * @param {string} alt Alt color
    * @returns {string}
    */
@@ -100,24 +100,24 @@ class Util {
   }
 
   /**
-   * Invierte el color hexadecimal
-   * @param {string} hex Código de color hexadecimal para invertir
+   * Inverts hex color
+   * @param {string} hex Hex color code to invert
    * @returns {string}
    */
   static invertColor(hex) {
     if (!hex || typeof hex !== "string") return "#FFFFFF";
     hex = hex.replace("#", "");
 
-    // coincidir con el color hexadecimal
+    // match hex color
     if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
     if (hex.length !== 6) return "#FFFFFF";
 
-    // Colores invertidos
+    // invert colors
     const r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16);
     const g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16);
     const b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
 
-    // devolver nuevo hexadecimal
+    // return new hex
     const pad = (txt, length) => {
       length = length || 2;
       let arr = [length].join("0");
@@ -129,8 +129,8 @@ class Util {
   }
 
   /**
-   * Devuelve el acrónimo
-   * @param {string} name Nombre para analizar el acrónimo
+   * Returns acronym
+   * @param {string} name Name to parse acronym
    * @returns {string}
    */
   static getAcronym(name) {
@@ -142,17 +142,17 @@ class Util {
   }
 
   /**
-   * Devuelve una matriz de líneas
-   * @param {object} params Parámetros
-   * @param {string} text Texto
+   * Returns array of lines
+   * @param {object} params Params
+   * @param {string} text Text
    * @param {CanvasRenderingContext2D} ctx CanvasRenderingContext2D
-   * @param {number} maxWidth Anchura máxima
+   * @param {number} maxWidth Max width
    * @returns {string[]}
    */
   static getLines({ text, ctx, maxWidth }) {
     if (!text) return [];
-    if (!ctx) throw new Error("¡No se proporcionó el contexto del lienzo!");
-    if (!maxWidth) throw new Error("¡No se proporciona ancho máximo!");
+    if (!ctx) throw new Error("Canvas context was not provided!");
+    if (!maxWidth) throw new Error("No max-width provided!");
     const lines = [];
 
     while (text.length) {
