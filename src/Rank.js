@@ -507,7 +507,6 @@ class Rank {
       ctx.font = `36px ${ops.fontY}`;
       ctx.fillStyle = this.data.discriminator.color;
       ctx.textAlign = "center";
-      ctx.strokeText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
       ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
     }
 
@@ -515,41 +514,33 @@ class Rank {
     if (this.data.level.display && !isNaN(this.data.level.data)) {
       ctx.font = `bold 36px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.textColor;
-      ctx.strokeText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
       ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.color;
       ctx.textAlign = "end";
-      ctx.strokeText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
       ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
     }
 
     // fill rank
     if (this.data.rank.display && !isNaN(this.data.rank.data)) {
-      ctx.font = `bold 18px ${ops.fontX}`;
+      ctx.font = `bold 36px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.textColor;
-      ctx.strokeText(this.data.rank.displayText, 700 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
-      ctx.fillText(this.data.rank.displayText, 700 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
+      ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
 
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.rank.color;
       ctx.textAlign = "end";
-      ctx.strokeText("#" + Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
-      ctx.fillText("#" + Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
+      ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
     }
 
     // show progress
     ctx.font = `bold 30px ${ops.fontX}`;
     ctx.fillStyle = this.data.requiredXP.color;
     ctx.textAlign = "start";
-    ctx.lineWidth = 1;
-    ctx.strokeText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
     ctx.fillText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
 
     ctx.fillStyle = this.data.currentXP.color;
-    ctx.lineWidth = 1;
-    ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
     ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
 
     // draw progressbar
@@ -557,14 +548,10 @@ class Rank {
     if (!!this.data.progressBar.rounded) {
       // bg
       ctx.fillStyle = this.data.progressBar.track.color;
-      ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
-      ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
       ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
+      ctx.fill();
+      ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
+      ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
       ctx.fill();
 
       ctx.beginPath();
@@ -581,8 +568,6 @@ class Rank {
 
       // progress bar
       ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
-      ctx.lineWidth = 3;
-      ctx.stroke();
       ctx.fill();
       ctx.fillRect(257 + 18.5, 147.5 + 36.25, this._calculateProgress, 37.5);
       ctx.arc(257 + 18.5 + this._calculateProgress, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
@@ -591,8 +576,6 @@ class Rank {
 
       // progress bar
       ctx.fillStyle = this.data.progressBar.bar.color;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
       ctx.fillRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
 
       // outline
@@ -604,25 +587,21 @@ class Rank {
 
     ctx.save();
 
-    // circulo
+    // circle
     ctx.beginPath();
     ctx.arc(125 + 10, 125 + 20, 100, 0, Math.PI * 2, true);
-    ctx.lineWidth = this.data.status.width;
-    ctx.stroke();
     ctx.closePath();
     ctx.clip();
 
-    // dibujar avatar
+    // draw avatar
     ctx.drawImage(avatar, 35, 45, this.data.avatar.width + 20, this.data.avatar.height + 20);
     ctx.restore();
 
-    // estado usuario
+    // draw status
     if (!!this.data.status.circle) {
       ctx.beginPath();
       ctx.fillStyle = this.data.status.color;
       ctx.arc(215, 205, 20, 0, 2 * Math.PI);
-      ctx.lineWidth = this.data.status.width;
-      ctx.stroke();
       ctx.fill();
       ctx.closePath();
     } else if (!this.data.status.circle && this.data.status.width !== false) {
