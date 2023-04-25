@@ -1,18 +1,36 @@
 export = Leaver;
 /**
- * Creador de tarjetas de salida
+ * Creador de tarjetas de despedida
  */
 declare class Leaver extends Base {
     /**
      * Fondo de la tarjeta
-     * @type {"COLOR"|"IMAGE"}
+     * @property {object} backgroundGlobal Fondo de la tarjeta
+     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
+     * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
      */
-    data: "COLOR" | "IMAGE";
+    data: {
+        backgroundGlobal: {
+            type: string;
+            image: string;
+        };
+        renderEmojis: boolean;
+    };
     /**
-     * Opacidad del borde
+     * Color del overlay
      * @type {number|string}
      */
-    opacityBorder: number | string;
+    colorOverlay: number | string;
+    /**
+     * Opacidad del overlay
+     * @type {string}
+     */
+    opacityOverlay: string;
+    /**
+     * Tipo de overlay
+     * @type {string}
+     */
+    typeOverlay: string;
     /**
      * Cargar fuentes
      * @param {any[]} fontArray Matriz de fuentes
@@ -80,14 +98,12 @@ declare class Leaver extends Base {
      * @returns {Leaver}
      */
     setColorOverlay(value: string): Leaver;
-    colorOverlay: string;
     /**
      * Valor del color del overlay
      * @param {number|string} value
      * @returns {Leaver}
      */
     setOpacityOverlay(value: number | string): Leaver;
-    opacityOverlay: string | number;
     /**
      * Establecer imagen / color de fondo
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo
@@ -95,7 +111,12 @@ declare class Leaver extends Base {
      */
     setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): Leaver;
     /**
-     * Construye la tarjeta de abandono
+     * Establecer rectangle / rounded de overlay
+     * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
+     */
+    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): Leaver;
+    /**
+     * Construye la tarjeta de despedida
      * @param {object} ops Fuentes
      * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
      * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular

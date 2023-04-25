@@ -32,11 +32,13 @@ class Welcomer extends Base {
     super();
     /**
      * Fondo de la tarjeta
-     * @type {"COLOR"|"IMAGE"}
+     * @property {object} backgroundGlobal Fondo de la tarjeta
+     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
+     * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
      */
     this.data = {
-      backgroundGlobal: { type: "color", image: "#23272A" },
-      renderEmojis: true,
+      backgroundGlobal: { type: "COLOR", image: "#23272A" },
+      renderEmojis: false,
     };
     /**
      * Avatar de la tarjeta
@@ -112,7 +114,7 @@ class Welcomer extends Base {
    * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
    * @returns {Welcomer}
    */
-  renderEmojis(apply = true) {
+  renderEmojis(apply = false) {
     this.data.renderEmojis = !!apply;
     return this;
   }
@@ -312,7 +314,8 @@ class Welcomer extends Base {
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
     ctx.font = `60px ${ops.fontY}`;
-    ctx.fillText(this.titulo, canvas.width - 550, canvas.height - 120);
+    const titulo = Util.shorten(this.titulo, 50);
+    !this.data.renderEmojis ? ctx.fillText(`${titulo}`, canvas.width - 550, canvas.height - 120) : await Util.renderEmoji(ctx, titulo, canvas.width - 550, canvas.height - 120);
 
     // Dibujar Subtitulo
     ctx.shadowBlur = 10;
@@ -320,7 +323,8 @@ class Welcomer extends Base {
     ctx.fillStyle = this.colorSubtitulo;
     ctx.textAlign = "center";
     ctx.font = `30px ${ops.fontY}`;
-    ctx.fillText(this.subtitulo, canvas.width - 550, canvas.height - 70);
+    const subtitulo = Util.shorten(this.subtitulo, 50);
+    !this.data.renderEmojis ? ctx.fillText(`${subtitulo}`, canvas.width - 550, canvas.height - 70) : await Util.renderEmoji(ctx, subtitulo, canvas.width - 550, canvas.height - 70);
 
     // Dibujar un circulo de avatar
     ctx.shadowBlur = 0;

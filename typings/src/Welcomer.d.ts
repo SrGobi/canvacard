@@ -5,9 +5,17 @@ export = Welcomer;
 declare class Welcomer extends Base {
     /**
      * Fondo de la tarjeta
-     * @type {"COLOR"|"IMAGE"}
+     * @property {object} backgroundGlobal Fondo de la tarjeta
+     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
+     * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
      */
-    data: "COLOR" | "IMAGE";
+    data: {
+        backgroundGlobal: {
+            type: string;
+            image: string;
+        };
+        renderEmojis: boolean;
+    };
     /**
      * Color del overlay
      * @type {number|string}
