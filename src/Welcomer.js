@@ -22,11 +22,11 @@ class Welcomer extends Base {
         .setColorSubtitulo(#FFFFFF)
         .setColorCircle(#FFFFFF)
         .setColorOverlay(#FFFFFF)
-        .build({
-        fontX: "Roboto Black",
-        fontY: "Roboto",
-        });
-      await channel.send({ files: [{ attachment: welcomeCardURL, name: 'welcome-card.png' }] })
+        .setTypeOverlay("rounded")
+      welcomeCardURL.build()
+        .then(data => {
+            canvacard.write(data, "WelcomeCard.png");
+        })
    */
   constructor() {
     super();
@@ -70,14 +70,19 @@ class Welcomer extends Base {
     this.colorCircle = "#FFFFFF";
     /**
      * Color del overlay
-     * @type {string}
+     * @type {number|string}
      */
     this.colorOverlay = "#000000";
     /**
      * Opacidad del overlay
-     * @type {number|string}
+     * @type {string}
      */
     this.opacityOverlay = "0.4";
+    /**
+     * Tipo de overlay
+     * @type {string}
+     */
+    this.typeOverlay = { type: "ROUNDED" };
     /**
      * Color del fondo
      * @type {string}
@@ -127,6 +132,7 @@ class Welcomer extends Base {
     this.setColorCircle("#FFFFFF");
     this.setColorOverlay("#000000");
     this.setOpacityOverlay("0.4");
+    this.setTypeOverlay("ROUNDED");
     this.setColor("border", "#4D5E94");
     this.setColor("titulo", "#4D5E94");
     this.setColor("subtitulo", "#4D5E94");
@@ -243,6 +249,25 @@ class Welcomer extends Base {
   }
 
   /**
+   * Establecer rectangle / rounded de overlay
+   * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
+   */
+  setTypeOverlay(type) {
+    if (!type) throw new Error("Falta campo: tipo");
+    switch (type) {
+      case "RECTANGLE":
+        this.typeOverlay.type = "RECTANGLE";
+        break;
+      case "ROUNDED":
+        this.typeOverlay.type = "ROUNDED";
+        break;
+      default:
+        throw new Error(`Tipo de overlay no admitido "${type}"`);
+    }
+    return this;
+  }
+
+  /**
    * Construye la tarjeta de bienvenida
    * @param {object} ops Fuentes
    * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
@@ -270,7 +295,9 @@ class Welcomer extends Base {
     // Dibujar overlay
     ctx.fillStyle = this.colorOverlay;
     ctx.globalAlpha = this.opacityOverlay;
-    ctx.rect(55, 25, canvas.width - 110, canvas.height - 50);
+    if (this.typeOverlay.type === "RECTANGLE") ctx.rect(55, 25, canvas.width - 110, canvas.height - 50);
+    else if (this.typeOverlay.type === "ROUNDED")
+    ctx.roundRect(55, 25, canvas.width - 110, canvas.height - 50, 10);
     ctx.shadowBlur = 10;
     ctx.shadowColor = this.colorOverlay;
     ctx.fill();

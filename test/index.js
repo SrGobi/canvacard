@@ -22,3 +22,20 @@ rank.build(ops = { fontX: "PTSans-Bold", fontY: "PTSans-Bold" })
     .then(data => {
         canvacard.write(data, "./card.png");
     });
+
+const welcome = new canvacard.Welcomer()
+    .setAvatar(img)
+    .setBackground('IMAGE', 'https://i.imgur.com/aClDVjh.jpg')
+    .setTitulo("Titulo de la Tarjeta")
+    .setSubtitulo("Subtitulo de la Tarjeta")
+    .setOpacityOverlay("0.5")
+    .setColorTitulo('#FFFFFF')
+    .setColorSubtitulo('#FFFFFF')
+    .setColorCircle('#FFFFFF')
+    .setColorOverlay('#5865F2')
+    .setTypeOverlay('ROUNDED')
+
+welcome.build(ops = { fontX: "PTSans-Bold", fontY: "PTSans-Bold" })
+    .then(data => {
+        canvacard.write(data, "./welcomer.png");
+    });
