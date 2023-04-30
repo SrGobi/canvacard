@@ -111,6 +111,9 @@ welcomer.build()
   <a>
     <img src="https://i.imgur.com/S9AkanK.png">
   </a>
+  <a>
+    <img src="https://i.imgur.com/AqJcx6K.png">
+  </a>
 </details>
 
 ## Otros ejemplos
