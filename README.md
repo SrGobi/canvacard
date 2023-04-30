@@ -29,7 +29,7 @@ $ npm i canvacard
 ```js
 const canvacard = require("canvacard");
 const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-const background = "https://i.imgur.com/ulr1KDT.png";
+const background = "https://i.imgur.com/5O7xmVe.png";
 
 const userData = getDataSomehow();
 
@@ -77,7 +77,7 @@ rank.build()
 ```js
 const canvacard = require("canvacard");
 const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-const background = "https://i.imgur.com/ulr1KDT.png";
+const background = "https://i.imgur.com/5O7xmVe.png";
 
 const welcomer = new canvacard.Welcomer()
   .setAvatar(img)
@@ -103,13 +103,13 @@ welcomer.build()
 <summary>PREVIEW</summary>
 <br>
   <a>
-    <img src="https://i.imgur.com/6TIEcZ3.png">
+    <img src="https://i.imgur.com/EWGFp1C.png">
   </a>
   <a>
-    <img src="https://i.imgur.com/ulr1KDT.png">
+    <img src="https://i.imgur.com/5O7xmVe.png">
   </a>
   <a>
-    <img src="https://i.imgur.com/vwF5aNy.png">
+    <img src="https://i.imgur.com/S9AkanK.png">
   </a>
 </details>
 
