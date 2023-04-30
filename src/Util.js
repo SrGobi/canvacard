@@ -59,7 +59,7 @@ class Util {
   static shorten(text, len) {
     if (typeof text !== "string") return "";
     if (text.length <= len) return text;
-    return text.substr(0, len).trim() + "...";
+    return text.substring(0, len).trim() + "...";
   }
 
   /**
@@ -157,12 +157,12 @@ class Util {
 
     while (text.length) {
       let i;
-      for (i = text.length; ctx.measureText(text.substr(0, i)).width > maxWidth; i -= 1);
-      const result = text.substr(0, i);
+      for (i = text.length; ctx.measureText(text.substring(0, i)).width > maxWidth; i -= 1);
+      const result = text.substring(0, i);
       let j;
       if (i !== text.length) for (j = 0; result.indexOf(" ", j) !== -1; j = result.indexOf(" ", j) + 1);
-      lines.push(result.substr(0, j || result.length));
-      text = text.substr(lines[lines.length - 1].length, text.length);
+      lines.push(result.substring(0, j || result.length));
+      text = text.substring(lines[lines.length - 1].length, text.length);
     }
 
     return lines;

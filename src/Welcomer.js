@@ -34,11 +34,9 @@ class Welcomer extends Base {
      * Fondo de la tarjeta
      * @property {object} backgroundGlobal Fondo de la tarjeta
      * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
-     * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
      */
     this.data = {
       backgroundGlobal: { type: "COLOR", image: "#23272A" },
-      renderEmojis: false,
     };
     /**
      * Avatar de la tarjeta
@@ -106,16 +104,6 @@ class Welcomer extends Base {
       Canvas.GlobalFonts.registerFromPath(font.path, font.name || font.face?.name);
     });
 
-    return this;
-  }
-
-  /**
-   * Si debe representar el nombre de usuario con emojis (si corresponde)
-   * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
-   * @returns {Welcomer}
-   */
-  renderEmojis(apply = false) {
-    this.data.renderEmojis = !!apply;
     return this;
   }
 
@@ -298,7 +286,7 @@ class Welcomer extends Base {
     ctx.fillStyle = this.colorOverlay;
     ctx.globalAlpha = this.opacityOverlay;
     if (this.typeOverlay.type === "RECTANGLE") ctx.rect(55, 25, canvas.width - 110, canvas.height - 50);
-    else if (this.typeOverlay.type === "ROUNDED")
+    else if (this.typeOverlay.type === "ROUNDED");
     ctx.roundRect(55, 25, canvas.width - 110, canvas.height - 50, 10);
     ctx.shadowBlur = 10;
     ctx.shadowColor = this.colorOverlay;
@@ -314,8 +302,8 @@ class Welcomer extends Base {
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
     ctx.font = `60px ${ops.fontY}`;
-    const titulo = Util.shorten(this.titulo, 50);
-    !this.data.renderEmojis ? ctx.fillText(`${titulo}`, canvas.width - 550, canvas.height - 120) : await Util.renderEmoji(ctx, titulo, canvas.width - 550, canvas.height - 120);
+    const titulo = Util.shorten(this.titulo, 30);
+    ctx.fillText(`${titulo}`, canvas.width - 550, canvas.height - 120);
 
     // Dibujar Subtitulo
     ctx.shadowBlur = 10;
@@ -324,7 +312,7 @@ class Welcomer extends Base {
     ctx.textAlign = "center";
     ctx.font = `30px ${ops.fontY}`;
     const subtitulo = Util.shorten(this.subtitulo, 50);
-    !this.data.renderEmojis ? ctx.fillText(`${subtitulo}`, canvas.width - 550, canvas.height - 70) : await Util.renderEmoji(ctx, subtitulo, canvas.width - 550, canvas.height - 70);
+    ctx.fillText(`${subtitulo}`, canvas.width - 550, canvas.height - 70);
 
     // Dibujar un circulo de avatar
     ctx.shadowBlur = 0;

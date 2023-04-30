@@ -30,7 +30,7 @@ export declare const Plugins: {
     rectangle: (ctx: any, x: any, y: any, height: any, width: any, color: any, stroke?: boolean, lineWidth?: number) => any;
     round: (ctx: any, x: any, y: any, width: any, height: any, radius: any) => any;
     abbrev: (num: any) => string;
-    renderEmoji: (ctx: any, message: any, x: any, y: any) => Promise<any>;
+    renderEmoji: (ctx: any, msg: any, x: any, y: any) => Promise<any>;
 };
 export declare const Util: typeof import("./src/Util");
 export declare const Assets: {

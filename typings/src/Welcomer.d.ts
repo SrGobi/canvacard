@@ -7,14 +7,12 @@ declare class Welcomer extends Base {
      * Fondo de la tarjeta
      * @property {object} backgroundGlobal Fondo de la tarjeta
      * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
-     * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
      */
     data: {
         backgroundGlobal: {
             type: string;
             image: string;
         };
-        renderEmojis: boolean;
     };
     /**
      * Color del overlay
@@ -37,12 +35,6 @@ declare class Welcomer extends Base {
      * @returns {Welcomer}
      */
     registerFonts(fontArray?: any[]): Welcomer;
-    /**
-     * Si debe representar el nombre de usuario con emojis (si corresponde)
-     * @param {boolean} [apply=true] Configúrelo en "verdadero" para renderizar emojis.
-     * @returns {Welcomer}
-     */
-    renderEmojis(apply?: boolean): Welcomer;
     /**
      * Actualiza el estado predeterminado
      * @private

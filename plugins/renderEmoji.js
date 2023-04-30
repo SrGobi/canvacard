@@ -1,3 +1,3 @@
-module.exports = async (ctx, message, x, y) => {
-    return ctx.fillText(message, x, y);
+module.exports = async (ctx, msg, x, y) => {
+    return ctx.fillText(msg, x, y);
 };

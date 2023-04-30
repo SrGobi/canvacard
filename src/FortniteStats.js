@@ -9,7 +9,7 @@ const fortnite = require("fortnite");
  */
 const formatVariable = (prefix, variable) => {
   const formattedVariable = variable.toLowerCase()
-    .split("-").map((word) => word.charAt(0).toUpperCase() + word.substr(1, word.length).toLowerCase()).join("");
+    .split("-").map((word) => word.charAt(0).toUpperCase() + word.substring(1, word.length).toLowerCase()).join("");
   return prefix + formattedVariable;
 }
 

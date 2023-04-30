@@ -510,8 +510,8 @@ class Rank {
       ctx.font = `36px ${ops.fontY}`;
       ctx.fillStyle = this.data.discriminator.color;
       ctx.textAlign = "center";
-      ctx.strokeText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
-      ctx.fillText(`#${discrim.substr(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
+      ctx.strokeText(`#${discrim.substring(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
+      ctx.fillText(`#${discrim.substring(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
     }
 
     // fill level
