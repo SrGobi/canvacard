@@ -56,9 +56,6 @@ const assets = require("./Assets");
  * @property {object} requiredXP Tarjeta de rango requerida xp
  * @property {number} [requiredXP.data=0] requerido xp
  * @property {string} [requiredXP.color="#FFFFFF"] Se requiere tarjeta de rango xp color
- * @property {object} discriminator Discriminador de cartas de rango
- * @property {number|string} [discriminator.discrim=null] El discriminador
- * @property {string} [discriminator.color="rgba(255, 255, 255, 0.4)"] Color del discriminador de la tarjeta de rango
  * @property {object} username Datos de nombre de usuario
  * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
  * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
@@ -77,7 +74,6 @@ class Rank {
           .setStatus("dnd")
           .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
           .setUsername("SrGobi")
-          .setDiscriminator("6966");
       
       rank.build()
           .then(data => {
@@ -151,10 +147,6 @@ class Rank {
         data: 0,
         color: "#FFFFFF"
       },
-      discriminator: {
-        discrim: null,
-        color: "rgba(255, 255, 255, 0.4)"
-      },
       username: {
         name: null,
         color: "#FFFFFF"
@@ -209,18 +201,6 @@ class Rank {
     if (typeof name !== "string") throw new Error(`Se espera que el nombre de usuario sea una cadena, se recibe ${typeof name}!`);
     this.data.username.name = name;
     this.data.username.color = color && typeof color === "string" ? color : "#FFFFFF";
-    return this;
-  }
-
-  /**
-   * Ajustar discriminador
-   * @param {string|number} discriminator User discriminator
-   * @param {string} color Discriminator color
-   * @returns {Rank}
-   */
-  setDiscriminator(discriminator, color = "rgba(255, 255, 255, 0.4)") {
-    this.data.discriminator.discrim = !isNaN(discriminator) && `${discriminator}`.length === 4 ? discriminator : null;
-    this.data.discriminator.color = color && typeof color === "string" ? color : "rgba(255, 255, 255, 0.4)";
     return this;
   }
 
@@ -486,13 +466,17 @@ class Rank {
 
     // añadir superposición
     if (!!this.data.overlay.display) {
-      ctx.globalAlpha = this.data.overlay.level || 1;
       ctx.fillStyle = this.data.overlay.color;
-      ctx.fillRect(20, 20, canvas.width - 40, canvas.height - 40);
+      ctx.globalAlpha = this.data.overlay.level || 1;
+      ctx.roundRect(20, 20, canvas.width - 40, canvas.height - 40, 10);
+      ctx.shadowBlur = 10;
+      ctx.shadowColor = this.data.overlay.color;
+      ctx.fill();
     }
 
     // restablecer transparencia
     ctx.globalAlpha = 1;
+    ctx.shadowBlur = 0;
 
     // dibujar nombre de usuario
     ctx.font = `bold 36px ${ops.fontX}`;
@@ -503,17 +487,6 @@ class Rank {
     // aplicar nombre de usuario
     !this.data.renderEmojis ? ctx.fillText(`${name}`, 257 + 18.5, 164) : await Util.renderEmoji(ctx, name, 257 + 18.5, 164);
 
-    // discriminador de dibujos
-    if (!this.data.discriminator.discrim) throw new Error("Missing discriminator!");
-    const discrim = `${this.data.discriminator.discrim}`;
-    if (discrim) {
-      ctx.font = `36px ${ops.fontY}`;
-      ctx.fillStyle = this.data.discriminator.color;
-      ctx.textAlign = "center";
-      ctx.strokeText(`#${discrim.substring(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
-      ctx.fillText(`#${discrim.substring(0, 4)}`, ctx.measureText(name).width + 20 + 335, 164);
-    }
-
     // fill level
     if (this.data.level.display && !isNaN(this.data.level.data)) {
       ctx.font = `bold 36px ${ops.fontX}`;
@@ -523,7 +496,7 @@ class Rank {
       ctx.font = `bold 32px ${ops.fontX}`;
       ctx.fillStyle = this.data.level.color;
       ctx.textAlign = "end";
-      ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 860, 82);
+      ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 900, 82);
     }
 
     // fill rank

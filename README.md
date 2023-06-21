@@ -48,7 +48,6 @@ const rank = new canvacard.Rank()
   .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
   .setProgressBarTrack("#000000")
   .setUsername("SrGobi")
-  .setDiscriminator("0001");
   .renderEmojis(true)
 
 rank.build()

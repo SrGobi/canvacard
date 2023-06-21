@@ -53,9 +53,6 @@ export = Rank;
  * @property {object} requiredXP Tarjeta de rango requerida xp
  * @property {number} [requiredXP.data=0] requerido xp
  * @property {string} [requiredXP.color="#FFFFFF"] Se requiere tarjeta de rango xp color
- * @property {object} discriminator Discriminador de cartas de rango
- * @property {number|string} [discriminator.discrim=null] El discriminador
- * @property {string} [discriminator.color="rgba(255, 255, 255, 0.4)"] Color del discriminador de la tarjeta de rango
  * @property {object} username Datos de nombre de usuario
  * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
  * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
@@ -92,13 +89,6 @@ declare class Rank {
      * @returns {Rank}
      */
     setUsername(name: string, color?: string): Rank;
-    /**
-     * Ajustar discriminador
-     * @param {string|number} discriminator User discriminator
-     * @param {string} color Discriminator color
-     * @returns {Rank}
-     */
-    setDiscriminator(discriminator: string | number, color?: string): Rank;
     /**
      * Definir el estilo de la barra de progreso
      * @param {string|string[]} color Progressbar Color
@@ -313,13 +303,6 @@ type CanvacardRankData = {
      */
     requiredXP: {
         data?: number;
-        color?: string;
-    };
-    /**
-     * Discriminador de cartas de rango
-     */
-    discriminator: {
-        discrim?: number | string;
         color?: string;
     };
     /**

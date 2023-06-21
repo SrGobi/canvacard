@@ -15,8 +15,8 @@ const rank = new canvacard.Rank()
     .setStatus("dnd", true, 8)
     .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
     .setProgressBarTrack("#FFFFFF")
+    .setOverlay("#000000", 1, true)
     .setUsername("SrGobi")
-    .setDiscriminator("6966")
 
 rank.build(ops = { fontX: "PTSans-Bold", fontY: "PTSans-Bold" })
     .then(data => {
