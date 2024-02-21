@@ -24,16 +24,9 @@
   },
   "homepage": "https://github.com/SrGobi/canvacard#readme",
   "dependencies": {
-<<<<<<< HEAD
     "sharp": "^0.33.2"
   },
   "devDependencies": {
     "@types/node": "^20.11.19"
-=======
-    "sharp": "^0.32.0"
-  },
-  "devDependencies": {
-    "@types/node": "^18.15.11"
->>>>>>> 563021821427ab64826a57b47068b387e19baae0
   }
 }
