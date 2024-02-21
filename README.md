@@ -1,16 +1,28 @@
-# Canvacard
+# [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=40&pause=1000&color=5865F2&multiline=true&random=false&width=435&lines=Canvacard)](#)
 
 Potente herramienta de manipulación de imágenes para manipular imágenes fácilmente.
 
-# Installation
+<p align="center"><a href="https://nodei.co/npm/canvacard/"><img src="https://nodei.co/npm/canvacard.png"></a></p>
+<p align="center"><img src="https://img.shields.io/npm/v/canvacard?style=for-the-badge"> <img src="https://img.shields.io/npm/l/hercai?style=for-the-badge"> <img src="https://img.shields.io/npm/dt/canvacard?style=for-the-badge"> <a href="https://discord.gg/cqrN3Eg" target="_blank"> <img alt="Discord" src="https://img.shields.io/badge/Support-Click%20here-7289d9?style=for-the-badge&logo=discord"> </a> </p>
 
-```sh
-$ npm i canvacard
+
+## [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&pause=1000&color=F20000&random=false&width=435&lines=%E2%9D%94How+To+Install%3F)](#)
+
+```console
+npm i canvacard
 ```
 
-[![NPM](https://nodei.co/npm/canvacard.png)](https://nodei.co/npm/canvacard/)
-[![Downloads](https://img.shields.io/npm/dt/canvacard.svg?maxAge=3600)](https://www.npmjs.com/package/canvacard)
-[![NPM Version](https://img.shields.io/npm/v/canvacard.svg?maxAge=3600)](https://www.npmjs.com/package/canvacard)
+# [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&pause=1000&&color=00EDFF&random=false&width=435&lines=%F0%9F%8E%AF+Describing)](#)
+
+For **CommonJS**
+```javascript
+const canvacard = require("canvacard");
+```
+
+For **EsModule** And **TypeScript**
+```javascript
+import canvacard from "canvacard";
+```
 
 # Features
 
