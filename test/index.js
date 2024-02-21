@@ -18,7 +18,7 @@ const rank = new canvacard.Rank()
     .setOverlay("#000000", 1, true)
     .setUsername("SrGobi")
 
-rank.build(ops = { fontX: "PTSans-Bold", fontY: "PTSans-Bold" })
+rank.build(ops = { fontX: "Lobster", fontY: "Lobster" })
     .then(data => {
         canvacard.write(data, "./card.png");
     });
@@ -35,7 +35,7 @@ const welcome = new canvacard.Welcomer()
     .setColorOverlay('#5865F2')
     .setTypeOverlay('ROUNDED')
 
-welcome.build(ops = { fontX: "PTSans-Bold", fontY: "PTSans-Bold" })
+welcome.build(ops = { fontX: "My Font", fontY: "My Font" })
     .then(data => {
         canvacard.write(data, "./welcomer.png");
     });
