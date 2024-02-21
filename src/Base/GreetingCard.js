@@ -1,4 +1,4 @@
-const Canvas = require("@napi-rs/canvas");
+const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
 /**
  * Obtiene variables y tipos
  * @param {object} prefix El tipo de variable
@@ -93,14 +93,14 @@ class Greeting {
 
   async toAttachment() {
     // Crear lienzo
-    const canvas = Canvas.createCanvas(1024, 450);
+    const canvas = createCanvas(1024, 450);
     const ctx = canvas.getContext("2d");
 
     // Dibujar background
     ctx.fillStyle = this.colorBackground;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     let bg = null;
-    if (this.data.backgroundGlobal.type === "image") bg = await Canvas.loadImage(this.data.backgroundGlobal.image);
+    if (this.data.backgroundGlobal.type === "image") bg = await loadImage(this.data.backgroundGlobal.image);
     // crear fondo
     if (!!bg) {
       ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -145,7 +145,7 @@ class Greeting {
     ctx.clip();
 
     // Dibujar Avatar
-    const avatar = await Canvas.loadImage(this.avatar);
+    const avatar = await loadImage(this.avatar);
     ctx.drawImage(avatar, 387, 45, 250, 250);
 
     return canvas;

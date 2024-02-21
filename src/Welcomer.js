@@ -1,7 +1,6 @@
 const Base = require("./Base/GreetingCard");
 const Util = require("./Util");
-const Canvas = require("@napi-rs/canvas");
-const assets = require("./Assets");
+const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
 
 /**
  * Creador de tarjetas de bienvenida
@@ -88,23 +87,8 @@ class Welcomer extends Base {
      * @type {string}
      */
     this.colorBackground = "#000000";
-    // Cargar fuentes predeterminadas
-    this.registerFonts();
     // Actualizar datos predeterminados
     this.__updateData();
-  }
-
-  /**
-   * Cargar fuentes
-   * @param {any[]} fontArray Matriz de fuentes
-   * @returns {Welcomer}
-   */
-  registerFonts(fontArray = []) {
-    fontArray.forEach(font => {
-      Canvas.GlobalFonts.registerFromPath(font.path, font.name || font.face?.name);
-    });
-
-    return this;
   }
 
   /**
@@ -266,14 +250,14 @@ class Welcomer extends Base {
    */
   async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
     // Crear lienzo
-    const canvas = Canvas.createCanvas(1100, 500);
+    const canvas = createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");
 
     // Dibujar background
     ctx.fillStyle = this.colorBackground;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     let bg = null;
-    if (this.data.backgroundGlobal.type === "image") bg = await Canvas.loadImage(this.data.backgroundGlobal.image);
+    if (this.data.backgroundGlobal.type === "image") bg = await loadImage(this.data.backgroundGlobal.image);
     // crear fondo
     if (!!bg) {
       ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -325,7 +309,7 @@ class Welcomer extends Base {
     ctx.clip();
 
     // Dibujar Avatar
-    const avatar = await Canvas.loadImage(this.avatar);
+    const avatar = await loadImage(this.avatar);
     ctx.drawImage(avatar, canvas.width - 675, 65, 250, 250);
 
     return canvas.encode("png");

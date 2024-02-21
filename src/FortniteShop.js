@@ -1,4 +1,4 @@
-const Canvas = require("@napi-rs/canvas");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const fortnite = require("fortnite-9812");
 const fs = require("fs");
 const moment = require("moment");
@@ -263,11 +263,11 @@ class FortniteShop {
         canvas =
           shop.data.daily.length < 9 && shop.data.featured.length < 9
             ? shop.data.daily.length >= shop.data.featured.length
-              ? Canvas.createCanvas(1220, 250 + dailyHeight)
-              : Canvas.createCanvas(1220, 250 + featuredHeight)
+              ? createCanvas(1220, 250 + dailyHeight)
+              : createCanvas(1220, 250 + featuredHeight)
             : shop.data.daily.length >= shop.data.featured.length
-              ? Canvas.createCanvas(1220 + 297 * 2, 250 + dailyHeight)
-              : Canvas.createCanvas(1220 + 297 * 2, 250 + featuredHeight),
+              ? createCanvas(1220 + 297 * 2, 250 + dailyHeight)
+              : createCanvas(1220 + 297 * 2, 250 + featuredHeight),
         ctx = canvas.getContext("2d");
 
       /* BACKGROUND */
@@ -280,7 +280,7 @@ class FortniteShop {
           ctx.fillRect(0, 0, 3268, 2027);
         }
       } else {
-        let background = await Canvas.loadImage(
+        let background = await loadImage(
           `${__dirname}/../assets/img/fortnite/shop/background.png`
         );
         if (canvas.height > 2026) {
@@ -342,7 +342,7 @@ class FortniteShop {
               ctx.fillStyle = grd;
               ctx.fillRect(313 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-              let item = await Canvas.loadImage(
+              let item = await loadImage(
                 shop.data.featured[i].images.featured
               );
               ctx.drawImage(item, 313 + 3, 51 + 3 + 149 * i, 262, 262);
@@ -365,7 +365,7 @@ class FortniteShop {
                 51 + 192 + 32 + 149 * i
               );
               let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.featured[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -440,7 +440,7 @@ class FortniteShop {
               ctx.fillStyle = grd;
               ctx.fillRect(313 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-              let item = await Canvas.loadImage(
+              let item = await loadImage(
                 shop.data.featured[i].images.icon
               );
               ctx.drawImage(item, 313 + 3, 51 + 3 + 149 * i, 262, 262);
@@ -463,7 +463,7 @@ class FortniteShop {
                 51 + 192 + 32 + 149 * i
               );
               let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.featured[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -539,7 +539,7 @@ class FortniteShop {
               ctx.fillStyle = grd;
               ctx.fillRect(15 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-              let item = await Canvas.loadImage(
+              let item = await loadImage(
                 shop.data.featured[i].images.featured
               );
               ctx.drawImage(item, 15 + 3, 200 + 3 + 149 * i, 262, 262);
@@ -562,7 +562,7 @@ class FortniteShop {
                 200 + 192 + 32 + 149 * i
               );
               let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.featured[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -636,7 +636,7 @@ class FortniteShop {
               ctx.fillStyle = grd;
               ctx.fillRect(15 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-              let item = await Canvas.loadImage(
+              let item = await loadImage(
                 shop.data.featured[i].images.icon
               );
               ctx.drawImage(item, 15 + 3, 200 + 3 + 149 * i, 262, 262);
@@ -659,7 +659,7 @@ class FortniteShop {
                 200 + 192 + 32 + 149 * i
               );
               let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.featured[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -738,7 +738,7 @@ class FortniteShop {
               ctx.fillStyle = grd;
               ctx.fillRect(938 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-              let item = await Canvas.loadImage(
+              let item = await loadImage(
                 shop.data.daily[i].images.daily
               );
               ctx.drawImage(item, 938 + 3, 51 + 3 + 149 * i, 262, 262);
@@ -761,7 +761,7 @@ class FortniteShop {
                 51 + 192 + 32 + 149 * i
               );
               let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.daily[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -835,7 +835,7 @@ class FortniteShop {
               ctx.fillStyle = grd;
               ctx.fillRect(938 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-              let item = await Canvas.loadImage(shop.data.daily[i].images.icon);
+              let item = await loadImage(shop.data.daily[i].images.icon);
               ctx.drawImage(item, 938 + 3, 51 + 3 + 149 * i, 262, 262);
               ctx.globalAlpha = 0.4;
               ctx.fillStyle = "#000000";
@@ -856,7 +856,7 @@ class FortniteShop {
                 51 + 192 + 32 + 149 * i
               );
               let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.daily[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -937,7 +937,7 @@ class FortniteShop {
                 268 - 3 * 2
               );
 
-              let item = await Canvas.loadImage(
+              let item = await loadImage(
                 shop.data.daily[i].images.daily
               );
               ctx.drawImage(item, 640 + 3, 200 + 3 + 149 * i, 262, 262);
@@ -960,7 +960,7 @@ class FortniteShop {
                 200 + 192 + 32 + 149 * i
               );
               let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.daily[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -1045,7 +1045,7 @@ class FortniteShop {
                 268 - 3 * 2
               );
 
-              let item = await Canvas.loadImage(shop.data.daily[i].images.icon);
+              let item = await loadImage(shop.data.daily[i].images.icon);
               ctx.drawImage(item, 640 + 3, 200 + 3 + 149 * i, 262, 262);
               ctx.globalAlpha = 0.4;
               ctx.fillStyle = "#000000";
@@ -1066,7 +1066,7 @@ class FortniteShop {
                 200 + 192 + 32 + 149 * i
               );
               let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await Canvas.loadImage(
+                vbuck = await loadImage(
                   shop.data.daily[i].priceIconLink
                 );
               ctx.textAlign = "left";
@@ -1159,7 +1159,7 @@ class FortniteShop {
             ctx.fillStyle = grd;
             ctx.fillRect(15 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.featured
             );
             ctx.drawImage(item, 15 + 3, 200 + 3 + 298 * i, 262, 262);
@@ -1182,7 +1182,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * i
             );
             let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(
+              vbuck = await loadImage(
                 shop.data.featured[i].priceIconLink
               );
             ctx.textAlign = "left";
@@ -1238,7 +1238,7 @@ class FortniteShop {
             ctx.fillStyle = grd;
             ctx.fillRect(15 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.icon
             );
             ctx.drawImage(item, 15 + 3, 200 + 3 + 298 * i, 262, 262);
@@ -1261,7 +1261,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * i
             );
             let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(
+              vbuck = await loadImage(
                 shop.data.featured[i].priceIconLink
               );
             ctx.textAlign = "left";
@@ -1325,7 +1325,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.featured
             );
             ctx.drawImage(
@@ -1354,7 +1354,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - i1Featured)
             );
             let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(
+              vbuck = await loadImage(
                 shop.data.featured[i].priceIconLink
               );
             ctx.textAlign = "left";
@@ -1439,7 +1439,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.icon
             );
             ctx.drawImage(
@@ -1468,7 +1468,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - i1Featured)
             );
             let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(
+              vbuck = await loadImage(
                 shop.data.featured[i].priceIconLink
               );
             ctx.textAlign = "left";
@@ -1571,7 +1571,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.featured
             );
             ctx.drawImage(
@@ -1605,7 +1605,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - (i1Featured + i2Featured))
             );
             let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(
+              vbuck = await loadImage(
                 shop.data.featured[i].priceIconLink
               );
             ctx.textAlign = "left";
@@ -1701,7 +1701,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.icon
             );
             ctx.drawImage(
@@ -1735,7 +1735,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - (i1Featured + i2Featured))
             );
             let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(
+              vbuck = await loadImage(
                 shop.data.featured[i].priceIconLink
               );
             ctx.textAlign = "left";
@@ -1818,7 +1818,7 @@ class FortniteShop {
             ctx.fillStyle = grd;
             ctx.fillRect(939 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-            let item = await Canvas.loadImage(
+            let item = await loadImage(
               shop.data.featured[i].images.featured
             );
             ctx.drawImage(item, 939 + 3, 200 + 3 + 298 * i, 262, 262);
@@ -1841,7 +1841,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * i
             );
             let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(shop.data.daily[i].priceIconLink);
+              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
             ctx.textAlign = "left";
             ctx.font = "30px Luckiest Guy";
             if (price >= 1000) {
@@ -1895,7 +1895,7 @@ class FortniteShop {
             ctx.fillStyle = grd;
             ctx.fillRect(939 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
 
-            let item = await Canvas.loadImage(shop.data.daily[i].images.icon);
+            let item = await loadImage(shop.data.daily[i].images.icon);
             ctx.drawImage(item, 939 + 3, 200 + 3 + 298 * i, 262, 262);
             ctx.globalAlpha = 0.4;
             ctx.fillStyle = "#000000";
@@ -1916,7 +1916,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * i
             );
             let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(shop.data.daily[i].priceIconLink);
+              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
             ctx.textAlign = "left";
             ctx.font = "30px Luckiest Guy";
             if (price >= 1000) {
@@ -1978,7 +1978,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(shop.data.daily[i].images.daily);
+            let item = await loadImage(shop.data.daily[i].images.daily);
             ctx.drawImage(
               item,
               1237 + 3,
@@ -2005,7 +2005,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - i1Daily)
             );
             let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(shop.data.daily[i].priceIconLink);
+              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
             ctx.textAlign = "left";
             ctx.font = "30px Luckiest Guy";
             if (price >= 1000) {
@@ -2088,7 +2088,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(shop.data.daily[i].images.icon);
+            let item = await loadImage(shop.data.daily[i].images.icon);
             ctx.drawImage(
               item,
               1237 + 3,
@@ -2115,7 +2115,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - i1Daily)
             );
             let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(shop.data.daily[i].priceIconLink);
+              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
             ctx.textAlign = "left";
             ctx.font = "30px Luckiest Guy";
             if (price >= 1000) {
@@ -2201,7 +2201,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(shop.data.daily[i].images.daily);
+            let item = await loadImage(shop.data.daily[i].images.daily);
             ctx.drawImage(
               item,
               1535 + 3,
@@ -2233,7 +2233,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - (i1Daily + i2Daily))
             );
             let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(shop.data.daily[i].priceIconLink);
+              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
             ctx.textAlign = "left";
             ctx.font = "30px Luckiest Guy";
             if (price >= 1000) {
@@ -2316,7 +2316,7 @@ class FortniteShop {
               268 - 3 * 2
             );
 
-            let item = await Canvas.loadImage(shop.data.daily[i].images.icon);
+            let item = await loadImage(shop.data.daily[i].images.icon);
             ctx.drawImage(
               item,
               1535 + 3,
@@ -2348,7 +2348,7 @@ class FortniteShop {
               200 + 192 + 32 + 298 * (i - (i1Daily + i2Daily))
             );
             let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await Canvas.loadImage(shop.data.daily[i].priceIconLink);
+              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
             ctx.textAlign = "left";
             ctx.font = "30px Luckiest Guy";
             if (price >= 1000) {

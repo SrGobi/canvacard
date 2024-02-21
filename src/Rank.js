@@ -1,6 +1,5 @@
-const Canvas = require("@napi-rs/canvas");
+const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
 const Util = require("./Util");
-const assets = require("./Assets");
 
 /**
  * @typedef {object} CanvacardRankData
@@ -153,22 +152,6 @@ class Rank {
       },
       renderEmojis: false
     };
-
-    // Cargar fuentes predeterminadas
-    this.registerFonts();
-  }
-
-  /**
-   * Carga la fuente
-   * @param {any[]} fontArray Matriz de fuentes
-   * @returns {Rank}
-   */
-  registerFonts(fontArray = []) {
-    fontArray.forEach(font => {
-      Canvas.GlobalFonts.registerFromPath(font.path, font.name || font.face?.name);
-    });
-
-    return this;
   }
 
   /**
@@ -449,11 +432,11 @@ class Rank {
     if (!this.data.username.name) throw new Error("Falta el nombre de usuario");
 
     let bg = null;
-    if (this.data.background.type === "image") bg = await Canvas.loadImage(this.data.background.image);
-    let avatar = await Canvas.loadImage(this.data.avatar.source);
+    if (this.data.background.type === "image") bg = await loadImage(this.data.background.image);
+    let avatar = await loadImage(this.data.avatar.source);
 
     // crear instancia de lienzo
-    const canvas = Canvas.createCanvas(this.data.width, this.data.height);
+    const canvas = createCanvas(this.data.width, this.data.height);
     const ctx = canvas.getContext("2d");
 
     // crear fondo

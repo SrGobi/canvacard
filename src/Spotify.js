@@ -1,6 +1,5 @@
-const Canvas = require("@napi-rs/canvas");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const Util = require("./Util");
-const assets = require("./Assets");
 
 /**
  * Creador de tarjetas de presencia de Spotify
@@ -90,97 +89,6 @@ class Spotify {
       bgColor: "#E8E8E8",
       color: "#1DB954"
     };
-
-    this.registerFonts();
-  }
-
-  /**
-   * Cargar fuentes
-   * @param {any[]} fontArray Matriz de fuentes
-   * @returns {Spotify}
-   */
-  registerFonts(fontArray = []) {
-    if (!fontArray.length) {
-      setTimeout(() => {
-        // Default fonts
-        Canvas.registerFont(assets.font.get("UNI_SANS"), {
-          family: "Sans Heavy",
-          weight: "bold",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("BURBANK_BIG_CONSDENSED"), {
-          family: "Burkank Big Condensed",
-        });
-
-        Canvas.registerFont(assets.font.get("KEEP_CALM_MED"), {
-          family: "Keep Calm Medium",
-        });
-
-        Canvas.registerFont(assets.font.get("LUCKIEST_GUY"), {
-          family: "Luckiest Guy",
-        });
-
-        Canvas.registerFont(assets.font.get("MANROPE_BOLD"), {
-          family: "Manrope Bold",
-          weight: "bold",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("MANROPE_REGULAR"), {
-          family: "Manrope",
-          weight: "regular",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("ROBOTO_BLACK"), {
-          family: "Roboto Black",
-          weight: "black",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("ROBOTO_LIGHT"), {
-          family: "Roboto Light",
-          weight: "light",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("ROBOTO_REGULAR"), {
-          family: "Roboto",
-          weight: "regular",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("SKETCH_MATCH"), {
-          family: "SketchMatch"
-        });
-
-        Canvas.registerFont(assets.font.get("THE_BOLT_FONT"), {
-          family: "The Bolt Font",
-        });
-
-        Canvas.registerFont(assets.font.get("TWEMOJI"), {
-          family: "Twitter Color Emoji"
-        });
-
-        Canvas.registerFont(assets.font.get("WHITNEY_BOOK"), {
-          family: "Whitney-Book",
-          weight: "bold",
-          style: "normal"
-        });
-
-        Canvas.registerFont(assets.font.get("WHITNEY_MEDIUM"), {
-          family: "Whitney",
-          weight: "regular",
-          style: "normal"
-        });
-      }, 250);
-    } else {
-      fontArray.forEach(font => {
-        Canvas.registerFont(font.path, font.face);
-      });
-    }
-    return this;
   }
 
   /**
@@ -315,7 +223,7 @@ class Spotify {
     const progressF = Util.formatTime(progress > total ? total : progress);
     const ending = Util.formatTime(total);
 
-    const canvas = Canvas.createCanvas(600, 150);
+    const canvas = createCanvas(600, 150);
     const ctx = canvas.getContext("2d");
 
     // fondo
@@ -325,12 +233,12 @@ class Spotify {
       ctx.fillStyle = this.background.data || "#2F3136";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     } else {
-      let img = await Canvas.loadImage(this.background.data);
+      let img = await loadImage(this.background.data);
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
 
     // dibujar imagen
-    const img = await Canvas.loadImage(this.image);
+    const img = await loadImage(this.image);
     ctx.drawImage(img, 30, 15, 120, 120);
 
     // dibujar el nombre de la canción
