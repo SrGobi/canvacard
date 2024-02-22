@@ -15,7 +15,8 @@
     "typings"
   ],
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json",
+    "jsdoc2md": "jsdoc2md ./typings/**/* ./src/**/* ./plugins/**/* ./libs/**/* > docs/documentation.md",
+    "docs": "jsdoc -c ./jsdoc.json",
     "test": "cd test && node .",
     "types": "tsc",
     "postinstall": "node scripts/postinstall.mjs"
@@ -65,7 +66,10 @@
     "@types/node": "^20.11.19",
     "captcha-canvas": "^3.2.1",
     "clean-jsdoc-theme": "^4.2.17",
+    "gitbook-cli": "^2.3.2",
+    "gitbook-plugin-jsdoc": "^0.0.6",
     "jsdoc": "^4.0.2",
+    "jsdoc-to-markdown": "^8.0.1",
     "typescript": "^5.3.3"
   }
 }

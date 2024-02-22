@@ -65,12 +65,6 @@ declare class Rank {
      */
     data: CanvacardRankData;
     /**
-     * Carga la fuente
-     * @param {any[]} fontArray Matriz de fuentes
-     * @returns {Rank}
-     */
-    registerFonts(fontArray?: any[]): Rank;
-    /**
      * Si debe mostrar el nombre de usuario con emojis (si los hay)
      * @param {boolean} [apply=false] Establécelo a `true` para mostrar emojis.
      * @returns {Rank}

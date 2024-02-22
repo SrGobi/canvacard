@@ -35,7 +35,7 @@ const welcome = new canvacard.Welcomer()
     .setColorOverlay('#5865F2')
     .setTypeOverlay('ROUNDED')
 
-welcome.build(ops = { fontX: "My Font", fontY: "My Font" })
+welcome.build(ops = { fontX: "ADLaM Display", fontY: "ADLaM Display" })
     .then(data => {
         canvacard.write(data, "./welcomer.png");
     });

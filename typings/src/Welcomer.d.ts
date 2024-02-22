@@ -30,12 +30,6 @@ declare class Welcomer extends Base {
      */
     typeOverlay: string;
     /**
-     * Cargar fuentes
-     * @param {any[]} fontArray Matriz de fuentes
-     * @returns {Welcomer}
-     */
-    registerFonts(fontArray?: any[]): Welcomer;
-    /**
      * Actualiza el estado predeterminado
      * @private
      * @ignore
@@ -101,12 +95,12 @@ declare class Welcomer extends Base {
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo
      * @param {string|Buffer} [data] Color o imagen de fondo
      */
-    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): Welcomer;
+    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): this;
     /**
      * Establecer rectangle / rounded de overlay
      * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
      */
-    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): Welcomer;
+    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
     /**
      * Construye la tarjeta de bienvenida
      * @param {object} ops Fuentes

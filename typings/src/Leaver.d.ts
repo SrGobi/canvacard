@@ -30,12 +30,6 @@ declare class Leaver extends Base {
      */
     typeOverlay: string;
     /**
-     * Cargar fuentes
-     * @param {any[]} fontArray Matriz de fuentes
-     * @returns {Leaver}
-     */
-    registerFonts(fontArray?: any[]): Leaver;
-    /**
      * Actualiza el estado predeterminado
      * @private
      * @ignore
@@ -101,12 +95,12 @@ declare class Leaver extends Base {
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo
      * @param {string|Buffer} [data] Color o imagen de fondo
      */
-    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): Leaver;
+    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): this;
     /**
      * Establecer rectangle / rounded de overlay
      * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
      */
-    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): Leaver;
+    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
     /**
      * Construye la tarjeta de despedida
      * @param {object} ops Fuentes

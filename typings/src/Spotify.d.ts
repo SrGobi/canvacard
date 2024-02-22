@@ -72,12 +72,6 @@ declare class Spotify {
         color: string;
     };
     /**
-     * Cargar fuentes
-     * @param {any[]} fontArray Matriz de fuentes
-     * @returns {Spotify}
-     */
-    registerFonts(fontArray?: any[]): Spotify;
-    /**
      * Establecer detalles de la barra de progreso
      * @param {"TRACK"|"BAR"} type Tipo de barra de progreso
      * @param {string} color Color para establecer
@@ -146,5 +140,4 @@ declare class Spotify {
      */
     private __calculateProgress;
 }
-import Canvas = require("@napi-rs/canvas");
 //# sourceMappingURL=Spotify.d.ts.map
