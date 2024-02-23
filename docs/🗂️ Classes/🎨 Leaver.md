@@ -1,42 +1,43 @@
-<a name="Leaver"></a>
+# 🎨 Leaver
 
-## Leaver
+### Leaver
+
 Creador de tarjetas de despedida
 
-**Kind**: global class  
+**Kind**: global class
 
-* [Leaver](#Leaver)
-    * [new Leaver()](#new_Leaver_new)
-    * [.data](#Leaver+data)
-    * [.avatar](#Leaver+avatar) : <code>string</code>
-    * [.titulo](#Leaver+titulo) : <code>string</code>
-    * [.subtitulo](#Leaver+subtitulo) : <code>string</code>
-    * [.colorTitulo](#Leaver+colorTitulo) : <code>string</code>
-    * [.colorSubtitulo](#Leaver+colorSubtitulo) : <code>string</code>
-    * [.colorCircle](#Leaver+colorCircle) : <code>string</code>
-    * [.colorOverlay](#Leaver+colorOverlay) : <code>number</code> \| <code>string</code>
-    * [.opacityOverlay](#Leaver+opacityOverlay) : <code>string</code>
-    * [.typeOverlay](#Leaver+typeOverlay) : <code>string</code>
-    * [.colorBackground](#Leaver+colorBackground) : <code>string</code>
-    * [.setColor(id, color)](#Leaver+setColor) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setAvatar(value)](#Leaver+setAvatar) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setTitulo(value)](#Leaver+setTitulo) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setSubtitulo(value)](#Leaver+setSubtitulo) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setColorTitulo(value)](#Leaver+setColorTitulo) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setColorSubtitulo(value)](#Leaver+setColorSubtitulo) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setColorCircle(value)](#Leaver+setColorCircle) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setColorOverlay(value)](#Leaver+setColorOverlay) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setOpacityOverlay(value)](#Leaver+setOpacityOverlay) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setBackground(type, [data])](#Leaver+setBackground)
-    * [.setTypeOverlay(type)](#Leaver+setTypeOverlay)
-    * [.build(ops)](#Leaver+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+* [Leaver](<🎨 Leaver.md#Leaver>)
+  * [new Leaver()](<🎨 Leaver.md#new\_Leaver\_new>)
+  * [.data](<🎨 Leaver.md#Leaver+data>)
+  * [.avatar](<🎨 Leaver.md#Leaver+avatar>) : `string`
+  * [.titulo](<🎨 Leaver.md#Leaver+titulo>) : `string`
+  * [.subtitulo](<🎨 Leaver.md#Leaver+subtitulo>) : `string`
+  * [.colorTitulo](<🎨 Leaver.md#Leaver+colorTitulo>) : `string`
+  * [.colorSubtitulo](<🎨 Leaver.md#Leaver+colorSubtitulo>) : `string`
+  * [.colorCircle](<🎨 Leaver.md#Leaver+colorCircle>) : `string`
+  * [.colorOverlay](<🎨 Leaver.md#Leaver+colorOverlay>) : `number` | `string`
+  * [.opacityOverlay](<🎨 Leaver.md#Leaver+opacityOverlay>) : `string`
+  * [.typeOverlay](<🎨 Leaver.md#Leaver+typeOverlay>) : `string`
+  * [.colorBackground](<🎨 Leaver.md#Leaver+colorBackground>) : `string`
+  * [.setColor(id, color)](<🎨 Leaver.md#Leaver+setColor>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setAvatar(value)](<🎨 Leaver.md#Leaver+setAvatar>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setTitulo(value)](<🎨 Leaver.md#Leaver+setTitulo>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setSubtitulo(value)](<🎨 Leaver.md#Leaver+setSubtitulo>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setColorTitulo(value)](<🎨 Leaver.md#Leaver+setColorTitulo>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setColorSubtitulo(value)](<🎨 Leaver.md#Leaver+setColorSubtitulo>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setColorCircle(value)](<🎨 Leaver.md#Leaver+setColorCircle>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setColorOverlay(value)](<🎨 Leaver.md#Leaver+setColorOverlay>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setOpacityOverlay(value)](<🎨 Leaver.md#Leaver+setOpacityOverlay>) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+  * [.setBackground(type, \[data\])](<🎨 Leaver.md#Leaver+setBackground>)
+  * [.setTypeOverlay(type)](<🎨 Leaver.md#Leaver+setTypeOverlay>)
+  * [.build(ops)](<🎨 Leaver.md#Leaver+build>) ⇒ `Promise.<Buffer>`
 
-<a name="new_Leaver_new"></a>
+#### new Leaver()
 
-### new Leaver()
 Leave image builder
 
-**Example**  
+**Example**
+
 ```js
 const leaveCardURL = await new Leaver()
         .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
@@ -54,212 +55,209 @@ const leaveCardURL = await new Leaver()
             canvacard.write(data, "LeaverCard.png");
         })
 ```
-<a name="Leaver+data"></a>
 
-### leaver.data
+#### leaver.data
+
 Fondo de la tarjeta
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 **Properties**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| backgroundGlobal | <code>object</code> |  | Fondo de la tarjeta |
-| [backgroundGlobal.type] | <code>&quot;IMAGE&quot;</code> \| <code>&quot;COLOR&quot;</code> | <code>&quot;color&quot;</code> | Tipo de fondo |
+| Name                     | Type                   | Default   | Description         |
+| ------------------------ | ---------------------- | --------- | ------------------- |
+| backgroundGlobal         | `object`               |           | Fondo de la tarjeta |
+| \[backgroundGlobal.type] | `"IMAGE"` \| `"COLOR"` | `"color"` | Tipo de fondo       |
 
-<a name="Leaver+avatar"></a>
+#### leaver.avatar : `string`
 
-### leaver.avatar : <code>string</code>
 Avatar de la tarjeta
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+titulo"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.titulo : <code>string</code>
+
+#### leaver.titulo : `string`
+
 Título creado con Canvacard
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+subtitulo"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.subtitulo : <code>string</code>
+
+#### leaver.subtitulo : `string`
+
 Subtítulo creado con Canvacard
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+colorTitulo"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.colorTitulo : <code>string</code>
+
+#### leaver.colorTitulo : `string`
+
 Color del título creado con Canvacard
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+colorSubtitulo"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.colorSubtitulo : <code>string</code>
+
+#### leaver.colorSubtitulo : `string`
+
 Color del Subtítulo creado con Canvacard
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+colorCircle"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.colorCircle : <code>string</code>
+
+#### leaver.colorCircle : `string`
+
 Color del circulo
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+colorOverlay"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.colorOverlay : <code>number</code> \| <code>string</code>
+
+#### leaver.colorOverlay : `number` | `string`
+
 Color del overlay
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+opacityOverlay"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.opacityOverlay : <code>string</code>
+
+#### leaver.opacityOverlay : `string`
+
 Opacidad del overlay
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+typeOverlay"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.typeOverlay : <code>string</code>
+
+#### leaver.typeOverlay : `string`
+
 Tipo de overlay
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+colorBackground"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.colorBackground : <code>string</code>
+
+#### leaver.colorBackground : `string`
+
 Color del fondo
 
-**Kind**: instance property of [<code>Leaver</code>](#Leaver)  
-<a name="Leaver+setColor"></a>
+**Kind**: instance property of [`Leaver`](<🎨 Leaver.md#Leaver>)\
 
-### leaver.setColor(id, color) ⇒ [<code>Leaver</code>](#Leaver)
+
+#### leaver.setColor(id, color) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
+
 Establecer color
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| id | <code>&quot;titulo&quot;</code> \| <code>&quot;titulo-border&quot;</code> \| <code>&quot;titulo-box&quot;</code> \| <code>&quot;subtitulo&quot;</code> \| <code>&quot;subtitulo-border&quot;</code> \| <code>&quot;subtitulo-box&quot;</code> \| <code>&quot;avatar&quot;</code> \| <code>&quot;background&quot;</code> \| <code>&quot;border&quot;</code> |  |
-| color | <code>string</code> | Código de color HTML5 |
+| Param | Type                                                                                                                                                          | Description           |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| id    | `"titulo"` \| `"titulo-border"` \| `"titulo-box"` \| `"subtitulo"` \| `"subtitulo-border"` \| `"subtitulo-box"` \| `"avatar"` \| `"background"` \| `"border"` |                       |
+| color | `string`                                                                                                                                                      | Código de color HTML5 |
 
-<a name="Leaver+setAvatar"></a>
+#### leaver.setAvatar(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setAvatar(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del avatar
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> \| <code>Buffer</code> | 
+| Param | Type                 |
+| ----- | -------------------- |
+| value | `string` \| `Buffer` |
 
-<a name="Leaver+setTitulo"></a>
+#### leaver.setTitulo(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setTitulo(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del título
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Leaver+setSubtitulo"></a>
+#### leaver.setSubtitulo(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setSubtitulo(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del subtítulo
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Leaver+setColorTitulo"></a>
+#### leaver.setColorTitulo(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setColorTitulo(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del color del título
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Leaver+setColorSubtitulo"></a>
+#### leaver.setColorSubtitulo(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setColorSubtitulo(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del color del subtítulo
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Leaver+setColorCircle"></a>
+#### leaver.setColorCircle(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setColorCircle(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del color del círculo
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Leaver+setColorOverlay"></a>
+#### leaver.setColorOverlay(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setColorOverlay(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del color del overlay
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Leaver+setOpacityOverlay"></a>
+#### leaver.setOpacityOverlay(value) ⇒ [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-### leaver.setOpacityOverlay(value) ⇒ [<code>Leaver</code>](#Leaver)
 Valor del color del overlay
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>number</code> \| <code>string</code> | 
+| Param | Type                 |
+| ----- | -------------------- |
+| value | `number` \| `string` |
 
-<a name="Leaver+setBackground"></a>
+#### leaver.setBackground(type, \[data])
 
-### leaver.setBackground(type, [data])
 Establecer imagen / color de fondo
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| type | <code>&quot;COLOR&quot;</code> \| <code>&quot;IMAGE&quot;</code> | Tipo de fondo |
-| [data] | <code>string</code> \| <code>Buffer</code> | Color o imagen de fondo |
+| Param   | Type                   | Description             |
+| ------- | ---------------------- | ----------------------- |
+| type    | `"COLOR"` \| `"IMAGE"` | Tipo de fondo           |
+| \[data] | `string` \| `Buffer`   | Color o imagen de fondo |
 
-<a name="Leaver+setTypeOverlay"></a>
+#### leaver.setTypeOverlay(type)
 
-### leaver.setTypeOverlay(type)
 Establecer rectangle / rounded de overlay
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| type | <code>&quot;RECTANGLE&quot;</code> \| <code>&quot;ROUNDED&quot;</code> | Tipo de fondo |
+| Param | Type                         | Description   |
+| ----- | ---------------------------- | ------------- |
+| type  | `"RECTANGLE"` \| `"ROUNDED"` | Tipo de fondo |
 
-<a name="Leaver+build"></a>
+#### leaver.build(ops) ⇒ `Promise.<Buffer>`
 
-### leaver.build(ops) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Construye la tarjeta de despedida
 
-**Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Kind**: instance method of [`Leaver`](<🎨 Leaver.md#Leaver>)
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| ops | <code>object</code> |  | Fuentes |
-| [ops.fontX] | <code>string</code> | <code>&quot;\&quot;MANROPE_BOLD\&quot;&quot;</code> | Familia tipográfica Bold |
-| [ops.fontY] | <code>string</code> | <code>&quot;\&quot;MANROPE_REGULAR\&quot;&quot;</code> | Familia tipográfica regular |
-
+| Param        | Type     | Default                         | Description                 |
+| ------------ | -------- | ------------------------------- | --------------------------- |
+| ops          | `object` |                                 | Fuentes                     |
+| \[ops.fontX] | `string` | `"&quot;MANROPE_BOLD&quot;"`    | Familia tipográfica Bold    |
+| \[ops.fontY] | `string` | `"&quot;MANROPE_REGULAR&quot;"` | Familia tipográfica regular |

@@ -1,42 +1,43 @@
-<a name="Welcomer"></a>
+# 🎨 Welcomer
 
-## Welcomer
+### Welcomer
+
 Creador de tarjetas de bienvenida
 
-**Kind**: global class  
+**Kind**: global class
 
-* [Welcomer](#Welcomer)
-    * [new Welcomer()](#new_Welcomer_new)
-    * [.data](#Welcomer+data)
-    * [.avatar](#Welcomer+avatar) : <code>string</code>
-    * [.titulo](#Welcomer+titulo) : <code>string</code>
-    * [.subtitulo](#Welcomer+subtitulo) : <code>string</code>
-    * [.colorTitulo](#Welcomer+colorTitulo) : <code>string</code>
-    * [.colorSubtitulo](#Welcomer+colorSubtitulo) : <code>string</code>
-    * [.colorCircle](#Welcomer+colorCircle) : <code>string</code>
-    * [.colorOverlay](#Welcomer+colorOverlay) : <code>number</code> \| <code>string</code>
-    * [.opacityOverlay](#Welcomer+opacityOverlay) : <code>string</code>
-    * [.typeOverlay](#Welcomer+typeOverlay) : <code>string</code>
-    * [.colorBackground](#Welcomer+colorBackground) : <code>string</code>
-    * [.setColor(id, color)](#Welcomer+setColor) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setAvatar(value)](#Welcomer+setAvatar) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setTitulo(value)](#Welcomer+setTitulo) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setSubtitulo(value)](#Welcomer+setSubtitulo) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setColorTitulo(value)](#Welcomer+setColorTitulo) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setColorSubtitulo(value)](#Welcomer+setColorSubtitulo) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setColorCircle(value)](#Welcomer+setColorCircle) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setColorOverlay(value)](#Welcomer+setColorOverlay) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setOpacityOverlay(value)](#Welcomer+setOpacityOverlay) ⇒ [<code>Welcomer</code>](#Welcomer)
-    * [.setBackground(type, [data])](#Welcomer+setBackground)
-    * [.setTypeOverlay(type)](#Welcomer+setTypeOverlay)
-    * [.build(ops)](#Welcomer+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+* [Welcomer](<🎨 Welcomer.md#Welcomer>)
+  * [new Welcomer()](<🎨 Welcomer.md#new\_Welcomer\_new>)
+  * [.data](<🎨 Welcomer.md#Welcomer+data>)
+  * [.avatar](<🎨 Welcomer.md#Welcomer+avatar>) : `string`
+  * [.titulo](<🎨 Welcomer.md#Welcomer+titulo>) : `string`
+  * [.subtitulo](<🎨 Welcomer.md#Welcomer+subtitulo>) : `string`
+  * [.colorTitulo](<🎨 Welcomer.md#Welcomer+colorTitulo>) : `string`
+  * [.colorSubtitulo](<🎨 Welcomer.md#Welcomer+colorSubtitulo>) : `string`
+  * [.colorCircle](<🎨 Welcomer.md#Welcomer+colorCircle>) : `string`
+  * [.colorOverlay](<🎨 Welcomer.md#Welcomer+colorOverlay>) : `number` | `string`
+  * [.opacityOverlay](<🎨 Welcomer.md#Welcomer+opacityOverlay>) : `string`
+  * [.typeOverlay](<🎨 Welcomer.md#Welcomer+typeOverlay>) : `string`
+  * [.colorBackground](<🎨 Welcomer.md#Welcomer+colorBackground>) : `string`
+  * [.setColor(id, color)](<🎨 Welcomer.md#Welcomer+setColor>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setAvatar(value)](<🎨 Welcomer.md#Welcomer+setAvatar>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setTitulo(value)](<🎨 Welcomer.md#Welcomer+setTitulo>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setSubtitulo(value)](<🎨 Welcomer.md#Welcomer+setSubtitulo>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setColorTitulo(value)](<🎨 Welcomer.md#Welcomer+setColorTitulo>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setColorSubtitulo(value)](<🎨 Welcomer.md#Welcomer+setColorSubtitulo>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setColorCircle(value)](<🎨 Welcomer.md#Welcomer+setColorCircle>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setColorOverlay(value)](<🎨 Welcomer.md#Welcomer+setColorOverlay>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setOpacityOverlay(value)](<🎨 Welcomer.md#Welcomer+setOpacityOverlay>) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+  * [.setBackground(type, \[data\])](<🎨 Welcomer.md#Welcomer+setBackground>)
+  * [.setTypeOverlay(type)](<🎨 Welcomer.md#Welcomer+setTypeOverlay>)
+  * [.build(ops)](<🎨 Welcomer.md#Welcomer+build>) ⇒ `Promise.<Buffer>`
 
-<a name="new_Welcomer_new"></a>
+#### new Welcomer()
 
-### new Welcomer()
 Welcome image builder
 
-**Example**  
+**Example**
+
 ```js
 const welcomeCardURL = await new Welcomer()
         .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
@@ -54,212 +55,209 @@ const welcomeCardURL = await new Welcomer()
             canvacard.write(data, "WelcomeCard.png");
         })
 ```
-<a name="Welcomer+data"></a>
 
-### welcomer.data
+#### welcomer.data
+
 Fondo de la tarjeta
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 **Properties**
 
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| backgroundGlobal | <code>object</code> |  | Fondo de la tarjeta |
-| [backgroundGlobal.type] | <code>&quot;IMAGE&quot;</code> \| <code>&quot;COLOR&quot;</code> | <code>&quot;color&quot;</code> | Tipo de fondo |
+| Name                     | Type                   | Default   | Description         |
+| ------------------------ | ---------------------- | --------- | ------------------- |
+| backgroundGlobal         | `object`               |           | Fondo de la tarjeta |
+| \[backgroundGlobal.type] | `"IMAGE"` \| `"COLOR"` | `"color"` | Tipo de fondo       |
 
-<a name="Welcomer+avatar"></a>
+#### welcomer.avatar : `string`
 
-### welcomer.avatar : <code>string</code>
 Avatar de la tarjeta
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+titulo"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.titulo : <code>string</code>
+
+#### welcomer.titulo : `string`
+
 Título creado con Canvacard
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+subtitulo"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.subtitulo : <code>string</code>
+
+#### welcomer.subtitulo : `string`
+
 Subtítulo creado con Canvacard
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+colorTitulo"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.colorTitulo : <code>string</code>
+
+#### welcomer.colorTitulo : `string`
+
 Color del título creado con Canvacard
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+colorSubtitulo"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.colorSubtitulo : <code>string</code>
+
+#### welcomer.colorSubtitulo : `string`
+
 Color del Subtítulo creado con Canvacard
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+colorCircle"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.colorCircle : <code>string</code>
+
+#### welcomer.colorCircle : `string`
+
 Color del circulo
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+colorOverlay"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.colorOverlay : <code>number</code> \| <code>string</code>
+
+#### welcomer.colorOverlay : `number` | `string`
+
 Color del overlay
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+opacityOverlay"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.opacityOverlay : <code>string</code>
+
+#### welcomer.opacityOverlay : `string`
+
 Opacidad del overlay
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+typeOverlay"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.typeOverlay : <code>string</code>
+
+#### welcomer.typeOverlay : `string`
+
 Tipo de overlay
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+colorBackground"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.colorBackground : <code>string</code>
+
+#### welcomer.colorBackground : `string`
+
 Color del fondo
 
-**Kind**: instance property of [<code>Welcomer</code>](#Welcomer)  
-<a name="Welcomer+setColor"></a>
+**Kind**: instance property of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)\
 
-### welcomer.setColor(id, color) ⇒ [<code>Welcomer</code>](#Welcomer)
+
+#### welcomer.setColor(id, color) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
+
 Establecer color
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| id | <code>&quot;titulo&quot;</code> \| <code>&quot;titulo-border&quot;</code> \| <code>&quot;titulo-box&quot;</code> \| <code>&quot;subtitulo&quot;</code> \| <code>&quot;subtitulo-border&quot;</code> \| <code>&quot;subtitulo-box&quot;</code> \| <code>&quot;avatar&quot;</code> \| <code>&quot;background&quot;</code> \| <code>&quot;border&quot;</code> |  |
-| color | <code>string</code> | Código de color HTML5 |
+| Param | Type                                                                                                                                                          | Description           |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| id    | `"titulo"` \| `"titulo-border"` \| `"titulo-box"` \| `"subtitulo"` \| `"subtitulo-border"` \| `"subtitulo-box"` \| `"avatar"` \| `"background"` \| `"border"` |                       |
+| color | `string`                                                                                                                                                      | Código de color HTML5 |
 
-<a name="Welcomer+setAvatar"></a>
+#### welcomer.setAvatar(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setAvatar(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del avatar
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> \| <code>Buffer</code> | 
+| Param | Type                 |
+| ----- | -------------------- |
+| value | `string` \| `Buffer` |
 
-<a name="Welcomer+setTitulo"></a>
+#### welcomer.setTitulo(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setTitulo(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del título
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Welcomer+setSubtitulo"></a>
+#### welcomer.setSubtitulo(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setSubtitulo(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del subtítulo
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Welcomer+setColorTitulo"></a>
+#### welcomer.setColorTitulo(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setColorTitulo(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del color del título
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Welcomer+setColorSubtitulo"></a>
+#### welcomer.setColorSubtitulo(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setColorSubtitulo(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del color del subtítulo
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Welcomer+setColorCircle"></a>
+#### welcomer.setColorCircle(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setColorCircle(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del color del círculo
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Welcomer+setColorOverlay"></a>
+#### welcomer.setColorOverlay(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setColorOverlay(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del color del overlay
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="Welcomer+setOpacityOverlay"></a>
+#### welcomer.setOpacityOverlay(value) ⇒ [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-### welcomer.setOpacityOverlay(value) ⇒ [<code>Welcomer</code>](#Welcomer)
 Valor del color del overlay
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>number</code> \| <code>string</code> | 
+| Param | Type                 |
+| ----- | -------------------- |
+| value | `number` \| `string` |
 
-<a name="Welcomer+setBackground"></a>
+#### welcomer.setBackground(type, \[data])
 
-### welcomer.setBackground(type, [data])
 Establecer imagen / color de fondo
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| type | <code>&quot;COLOR&quot;</code> \| <code>&quot;IMAGE&quot;</code> | Tipo de fondo |
-| [data] | <code>string</code> \| <code>Buffer</code> | Color o imagen de fondo |
+| Param   | Type                   | Description             |
+| ------- | ---------------------- | ----------------------- |
+| type    | `"COLOR"` \| `"IMAGE"` | Tipo de fondo           |
+| \[data] | `string` \| `Buffer`   | Color o imagen de fondo |
 
-<a name="Welcomer+setTypeOverlay"></a>
+#### welcomer.setTypeOverlay(type)
 
-### welcomer.setTypeOverlay(type)
 Establecer rectangle / rounded de overlay
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type | Description |
-| --- | --- | --- |
-| type | <code>&quot;RECTANGLE&quot;</code> \| <code>&quot;ROUNDED&quot;</code> | Tipo de fondo |
+| Param | Type                         | Description   |
+| ----- | ---------------------------- | ------------- |
+| type  | `"RECTANGLE"` \| `"ROUNDED"` | Tipo de fondo |
 
-<a name="Welcomer+build"></a>
+#### welcomer.build(ops) ⇒ `Promise.<Buffer>`
 
-### welcomer.build(ops) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Construye la tarjeta de bienvenida
 
-**Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Kind**: instance method of [`Welcomer`](<🎨 Welcomer.md#Welcomer>)
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| ops | <code>object</code> |  | Fuentes |
-| [ops.fontX] | <code>string</code> | <code>&quot;\&quot;MANROPE_BOLD\&quot;&quot;</code> | Familia tipográfica Bold |
-| [ops.fontY] | <code>string</code> | <code>&quot;\&quot;MANROPE_REGULAR\&quot;&quot;</code> | Familia tipográfica regular |
-
+| Param        | Type     | Default                         | Description                 |
+| ------------ | -------- | ------------------------------- | --------------------------- |
+| ops          | `object` |                                 | Fuentes                     |
+| \[ops.fontX] | `string` | `"&quot;MANROPE_BOLD&quot;"`    | Familia tipográfica Bold    |
+| \[ops.fontY] | `string` | `"&quot;MANROPE_REGULAR&quot;"` | Familia tipográfica regular |
