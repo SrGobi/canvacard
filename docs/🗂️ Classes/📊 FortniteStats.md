@@ -1,54 +1,51 @@
-## Classes
+# 📊 FortniteStats
 
-<dl>
-<dt><a href="#FortniteStats">FortniteStats</a></dt>
-<dd><p>Creador de imagen de estadisticas de fortnite</p>
-</dd>
-</dl>
+### Classes
 
-## Functions
+[FortniteStats](<📊 FortniteStats.md#FortniteStats>)
 
-<dl>
-<dt><a href="#formatVariable">formatVariable(prefix, variable)</a> ⇒</dt>
-<dd><p>Obtiene variables y tipos</p>
-</dd>
-</dl>
-
-<a name="FortniteStats"></a>
-
-## FortniteStats
 Creador de imagen de estadisticas de fortnite
 
-**Kind**: global class  
+### Functions
 
-* [FortniteStats](#FortniteStats)
-    * [new FortniteStats()](#new_FortniteStats_new)
-    * [.token](#FortniteStats+token) : <code>string</code>
-    * [.platform](#FortniteStats+platform) : <code>string</code>
-    * [.user](#FortniteStats+user) : <code>string</code>
-    * [.textFooter](#FortniteStats+textFooter) : <code>string</code>
-    * [.textAverageKills](#FortniteStats+textAverageKills) : <code>string</code>
-    * [.textAverageKill](#FortniteStats+textAverageKill) : <code>string</code>
-    * [.textWPercent](#FortniteStats+textWPercent) : <code>string</code>
-    * [.textWinPercent](#FortniteStats+textWinPercent) : <code>string</code>
-    * [.textKD](#FortniteStats+textKD) : <code>string</code>
-    * [.textWins](#FortniteStats+textWins) : <code>string</code>
-    * [.textWin](#FortniteStats+textWin) : <code>string</code>
-    * [.textKills](#FortniteStats+textKills) : <code>string</code>
-    * [.textKill](#FortniteStats+textKill) : <code>string</code>
-    * [.textMatches](#FortniteStats+textMatches) : <code>string</code>
-    * [.textMatch](#FortniteStats+textMatch) : <code>string</code>
-    * [.setToken(value)](#FortniteStats+setToken) ⇒ [<code>FortniteStats</code>](#FortniteStats)
-    * [.setPlatform(value)](#FortniteStats+setPlatform) ⇒ [<code>FortniteStats</code>](#FortniteStats)
-    * [.setUser(value)](#FortniteStats+setUser) ⇒ [<code>FortniteStats</code>](#FortniteStats)
-    * [.setText(value)](#FortniteStats+setText) ⇒ [<code>FortniteStats</code>](#FortniteStats)
+[formatVariable(prefix, variable)](<📊 FortniteStats.md#formatVariable>) ⇒
 
-<a name="new_FortniteStats_new"></a>
+Obtiene variables y tipos
 
-### new FortniteStats()
+### FortniteStats
+
+Creador de imagen de estadisticas de fortnite
+
+**Kind**: global class
+
+* [FortniteStats](<📊 FortniteStats.md#FortniteStats>)
+  * [new FortniteStats()](<📊 FortniteStats.md#new\_FortniteStats\_new>)
+  * [.token](<📊 FortniteStats.md#FortniteStats+token>) : `string`
+  * [.platform](<📊 FortniteStats.md#FortniteStats+platform>) : `string`
+  * [.user](<📊 FortniteStats.md#FortniteStats+user>) : `string`
+  * [.textFooter](<📊 FortniteStats.md#FortniteStats+textFooter>) : `string`
+  * [.textAverageKills](<📊 FortniteStats.md#FortniteStats+textAverageKills>) : `string`
+  * [.textAverageKill](<📊 FortniteStats.md#FortniteStats+textAverageKill>) : `string`
+  * [.textWPercent](<📊 FortniteStats.md#FortniteStats+textWPercent>) : `string`
+  * [.textWinPercent](<📊 FortniteStats.md#FortniteStats+textWinPercent>) : `string`
+  * [.textKD](<📊 FortniteStats.md#FortniteStats+textKD>) : `string`
+  * [.textWins](<📊 FortniteStats.md#FortniteStats+textWins>) : `string`
+  * [.textWin](<📊 FortniteStats.md#FortniteStats+textWin>) : `string`
+  * [.textKills](<📊 FortniteStats.md#FortniteStats+textKills>) : `string`
+  * [.textKill](<📊 FortniteStats.md#FortniteStats+textKill>) : `string`
+  * [.textMatches](<📊 FortniteStats.md#FortniteStats+textMatches>) : `string`
+  * [.textMatch](<📊 FortniteStats.md#FortniteStats+textMatch>) : `string`
+  * [.setToken(value)](<📊 FortniteStats.md#FortniteStats+setToken>) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
+  * [.setPlatform(value)](<📊 FortniteStats.md#FortniteStats+setPlatform>) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
+  * [.setUser(value)](<📊 FortniteStats.md#FortniteStats+setUser>) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
+  * [.setText(value)](<📊 FortniteStats.md#FortniteStats+setText>) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
+
+#### new FortniteStats()
+
 FortniteStats image builder
 
-**Example**  
+**Example**
+
 ```js
 const FortniteStatsCardURL = await new FortniteStats()
       .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
@@ -58,150 +55,160 @@ const FortniteStatsCardURL = await new FortniteStats()
       .toAttachment();
   await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })
 ```
-<a name="FortniteStats+token"></a>
 
-### fortniteStats.token : <code>string</code>
+#### fortniteStats.token : `string`
+
 Token
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+platform"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.platform : <code>string</code>
+
+#### fortniteStats.platform : `string`
+
 Plaraforma
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+user"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.user : <code>string</code>
+
+#### fortniteStats.user : `string`
+
 Nombre de usuario
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textFooter"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textFooter : <code>string</code>
+
+#### fortniteStats.textFooter : `string`
+
 Texto del footer
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textAverageKills"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textAverageKills : <code>string</code>
+
+#### fortniteStats.textAverageKills : `string`
+
 Texto AvengersKills
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textAverageKill"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textAverageKill : <code>string</code>
+
+#### fortniteStats.textAverageKill : `string`
+
 Texto AverageKill
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textWPercent"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textWPercent : <code>string</code>
+
+#### fortniteStats.textWPercent : `string`
+
 Texto Porcejtage victoria
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textWinPercent"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textWinPercent : <code>string</code>
+
+#### fortniteStats.textWinPercent : `string`
+
 Texto Porcejtage victorias
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textKD"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textKD : <code>string</code>
+
+#### fortniteStats.textKD : `string`
+
 Texto KD
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textWins"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textWins : <code>string</code>
+
+#### fortniteStats.textWins : `string`
+
 Texto Victorias
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textWin"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textWin : <code>string</code>
+
+#### fortniteStats.textWin : `string`
+
 Texto Victoria
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textKills"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textKills : <code>string</code>
+
+#### fortniteStats.textKills : `string`
+
 Texto Kills
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textKill"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textKill : <code>string</code>
+
+#### fortniteStats.textKill : `string`
+
 Texto Kill
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textMatches"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textMatches : <code>string</code>
+
+#### fortniteStats.textMatches : `string`
+
 Texto Partidas jugadas
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+textMatch"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.textMatch : <code>string</code>
+
+#### fortniteStats.textMatch : `string`
+
 Texto Partida jugada
 
-**Kind**: instance property of [<code>FortniteStats</code>](#FortniteStats)  
-<a name="FortniteStats+setToken"></a>
+**Kind**: instance property of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)\
 
-### fortniteStats.setToken(value) ⇒ [<code>FortniteStats</code>](#FortniteStats)
+
+#### fortniteStats.setToken(value) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
+
 Valor del Token
 
-**Kind**: instance method of [<code>FortniteStats</code>](#FortniteStats)  
+**Kind**: instance method of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="FortniteStats+setPlatform"></a>
+#### fortniteStats.setPlatform(value) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-### fortniteStats.setPlatform(value) ⇒ [<code>FortniteStats</code>](#FortniteStats)
 Valor de la plataforma
 
-**Kind**: instance method of [<code>FortniteStats</code>](#FortniteStats)  
+**Kind**: instance method of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="FortniteStats+setUser"></a>
+#### fortniteStats.setUser(value) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-### fortniteStats.setUser(value) ⇒ [<code>FortniteStats</code>](#FortniteStats)
 Valor del usuario
 
-**Kind**: instance method of [<code>FortniteStats</code>](#FortniteStats)  
+**Kind**: instance method of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="FortniteStats+setText"></a>
+#### fortniteStats.setText(value) ⇒ [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-### fortniteStats.setText(value) ⇒ [<code>FortniteStats</code>](#FortniteStats)
 Valor del texto
 
-**Kind**: instance method of [<code>FortniteStats</code>](#FortniteStats)  
+**Kind**: instance method of [`FortniteStats`](<📊 FortniteStats.md#FortniteStats>)
 
-| Param | Type |
-| --- | --- |
-| value | <code>string</code> | 
+| Param | Type     |
+| ----- | -------- |
+| value | `string` |
 
-<a name="formatVariable"></a>
+### formatVariable(prefix, variable) ⇒
 
-## formatVariable(prefix, variable) ⇒
 Obtiene variables y tipos
 
-**Kind**: global function  
-**Returns**: La variable formateada  
+**Kind**: global function\
+**Returns**: La variable formateada
 
-| Param | Type | Description |
-| --- | --- | --- |
-| prefix | <code>object</code> | El tipo de variable |
-| variable | <code>object</code> | La variable a cambiar |
-
+| Param    | Type     | Description           |
+| -------- | -------- | --------------------- |
+| prefix   | `object` | El tipo de variable   |
+| variable | `object` | La variable a cambiar |
