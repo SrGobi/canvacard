@@ -5,7 +5,6 @@ Potente herramienta de manipulación de imágenes para manipular imágenes fáci
 <p align="center"><a href="https://nodei.co/npm/canvacard/"><img src="https://nodei.co/npm/canvacard.png"></a></p>
 <p align="center"><img src="https://img.shields.io/npm/v/canvacard?style=for-the-badge"> <img src="https://img.shields.io/npm/l/hercai?style=for-the-badge"> <img src="https://img.shields.io/npm/dt/canvacard?style=for-the-badge"> <a href="https://discord.gg/cqrN3Eg" target="_blank"> <img alt="Discord" src="https://img.shields.io/badge/Support-Click%20here-7289d9?style=for-the-badge&logo=discord"> </a> </p>
 
-
 ## [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&pause=1000&color=F20000&random=false&width=435&lines=%E2%9D%94How+To+Install%3F)](#)
 
 ```console
@@ -15,19 +14,22 @@ npm i canvacard
 # [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&pause=1000&&color=00EDFF&random=false&width=435&lines=%F0%9F%8E%AF+Describing)](#)
 
 For **CommonJS**
+
 ```javascript
-const canvacard = require("canvacard");
+const canvacard = require('canvacard');
 ```
 
 For **EsModule** And **TypeScript**
+
 ```javascript
-import canvacard from "canvacard";
+import canvacard from 'canvacard';
 ```
 
 # Features
 
 - Súper simple y fácil de usar 😎
 - Más rápido que canvacard v4 🚀
+- Todas las fuentes de Google Fonts 📚
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
 - Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
 - Orientado a objetos 💻
@@ -39,34 +41,33 @@ import canvacard from "canvacard";
 ## Rank Card
 
 ```js
-const canvacard = require("canvacard");
-const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-const background = "https://i.imgur.com/5O7xmVe.png";
+const canvacard = require('canvacard');
+const img = 'https://cdn.discordapp.com/embed/avatars/0.png';
+const background = 'https://i.imgur.com/5O7xmVe.png';
 
 const userData = getDataSomehow();
 
 const rank = new canvacard.Rank()
-  .setAvatar(img)
-  .setBackground('IMAGE', background)
-  .setCurrentXP(userData.xp)
-  .setRequiredXP(userData.requiredXP)
-  .setRank(userData.rank)
-  .setRankColor("#FFFFFF")
-  .setLevel(userData.level)
-  .setLevelColor("#FFFFFF")
-  .setStatus("online", true)
-  .setCustomStatusColor("#23272A")
-  .setOverlay("#23272A", 1 || 0, true)
-  .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
-  .setProgressBarTrack("#000000")
-  .setUsername("SrGobi")
-  .renderEmojis(true)
+	.setAvatar(img)
+	.setBackground('IMAGE', background)
+	.setCurrentXP(userData.xp)
+	.setRequiredXP(userData.requiredXP)
+	.setRank(userData.rank)
+	.setRankColor('#FFFFFF')
+	.setLevel(userData.level)
+	.setLevelColor('#FFFFFF')
+	.setStatus('online', true)
+	.setCustomStatusColor('#23272A')
+	.setOverlay('#23272A', 1 || 0, true)
+	.setProgressBar(['#FF0000', '#0000FF'], 'GRADIENT')
+	.setProgressBarTrack('#000000')
+	.setUsername('SrGobi')
+	.renderEmojis(true);
 
-rank.build()
-  .then(data => {
-    const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-    message.channel.send(attachment);
-  });
+rank.build().then((data) => {
+	const attachment = new Discord.MessageAttachment(data, 'RankCard.png');
+	message.channel.send(attachment);
+});
 ```
 
 <details open>

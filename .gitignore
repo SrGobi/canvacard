@@ -1,3 +1,4 @@
 node_modules/
 package-lock.json
-script.js
+!scripts/assets
+assets/script.js

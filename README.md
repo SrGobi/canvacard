@@ -28,6 +28,7 @@ import canvacard from "canvacard";
 
 - Súper simple y fácil de usar 😎
 - Más rápido que canvacard v4 🚀
+- Todas las fuentes de Google Fonts 📚
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
 - Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
 - Orientado a objetos 💻
