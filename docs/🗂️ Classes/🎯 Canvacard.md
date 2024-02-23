@@ -84,7 +84,7 @@ Canvacard Generador De Memes
 
 **Example**  
 ```js
-const Canvacard = require("canvacard");Canvacard.Canvas.trigger("./image.png") .then(triggered => {     Canvacard.write(triggered, "triggered.gif"); })
+const Canvacard = require("canvacard");Canvacard.Canvas.trigger("./image.png") .then(triggered => {     Canvacard.write(triggered, "triggered.gif"); })
 ```
 <a name="Canvacard.CONVOLUTION_MATRIX"></a>
 
