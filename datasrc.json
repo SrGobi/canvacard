@@ -4955,15 +4955,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Goudy_Bookletter_1911.ttf"
       },
       {
-        "name": "Gowun_Batang.ttf",
-        "size": 8433188,
-        "size_formatted": "8.04 MB",
-        "file_name": "Gowun_Batang",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Gowun_Batang.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Gowun_Batang.ttf"
-      },
-      {
         "name": "Gowun_Dodum.ttf",
         "size": 7228992,
         "size_formatted": "6.89 MB",
@@ -7844,15 +7835,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Mochiy_Pop_One.ttf"
       },
       {
-        "name": "Mochiy_Pop_P_One.ttf",
-        "size": 4841172,
-        "size_formatted": "4.62 MB",
-        "file_name": "Mochiy_Pop_P_One",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Mochiy_Pop_P_One.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Mochiy_Pop_P_One.ttf"
-      },
-      {
         "name": "Modak.ttf",
         "size": 648368,
         "size_formatted": "0.62 MB",
@@ -8528,24 +8510,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noticia_Text.ttf"
       },
       {
-        "name": "NotoColorEmoji-Regular.ttf",
-        "size": 23745556,
-        "size_formatted": "22.65 MB",
-        "file_name": "NotoColorEmoji-Regular",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/NotoColorEmoji-Regular.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/NotoColorEmoji-Regular.ttf"
-      },
-      {
-        "name": "Noto_Color_Emoji.ttf",
-        "size": 24015992,
-        "size_formatted": "22.90 MB",
-        "file_name": "Noto_Color_Emoji",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Color_Emoji.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Color_Emoji.ttf"
-      },
-      {
         "name": "Noto_Emoji.ttf",
         "size": 878928,
         "size_formatted": "0.84 MB",
@@ -9014,15 +8978,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_Hebrew.ttf"
       },
       {
-        "name": "Noto_Sans_HK.ttf",
-        "size": 7093192,
-        "size_formatted": "6.76 MB",
-        "file_name": "Noto_Sans_HK",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_HK.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_HK.ttf"
-      },
-      {
         "name": "Noto_Sans_Imperial_Aramaic.ttf",
         "size": 51960,
         "size_formatted": "0.05 MB",
@@ -9066,15 +9021,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_Javanese.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_Javanese.ttf"
-      },
-      {
-        "name": "Noto_Sans_JP.ttf",
-        "size": 5732824,
-        "size_formatted": "5.47 MB",
-        "file_name": "Noto_Sans_JP",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_JP.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_JP.ttf"
       },
       {
         "name": "Noto_Sans_Kaithi.ttf",
@@ -9147,15 +9093,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_Khudawadi.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_Khudawadi.ttf"
-      },
-      {
-        "name": "Noto_Sans_KR.ttf",
-        "size": 6192764,
-        "size_formatted": "5.91 MB",
-        "file_name": "Noto_Sans_KR",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_KR.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_KR.ttf"
       },
       {
         "name": "Noto_Sans_Lao.ttf",
@@ -9689,15 +9626,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_Saurashtra.ttf"
       },
       {
-        "name": "Noto_Sans_SC.ttf",
-        "size": 10560380,
-        "size_formatted": "10.07 MB",
-        "file_name": "Noto_Sans_SC",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_SC.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_SC.ttf"
-      },
-      {
         "name": "Noto_Sans_Sharada.ttf",
         "size": 121912,
         "size_formatted": "0.12 MB",
@@ -9723,15 +9651,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_Siddham.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_Siddham.ttf"
-      },
-      {
-        "name": "Noto_Sans_SignWriting.ttf",
-        "size": 7824008,
-        "size_formatted": "7.46 MB",
-        "file_name": "Noto_Sans_SignWriting",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_SignWriting.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_SignWriting.ttf"
       },
       {
         "name": "Noto_Sans_Sinhala.ttf",
@@ -9903,15 +9822,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_Tangsa.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_Tangsa.ttf"
-      },
-      {
-        "name": "Noto_Sans_TC.ttf",
-        "size": 7110560,
-        "size_formatted": "6.78 MB",
-        "file_name": "Noto_Sans_TC",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Sans_TC.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Sans_TC.ttf"
       },
       {
         "name": "Noto_Sans_Telugu.ttf",
@@ -10157,24 +10067,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_Hebrew.ttf"
       },
       {
-        "name": "Noto_Serif_HK.ttf",
-        "size": 35111860,
-        "size_formatted": "33.49 MB",
-        "file_name": "Noto_Serif_HK",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_HK.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_HK.ttf"
-      },
-      {
-        "name": "Noto_Serif_JP.ttf",
-        "size": 6169440,
-        "size_formatted": "5.88 MB",
-        "file_name": "Noto_Serif_JP",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_JP.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_JP.ttf"
-      },
-      {
         "name": "Noto_Serif_Kannada.ttf",
         "size": 173156,
         "size_formatted": "0.17 MB",
@@ -10209,15 +10101,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_Khojki.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_Khojki.ttf"
-      },
-      {
-        "name": "Noto_Serif_KR.ttf",
-        "size": 7437640,
-        "size_formatted": "7.09 MB",
-        "file_name": "Noto_Serif_KR",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_KR.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_KR.ttf"
       },
       {
         "name": "Noto_Serif_Lao.ttf",
@@ -10292,15 +10175,6 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_Ottoman_Siyaq.ttf"
       },
       {
-        "name": "Noto_Serif_SC.ttf",
-        "size": 11214632,
-        "size_formatted": "10.70 MB",
-        "file_name": "Noto_Serif_SC",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_SC.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_SC.ttf"
-      },
-      {
         "name": "Noto_Serif_Sinhala.ttf",
         "size": 250128,
         "size_formatted": "0.24 MB",
@@ -10317,24 +10191,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_Tamil.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_Tamil.ttf"
-      },
-      {
-        "name": "Noto_Serif_Tangut.ttf",
-        "size": 5715092,
-        "size_formatted": "5.45 MB",
-        "file_name": "Noto_Serif_Tangut",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_Tangut.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_Tangut.ttf"
-      },
-      {
-        "name": "Noto_Serif_TC.ttf",
-        "size": 5831692,
-        "size_formatted": "5.56 MB",
-        "file_name": "Noto_Serif_TC",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Noto_Serif_TC.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Noto_Serif_TC.ttf"
       },
       {
         "name": "Noto_Serif_Telugu.ttf",
@@ -12864,33 +12720,6 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Shippori_Antique.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Shippori_Antique.ttf"
-      },
-      {
-        "name": "Shippori_Antique_B1.ttf",
-        "size": 13051212,
-        "size_formatted": "12.45 MB",
-        "file_name": "Shippori_Antique_B1",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Shippori_Antique_B1.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Shippori_Antique_B1.ttf"
-      },
-      {
-        "name": "Shippori_Mincho.ttf",
-        "size": 8662440,
-        "size_formatted": "8.26 MB",
-        "file_name": "Shippori_Mincho",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Shippori_Mincho.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Shippori_Mincho.ttf"
-      },
-      {
-        "name": "Shippori_Mincho_B1.ttf",
-        "size": 15209948,
-        "size_formatted": "14.51 MB",
-        "file_name": "Shippori_Mincho_B1",
-        "ext": ".ttf",
-        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Shippori_Mincho_B1.ttf",
-        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Shippori_Mincho_B1.ttf"
       },
       {
         "name": "Shizuru.ttf",
