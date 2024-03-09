@@ -1,5 +1,5 @@
 {
-  "id": "b12fe523-0ccf-4bf9-8d56-f9285e2b7d47",
+  "id": "097f75a4-cd56-4a92-a590-e8172bde7510",
   "data": {
     "images": [
       {
@@ -8006,6 +8006,15 @@
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Montserrat_Alternates.ttf"
       },
       {
+        "name": "Montserrat_Black.ttf",
+        "size": 109640,
+        "size_formatted": "0.10 MB",
+        "file_name": "Montserrat_Black",
+        "ext": ".ttf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/Montserrat_Black.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/Montserrat_Black.ttf"
+      },
+      {
         "name": "Montserrat_Subrayada.ttf",
         "size": 23000,
         "size_formatted": "0.02 MB",
@@ -11262,6 +11271,15 @@
         "ext": ".ttf",
         "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/PTSans-Bold.ttf",
         "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/PTSans-Bold.ttf"
+      },
+      {
+        "name": "PTSans_Bold.ttf",
+        "size": 275408,
+        "size_formatted": "0.26 MB",
+        "file_name": "PTSans_Bold",
+        "ext": ".ttf",
+        "url": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/data/fonts/PTSans_Bold.ttf",
+        "file_url": "https://github.com/SrGobi/canvacard/blob/assets/data/fonts/PTSans_Bold.ttf"
       },
       {
         "name": "PT_Mono.ttf",
@@ -14820,13 +14838,13 @@
       }
     ]
   },
-  "total_files": 1665,
+  "total_files": 1648,
   "images_count": 41,
-  "fonts_count": 1624,
+  "fonts_count": 1607,
   "github": "https://github.com/SrGobi/canvacard",
   "website": "https://canvacard.js.org",
   "npm": "https://www.npmjs.com/package/canvacard",
-  "generated_timestamp": 1708528641896,
-  "generated_timestamp_iso": "2024-02-21T15:17:21.896Z",
+  "generated_timestamp": 1710003148668,
+  "generated_timestamp_iso": "2024-03-09T16:52:28.668Z",
   "shasum": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/shasum.txt"
 }
