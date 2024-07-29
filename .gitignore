@@ -1,3 +1,7 @@
+# dependencies
+node_modules/
+
+# lock files
 package-lock.json
 yarn.lock
-node_modules/
+bun.lockb

@@ -1,6 +1,6 @@
 {
   "name": "@canvacard/assets",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "canvacard Assets Repository",
   "private": true,
   "main": "index.js",
@@ -24,9 +24,9 @@
   },
   "homepage": "https://github.com/SrGobi/canvacard#readme",
   "dependencies": {
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@types/node": "^20.11.19"
+    "@types/node": "^22.0.0"
   }
 }
