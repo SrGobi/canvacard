@@ -30,9 +30,8 @@ declare class Welcomer extends Base {
      */
     typeOverlay: string;
     /**
-     * Actualiza el estado predeterminado
+     * Actualiza el estado predeterminado de los valores
      * @private
-     * @ignore
      */
     private __updateData;
     /**
@@ -103,15 +102,10 @@ declare class Welcomer extends Base {
     setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
     /**
      * Construye la tarjeta de bienvenida
-     * @param {object} ops Fuentes
-     * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
-     * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
+     * @param {string} [font="Helvetica"] Familia tipográfica
      * @returns {Promise<Buffer>}
      */
-    build(ops?: {
-        fontX?: string;
-        fontY?: string;
-    }): Promise<Buffer>;
+    build(font?: string): Promise<Buffer>;
 }
 import Base = require("./Base/GreetingCard");
 //# sourceMappingURL=Welcomer.d.ts.map

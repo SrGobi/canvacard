@@ -1,8 +1,8 @@
 export = Canvacard;
 /**
  * Canvacard Generador De Memes
- * @example const Canvacard = require("canvacard");
- *
+ * @example
+ * const Canvacard = require("canvacard");
  * Canvacard.Canvas.trigger("./image.png")
  *  .then(triggered => {
  *      Canvacard.write(triggered, "triggered.gif");
@@ -426,7 +426,8 @@ declare class Canvacard {
      * @param {string} [options.mainText] El mensaje
      * @param {string} [options.replyText] El mensaje de respuesta
      * @returns {Promise<Buffer>}
-     * @example const img = "https://cdn.discordapp.com/embed/avatars/0.png";
+     * @example
+     * const img = "https://cdn.discordapp.com/embed/avatars/0.png";
      * const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
      * canvacard.Canvas.reply({
      *      avatar1: img,
