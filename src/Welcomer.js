@@ -1,11 +1,11 @@
+// canvacard/src/Welcomer.js
 const Base = require("./Base/GreetingCard");
 const Util = require("./Util");
-const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
-
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
+const APIError = require("./utils/error");
 /**
  * Creador de tarjetas de bienvenida
  */
-
 class Welcomer extends Base {
 
   /**
@@ -87,14 +87,14 @@ class Welcomer extends Base {
      * @type {string}
      */
     this.colorBackground = "#000000";
+
     // Actualizar datos predeterminados
     this.__updateData();
   }
 
   /**
-   * Actualiza el estado predeterminado
+   * Actualiza el estado predeterminado de los valores
    * @private
-   * @ignore
    */
   __updateData() {
     this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
@@ -207,17 +207,14 @@ class Welcomer extends Base {
    */
   setBackground(type, data) {
     if (!data) throw new Error("Falta campo: datos");
-    switch (type) {
-      case "COLOR":
-        this.data.backgroundGlobal.type = "color";
-        this.data.backgroundGlobal.image = data && typeof data === "string" ? data : "#23272A";
-        break;
-      case "IMAGE":
-        this.data.backgroundGlobal.type = "image";
-        this.data.backgroundGlobal.image = data;
-        break;
-      default:
-        throw new Error(`Tipo de fondo no admitido "${type}"`);
+    if (type === "COLOR") {
+      this.data.backgroundGlobal.type = "color";
+      this.data.backgroundGlobal.image = typeof data === "string" ? data : "#23272A";
+    } else if (type === "IMAGE") {
+      this.data.backgroundGlobal.type = "image";
+      this.data.backgroundGlobal.image = data;
+    } else {
+      throw new Error(`Tipo de fondo no admitido "${type}"`);
     }
     return this;
   }
@@ -243,62 +240,58 @@ class Welcomer extends Base {
 
   /**
    * Construye la tarjeta de bienvenida
-   * @param {object} ops Fuentes
-   * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
-   * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
+   * @param {string} [font="Helvetica"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
-    // Crear lienzo
+  async build(font = "Helvetica") {
     const canvas = createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");
 
-    // Dibujar background
+    // Dibujar fondo
     ctx.fillStyle = this.colorBackground;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     let bg = null;
-    if (this.data.backgroundGlobal.type === "image") bg = await loadImage(this.data.backgroundGlobal.image);
-    // crear fondo
-    if (!!bg) {
-      ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-    } else {
-      ctx.fillStyle = this.data.backgroundGlobal.image;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    try {
+      if (this.data.backgroundGlobal.type === "image") {
+        bg = await loadImage(this.data.backgroundGlobal.image);
+        ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+      } else {
+        ctx.fillStyle = this.data.backgroundGlobal.image;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      }
+    } catch (error) {
+      throw new APIError("Error al cargar la imagen de fondo:", error);
+      // Podrías establecer un fondo predeterminado aquí si lo deseas
     }
 
     // Dibujar overlay
     ctx.fillStyle = this.colorOverlay;
     ctx.globalAlpha = this.opacityOverlay;
-    if (this.typeOverlay.type === "RECTANGLE") ctx.rect(55, 25, canvas.width - 110, canvas.height - 50);
-    else if (this.typeOverlay.type === "ROUNDED");
-    ctx.roundRect(55, 25, canvas.width - 110, canvas.height - 50, 10);
+    if (this.typeOverlay.type === "RECTANGLE") {
+      ctx.rect(55, 25, canvas.width - 110, canvas.height - 50);
+    } else if (this.typeOverlay.type === "ROUNDED") {
+      ctx.roundRect(55, 25, canvas.width - 110, canvas.height - 50, 10);
+    }
     ctx.shadowBlur = 10;
     ctx.shadowColor = this.colorOverlay;
     ctx.fill();
-
-    // restablecer la transparencia
     ctx.globalAlpha = 1;
 
     // Dibujar Titulo
-    ctx.globalAlpha = 1;
     ctx.shadowBlur = 10;
     ctx.shadowColor = "black";
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
-    ctx.font = `60px ${ops.fontY}`;
-    const titulo = Util.shorten(this.titulo, 30);
-    ctx.fillText(`${titulo}`, canvas.width - 550, canvas.height - 120);
+    ctx.font = `60px ${font}`;
+    ctx.fillText(Util.shorten(this.titulo, 30), canvas.width - 550, canvas.height - 120);
 
     // Dibujar Subtitulo
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = "black";
     ctx.fillStyle = this.colorSubtitulo;
-    ctx.textAlign = "center";
-    ctx.font = `30px ${ops.fontY}`;
-    const subtitulo = Util.shorten(this.subtitulo, 50);
-    ctx.fillText(`${subtitulo}`, canvas.width - 550, canvas.height - 70);
+    ctx.font = `30px ${font}`;
+    ctx.fillText(Util.shorten(this.subtitulo, 50), canvas.width - 550, canvas.height - 70);
 
-    // Dibujar un circulo de avatar
+    // Dibujar Avatar
     ctx.shadowBlur = 0;
     ctx.beginPath();
     ctx.lineWidth = 10;
@@ -308,7 +301,6 @@ class Welcomer extends Base {
     ctx.closePath();
     ctx.clip();
 
-    // Dibujar Avatar
     const avatar = await loadImage(this.avatar);
     ctx.drawImage(avatar, canvas.width - 675, 65, 250, 250);
 
