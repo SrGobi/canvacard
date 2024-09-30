@@ -2,6 +2,7 @@ const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const fortnite = require("fortnite-9812");
 const fs = require("fs");
 const moment = require("moment");
+const APIError = require("./utils/error");
 
 /**
  * Obtiene variables y tipos
@@ -223,14 +224,13 @@ class FortniteShop {
 
     fs.readdir(filesDir, function (err, files) {
       //error de manejo
-      if (err) {
-        return console.log("Unable to scan directory: " + err);
+      if (error) {
+        throw new APIError(`Unable to scan directory: ${error.message}`);
       }
 
       files.forEach(function (file) {
         if (file.split(".")[1] === "png") {
           if (Number(file.split("_")[0]) < Date.now() - 86400000 * 5) {
-            console.log(file);
             fs.unlinkSync(
               `${__dirname}/../assets/img/fortnite/shop/cache/${file}`
             );
