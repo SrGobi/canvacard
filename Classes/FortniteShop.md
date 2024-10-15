@@ -43,7 +43,7 @@ Creador de imagen de la tienda de fortnite
 <a name="new_FortniteShop_new"></a>
 
 ### new FortniteShop()
-FortniteShop image builder
+![FortniteStats Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png)
 
 **Example**  
 ```js

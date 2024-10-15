@@ -34,7 +34,7 @@ Creador de tarjetas de despedida
 <a name="new_Leaver_new"></a>
 
 ### new Leaver()
-Leave image builder
+![Leave Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/leave.png)
 
 **Example**  
 ```js

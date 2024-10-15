@@ -47,7 +47,7 @@ Creador de imagen de estadisticas de fortnite
 <a name="new_FortniteStats_new"></a>
 
 ### new FortniteStats()
-FortniteStats image builder
+![FortniteStats Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_stats.png)
 
 **Example**  
 ```js	 const FortniteStatsCardURL = await new FortniteStats()

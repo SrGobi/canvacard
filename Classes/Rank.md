@@ -1,6 +1,8 @@
 <a name="Rank"></a>
 
 ## Rank
+Creador tarjetas de rango
+
 **Kind**: global class  
 
 * [Rank](#Rank)
@@ -22,7 +24,7 @@
 <a name="new_Rank_new"></a>
 
 ### new Rank(userId)
-Rank image builder
+<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">  </a></details>
 
 
 | Param | Type | Description |

@@ -47,7 +47,7 @@ Creador de tarjetas de presencia de Spotify
 <a name="new_Spotify_new"></a>
 
 ### new Spotify()
-Crea una tarjeta de presencia de Spotify
+![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
 
 **Example**  
 ```js
