@@ -11,19 +11,19 @@ const data = {
 	username: 'srgobi',
 	avatar: '73a9931eb6a7e430f394c513ade959e4',
 	discriminator: '0',
-	bot: true,
+	bot: false,
 	flags: 4194432,
 	banner:null,
 	accent_color: 3046143,
 	global_name: 'SrGobi',
 	avatar_decoration_data: {
-		asset: 'a_fed43ab12698df65902ba06727e20c0e',
+		asset: 'a_3d1e6078b2e4c8865e0ad0f429d651b1',
 		sku_id: '1144058844004233369',
 		expires_at: null
 	},
 	banner_color: '#00ffbb',
 	clan: null,
-	createdTimestamp: 1572183145164,
+	createdTimestamp: 1644105600000,
 	defaultAvatarURL: 'https://cdn.discordapp.com/embed/avatars/0.png',
 	avatarURL: 'https://cdn.discordapp.com/avatars/360881334647914506/73a9931eb6a7e430f394c513ade959e4.png',
 	bannerURL: 'https://i.imgur.com/Z2g5IMl.gif'
@@ -40,13 +40,13 @@ async function generateRankCard() {
 		.setRank(1, "RANK", true)
 		.setLevel(20, "LEVEL")
 		.setStatus("online")
-		.setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+		.setProgressBar(["#22274a", "#001eff"], "GRADIENT", true)
 		.setUsername(data.global_name, data.discriminator, "#FFFFFF")
-		.setCreatedTimestamp(data.createdTimestamp, "IMPRESIONANTE")
-		.setBorder(["#14C49E", "#FF0000"], "vertical");
+		.setCreatedTimestamp(data.createdTimestamp)
+		.setBorder(["#000000", "#001eff"], "vertical");
 
 	const rankImage = await rank.build("Cascadia Code PL");
-	canvacard.write(rankImage, "./rank_1.png");
+	canvacard.write(rankImage, "./rank_3.png");
 }
 
 // Función para generar la tarjeta de Welcome
@@ -64,7 +64,7 @@ async function generateWelcomeCard() {
 		.setTypeOverlay('ROUNDED');
 
 	const welcomeImage = await welcome.build("Cascadia Code PL");
-	canvacard.write(welcomeImage, "./welcome_1.png");
+	canvacard.write(welcomeImage, "./welcome_5.png");
 }
 
 // Función para generar la tarjeta de Spotify
