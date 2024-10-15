@@ -9,7 +9,6 @@ const ASSETS_DIR = "CANVACARD_ASSETS" in process.env ? process.env.CANVACARD_ASS
 
 export async function build(force = false) {
 	if (!fs.existsSync(ASSETS_DIR)) await fs.promises.mkdir(ASSETS_DIR, { recursive: true });
-	if (!fs.existsSync(`${ASSETS_DIR}/fonts`)) await fs.promises.mkdir(`${ASSETS_DIR}/fonts`, { recursive: true });
 	if (!fs.existsSync(`${ASSETS_DIR}/images`)) await fs.promises.mkdir(`${ASSETS_DIR}/images`, { recursive: true });
 
 	if (force) console.log(`${chalk.yellowBright("[Canvacard]")} ${chalk.whiteBright("Reconstruir con fuerza como as --force was supplied!")}`);
@@ -26,7 +25,7 @@ export async function build(force = false) {
 	})
 		.then(res => res.json())
 		.then(data => {
-			if (!data?.data) throw new Error(`Fuente de activos corruptos`);
+			if (!data) throw new Error(`Fuente de activos corruptos`);
 			return data;
 		})
 		.catch((e) => {
@@ -39,18 +38,16 @@ export async function build(force = false) {
 		await fs.promises.writeFile(`${ASSETS_DIR}/meta.json`, JSON.stringify(assetsMeta));
 		console.log(`${chalk.greenBright("[Canvacard]")} ${chalk.whiteBright(`Metadatos descargados correctamente!`)}`);
 
-		console.log(`${chalk.yellowBright("[Canvacard]")} ${chalk.whiteBright("Descargando images...")}`);
-		await Promise.all(assetsMeta.data.images.map(m => downloadAsset(m.url, m.name, true)));
-		console.log(`${chalk.yellowBright("[Canvacard]")} ${chalk.whiteBright("Descargando fonts...")}`);
-		await Promise.all(assetsMeta.data.fonts.map(m => downloadAsset(m.url, m.name, false)));
+		console.log(`${chalk.yellowBright("[Canvacard]")} ${chalk.whiteBright("Descargando imágenes...")}`);
+		await Promise.all(assetsMeta.images.map(m => downloadAsset(m.url, m.name)));
 
-		async function downloadAsset(url, name, image) {
+		async function downloadAsset(url, name) {
 			const stream = await fetch(url).then(res => {
-				if (!res.ok || !res.body) throw new Error(`[HTTP${res.status}] No se ha podido descargar ${url}!`);
+				if (!res.ok || !res.body) throw new Error(`[HTTP ${res.status}] No se ha podido descargar ${url}!`);
 				return res.body;
 			});
 
-			const writer = stream.pipe(fs.createWriteStream(`${ASSETS_DIR}/${image ? "images" : "fonts"}/${name}`));
+			const writer = stream.pipe(fs.createWriteStream(`${ASSETS_DIR}/images/${name}`));
 
 			writer.on("finish", () => {
 				console.log(`${chalk.greenBright("[Canvacard]")} ${chalk.whiteBright(`Descargado correctamente ${chalk.cyanBright(name)}`)}`);
