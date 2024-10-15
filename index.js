@@ -46,7 +46,7 @@ async function generateRankCard() {
 		.setBorder(["#14C49E", "#FF0000"], "vertical");
 
 	const rankImage = await rank.build("Cascadia Code PL");
-	canvacard.write(rankImage, "./card_1.png");
+	canvacard.write(rankImage, "./rank_1.png");
 }
 
 // Función para generar la tarjeta de Welcome
@@ -64,7 +64,7 @@ async function generateWelcomeCard() {
 		.setTypeOverlay('ROUNDED');
 
 	const welcomeImage = await welcome.build("Cascadia Code PL");
-	canvacard.write(welcomeImage, "./welcomer.png");
+	canvacard.write(welcomeImage, "./welcome_1.png");
 }
 
 // Función para generar la tarjeta de Spotify
