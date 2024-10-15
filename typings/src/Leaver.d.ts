@@ -102,9 +102,9 @@ declare class Leaver extends Base {
      */
     setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
     /**
-     * Construye la tarjeta de bienvenida
-     * @param {string} [font="Helvetica"] Familia tipográfica
-     * @returns {Promise<Buffer>} La tarjeta de bienvenida en formato de buffer
+     * Construye la tarjeta de despedida
+     * @param {string} [font="Arial"] Familia tipográfica
+     * @returns {Promise<Buffer>} La tarjeta de despedida en formato de buffer
      */
     build(font?: string): Promise<Buffer>;
 }

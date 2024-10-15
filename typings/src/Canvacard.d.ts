@@ -116,9 +116,10 @@ declare class Canvacard {
      * @param {boolean} displayHex Si debe mostrar hexadecimal
      * @param {number} height Altura de imagen
      * @param {number} width Ancho de la imagen
+     * @param {string} [font="Arial"] Familia tipográfica
      * @returns {Buffer}
      */
-    static color(color?: string, displayHex?: boolean, height?: number, width?: number): Buffer;
+    static color(color?: string, displayHex?: boolean, height?: number, width?: number, font?: string): Buffer;
     /**
      * Crea una imagen circular
      * @param {string|Buffer} image Fuente de imagen
@@ -166,12 +167,6 @@ declare class Canvacard {
      * @returns {Promise<Buffer>}
      */
     static spank(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
-    /**
-       * Loads font
-       * @param {any[]} fontArray Font array
-       * @returns {Promise<void>}
-       */
-    static registerFonts(fontArray?: any[]): Promise<void>;
     /**
      * Abofetear a alguien ( ͡° ͜ʖ ͡°)
      * @param {string|Buffer} image1 Primera imagen
@@ -301,10 +296,11 @@ declare class Canvacard {
     /**
      * Opinión
      * @param {string|Buffer} avatar Imagen
-     * @param {string} msg Mensaje
+     * @param {string} msg Mensaje de opinión
+     * @param {string} [font="Arial"] Familia tipográfica
      * @returns {Promise<Buffer>}
      */
-    static opinion(avatar: string | Buffer, msg: string): Promise<Buffer>;
+    static opinion(avatar: string | Buffer, msg: string, font?: string): Promise<Buffer>;
     /**
      * Crea degradado
      * @param {string} colorFrom Color inicial
@@ -316,23 +312,26 @@ declare class Canvacard {
     static gradient(colorFrom: string, colorTo: string, width: number, height: number): Buffer;
     /**
      * ¡Oh, no! Es estúpido.
-     * @param {string} message Mensaje
+     * @param {string} msg Mensaje
+     * @param {string} [font="Arial"] Familia tipográfica
      * @returns {Promise<Buffer>}
      */
-    static ohno(message: string): Promise<Buffer>;
+    static ohno(msg: string, font?: string): Promise<Buffer>;
     /**
      * Cambiar de opinión (tomado de jgoralcz/image-microservice)
-     * @param {String} text Texto
+     * @param {String} msg Mensaje
+     * @param {String} [font="Arial"] Familia tipográfica
      * @see https://github.com/jgoralcz/image-microservice/blob/master/src/workers/canvas/ChangeMyMind.js
      * @returns {Promise<Buffer>}
      */
-    static changemymind(text: string): Promise<Buffer>;
+    static changemymind(msg: string, font?: string): Promise<Buffer>;
     /**
      * Clyde
-     * @param {string} message Mensaje
+     * @param {string} msg Mensaje
+     * @param {string} [font="Arial"] Familia tipográfica
      * @returns {Promise<Buffer>}
      */
-    static clyde(message: string): Promise<Buffer>;
+    static clyde(msg: string, font?: string): Promise<Buffer>;
     /**
      * Cita falsa
      * @param {object} options Opciones
@@ -340,6 +339,7 @@ declare class Canvacard {
      * @param {string} [options.message] Mensaje
      * @param {string} [options.username] Nombre de usuario
      * @param {string} [options.color] Color
+     * @param {string} [font="Arial"] Familia tipográfica
      * @returns {Promise<Buffer>}
      */
     static quote(options?: {
@@ -347,20 +347,21 @@ declare class Canvacard {
         message?: string;
         username?: string;
         color?: string;
-    }): Promise<Buffer>;
+    }, font?: string): Promise<Buffer>;
     /**
      * Comentario de PornHub
      * @param {Object} options Opciones
      * @param {String} [options.username] Nombre de usuario
      * @param {String} [options.message] Comentario
      * @param {String|Buffer} [options.image] Imagen
+     * @param {String} [font="Arial"] Familia tipográfica
      * @returns {Promise<Buffer>}
      */
     static phub(options?: {
         username?: string;
         message?: string;
         image?: string | Buffer;
-    }): Promise<Buffer>;
+    }, font?: string): Promise<Buffer>;
     /**
      * Wanted
      * @param {string|Buffer} image Fuente de imagen

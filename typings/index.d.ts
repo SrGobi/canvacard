@@ -37,11 +37,6 @@ export declare let Assets: {
     new (): import("./src/Assets");
     load: (warnIfFailed?: boolean) => void;
     ASSETS_DIR: string;
-    font: {
-        get(name: any): any;
-        getMetadata(name: any): any;
-        all(): {};
-    };
     image: {
         get(name: any): any;
         getMetadata(name: any): any;

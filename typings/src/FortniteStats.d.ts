@@ -104,6 +104,11 @@ declare class FortniteStats {
      * @returns {FortniteStats}
      */
     setText(variable: any, value: string): FortniteStats;
-    toAttachment(): Promise<false | import("@napi-rs/canvas").Canvas>;
+    /**
+     * Construye la imagen de la tienda de fortnite
+     * @param {string} [font="Arial"] Familia tipográfica
+     * @returns {Promise<string>} La imagen de la tienda de fortnite
+     */
+    build(font?: string): Promise<string>;
 }
 //# sourceMappingURL=FortniteStats.d.ts.map

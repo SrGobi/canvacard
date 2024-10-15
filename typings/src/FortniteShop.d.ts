@@ -72,6 +72,11 @@ declare class FortniteShop {
      * @returns {FortniteShop}
      */
     dateFormat(value: string): FortniteShop;
-    toAttachment(): Promise<string | void>;
+    /**
+     * Construye la imagen de la tienda de fortnite
+     * @param {string} [font="Arial"] Familia tipográfica
+     * @returns {Promise<string>} La imagen de la tienda de fortnite
+     */
+    build(font?: string): Promise<string>;
 }
 //# sourceMappingURL=FortniteShop.d.ts.map

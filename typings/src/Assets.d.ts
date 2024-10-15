@@ -2,11 +2,6 @@ export = CanvacardAssets;
 declare class CanvacardAssets {
     static load: typeof loadAssets;
     static ASSETS_DIR: string;
-    static font: {
-        get(name: any): any;
-        getMetadata(name: any): any;
-        all(): {};
-    };
     static image: {
         get(name: any): any;
         getMetadata(name: any): any;

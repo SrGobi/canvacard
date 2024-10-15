@@ -227,7 +227,7 @@ declare class Rank {
     setCreatedTimestamp(timestamp: number, customDate: string | Date): Rank;
     /**
      * Construye la tarjeta de rango
-     * @param {string} [font="Helvetica"] Familia tipográfica
+     * @param {string} [font="Arial"] Familia tipográfica
      * @returns {Promise<Buffer>} La tarjeta de rango en formato de buffer
      */
     build(font?: string): Promise<Buffer>;
