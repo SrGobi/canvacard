@@ -15,7 +15,7 @@ const data = {
 	flags: 4194432,
 	banner:null,
 	accent_color: 3046143,
-	global_name: 'SrGobiawdawdawd',
+	global_name: 'SrGobi',
 	avatar_decoration_data: {
 		asset: 'a_fed43ab12698df65902ba06727e20c0e',
 		sku_id: '1144058844004233369',
