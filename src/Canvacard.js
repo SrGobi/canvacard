@@ -238,9 +238,10 @@ class Canvacard {
    * @param {boolean} displayHex Si debe mostrar hexadecimal
    * @param {number} height Altura de imagen
    * @param {number} width Ancho de la imagen
+   * @param {string} [font="Manrope"] Fuente de texto
    * @returns {Buffer}
    */
-  static color(color = "#FFFFFF", displayHex = false, height = 1024, width = 1024) {
+  static color(color = "#FFFFFF", displayHex = false, height = 1024, width = 1024, font = "Manrope" ) {
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext("2d");
 
@@ -248,7 +249,7 @@ class Canvacard {
 
     if (!!displayHex) {
       const ic = Util.invertColor(color);
-      ctx.font = "bold 72px Manrope";
+      ctx.font = `bold 72px ${font}`;
       ctx.fillStyle = ic;
       ctx.fillText(color.toUpperCase(), canvas.width / 3, canvas.height / 2);
     }
@@ -373,10 +374,9 @@ class Canvacard {
   }
 
   /**
-     * Loads font
-     * @param {any[]} fontArray Font array
-     * @returns {Promise<void>}
-     */
+   * Cargar fuentes
+   * @param {Array[]} fontArray Array de fuentes
+   */
   static async registerFonts(fontArray = []) {
     if (!fontArray.length) {
       // GlobalFonts.loadFontsFromDir(`${Canvacard.assets.ASSETS_DIR}/fonts`)
@@ -810,10 +810,11 @@ class Canvacard {
   /**
    * Opinión
    * @param {string|Buffer} avatar Imagen
-   * @param {string} msg Mensaje
+   * @param {string} msg Mensaje de opinión
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  static async opinion(avatar, msg) {
+  static async opinion(avatar, msg, font = "Arial") {
     if (!avatar) throw new Error("Avatar no fue proporcionado!");
     if (!msg) throw new Error("¡No se proporcionó el mensaje!");
     await this.__wait();
@@ -827,7 +828,7 @@ class Canvacard {
     ctx.drawImage(ava, 260, 180, 70, 70);
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
-    ctx.font = "bold 15px arial";
+    ctx.font = `bold 15px ${font}`;
     ctx.fillStyle = "#000000";
     await Util.renderEmoji(ctx, Util.shorten(msg, 24), canvas.width / 10, canvas.height / 1.51);
 
@@ -860,11 +861,12 @@ class Canvacard {
 
   /**
    * ¡Oh, no! Es estúpido.
-   * @param {string} message Mensaje
+   * @param {string} msg Mensaje
+   * @param {string} [font="Times New Roman"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  static async ohno(message) {
-    if (!message) throw new Error("¡No se proporcionó el mensaje!");
+  static async ohno(msg, font = "Times New Roman") {
+    if (!msg) throw new Error("¡No se proporcionó el mensaje!");
     await Canvacard.__wait();
     const bg = await loadImage(Canvacard.assets.image.get("OHNO"));
     const canvas = createCanvas(1000, 1000);
@@ -872,27 +874,28 @@ class Canvacard {
 
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 
-    ctx.font = "bold 50px Times New Roman";
+    ctx.font = `bold 50px ${font}`;
     ctx.fillStyle = "#000000";
-    await Util.renderEmoji(ctx, Util.shorten(message, 20), 540, 195);
+    await Util.renderEmoji(ctx, Util.shorten(msg, 20), 540, 195);
 
     return canvas.toBuffer();
   }
 
   /**
    * Cambiar de opinión (tomado de jgoralcz/image-microservice)
-   * @param {String} text Texto
+   * @param {String} msg Mensaje
+   * @param {String} [font="Arial"] Familia tipográfica
    * @see https://github.com/jgoralcz/image-microservice/blob/master/src/workers/canvas/ChangeMyMind.js
    * @returns {Promise<Buffer>}
    */
-  static async changemymind(text) {
-    if (!text) throw new Error("missing text!");
+  static async changemymind(msg, font = "Arial") {
+    if (!msg) throw new Error("missing text!");
     await this.__wait();
     const base = await loadImage(Canvacard.assets.image.get("CHANGEMYMIND"));
     const canvas = createCanvas(base.width, base.height);
     const ctx = canvas.getContext("2d");
     ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
-    let x = text.length;
+    let x = msg.length;
     let fontSize = 70;
     if (x <= 15) {
       ctx.translate(310, 365);
@@ -921,10 +924,10 @@ class Canvacard {
       fontSize = 7;
       ctx.translate(310, 335);
     }
-    ctx.font = `${fontSize}px 'Arial'`;
+    ctx.font = `${fontSize}px ${font}`;
     ctx.rotate(-0.39575);
 
-    const lines = Util.getLines({ text, ctx, maxWidth: 345 });
+    const lines = Util.getLines({ msg, ctx, maxWidth: 345 });
     let i = 0;
     while (i < lines.length) {
       ctx.fillText(lines[i], 10, i * fontSize - 5);
@@ -935,11 +938,12 @@ class Canvacard {
 
   /**
    * Clyde
-   * @param {string} message Mensaje
+   * @param {string} msg Mensaje
+   * @param {string} [font="Manrope"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  static async clyde(message) {
-    if (!message) messgae = "Please provide text!";
+  static async clyde(msg, font = "Manrope") {
+    if (!msg) msg = "Please provide text!";
     await this.__wait()
     let avatar = await loadImage(await Canvacard.circle(Canvacard.assets.image.get("CLYDE")));
     let badge = await loadImage(Canvacard.assets.image.get("BOTBADGE"));
@@ -953,27 +957,27 @@ class Canvacard {
     ctx.drawImage(avatar, 75, 30, 130, 130);
     ctx.drawImage(badge, 360, 45, 100, 40);
 
-    ctx.font = "40px Manrope";
+    ctx.font = `40px ${font}`;
     ctx.fillStyle = "#FFFFFF";
     ctx.textAlign = "start";
     await Util.renderEmoji(ctx, Util.shorten(message, 66), 230, 150);
 
-    ctx.font = "50px Whitney";
+    ctx.font = `50px ${font}`;
     ctx.fillStyle = "#FFFFFF";
     ctx.textAlign = "start";
     ctx.fillText("Clyde", 230, 80);
 
-    ctx.font = "40px Whitney";
+    ctx.font = `40px ${font}`;
     ctx.fillStyle = "#7D7D7D";
     ctx.textAlign = "start";
     ctx.fillText(Util.discordTime(), 470, 80);
 
-    ctx.font = "20px Manrope";
+    ctx.font = `20px ${font}`;
     ctx.fillStyle = "#7D7D7D";
     ctx.textAlign = "start";
     ctx.fillText("Solo tú puedes ver esto:", 240, 190);
 
-    ctx.font = "20px Manrope";
+    ctx.font = `20px ${font}`;
     ctx.fillStyle = "#2785C7";
     ctx.textAlign = "start";
     ctx.fillText("eliminar este mensaje.", 240 + ctx.measureText("Solo tú puedes ver esto:").width + 10, 190);
@@ -988,9 +992,10 @@ class Canvacard {
    * @param {string} [options.message] Mensaje
    * @param {string} [options.username] Nombre de usuario
    * @param {string} [options.color] Color
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  static async quote(options = { image, message, username, color }) {
+  static async quote(options = { image, message, username, color }, font = "Arial") {
     await this.__wait();
     if (!options.image) options.image = Canvacard.assets.image.get("CLYDE");
     if (!options.message) options.message = "Por favor, proporcione un mensaje de texto.";
@@ -1007,17 +1012,17 @@ class Canvacard {
 
     ctx.drawImage(image, 75, 30, 130, 130);
 
-    ctx.font = "40px Manrope";
+    ctx.font = `40px ${font}`;
     ctx.fillStyle = "#FFFFFF";
     ctx.textAlign = "start";
     await Util.renderEmoji(ctx, Util.shorten(options.message, 66), 230, 150);
 
-    ctx.font = "50px Whitney";
+    ctx.font = `50px ${font}`;
     ctx.fillStyle = typeof options.color == "string" ? options.color : "#FFFFFF";
     ctx.textAlign = "start";
     ctx.fillText(typeof options.username === "string" ? Util.shorten(options.username, 17) : "Clyde", 230, 80);
 
-    ctx.font = "40px Whitney";
+    ctx.font = `50px ${font}`;
     ctx.fillStyle = "#7D7D7D";
     ctx.textAlign = "start";
     ctx.fillText(Util.discordTime(), 240 + ctx.measureText(Util.shorten(options.username, 17)).width + 110, 80);
@@ -1031,9 +1036,10 @@ class Canvacard {
    * @param {String} [options.username] Nombre de usuario
    * @param {String} [options.message] Comentario
    * @param {String|Buffer} [options.image] Imagen
+   * @param {String} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  static async phub(options = { username: null, message: null, image: null }) {
+  static async phub(options = { username: null, message: null, image: null }, font = "Arial") {
     if (!options.username) throw new Error("¡El nombre de usuario no puede estar vacío!");
     if (!options.message) throw new Error("¡El mensaje no puede estar vacío!");
     if (!options.image) throw new Error("¡La imagen no puede estar vacía!");
@@ -1048,12 +1054,12 @@ class Canvacard {
     ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
     ctx.drawImage(image, 30, 310, 70, 70);
 
-    ctx.font = "32px Arial";
+    ctx.font = `32px ${font}`;
     ctx.fillStyle = "#F99600";
     ctx.textAlign = "start";
     ctx.fillText(Util.shorten(options.username, 20), 115, 350);
 
-    ctx.font = "32px Arial";
+    ctx.font = `32px ${font}`;
     ctx.fillStyle = "#CCCCCC";
     ctx.textAlign = "start";
     await Util.renderEmoji(ctx, Util.shorten(options.message, 50), 30, 430);
