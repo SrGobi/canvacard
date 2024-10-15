@@ -253,6 +253,7 @@ Establecer rectangle / rounded de overlay
 Construye la tarjeta de bienvenida
 
 **Kind**: instance method of [<code>Welcomer</code>](#Welcomer)  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - La tarjeta de bienvenida en formato de buffer  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |

@@ -42,7 +42,7 @@ Creador de tarjetas de presencia de Spotify
     * [.setStartTimestamp(time)](#Spotify+setStartTimestamp) ⇒ [<code>Spotify</code>](#Spotify)
     * [.setEndTimestamp(time)](#Spotify+setEndTimestamp) ⇒ [<code>Spotify</code>](#Spotify)
     * [.setBackground(type, data)](#Spotify+setBackground) ⇒ [<code>Spotify</code>](#Spotify)
-    * [.build(font)](#Spotify+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.build([font])](#Spotify+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 
 <a name="new_Spotify_new"></a>
 
@@ -214,14 +214,15 @@ Definir fondo
 
 <a name="Spotify+build"></a>
 
-### spotify.build(font) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Esta función convierte los datos sin procesar en una tarjeta de presencia de Spotify.
+### spotify.build([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+Construye la tarjeta de presencia de Spotify.
 
 **Kind**: instance method of [<code>Spotify</code>](#Spotify)  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - La tarjeta de presencia de Spotify en formato de buffer  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| font | <code>object</code> | <code>Helvetica</code> | Fuentes |
+| [font] | <code>object</code> | <code>&quot;Helvetica&quot;</code> | Familia tipográfica |
 
 <a name="SpotifyDataBG"></a>
 

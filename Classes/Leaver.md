@@ -29,7 +29,7 @@ Creador de tarjetas de despedida
     * [.setOpacityOverlay(value)](#Leaver+setOpacityOverlay) ⇒ [<code>Leaver</code>](#Leaver)
     * [.setBackground(type, [data])](#Leaver+setBackground)
     * [.setTypeOverlay(type)](#Leaver+setTypeOverlay)
-    * [.build(ops)](#Leaver+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.build([font])](#Leaver+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 
 <a name="new_Leaver_new"></a>
 
@@ -251,14 +251,13 @@ Establecer rectangle / rounded de overlay
 
 <a name="Leaver+build"></a>
 
-### leaver.build(ops) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### leaver.build([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Construye la tarjeta de despedida
 
 **Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - La tarjeta de despedida en formato de buffer  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| ops | <code>object</code> |  | Fuentes |
-| [ops.fontX] | <code>string</code> | <code>&quot;\&quot;MANROPE_BOLD\&quot;&quot;</code> | Familia tipográfica Bold |
-| [ops.fontY] | <code>string</code> | <code>&quot;\&quot;MANROPE_REGULAR\&quot;&quot;</code> | Familia tipográfica regular |
+| [font] | <code>string</code> | <code>&quot;\&quot;Helvetica\&quot;&quot;</code> | Familia tipográfica |
 
