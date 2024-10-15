@@ -123,7 +123,7 @@ class Greeting {
     ctx.shadowColor = "black";
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
-    ctx.font = `60px The Bold Font`;
+    ctx.font = `60px Arial`;
     ctx.fillText(this.titulo, canvas.width - 512, canvas.height - 90);
 
     // Dibujar Subtitulo
@@ -131,7 +131,7 @@ class Greeting {
     ctx.shadowColor = "black";
     ctx.fillStyle = this.colorSubtitulo;
     ctx.textAlign = "center";
-    ctx.font = `30px The Bold Font`;
+    ctx.font = `30px Arial`;
     ctx.fillText(this.subtitulo, canvas.width - 512, canvas.height - 40);
 
     // Dibujar un circulo de avatar

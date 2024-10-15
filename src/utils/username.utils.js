@@ -1,14 +1,13 @@
 /**
  * Funcion que se encarga de parsear el nombre de usuario para que se ajuste al tamaño del canvas
- * @param {string} username 
- * @param {Object} ctx
- * @param {string} ctx.font
- * @param {string} ctx.fillStyle
- * @param {string} ctx.textAlign
- * @param {TextMetrics} ctx.measureText
- * @param {string} font 
- * @param {string} size 
- * @param {number} maxLength 
+ * @param {string} username Nombre de usuario
+ * @param {Object} ctx Contexto del canvas
+ * @param {string} ctx.fillStyle Color del texto
+ * @param {string} ctx.textAlign Alineacion del texto
+ * @param {TextMetrics} ctx.measureText Medida del texto
+ * @param {string} [font='Arial'] Fuente del texto
+ * @param {string} size Tamaño del texto
+ * @param {number} maxLength  Longitud maxima del texto
  * @returns {Object} { username: string, newSize: number, textLength: number }
  */
 function parseUsername(username, ctx, font, size, maxLength) {

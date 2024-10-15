@@ -168,7 +168,7 @@ class FortniteStats {
 
   /**
    * Construye la imagen de la tienda de fortnite
-   * @param {string} [font="Luckiest Guy"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<string>} La imagen de la tienda de fortnite
    */
   async build(font = "Luckiest Guy") {

@@ -316,7 +316,7 @@ async function genBorder(options) {
  * @param {boolean} options.presenceStatus Mostrar el estado de presencia
  * @param {Object} rankData Datos de rango
  * @param {string} avatarData URL del avatar
- * @param {string} [font="MANROPE_BOLD"] Familia tipográfica
+ * @param {string} [font="Arial"] Familia tipográfica
  * @returns {Promise<Buffer>}
  */
 async function genTextAndAvatar(user, rankData, options, avatarData, font) {
@@ -526,7 +526,7 @@ async function genStatus(canvasToEdit, options) {
  * @param {Object} user Objeto de usuario
  * @param {string} user.username Nombre de usuario
  * @param {number} user.flags Valor numérico de las flags del usuario
- * @param {string} [font="MANROPE_BOLD"] Familia tipográfica
+ * @param {string} [font="Arial"] Familia tipográfica
  * @returns {Promise<Buffer>} Canvas
  */
 async function genBotVerifBadge(user, font) {

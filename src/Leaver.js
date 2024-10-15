@@ -244,10 +244,10 @@ class Leaver extends Base {
 
   /**
    * Construye la tarjeta de despedida
-   * @param {string} [font="Helvetica"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>} La tarjeta de despedida en formato de buffer
    */
-  async build(font = "Helvetica") {
+  async build(font = "Arial") {
     // Crear lienzo
     const canvas = createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");

@@ -242,10 +242,10 @@ class Welcomer extends Base {
 
   /**
    * Construye la tarjeta de bienvenida
-   * @param {string} [font="Helvetica"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>} La tarjeta de bienvenida en formato de buffer
    */
-  async build(font = "Helvetica") {
+  async build(font = "Arial") {
     const canvas = createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");
 

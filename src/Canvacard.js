@@ -238,10 +238,10 @@ class Canvacard {
    * @param {boolean} displayHex Si debe mostrar hexadecimal
    * @param {number} height Altura de imagen
    * @param {number} width Ancho de la imagen
-   * @param {string} [font="Manrope"] Fuente de texto
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Buffer}
    */
-  static color(color = "#FFFFFF", displayHex = false, height = 1024, width = 1024, font = "Manrope" ) {
+  static color(color = "#FFFFFF", displayHex = false, height = 1024, width = 1024, font = "Manrope") {
     const canvas = createCanvas(width, height);
     const ctx = canvas.getContext("2d");
 
@@ -371,25 +371,6 @@ class Canvacard {
     ctx.drawImage(avatar1, 350, 220, 120, 120);
     ctx.drawImage(avatar, 225, 5, 140, 140);
     return canvas.toBuffer();
-  }
-
-  /**
-   * Cargar fuentes
-   * @param {Array[]} fontArray Array de fuentes
-   */
-  static async registerFonts(fontArray = []) {
-    if (!fontArray.length) {
-      // GlobalFonts.loadFontsFromDir(`${Canvacard.assets.ASSETS_DIR}/fonts`)
-      const fonts = Canvacard.assets.font.all();
-
-      for (const font in fonts) {
-        GlobalFonts.registerFromPath(fonts[font].path, fonts[font].name);
-      }
-    } else {
-      fontArray.forEach(font => {
-        GlobalFonts.registerFromPath(font.path, font.name || font.face?.family);
-      });
-    }
   }
 
   /**
@@ -862,10 +843,10 @@ class Canvacard {
   /**
    * ¡Oh, no! Es estúpido.
    * @param {string} msg Mensaje
-   * @param {string} [font="Times New Roman"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
-  static async ohno(msg, font = "Times New Roman") {
+  static async ohno(msg, font = "Arial") {
     if (!msg) throw new Error("¡No se proporcionó el mensaje!");
     await Canvacard.__wait();
     const bg = await loadImage(Canvacard.assets.image.get("OHNO"));
@@ -939,7 +920,7 @@ class Canvacard {
   /**
    * Clyde
    * @param {string} msg Mensaje
-   * @param {string} [font="Manrope"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
    */
   static async clyde(msg, font = "Manrope") {
@@ -1201,7 +1182,7 @@ class Canvacard {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.fillStyle = "#FFFFFF";
-    ctx.font = `bold ${size / 4}px Whitney`;
+    ctx.font = `bold ${size / 4}px Roboto`;
     await Util.renderEmoji(ctx, str, canvas.width / 4, canvas.height / 1.7);
 
     return canvas.toBuffer();

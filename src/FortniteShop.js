@@ -147,10 +147,10 @@ class FortniteShop {
 
   /**
    * Construye la imagen de la tienda de fortnite
-   * @param {string} [font="Luckiest Guy"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<string>} La imagen de la tienda de fortnite
    */
-  async build(font = "Luckiest Guy") {
+  async build(font = "Arial") {
     if (!this.token) return console.log("Please enter a valid token fnbr.co !");
 
     const rarityCard = (value) => {

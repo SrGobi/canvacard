@@ -347,10 +347,10 @@ class Rank {
 
   /**
    * Construye la tarjeta de rango
-   * @param {string} [font="Helvetica"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>} La tarjeta de rango en formato de buffer
    */
-  async build(font = "Helvetica") {
+  async build(font = "Arial") {
     if (!this.data.user.avatarURL) throw new Error("Avatar no disponible.");
     if (!this.data.user.username) throw new Error("Nombre de usuario no disponible.");
 

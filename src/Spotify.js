@@ -221,10 +221,10 @@ class Spotify {
 
   /**
    * Construye la tarjeta de presencia de Spotify.
-   * @param {string} [font="Helvetica"] Familia tipográfica
+   * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>} La tarjeta de presencia de Spotify en formato de buffer
    */
-  async build(font = "Helvetica") {
+  async build(font = "Arial") {
     if (!this.title) throw new Error('Falta el "título" en las opciones.');
     if (!this.artist) throw new Error('Falta "artista" en las opciones.');
     if (!this.start) throw new Error('Falta "inicio" en las opciones.');
