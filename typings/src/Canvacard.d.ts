@@ -1,12 +1,6 @@
 export = Canvacard;
 /**
  * Canvacard Generador De Memes
- * @example
- * const Canvacard = require("canvacard");
- * Canvacard.Canvas.trigger("./image.png")
- *  .then(triggered => {
- *      Canvacard.write(triggered, "triggered.gif");
- *  })
  */
 declare class Canvacard {
     /**

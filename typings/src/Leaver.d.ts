@@ -102,16 +102,11 @@ declare class Leaver extends Base {
      */
     setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
     /**
-     * Construye la tarjeta de despedida
-     * @param {object} ops Fuentes
-     * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
-     * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
-     * @returns {Promise<Buffer>}
+     * Construye la tarjeta de bienvenida
+     * @param {string} [font="Helvetica"] Familia tipográfica
+     * @returns {Promise<Buffer>} La tarjeta de bienvenida en formato de buffer
      */
-    build(ops?: {
-        fontX?: string;
-        fontY?: string;
-    }): Promise<Buffer>;
+    build(font?: string): Promise<Buffer>;
 }
 import Base = require("./Base/GreetingCard");
 //# sourceMappingURL=Leaver.d.ts.map

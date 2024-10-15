@@ -72,6 +72,18 @@ declare class Spotify {
         color: string;
     };
     /**
+     * Ancho de la tarjeta
+     * @type {number}
+     * @default 775
+     */
+    width: number;
+    /**
+     * Altura de la tarjeta
+     * @type {number}
+     * @default 300
+     */
+    height: number;
+    /**
      * Establecer detalles de la barra de progreso
      * @param {"TRACK"|"BAR"} type Tipo de barra de progreso
      * @param {string} color Color para establecer
@@ -122,16 +134,11 @@ declare class Spotify {
      */
     setBackground(type?: "COLOR" | "IMAGE", data?: string | Buffer | Canvas.Image): Spotify;
     /**
-     * Esta función convierte los datos sin procesar en una tarjeta de presencia de Spotify.
-     * @param {object} ops Fuentes
-     * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
-     * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
-     * @returns {Promise<Buffer>}
+     * Construye la tarjeta de presencia de Spotify.
+     * @param {object} [font="Helvetica"] Familia tipográfica
+     * @returns {Promise<Buffer>} La tarjeta de presencia de Spotify en formato de buffer
      */
-    build(ops?: {
-        fontX?: string;
-        fontY?: string;
-    }): Promise<Buffer>;
+    build(font?: object): Promise<Buffer>;
     /**
      * Progreso de devoluciones
      * @type {number}

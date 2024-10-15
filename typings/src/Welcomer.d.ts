@@ -103,7 +103,7 @@ declare class Welcomer extends Base {
     /**
      * Construye la tarjeta de bienvenida
      * @param {string} [font="Helvetica"] Familia tipográfica
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} La tarjeta de bienvenida en formato de buffer
      */
     build(font?: string): Promise<Buffer>;
 }

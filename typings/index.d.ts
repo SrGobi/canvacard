@@ -17,7 +17,6 @@ export declare let ConvolutionMatrix: {
      */
     BURN: number[];
 };
-export declare let ProfileImage: typeof import("./src/Profile");
 export declare let Rank: typeof import("./src/Rank");
 export declare let Spotify: typeof import("./src/Spotify");
 export declare let Welcomer: typeof import("./src/Welcomer");
