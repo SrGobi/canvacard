@@ -7,7 +7,7 @@ Creador tarjetas de rango
 
 * [Rank](#Rank)
     * [new Rank(userId)](#new_Rank_new)
-    * [.setAvatar(avatarUrl, AvatarDecorationData, squareAvatar, presenceStatus)](#Rank+setAvatar) ⇒ [<code>Rank</code>](#Rank)
+    * [.setAvatar(avatarUrl, AvatarDecorationData, squareAvatar)](#Rank+setAvatar) ⇒ [<code>Rank</code>](#Rank)
     * [.setBanner(bannerUrl, moreBackgroundBlur, disableBackgroundBlur, backgroundBrightness)](#Rank+setBanner) ⇒ [<code>Rank</code>](#Rank)
     * [.setBadges(flags, bot, frame)](#Rank+setBadges) ⇒ [<code>Rank</code>](#Rank)
     * [.setBorder(color, allign)](#Rank+setBorder) ⇒ [<code>Rank</code>](#Rank)
@@ -52,7 +52,7 @@ Creador tarjetas de rango
     canvacard.write(rankImage, "./card.png");```
 <a name="Rank+setAvatar"></a>
 
-### rank.setAvatar(avatarUrl, AvatarDecorationData, squareAvatar, presenceStatus) ⇒ [<code>Rank</code>](#Rank)
+### rank.setAvatar(avatarUrl, AvatarDecorationData, squareAvatar) ⇒ [<code>Rank</code>](#Rank)
 Establece el avatar del usuario
 
 **Kind**: instance method of [<code>Rank</code>](#Rank)  
@@ -67,7 +67,6 @@ Establece el avatar del usuario
 | avatarUrl | <code>string</code> |  | URL del avatar |
 | AvatarDecorationData | <code>string</code> |  | Asset de decoración del avatar |
 | squareAvatar | <code>boolean</code> | <code>false</code> | Cambiar la forma del avatar a un cuadrado |
-| presenceStatus | <code>string</code> |  | Estado de presencia |
 
 <a name="Rank+setBanner"></a>
 
