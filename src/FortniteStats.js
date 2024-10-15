@@ -166,7 +166,12 @@ class FortniteStats {
     return this;
   }
 
-  async toAttachment() {
+  /**
+   * Construye la imagen de la tienda de fortnite
+   * @param {string} [font="Luckiest Guy"] Familia tipográfica
+   * @returns {Promise<string>} La imagen de la tienda de fortnite
+   */
+  async build(font = "Luckiest Guy") {
 
     await this.fetchPlayerData();
     if (!this.data) return false;
@@ -235,16 +240,16 @@ class FortniteStats {
     ctx.drawImage(iconCrown, canvas.width - 280, 41, 60, 60);
     // Dibujar nombre de usuario
     ctx.fillStyle = "#ffffff";
-    ctx.font = "50px Luckiest Guy";
+    ctx.font = `50px ${font}`;
     ctx.textAlign = "center";
     ctx.fillText(this.data.username, canvas.width - 630, canvas.height - 560);
     // El sorteo gana de por vida
-    ctx.font = "60px Luckiest Guy";
+    ctx.font = `60px ${font}`;
     ctx.textAlign = "left";
     ctx.fillText(this.data.stats.lifetime.wins, canvas.width - 205, canvas.height - 557);
     // Dibuja asesinatos promedio, coincidencias y asesinatos de por vida
     ctx.textAlign = "center";
-    ctx.font = "18px Roboto";
+    ctx.font = `18px ${font}`;
     if (this.data.stats.lifetime) {
       let averageKills = (this.data.stats.lifetime.kills / this.data.stats.lifetime.matches),
         averageKillsText = averageKills.toFixed(2) + " " + (averageKills > 1 ? this.textAverageKills : this.textAverageKill),
@@ -268,10 +273,10 @@ class FortniteStats {
     }
     // Dibujar col solo: TITLE
     ctx.fillStyle = "#ffffff";
-    ctx.font = "37px Burbank Big Condensed";
+    ctx.font = `37px ${font}`;
     ctx.fillText("SOLO", 176, canvas.height - 443);
     // Dibujar col solo : KD
-    ctx.font = "26px Roboto";
+    ctx.font = `26px ${font}`;
     if (this.data.stats.solo) {
       ctx.fillText(this.data.stats.solo.kd + " " + this.textKD, 176, canvas.height - 375);
     } else {
@@ -316,10 +321,10 @@ class FortniteStats {
     }
     // Dibujar col duo : TITLE
     ctx.fillStyle = "#ffffff";
-    ctx.font = "37px Burbank Big Condensed";
+    ctx.font = `37px ${font}`;
     ctx.fillText("DUO", 485, canvas.height - 443);
     // Dibujar col duo : KD
-    ctx.font = "26px Roboto";
+    ctx.font = `26px ${font}`;
     if (this.data.stats.duo) {
       ctx.fillText(this.data.stats.duo.kd + " " + this.textKD, 485, canvas.height - 375);
     } else {
@@ -364,10 +369,10 @@ class FortniteStats {
     }
     // Dibujar col squad : TITLE
     ctx.fillStyle = "#ffffff";
-    ctx.font = "37px Burbank Big Condensed";
+    ctx.font = `37px ${font}`;
     ctx.fillText("SQUAD", canvas.width - 174, canvas.height - 443);
     // Dibujar col squad : KD
-    ctx.font = "26px Roboto";
+    ctx.font = `26px ${font}`;
     if (this.data.stats.squad) {
       ctx.fillText(this.data.stats.squad.kd + " " + this.textKD, canvas.width - 174, canvas.height - 375);
     } else {
@@ -411,7 +416,7 @@ class FortniteStats {
       ctx.fillText("0 " + this.textMatch, canvas.width - 174, canvas.height - 67);
     }
     // Dibujar pie de página
-    ctx.font = "21px Roboto Black";
+    ctx.font = `21px ${font}`;
     ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 10);
     return canvas;
   }
