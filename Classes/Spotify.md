@@ -222,7 +222,7 @@ Construye la tarjeta de presencia de Spotify.
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>object</code> | <code>&quot;Helvetica&quot;</code> | Familia tipográfica |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="SpotifyDataBG"></a>
 

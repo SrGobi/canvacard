@@ -42,6 +42,7 @@ Creador de imagen de estadisticas de fortnite
     * [.setPlatform(value)](#FortniteStats+setPlatform) ⇒ [<code>FortniteStats</code>](#FortniteStats)
     * [.setUser(value)](#FortniteStats+setUser) ⇒ [<code>FortniteStats</code>](#FortniteStats)
     * [.setText(value)](#FortniteStats+setText) ⇒ [<code>FortniteStats</code>](#FortniteStats)
+    * [.build([font])](#FortniteStats+build) ⇒ <code>Promise.&lt;string&gt;</code>
 
 <a name="new_FortniteStats_new"></a>
 
@@ -189,6 +190,18 @@ Valor del texto
 | Param | Type |
 | --- | --- |
 | value | <code>string</code> | 
+
+<a name="FortniteStats+build"></a>
+
+### fortniteStats.build([font]) ⇒ <code>Promise.&lt;string&gt;</code>
+Construye la imagen de la tienda de fortnite
+
+**Kind**: instance method of [<code>FortniteStats</code>](#FortniteStats)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - La imagen de la tienda de fortnite  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="formatVariable"></a>
 

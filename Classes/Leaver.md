@@ -259,5 +259,5 @@ Construye la tarjeta de despedida
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Helvetica\&quot;&quot;</code> | Familia tipográfica |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 

@@ -38,6 +38,7 @@ Creador de imagen de la tienda de fortnite
     * [.setText(value)](#FortniteShop+setText) ⇒ [<code>FortniteShop</code>](#FortniteShop)
     * [.lang(value)](#FortniteShop+lang) ⇒ [<code>FortniteShop</code>](#FortniteShop)
     * [.dateFormat(value)](#FortniteShop+dateFormat) ⇒ [<code>FortniteShop</code>](#FortniteShop)
+    * [.build([font])](#FortniteShop+build) ⇒ <code>Promise.&lt;string&gt;</code>
 
 <a name="new_FortniteShop_new"></a>
 
@@ -147,6 +148,18 @@ Valor del formato de fecha
 | Param | Type |
 | --- | --- |
 | value | <code>string</code> | 
+
+<a name="FortniteShop+build"></a>
+
+### fortniteShop.build([font]) ⇒ <code>Promise.&lt;string&gt;</code>
+Construye la imagen de la tienda de fortnite
+
+**Kind**: instance method of [<code>FortniteShop</code>](#FortniteShop)  
+**Returns**: <code>Promise.&lt;string&gt;</code> - La imagen de la tienda de fortnite  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="formatVariable"></a>
 

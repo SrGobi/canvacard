@@ -38,14 +38,13 @@ Canvacard Generador De Memes
     * [.pixelate(image, pixels)](#Canvacard.pixelate) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.sharpen(image, lvl)](#Canvacard.sharpen) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.burn(image, lvl)](#Canvacard.burn) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.color(color, displayHex, height, width)](#Canvacard.color) ⇒ <code>Buffer</code>
+    * [.color(color, displayHex, height, width, [font])](#Canvacard.color) ⇒ <code>Buffer</code>
     * [.circle(image)](#Canvacard.circle) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.rectangle(x, y, width, height, color, stroke, lineWidth)](#Canvacard.rectangle) ⇒ <code>Buffer</code>
     * [.fuse(image1, image2)](#Canvacard.fuse) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.resize(image, width, height)](#Canvacard.resize) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.kiss(image1, image2)](#Canvacard.kiss) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.spank(image1, image2)](#Canvacard.spank) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.registerFonts(fontArray)](#Canvacard.registerFonts) ⇒ <code>Promise.&lt;void&gt;</code>
     * [.slap(image1, image2)](#Canvacard.slap) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.beautiful(image)](#Canvacard.beautiful) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.facepalm(image)](#Canvacard.facepalm) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -61,13 +60,13 @@ Canvacard Generador De Memes
     * [.bed(image1, image2)](#Canvacard.bed) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.delete(image, dark)](#Canvacard.delete) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.tictactoe(fill, color)](#Canvacard.tictactoe) ⇒ <code>Buffer</code>
-    * [.opinion(avatar, msg)](#Canvacard.opinion) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.opinion(avatar, msg, [font])](#Canvacard.opinion) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.gradient(colorFrom, colorTo, width, height)](#Canvacard.gradient) ⇒ <code>Buffer</code>
-    * [.ohno(message)](#Canvacard.ohno) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.changemymind(text)](#Canvacard.changemymind) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.clyde(message)](#Canvacard.clyde) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.quote(options)](#Canvacard.quote) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.phub(options)](#Canvacard.phub) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.ohno(msg, [font])](#Canvacard.ohno) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.changemymind(msg, [font])](#Canvacard.changemymind) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.clyde(msg, [font])](#Canvacard.clyde) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.quote(options, [font])](#Canvacard.quote) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+    * [.phub(options, [font])](#Canvacard.phub) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.wanted(image)](#Canvacard.wanted) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.wasted(image)](#Canvacard.wasted) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.youtube(ops)](#Canvacard.youtube) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -265,7 +264,7 @@ Aplica efecto de quemado en una imagen.
 
 <a name="Canvacard.color"></a>
 
-### Canvacard.color(color, displayHex, height, width) ⇒ <code>Buffer</code>
+### Canvacard.color(color, displayHex, height, width, [font]) ⇒ <code>Buffer</code>
 HTML5 color a imagen
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
@@ -276,6 +275,7 @@ HTML5 color a imagen
 | displayHex | <code>boolean</code> | <code>false</code> | Si debe mostrar hexadecimal |
 | height | <code>number</code> | <code>1024</code> | Altura de imagen |
 | width | <code>number</code> | <code>1024</code> | Ancho de la imagen |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.circle"></a>
 
@@ -353,17 +353,6 @@ Azotar a alguien ( ͡° ͜ʖ ͡°)
 | --- | --- | --- |
 | image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
 | image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
-
-<a name="Canvacard.registerFonts"></a>
-
-### Canvacard.registerFonts(fontArray) ⇒ <code>Promise.&lt;void&gt;</code>
-Loads font
-
-**Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| fontArray | <code>Array.&lt;any&gt;</code> | Font array |
 
 <a name="Canvacard.slap"></a>
 
@@ -553,15 +542,16 @@ TicTacToe
 
 <a name="Canvacard.opinion"></a>
 
-### Canvacard.opinion(avatar, msg) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### Canvacard.opinion(avatar, msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Opinión
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| avatar | <code>string</code> \| <code>Buffer</code> | Imagen |
-| msg | <code>string</code> | Mensaje |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| avatar | <code>string</code> \| <code>Buffer</code> |  | Imagen |
+| msg | <code>string</code> |  | Mensaje de opinión |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.gradient"></a>
 
@@ -579,66 +569,71 @@ Crea degradado
 
 <a name="Canvacard.ohno"></a>
 
-### Canvacard.ohno(message) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### Canvacard.ohno(msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 ¡Oh, no! Es estúpido.
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| message | <code>string</code> | Mensaje |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| msg | <code>string</code> |  | Mensaje |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.changemymind"></a>
 
-### Canvacard.changemymind(text) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### Canvacard.changemymind(msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Cambiar de opinión (tomado de jgoralcz/image-microservice)
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 **See**: https://github.com/jgoralcz/image-microservice/blob/master/src/workers/canvas/ChangeMyMind.js  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| text | <code>String</code> | Texto |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| msg | <code>String</code> |  | Mensaje |
+| [font] | <code>String</code> | <code>&quot;Arial&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.clyde"></a>
 
-### Canvacard.clyde(message) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### Canvacard.clyde(msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Clyde
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| message | <code>string</code> | Mensaje |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| msg | <code>string</code> |  | Mensaje |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.quote"></a>
 
-### Canvacard.quote(options) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### Canvacard.quote(options, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Cita falsa
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>object</code> | Opciones |
-| [options.image] | <code>Buffer</code> \| <code>string</code> | Imagen |
-| [options.message] | <code>string</code> | Mensaje |
-| [options.username] | <code>string</code> | Nombre de usuario |
-| [options.color] | <code>string</code> | Color |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>object</code> |  | Opciones |
+| [options.image] | <code>Buffer</code> \| <code>string</code> |  | Imagen |
+| [options.message] | <code>string</code> |  | Mensaje |
+| [options.username] | <code>string</code> |  | Nombre de usuario |
+| [options.color] | <code>string</code> |  | Color |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.phub"></a>
 
-### Canvacard.phub(options) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+### Canvacard.phub(options, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 Comentario de PornHub
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
-| Param | Type | Description |
-| --- | --- | --- |
-| options | <code>Object</code> | Opciones |
-| [options.username] | <code>String</code> | Nombre de usuario |
-| [options.message] | <code>String</code> | Comentario |
-| [options.image] | <code>String</code> \| <code>Buffer</code> | Imagen |
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| options | <code>Object</code> |  | Opciones |
+| [options.username] | <code>String</code> |  | Nombre de usuario |
+| [options.message] | <code>String</code> |  | Comentario |
+| [options.image] | <code>String</code> \| <code>Buffer</code> |  | Imagen |
+| [font] | <code>String</code> | <code>&quot;Arial&quot;</code> | Familia tipográfica |
 
 <a name="Canvacard.wanted"></a>
 
