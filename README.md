@@ -26,63 +26,68 @@ import canvacard from "canvacard";
 
 # Features
 
-- Súper simple y fácil de usar 😎
-- Más rápido que canvacard v4 🚀
-- Todas las fuentes de Google Fonts 📚
-- ¿Más de **50 métodos** ...? ¡Hurra! 🎉
-- Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
-- Orientado a objetos 💻
-- Apto para principiantes 🤓
-- Soporta emojis 😀
+- 🪟 **Código abierto, sin problemas de privacidad, 100 % transparente** - Canvacard es completamente de código abierto y de uso gratuito. Puedes contribuir al proyecto y no tienes que preocuparte por la privacidad.
+- 💪 **Fácil de usar** - Canvacard proporciona una API intuitiva y simple para generar imágenes de manera eficiente, perfecta para desarrolladores de todos los niveles.
+- 🚀 **Rápido y optimizado** - Las bibliotecas subyacentes están altamente optimizadas, proporcionando un rendimiento sobresaliente en la generación de imágenes.
+- 🔒 **Compatibilidad con Typescript** - Canvacard está escrito en Typescript, lo que proporciona definiciones de tipo listas para usar y una mejor experiencia de desarrollo.
+- 🎨 **Más de 50 métodos de personalización** - Puedes usar una amplia gama de métodos para personalizar completamente tus imágenes o tarjetas.
+- 🖼️ **Generación de tarjetas interactivas y personalizadas** - Canvacard es ideal para crear tarjetas personalizadas para plataformas como Discord, añadiendo imágenes, banners, insignias y más.
+- 🛠️ **Orientado a objetos** - Canvacard está diseñado con un enfoque orientado a objetos, lo que facilita la reutilización de código y la creación de tarjetas complejas con poco esfuerzo.
+- 🤓 **Apto para principiantes** - La documentación y la API son sencillas, por lo que es fácil de usar incluso si no tienes experiencia previa en manipulación de imágenes.
 
 # Ejemplos
 
-## Rank Card
+## [Rank Card](https://canvacard.srgobi.com/classes/rank)
 
 ```js
+const { AttachmentBuilder } = require("discord.js");
 const canvacard = require("canvacard");
-const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-const background = "https://i.imgur.com/5O7xmVe.png";
+const userData = getDataSomehow(); // Simula obtener los datos del usuario
 
-const userData = getDataSomehow();
-
-const rank = new canvacard.Rank(userData.id)
-  .setAvatar(userData.avatarURL, userData.avatar_decoration_data.asset)
+const rank = new canvacard.Rank()
+  .setAvatar(userData.avatarURL, userData.avatar_decoration_data.asset, false)
   .setBanner(userData.bannerURL, true)
   .setBadges(userData.flags, userData.bot, true)
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
-  .setLevel(20, "LEVEL", true)
+  .setLevel(20, "LEVEL")
   .setStatus("online")
   .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-  .setProgressBarTrack("#FFFFFF")
-  .setOverlay("#000000", 1, true)
-  .setUsername(userData.global_name, userData.discriminator)
-  .setCreatedTimestamp(userData.createdTimestamp);
+  .setUsername(userData.username, userData.discriminator, "#FFFFFF")
+  .setCreatedTimestamp(userData.createdTimestamp)
+  .setBorder(["#14C49E", "#FF0000"], "vertical");
 
 rank.build()
   .then(data => {
-    const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-    message.channel.send(attachment);
-  });
+    // Usar AttachmentBuilder para enviar el archivo
+    const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
+    message.channel.send({ content: "Aquí está tu tarjeta de rango:", files: [attachment] });
+  })
+  .catch(err => console.error("Error al crear la tarjeta de rango:", err));
 ```
 
 <details open>
 <summary>PREVIEW</summary>
 <br>
   <a>
-    <img src="https://i.imgur.com/fgqOnhH.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
   </a>
   <a>
-    <img src="https://i.imgur.com/QBP7kO6.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
   </a>
   <a>
-    <img src="https://i.imgur.com/V8vpyKL.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
+  </a>
+  <a>
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_4.png" alt="Rank Card Preview 4">
+  </a>
+  <a>
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_5.png" alt="Rank Card Preview 5">
   </a>
 </details>
 
-## Welcomer Card
+## [Welcomer Card](https://canvacard.srgobi.com/classes/welcomer)
 
 ```js
 const canvacard = require("canvacard");
@@ -104,47 +109,58 @@ const welcomer = new canvacard.Welcomer()
 
 welcomer.build()
   .then(data => {
-    const attachment = new Discord.MessageAttachment(data, "WelcomerCard.png");
-    message.channel.send(attachment);
-  });
+    // Usar AttachmentBuilder para enviar el archivo
+    const attachment = new AttachmentBuilder(data, { name: "WelcomeCard.png" });
+    message.channel.send({ content: "Aquí está tu tarjeta de bienvenida:", files: [attachment] });
+  })
+  .catch(err => console.error("Error al crear la tarjeta de bienvenida:", err));
 ```
 
 <details open>
 <summary>PREVIEW</summary>
 <br>
   <a>
-    <img src="https://i.imgur.com/EWGFp1C.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_1.png" alt="Welcome Card Preview 1">
   </a>
   <a>
-    <img src="https://i.imgur.com/5O7xmVe.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_2.png" alt="Welcome Card Preview 2">
   </a>
   <a>
-    <img src="https://i.imgur.com/S9AkanK.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_3.png" alt="Welcome Card Preview 3">
   </a>
   <a>
-    <img src="https://i.imgur.com/AqJcx6K.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_4.png" alt="Welcome Card Preview 4">
   </a>
 </details>
 
-## Otros ejemplos
+## [Otros ejemplos](https://canvacard.srgobi.com)
 
 ```js
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const canvacard = require('canvacard');
+const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
+const canvacard = require("canvacard");
+
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
+});
 
 client.on('ready', () => {
-	console.log('¡Estoy en línea!');
+  console.log('¡Estoy en línea!');
 });
 
 client.on('messageCreate', async (message) => {
-	if (message.author.bot) return;
-	if (message.content === '!triggered') {
-		let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
-		let image = await canvacard.Canvas.trigger(avatar);
-		let attachment = new Discord.MessageAttachment(image, 'triggered.gif');
-		return message.channel.send(attachment);
-	}
+  if (message.author.bot) return;
+
+  if (message.content === '!triggered') {
+    try {
+      let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+      let image = await canvacard.Canvas.trigger(avatar);
+      // Enviar el archivo generado usando AttachmentBuilder
+      let attachment = new AttachmentBuilder(image, { name: 'triggered.gif' });
+      await message.channel.send({ content: '¡Aquí tienes tu imagen "triggered"!', files: [attachment] });
+    } catch (err) {
+      console.error('Error al generar la imagen triggered:', err);
+    }
+  }
 });
 
 client.login('Tu_Bot_Token_aqui');
@@ -154,10 +170,10 @@ client.login('Tu_Bot_Token_aqui');
 <summary>PREVIEW</summary>
 <br>
   <a>
-    <img src="https://i.imgur.com/tOGNj5d.png">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_stats.png" alt="Fortnite Stats">
   </a>
   <a>
-    <img src="https://i.imgur.com/tNbpx68.jpg">
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop">
   </a>
 </details>
 
