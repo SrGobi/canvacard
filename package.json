@@ -15,7 +15,7 @@
     "typings"
   ],
   "scripts": {
-    "test": "cd test && node .",
+    "test": "cd ../test && node .",
     "types": "tsc",
     "postinstall": "node scripts/postinstall.mjs",
     "docs": "npm run docs:generate",
