@@ -5,7 +5,7 @@ import { performance } from "node:perf_hooks";
 
 let i = 0, start_time = performance.now();
 const possibleImageFormats = [".png", ".jpg", ".jpeg", ".bmp", ".webp", ".tiff"];
-const imageDir = path.resolve("./data/images");
+const imageDir = path.resolve("./images");
 const files = await fs.readdir(imageDir).then(res => {
     return res
         .filter(item => possibleImageFormats.includes(path.extname(item)))
