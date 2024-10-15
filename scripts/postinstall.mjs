@@ -1,4 +1,4 @@
 import { build } from "./assets/build.mjs"
 
-// make sure to build assets if executed through postinstall script
+// Asegúrese de crear activos si se ejecuta a través del script posterior a la instalación
 await build(true);
