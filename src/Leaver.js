@@ -284,7 +284,7 @@ class Leaver extends Base {
     ctx.shadowColor = "black";
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
-    ctx.font = `60px ${ops.fontY}`;
+    ctx.font = `60px ${font}`;
     const titulo = Util.shorten(this.titulo, 30);
     ctx.fillText(`${titulo}`, canvas.width - 550, canvas.height - 120);
 
@@ -293,7 +293,7 @@ class Leaver extends Base {
     ctx.shadowColor = "black";
     ctx.fillStyle = this.colorSubtitulo;
     ctx.textAlign = "center";
-    ctx.font = `30px ${ops.fontY}`;
+    ctx.font = `30px ${font}`;
     const subtitulo = Util.shorten(this.subtitulo, 50);
     ctx.fillText(`${subtitulo}`, canvas.width - 550, canvas.height - 70);
 
