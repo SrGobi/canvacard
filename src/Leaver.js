@@ -9,7 +9,8 @@ const { createCanvas, loadImage } = require("@napi-rs/canvas");
 class Leaver extends Base {
 
   /**
-   * Leave image builder
+   * ![Leave Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/leave.png)
+   * 
    * @example
    * ```js
     const leaveCardURL = await new Leaver()

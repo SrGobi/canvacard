@@ -1201,19 +1201,19 @@ class Canvacard {
    * @param {string} [options.replyText] El mensaje de respuesta
    * @returns {Promise<Buffer>}
    * @example
-   * const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-   * const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
-   * canvacard.Canvas.reply({
-   *      avatar1: img,
-   *      avatar2: img2,
-   *      user1: "Maximus",
-   *      user2: "SrGobi",
-   *      hex1: "#FF3300",
-   *      hex2: "#7289da",
-   *      mainText: "kok",
-   *      replyText: "Pog"
-   * })
-   * .then(img => canvacard.write(img, "reply.png"));
+  const img = "https://cdn.discordapp.com/embed/avatars/0.png";
+  const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
+  canvacard.Canvas.reply({
+    avatar1: img,
+    avatar2: img2,
+    user1: "Maximus",
+    user2: "SrGobi",
+    hex1: "#FF3300",
+    hex2: "#7289da",
+    mainText: "kok",
+    replyText: "Pog"
+   })
+  .then(img => canvacard.write(img, "reply.png"));
    */
   static async reply(options = { avatar1: null, avatar2: null, user1: null, user2: null, hex1: null, hex2: null, mainText: null, replyText: null }) {
     const { avatar1, avatar2, user1, user2, hex1, hex2, mainText, replyText } = options;

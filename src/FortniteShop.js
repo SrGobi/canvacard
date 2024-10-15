@@ -41,7 +41,8 @@ const applyText = (canvas, text, defaultFontSize, width, font) => {
 class FortniteShop {
 
   /**
-   * FortniteShop image builder
+   * ![FortniteStats Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png)
+   * 
    * @example
    * ```js
     const FortniteShopCardURL = await new FortniteShop()

@@ -7,7 +7,8 @@ const Util = require("./Util");
 class Spotify {
 
   /**
-   * Crea una tarjeta de presencia de Spotify
+   * ![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
+   * 
    * @example
    * ```js
     const card = new canvacard.Spotify()

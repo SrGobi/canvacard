@@ -20,7 +20,8 @@ const formatVariable = (prefix, variable) => {
 class FortniteStats {
 
   /**
-  * FortniteStats image builder
+  * ![FortniteStats Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_stats.png)
+  * 
   * @example
   * ```js	
   *  const FortniteStatsCardURL = await new FortniteStats()

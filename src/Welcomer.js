@@ -9,7 +9,23 @@ const APIError = require("./utils/error");
 class Welcomer extends Base {
 
   /**
-   * Welcome image builder
+   * <details open>
+   *  <summary>PREVIEW</summary>
+   * <br>
+   *   <a>
+   *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_1.png" alt="Welcome Card Preview 1">
+   *   </a>
+   *   <a>
+   *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_2.png" alt="Welcome Card Preview 2">
+   *   </a>
+   *   <a>
+   *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_3.png" alt="Welcome Card Preview 3">
+   *   </a>
+   *   <a>
+   *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_4.png" alt="Welcome Card Preview 4">
+   *   </a>
+   * </details>
+   * 
    * @example
    * ```js
     const welcome = new canvacard.Welcomer()
