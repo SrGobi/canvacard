@@ -154,14 +154,12 @@ class Rank {
    * @param {string} avatarUrl URL del avatar
    * @param {string} AvatarDecorationData Asset de decoración del avatar
    * @param {boolean} squareAvatar Cambiar la forma del avatar a un cuadrado
-   * @param {string} presenceStatus Estado de presencia
    * @returns {Rank} La instancia de la clase Rank
    * @throws {Error} Si el URL o el asset no son válidos
    */
   setAvatar(avatarUrl, AvatarDecorationData, squareAvatar = false) {
     if (!avatarUrl) throw new Error(`Invalid avatar type "${typeof avatarUrl}"!`);
     this.data.user.avatarURL = avatarUrl;
-    if (!AvatarDecorationData) throw new Error(`Invalid avatar type "${typeof AvatarDecorationData}"!`);
     this.data.user.avatar_decoration_data.asset = AvatarDecorationData;
     this.data.options.squareAvatar = !!squareAvatar;
     return this;
