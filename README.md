@@ -46,22 +46,20 @@ const background = "https://i.imgur.com/5O7xmVe.png";
 
 const userData = getDataSomehow();
 
-const rank = new canvacard.Rank()
-  .setAvatar(img)
-  .setBackground('IMAGE', background)
+const rank = new canvacard.Rank(userData.id)
+  .setAvatar(userData.avatarURL, userData.avatar_decoration_data.asset)
+  .setBanner(userData.bannerURL, true)
+  .setBadges(userData.flags, userData.bot, true)
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
-  .setRank(userData.rank)
-  .setRankColor("#FFFFFF")
-  .setLevel(userData.level)
-  .setLevelColor("#FFFFFF")
-  .setStatus("online", true)
-  .setCustomStatusColor("#23272A")
-  .setOverlay("#23272A", 1 || 0, true)
-  .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
-  .setProgressBarTrack("#000000")
-  .setUsername("SrGobi")
-  .renderEmojis(true)
+  .setRank(1, "RANK", true)
+  .setLevel(20, "LEVEL", true)
+  .setStatus("online")
+  .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+  .setProgressBarTrack("#FFFFFF")
+  .setOverlay("#000000", 1, true)
+  .setUsername(userData.global_name, userData.discriminator)
+  .setCreatedTimestamp(userData.createdTimestamp);
 
 rank.build()
   .then(data => {
