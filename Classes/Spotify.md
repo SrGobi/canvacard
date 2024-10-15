@@ -50,7 +50,16 @@ Creador de tarjetas de presencia de Spotify
 Crea una tarjeta de presencia de Spotify
 
 **Example**  
-```js const card = new canvacard.Spotify()     .setAuthor("SAIKO")     .setAlbum("SAKURA")     .setStartTimestamp(Date.now() - 10000)     .setEndTimestamp(Date.now() + 50000)     .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")     .setTitle("YO LO SOÑÉ"); const Image = await card.build("Cascadia Code PL"); canvacard.write(Image, "./spotify.png");```
+```js
+    const card = new canvacard.Spotify()
+        .setAuthor("SAIKO")
+        .setAlbum("SAKURA")
+        .setStartTimestamp(Date.now() - 10000)
+        .setEndTimestamp(Date.now() + 50000)
+        .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
+        .setTitle("YO LO SOÑÉ");
+    const Image = await card.build("Cascadia Code PL");
+    canvacard.write(Image, "./spotify.png");```
 <a name="Spotify+title"></a>
 
 ### spotify.title : <code>string</code>
