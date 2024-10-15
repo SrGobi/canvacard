@@ -2,11 +2,6 @@
 
 const Canvacard = require("./src/Canvacard");
 
-// Cargar fuentes predeterminadas
-try {
-  Canvacard.registerFonts();
-} catch (e) { }
-
 /**
  * @param {stirng} moduleName Nombre del módulo
  */
