@@ -1,6 +1,6 @@
 const Base = require("./Base/GreetingCard");
 const Util = require("./Util");
-const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 
 /**
  * Creador de tarjetas de despedida
@@ -11,21 +11,22 @@ class Leaver extends Base {
   /**
    * Leave image builder
    * @example
-   *  const leaveCardURL = await new Leaver()
-        .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
-        .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
-        .setTitulo("Titulo de la Tarjeta")
-        .setSubtitulo("Subtitulo de la Tarjeta")
-        .setOpacityOverlay("0.5")
-        .setColorTitulo(#FFFFFF)
-        .setColorSubtitulo(#FFFFFF)
-        .setColorCircle(#FFFFFF)
-        .setColorOverlay(#FFFFFF)
-        .setTypeOverlay("rounded")
-      leaverCardURL.build()
-        .then(data => {
-            canvacard.write(data, "LeaverCard.png");
-        })
+   * ```js
+    const leaveCardURL = await new Leaver()
+      .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
+      .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
+      .setTitulo("Titulo de la Tarjeta")
+      .setSubtitulo("Subtitulo de la Tarjeta")
+      .setOpacityOverlay("0.5")
+      .setColorTitulo(#FFFFFF)
+      .setColorSubtitulo(#FFFFFF)
+      .setColorCircle(#FFFFFF)
+      .setColorOverlay(#FFFFFF)
+      .setTypeOverlay("rounded")
+    leaverCardURL.build()
+      .then(data => {
+          canvacard.write(data, "LeaverCard.png");
+      })
    */
   constructor() {
     super();
@@ -243,12 +244,10 @@ class Leaver extends Base {
 
   /**
    * Construye la tarjeta de despedida
-   * @param {object} ops Fuentes
-   * @param {string} [ops.fontX="MANROPE_BOLD"] Familia tipográfica Bold
-   * @param {string} [ops.fontY="MANROPE_REGULAR"] Familia tipográfica regular
-   * @returns {Promise<Buffer>}
+   * @param {string} [font="Helvetica"] Familia tipográfica
+   * @returns {Promise<Buffer>} La tarjeta de despedida en formato de buffer
    */
-  async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
+  async build(font = "Helvetica") {
     // Crear lienzo
     const canvas = createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");
@@ -312,7 +311,7 @@ class Leaver extends Base {
     const avatar = await loadImage(this.avatar);
     ctx.drawImage(avatar, canvas.width - 675, 65, 250, 250);
 
-    return canvas.encode("png");
+    return canvas.toBuffer("image/png");
   }
 }
 

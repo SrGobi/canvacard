@@ -1,5 +1,5 @@
 /**
- * 
+ * Funcion que se encarga de parsear el nombre de usuario para que se ajuste al tamaño del canvas
  * @param {string} username 
  * @param {Object} ctx
  * @param {string} ctx.font
@@ -9,7 +9,7 @@
  * @param {string} font 
  * @param {string} size 
  * @param {number} maxLength 
- * @returns 
+ * @returns {Object} { username: string, newSize: number, textLength: number }
  */
 function parseUsername(username, ctx, font, size, maxLength) {
   username = username && username.replace(/\s/g, '') ? username : '?????'

@@ -22,7 +22,6 @@ module.exports = {
   Canvas: Canvacard,
   Canvacard,
   ConvolutionMatrix: Canvacard.CONVOLUTION_MATRIX,
-  ProfileImage: require('./src/Profile'),
   Rank: require("./src/Rank"),
   Spotify: require("./src/Spotify"),
   Welcomer: require("./src/Welcomer"),

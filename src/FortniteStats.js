@@ -20,16 +20,18 @@ const formatVariable = (prefix, variable) => {
 class FortniteStats {
 
   /**
-* FortniteStats image builder
-* @example
-*  const FortniteStatsCardURL = await new FortniteStats()
-      .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-      .setUser("BLD SRGOBI")
-      .setPlatform("pc")
-      .setText("footer", "ESP CUSTOMS X FORTNITE")
-      .toAttachment();
-  await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })
-*/
+  * FortniteStats image builder
+  * @example
+  * ```js	
+  *  const FortniteStatsCardURL = await new FortniteStats()
+        .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
+        .setUser("BLD SRGOBI")
+        .setPlatform("pc")
+        .setText("footer", "ESP CUSTOMS X FORTNITE")
+        .toAttachment();
+    await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })
+  * ```
+  */
 
   constructor() {
     /**

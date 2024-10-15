@@ -11,21 +11,23 @@ class Welcomer extends Base {
   /**
    * Welcome image builder
    * @example
-   *  const welcomeCardURL = await new Welcomer()
-        .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
-        .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
-        .setTitulo("Titulo de la Tarjeta")
-        .setSubtitulo("Subtitulo de la Tarjeta")
-        .setOpacityOverlay("0.5")
-        .setColorTitulo(#FFFFFF)
-        .setColorSubtitulo(#FFFFFF)
-        .setColorCircle(#FFFFFF)
-        .setColorOverlay(#FFFFFF)
-        .setTypeOverlay("rounded")
-      welcomeCardURL.build()
-        .then(data => {
-            canvacard.write(data, "WelcomeCard.png");
-        })
+   * ```js
+    const welcome = new canvacard.Welcomer()
+      .setAvatar(data.defaultAvatarURL)
+      .setBackground('IMAGE', 'https://i.imgur.com/aClDVjh.jpg')
+      .setTitulo("Titulo de la Tarjeta👋")
+      .setSubtitulo("Subtitulo de la Tarjeta 👋")
+      .setOpacityOverlay("0.5")
+      .setColorTitulo('#FFFFFF')
+      .setColorSubtitulo('#FFFFFF')
+      .setColorCircle('#FFFFFF')
+      .setColorOverlay('#5865F2')
+      .setTypeOverlay('ROUNDED');
+    const welcomeImage = await welcome.build("Suravaram");
+    canvacard.write(welcomeImage, "./welcomer.png");
+   * ```
+   * 
+   * Constructor de la tarjeta de bienvenida
    */
   constructor() {
     super();
@@ -241,7 +243,7 @@ class Welcomer extends Base {
   /**
    * Construye la tarjeta de bienvenida
    * @param {string} [font="Helvetica"] Familia tipográfica
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} La tarjeta de bienvenida en formato de buffer
    */
   async build(font = "Helvetica") {
     const canvas = createCanvas(1100, 500);
@@ -304,7 +306,7 @@ class Welcomer extends Base {
     const avatar = await loadImage(this.avatar);
     ctx.drawImage(avatar, canvas.width - 675, 65, 250, 250);
 
-    return canvas.encode("png");
+    return canvas.toBuffer("image/png");
   }
 }
 

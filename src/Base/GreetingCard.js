@@ -1,4 +1,4 @@
-const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 /**
  * Obtiene variables y tipos
  * @param {object} prefix El tipo de variable

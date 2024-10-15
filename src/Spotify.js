@@ -9,18 +9,18 @@ class Spotify {
   /**
    * Crea una tarjeta de presencia de Spotify
    * @example
-   * const card = new canvacard.Spotify()
-      .setAuthor("Indila")
-      .setAlbum("Mini World")
+   * ```js
+    const card = new canvacard.Spotify()
+      .setAuthor("SAIKO")
+      .setAlbum("SAKURA")
       .setStartTimestamp(Date.now() - 10000)
       .setEndTimestamp(Date.now() + 50000)
-      .setImage("https://is5-ssl.mzstatic.com/image/thumb/Features111/v4/a4/89/a1/a489a1cb-4543-6861-a276-4470d41d6a90/mzl.zcdmhnlk.jpg/800x800bb.jpeg")
-      .setTitle("S.O.S");
-
-  card.build()
-      .then(data => {
-          canvacard.write(data, "./images/spotify.png");
-      });
+      .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
+      .setTitle("YO LO SOÑÉ");
+    const Image = await card.build("Cascadia Code PL");
+    canvacard.write(Image, "./spotify.png");
+   * ```
+   *
    */
   constructor() {
 
@@ -89,6 +89,20 @@ class Spotify {
       bgColor: "#E8E8E8",
       color: "#1DB954"
     };
+
+    /**
+     * Ancho de la tarjeta
+     * @type {number}
+     * @default 775
+     */
+    this.width = 775;
+
+    /**
+     * Altura de la tarjeta
+     * @type {number}
+     * @default 300
+     */
+    this.height = 300;
   }
 
   /**
@@ -206,13 +220,11 @@ class Spotify {
   }
 
   /**
-   * Esta función convierte los datos sin procesar en una tarjeta de presencia de Spotify.
-   * @param {object} ops Fuentes
-   * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
-   * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
-   * @returns {Promise<Buffer>}
+   * Construye la tarjeta de presencia de Spotify.
+   * @param {object} [font="Helvetica"] Familia tipográfica
+   * @returns {Promise<Buffer>} La tarjeta de presencia de Spotify en formato de buffer
    */
-  async build(ops = { fontX: "Manrope", fontY: "Manrope" }) {
+  async build(font = "Helvetica") {
     if (!this.title) throw new Error('Falta el "título" en las opciones.');
     if (!this.artist) throw new Error('Falta "artista" en las opciones.');
     if (!this.start) throw new Error('Falta "inicio" en las opciones.');
@@ -223,62 +235,96 @@ class Spotify {
     const progressF = Util.formatTime(progress > total ? total : progress);
     const ending = Util.formatTime(total);
 
-    const canvas = createCanvas(600, 150);
+    const canvas = createCanvas(this.width, this.height);
     const ctx = canvas.getContext("2d");
 
-    // fondo
+    // Establecer fondo y recorte inicial
+    ctx.roundRect(0, 0, this.width, this.height, [34]);
+    ctx.clip();
+
+    // Dibujar base (fondo)
     ctx.beginPath();
     if (this.background.type === 0) {
-      ctx.rect(0, 0, canvas.width, canvas.height);
+      ctx.rect(0, 0, this.width, this.height);
       ctx.fillStyle = this.background.data || "#2F3136";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillRect(0, 0, this.width, this.height);
     } else {
-      let img = await loadImage(this.background.data);
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      const background = await loadImage(this.background.data);
+      ctx.drawImage(background, 0, 0, this.width, this.height);
     }
+    ctx.closePath();
 
-    // dibujar imagen
+    // Guardar el estado del contexto antes de hacer el recorte de la imagen
+    ctx.save();
+
+    // Dibujar imagen con borde redondeado
+    const size = 240;
+    const x = 30;
+    const y = 30;
+    ctx.beginPath();
+    ctx.roundRect(x, y, size, size, [34]);
+    ctx.clip();
     const img = await loadImage(this.image);
-    ctx.drawImage(img, 30, 15, 120, 120);
+    ctx.drawImage(img, x, y, size, size);
+    ctx.closePath();
 
-    // dibujar el nombre de la canción
+    // Restaurar el contexto para que el clip solo afecte a la imagen
+    ctx.restore();
+
+    const sizeX = x + 280;
+    const sizeY = y + 80;
+
+    // Dibujar el título de la canción
     ctx.fillStyle = "#FFFFFF";
-    ctx.font = `bold 20px ${ops.fontX}`;
-    await Util.renderEmoji(ctx, Util.shorten(this.title, 30), 170, 40);
+    ctx.font = `bold 50px ${font}`;
+    await Util.renderEmoji(ctx, Util.shorten(this.title, 30), sizeX, sizeY);
 
-    // dibujar el nombre del artista
-    ctx.fillStyle = "#F1F1F1";
-    ctx.font = `14px ${ops.fontY}`;
-    await Util.renderEmoji(ctx, `por ${Util.shorten(this.artist, 40)}`, 170, 70);
-
-    // agregar álbum
+    // Dibujar el nombre del álbum
     if (this.album && typeof this.album === "string") {
       ctx.fillStyle = "#F1F1F1";
-      ctx.font = `14px ${ops.fontY}`;
-      await Util.renderEmoji(ctx, `en ${Util.shorten(this.album, 40)}`, 170, 90);
+      ctx.font = `32px ${font}`;
+      await Util.renderEmoji(ctx, Util.shorten(this.album, 40), sizeX, sizeY + 40);
     }
 
-    // punto final
-    ctx.fillStyle = "#B3B3B3";
-    ctx.font = `14px ${ops.fontY}`;
-    await Util.renderEmoji(ctx, ending, 430, 130);
 
-    // Progreso
-    ctx.fillStyle = "#B3B3B3";
-    ctx.font = `14px ${ops.fontY}`;
-    await Util.renderEmoji(ctx, progressF, 170, 130);
+    // Dibujar el nombre del artista
+    ctx.fillStyle = "#F1F1F1";
+    ctx.font = `24px ${font}`;
+    await Util.renderEmoji(ctx, Util.shorten(this.artist, 40), sizeX, sizeY + 70);
 
-    // pista de la barra de progreso
-    ctx.rect(170, 170, 300, 4);
+    // Dibujar la pista de la barra de progreso con bordes redondeados
+    const progressBarWidth = 400;
+    const progressBarHeight = 8;
+    const radius = 4; // El radio de los bordes redondeados (la mitad de la altura para que sea completamente redonda)
+
+    // Texto de finalización
+    ctx.fillStyle = "#B3B3B3";
+    ctx.font = `14px ${font}`;
+    await Util.renderEmoji(ctx, ending, sizeX + 360, sizeY + 120 + progressBarHeight);
+
+    // Texto de progreso
+    ctx.fillStyle = "#B3B3B3";
+    ctx.font = `14px ${font}`;
+    await Util.renderEmoji(ctx, progressF, sizeX, sizeY + 120 + progressBarHeight);
+
+    // Pista de la barra de progreso (fondo)
+    ctx.beginPath();
+    ctx.roundRect(sizeX, sizeY + 100, progressBarWidth, progressBarHeight, [radius]);
     ctx.fillStyle = "#E8E8E8";
-    ctx.fillRect(170, 110, 300, 4);
+    ctx.fill();
+    ctx.closePath();
 
-    // barra de progreso
+    // Barra de progreso (la parte verde)
+    const progressWidth = this.__calculateProgress(progress, total);
+
+    ctx.beginPath();
+    ctx.roundRect(sizeX, sizeY + 100, progressWidth, progressBarHeight, [radius]);
     ctx.fillStyle = "#1DB954";
-    ctx.fillRect(170, 110, this.__calculateProgress(progress, total), 4);
+    ctx.fill();
+    ctx.closePath();
 
-    // regreso
-    return canvas.toBuffer();
+
+    return canvas.toBuffer("image/png");
   }
 
   /**

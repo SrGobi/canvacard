@@ -3,7 +3,7 @@ const path = require('path');
 /**
  * Función para construir la ruta del archivo SVG
  * @param {string} icon 
- * @returns 
+ * @returns {string} Ruta del archivo SVG
  */
 function getIconPath(icon) {
   try {

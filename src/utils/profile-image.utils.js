@@ -18,7 +18,7 @@ const {
   isNumber,
 } = require('../utils/validations.utils');
 const getIconPath = require('../utils/icon.utils');
-const APIError = require('./error');
+const APIError = require('../utils/error');
 
 const alphaValue = 0.4;
 const clydeID = '1081004946872352958';
@@ -27,7 +27,12 @@ const clydeID = '1081004946872352958';
 const userFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/flags/user.json')));
 const applicationFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/flags/application.json')));
 
-// Función para verificar flags y obtener las insignias
+/**
+ * Verificar flags y obtener las insignias
+ * @param {Object} flags Insignias
+ * @param {number} flagNumber Numero de insignias
+ * @returns {Array} Insignias
+ */
 function _checkFlags(flags, flagNumber) {
   let results = [];
   try {
@@ -49,18 +54,19 @@ function _checkFlags(flags, flagNumber) {
 }
 
 /**
- * Función para generar el canvas de insignias
- * @param {Object} data 
- * @param {string} data.bot
- * @param {string} data.id
- * @param {Object} data.flags
- * @param {Object} options 
- * @param {Array} options.customBadges
- * @param {boolean} options.overwriteBadges
- * @returns Canvas
+ * Generar el canvas de insignias
+ * @param {Object} user Objeto de usuario
+ * @param {string} user.bot Si el usuario es un bot
+ * @param {string} user.id ID del usuario
+ * @param {Object} user.flags Insignias del usuario
+ * @param {string} user.discriminator Discriminador del usuario
+ * @param {Object} options Objeto de opciones
+ * @param {Array} options.customBadges Insignias personalizadas
+ * @param {boolean} options.overwriteBadges Sobreescribir las insignias
+ * @returns {Promise<Buffer>} Canvas
  */
-async function generateBadgesCanvas(data, options) {
-  const { bot, id, flags } = data;
+async function generateBadgesCanvas(user, options) {
+  const { bot, id, flags, discriminator } = user;
 
   try {
     // Obtener las insignias según los flags
@@ -74,8 +80,8 @@ async function generateBadgesCanvas(data, options) {
     ].map(getIconPath);
 
     // Insignias de nombre de usuario heredado
-    if (data.discriminator === '0') {
-      const legacyBadge = userFlags.LEGACY_USERNAME?.icon;
+    if (discriminator === "0") {
+      const legacyBadge = "../../assets/flags/icons/username.png";
       if (legacyBadge) allBadgeIcons.push(getIconPath(legacyBadge));
     }
 
@@ -141,6 +147,13 @@ async function generateBadgesCanvas(data, options) {
   }
 }
 
+/**
+ * Genera el fondo de la tarjeta
+ * @param {Object} options Objeto de opciones
+ * @param {string} avatarData URL del avatar
+ * @param {string} bannerData URL del banner
+ * @returns {Promise<Buffer>} Canvas
+ */
 async function genBase(options, avatarData, bannerData) {
   const canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
@@ -191,9 +204,8 @@ async function genBase(options, avatarData, bannerData) {
   return canvas;
 }
 
-
 /**
- * 
+ * Genera el marco de la tarjeta
  * @param {Object} badgesData
  * @param {CanvasElemet} badgesData.canvas
  * @param {string} badgesData.badgesLength
@@ -209,10 +221,8 @@ async function genFrame(badgesData, options) {
 
   // Cargar e insertar el marco base
   const cardFrame = await loadImage(Buffer.from(otherImgs.frame, 'base64'));
-  ctx.globalCompositeOperation = 'source-out';
   ctx.globalAlpha = 0.5;
   ctx.drawImage(cardFrame, 0, 0, 885, 303);
-  ctx.globalCompositeOperation = 'source-over';
 
   // Dibujar un fondo negro con transparencia si se requiere
   ctx.globalAlpha = alphaValue;
@@ -233,6 +243,7 @@ async function genFrame(badgesData, options) {
     ctx.roundRect(857 - badgesLength * 59, 15, 59 * badgesLength + 8, 61, [17]);
     ctx.fill();
 
+    ctx.globalAlpha = 1;
     // Dibujar el canvas de badges en la posición correcta
     ctx.drawImage(badgesCanvas, 0, 0);
   }
@@ -260,7 +271,7 @@ async function genBorder(options) {
     throw new APIError(
       `Invalid borderColor length (${borderColors.length}) must be a maximum of 20 colors`
     );
-
+  
   const gradX = options.borderAllign == 'vertical' ? 0 : 885;
   const gradY = options.borderAllign == 'vertical' ? 303 : 0;
 
@@ -285,22 +296,37 @@ async function genBorder(options) {
 }
 
 /**
- * 
- * @param {*} data 
- * @param {*} options 
- * @param {*} avatarData 
+ * Genera el texto y el avatar de la tarjeta
+ * @param {Object} user Datos del usuario
+ * @param {string} user.username Nombre de usuario
+ * @param {string} user.discriminator Discriminador
+ * @param {boolean} user.bot Es un bot
+ * @param {number} user.createdTimestamp Marca de tiempo de creación
+ * @param {string} user.id ID del usuario
+ * @param {Object} options Opciones de la tarjeta
+ * @param {string} options.customUsername Nombre de usuario personalizado
+ * @param {string} options.usernameColor Color del nombre de usuario
+ * @param {string} options.customSubtitle Subtítulo personalizado
+ * @param {string} options.subtitleColor Color del subtítulo
+ * @param {string | Date} options.customDate Fecha personalizada
+ * @param {string} options.localDateType Formato local para la fecha, por ejemplo, 'en' | 'es', etc.
+ * @param {string} options.customTag Tag personalizado
+ * @param {string} options.tagColor Color HEX de la etiqueta 
+ * @param {boolean} options.squareAvatar Cambiar la forma del avatar a un cuadrado
+ * @param {boolean} options.presenceStatus Mostrar el estado de presencia
+ * @param {Object} rankData Datos de rango
+ * @param {string} avatarData URL del avatar
  * @param {string} [font="MANROPE_BOLD"] Familia tipográfica
  * @returns {Promise<Buffer>}
  */
-async function genTextAndAvatar(data, options, avatarData, font) {
+async function genTextAndAvatar(user, rankData, options, avatarData, font) {
   const {
-    globalName,
     username: rawUsername,
     discriminator,
     bot,
     createdTimestamp,
     id,
-  } = data;
+  } = user;
 
   const isClyde = id === clydeID;
   const pixelLength = bot ? 470 : 555;
@@ -308,7 +334,7 @@ async function genTextAndAvatar(data, options, avatarData, font) {
   let canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
 
-  const fixedUsername = options?.customUsername || globalName || rawUsername;
+  const fixedUsername = options?.customUsername || rawUsername;
 
   const { username, newSize } = parseUsername(
     fixedUsername,
@@ -318,7 +344,7 @@ async function genTextAndAvatar(data, options, avatarData, font) {
     pixelLength
   );
 
-  if (options?.customSubtitle && !options.rankData) {
+  if (options?.customSubtitle && rankData.rank.display === false) {
     ctx.globalAlpha = alphaValue;
     ctx.fillStyle = '#2a2d33';
     ctx.beginPath();
@@ -328,7 +354,7 @@ async function genTextAndAvatar(data, options, avatarData, font) {
 
     ctx.font = `23px ${font}`;
     ctx.textAlign = 'left';
-    ctx.fillStyle = options?.color ? options.color : '#dadada';
+    ctx.fillStyle = options?.subtitleColor ? options.subtitleColor : '#dadada';
     ctx.fillText(`${options?.customSubtitle}`, 314, 273);
   }
 
@@ -339,7 +365,7 @@ async function genTextAndAvatar(data, options, avatarData, font) {
   );
 
   if (isClyde && !options?.customTag) {
-    options.customTag = '@clyde';
+    data.options.customTag = '@clyde';
   }
 
   const tag = options?.customTag
@@ -355,7 +381,7 @@ async function genTextAndAvatar(data, options, avatarData, font) {
     : '#FFFFFF';
   ctx.fillText(username, 300, 155);
 
-  if (!options?.rankData) {
+  if (rankData.rank.display === false) {
     ctx.font = `60px ${font}`;
     ctx.fillStyle = options?.tagColor ? parseHex(options.tagColor) : '#dadada';
     ctx.fillText(tag, 300, 215);
@@ -390,11 +416,20 @@ async function genTextAndAvatar(data, options, avatarData, font) {
   return canvas;
 }
 
-async function genAvatarFrame(data, options) {
+/**
+ * Esta función genera el marco del avatar
+ * @param {Object} user Objeto del usuario
+ * @param {Object} user.avatar_decoration_data Datos de decoración del avatar
+ * @param {string} user.avatar_decoration_data.asset Asset de decoración del avatar
+ * @param {Object} options Objeto de opciones
+ * @param {string} options.presenceStatus Presencia del usuario
+ * @returns {Promise<Buffer>} Canvas
+ */
+async function genAvatarFrame(user, options) {
   let canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
 
-  const frameUrl = `https://cdn.discordapp.com/avatar-decoration-presets/${data?.avatar_decoration_data.asset}.png`;
+  const frameUrl = `https://cdn.discordapp.com/avatar-decoration-presets/${user?.avatar_decoration_data.asset}.png`;
 
   const avatarFrame = await loadImage(frameUrl);
   ctx.drawImage(avatarFrame, 25, 18, 269, 269);
@@ -406,6 +441,13 @@ async function genAvatarFrame(data, options) {
   return canvas;
 }
 
+/**
+ * Esta función corta el estado de presencia en la tarjeta
+ * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
+ * @param {Object} options Objeto de opciones
+ * @param {string} options.presenceStatus Presencia del usuario
+ * @returns {Promise<Buffer>} Canvas
+ */
 async function cutAvatarStatus(canvasToEdit, options) {
   const canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
@@ -427,6 +469,13 @@ async function cutAvatarStatus(canvasToEdit, options) {
   return canvas;
 }
 
+/**
+ * Establece el estado de presencia en la tarjeta
+ * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
+ * @param {Object} options Objeto de opciones
+ * @param {string} options.presenceStatus Presencia del usuario
+ * @returns {Promise<Buffer>} Canvas
+ */
 async function genStatus(canvasToEdit, options) {
   let canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
@@ -472,41 +521,47 @@ async function genStatus(canvasToEdit, options) {
   return canvas;
 }
 
-async function genBotVerifBadge(data) {
-  const { id, username, global_name, public_flags_array } = data;
+/**
+ * Generar la insignia de verificación de bot
+ * @param {Object} user Objeto de usuario
+ * @param {string} user.username Nombre de usuario
+ * @param {number} user.flags Valor numérico de las flags del usuario
+ * @param {string} [font="MANROPE_BOLD"] Familia tipográfica
+ * @returns {Promise<Buffer>} Canvas
+ */
+async function genBotVerifBadge(user, font) {
+  const { username, flags } = user;
 
   const canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
 
-  // Determinar el nombre a usar
-  const usernameToParse = global_name || username;
-
   // Parsear el nombre para calcular la longitud del texto
   const { textLength } = parseUsername(
-    usernameToParse,
+    username,
     ctx,
-    'Helvetica Bold',
+    font,
     '80',
     470
   );
 
+  // Verificar si el usuario es un bot verificado usando el valor de flags
+  const isVerifiedBot = (flags & (1 << 16)) !== 0;
+
   // Determinar el badge a usar según las flags
-  const badgeName = public_flags_array.includes('VERIFIED_BOT')
-    ? 'botVerif'
-    : 'botNoVerif';
+  const badgeName = isVerifiedBot ? 'botVerif' : 'botNoVerif';
 
   // Cargar la imagen del badge
   const botBadgeBase64 = otherImgs[badgeName];
   const botBadge = await loadImage(Buffer.from(botBadgeBase64, 'base64'));
 
   // Dibujar la imagen en la posición correcta
-  ctx.drawImage(botBadge, textLength + 310, 110);
+  ctx.drawImage(botBadge, textLength + 340, 110);
 
   return canvas;
 }
 
 /**
- * 
+ * Generar la barra de experiencia
  * @param {Object} options 
  * @param {Object} options.rankData
  * @param {number} options.rankData.currentXp
@@ -516,9 +571,9 @@ async function genBotVerifBadge(data) {
  * @param {string | Array} options.rankData.barColor
  * @param {string} options.rankData.levelColor
  * @param {boolean} options.rankData.autoColorRank
- * @returns Canvas
+ * @returns {Promise<Buffer>} Canvas
  */
-function genXpBar(options) {
+function genXpBar(options, font) {
   const {
     currentXp,
     requiredXp,
@@ -554,7 +609,7 @@ function genXpBar(options) {
     ? `Lvl ${abbreviateNumber(isNumber(level, 'rankData:level'))}`
     : '';
 
-  ctx.font = '21px Helvetica';
+  ctx.font = `21px ${font}`;
   ctx.textAlign = 'left';
   ctx.fillStyle = '#dadada';
   ctx.fillText(
@@ -580,7 +635,7 @@ function genXpBar(options) {
     rankColors.current = rankMapping[rankString];
   }
 
-  ctx.font = 'bold 21px Helvetica';
+  ctx.font = `bold 21px ${font}`;
   ctx.textAlign = 'right';
   ctx.fillStyle = rankColors.current;
   ctx.fillText(
@@ -589,7 +644,7 @@ function genXpBar(options) {
     273
   );
 
-  ctx.font = 'bold 21px Helvetica';
+  ctx.font = `bold 21px ${font}`;
   ctx.textAlign = 'right';
   ctx.fillStyle = levelColor ? parseHex(levelColor) : '#dadada';
   ctx.fillText(`${lvlString}`, 674, 273);
@@ -635,9 +690,9 @@ function genXpBar(options) {
 }
 
 /**
- * 
- * @param {*} canvasToEdit 
- * @returns Canvas
+ * Sombras para el canvas
+ * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
+ * @returns {Promise<Buffer>} Canvas
  */
 function addShadow(canvasToEdit) {
   const canvas = createCanvas(885, 303);

@@ -17,18 +17,21 @@ const Util = require("./Util");
 
 /**
  * Canvacard Generador De Memes
- * @example
- * const Canvacard = require("canvacard");
- * Canvacard.Canvas.trigger("./image.png")
- *  .then(triggered => {
- *      Canvacard.write(triggered, "triggered.gif");
- *  })
  */
 class Canvacard {
 
   /**
-   * **⚠ ¡No puede crear una instancia de la clase Canvacard!⚠**
-   * @hideconstructor
+   * Canvas image builder
+   * @example
+   * ```js
+    const Canvacard = require("canvacard");
+    Canvacard.Canvas.trigger("./image.png")
+    .then(triggered => {
+      Canvacard.write(triggered, "triggered.gif");
+    })
+    .catch(console.error);
+   * ```
+   *
    */
   constructor() {
     throw new Error(`The ${this.constructor.name} class may not be instantiated!`);

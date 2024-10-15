@@ -1,618 +1,424 @@
-const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
-const Util = require("./Util");
-
-/**
- * @typedef {object} CanvacardRankData
- * @property {number} width Ancho de la tarjeta de rango
- * @property {number} height Altura de la tarjeta de rango
- * @property {object} background Datos de antecedentes de la tarjeta de rango
- * @property {"image"|"color"} [background.type="color"] Tipo de fondo
- * @property {string|Buffer} [background.image="#23272A"] Imagen de fondo (o color)
- * @property {object} progressBar Datos de la barra de progreso
- * @property {boolean} [progressBar.rounded=true] Si la barra de progreso debe redondearse
- * @property {number} [progressBar.x=275.5] Barra de progreso X
- * @property {number} [progressBar.y=183.75] Barra de progreso Y
- * @property {number} [progressBar.height=37.5] Altura de la barra de progreso
- * @property {number} [progressBar.width=596.5] Ancho de la barra de progreso
- * @property {object} [progressBar.track] Pista de la barra de progreso
- * @property {string} [progressBar.track.color="#484b4E"] Color de la pista de la barra de progreso
- * @property {object} [progressBar.bar] Datos de la barra de progreso
- * @property {"color"|"gradient"} [progressBar.bar.type="color"] Tipo de barra de progreso
- * @property {string|string[]} [progressBar.bar.color="#FFFFFF"] Color de la barra de la barra de progreso
- * @property {object} overlay Superposición de la barra de progreso
- * @property {boolean} [overlay.display=true] Si debería mostrar superposición
- * @property {number} [overlay.level=0.5] Nivel de opacidad de superposición
- * @property {string} [overlay.color="#333640"] Superposición de color de fondo
- * @property {object} avatar Datos de avatar de la tarjeta de rango
- * @property {string|Buffer} [avatar.source=null] Fuente de avatar
- * @property {number} [avatar.x=70] X
- * @property {number} [avatar.y=50] Y
- * @property {number} [avatar.height=180] altura
- * @property {number} [avatar.width=180] ancho
- * @property {object} status Estado de la tarjeta de rango
- * @property {number} [status.width=5] Ancho de estado
- * @property {"online"|"dnd"|"idle"|"offline"|"streaming"} [status.type] Tipo de estado
- * @property {string} [status.color="#43B581"] Color de estado
- * @property {boolean} [status.circle=false] ¿Estado circular?
- * @property {object} rank Datos de rango de la tarjeta de clasificación
- * @property {boolean} [rank.display=true] Si debe mostrar rango
- * @property {number} [rank.data=1] El rango
- * @property {string} [rank.textColor="#FFFFFF"] Rango de color del texto
- * @property {string} [rank.color="#F3F3F3"] Color de rango
- * @property {string} [rank.displayText="RANK"] Texto de visualización de rango
- * @property {object} level Datos de nivel de tarjeta de rango
- * @property {boolean} [level.display=true] Si debería mostrar el nivel
- * @property {number} [level.data=1] El nivel
- * @property {string} [level.textColor="#FFFFFF"] color de texto de nivel
- * @property {string} [level.color="#F3F3F3"] color de nivel
- * @property {string} [level.displayText="LEVEL"] texto de visualización de nivel
- * @property {object} previousRankXP tarjeta xp de rango anterior opcional
- * @property {number} [previousRankXP.data=null] xp de rango anterior opcional
- * @property {string} [previousRankXP.color=null] Tabla de rango de color de rango xp anterior opcional
- * @property {object} currentXP Tarjeta de rango xp actual
- * @property {number} [currentXP.data=0] XP actual
- * @property {string} [currentXP.color="#FFFFFF"] Carta de rango color xp actual
- * @property {object} requiredXP Tarjeta de rango requerida xp
- * @property {number} [requiredXP.data=0] requerido xp
- * @property {string} [requiredXP.color="#FFFFFF"] Se requiere tarjeta de rango xp color
- * @property {object} username Datos de nombre de usuario
- * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
- * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
- * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
- */
+const { createCanvas } = require("@napi-rs/canvas");
+const {
+  generateBadgesCanvas,
+  genBase,
+  genFrame,
+  genTextAndAvatar,
+  genAvatarFrame,
+  genBorder,
+  genBotVerifBadge,
+  genXpBar,
+  addShadow,
+} = require('./utils/profile-image.utils');
 
 class Rank {
-
   /**
-   * Creates Rank card
-   * @example 
-   * const rank = new canvacard.Rank()
-          .setAvatar(img)
-          .setCurrentXP(203)
-          .setRequiredXP(500)
-          .setStatus("dnd")
-          .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
-          .setUsername("SrGobi")
-      
-      rank.build()
-          .then(data => {
-              canvacard.write(data, "RankCard.png");
-          })
-   */
-  constructor() {
+   * Rank image builder
+   * 
+   * @example
+   * ```js
+    const rank = new canvacard.Rank(data.id)
+      .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
+      .setBanner(data.bannerURL, true)
+      .setBadges(data.flags, data.bot, true)
+      .setCurrentXP(userData.xp)
+      .setRequiredXP(userData.requiredXP)
+      .setRank(1, "RANK", true)
+      .setLevel(20, "LEVEL", true)
+      .setStatus("online")
+      .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+      .setProgressBarTrack("#FFFFFF")
+      .setOverlay("#000000", 1, true)
+      .setUsername(data.global_name, data.discriminator)
+      .setCreatedTimestamp(data.createdTimestamp);
 
-    /**
-     * Rank card data
-     * @type {CanvacardRankData}
-     */
+    const rankImage = await rank.build("Cascadia Code PL");
+    canvacard.write(rankImage, "./card.png");
+   * ```
+   *
+   * @param {string} userId ID del usuario
+   */
+  constructor(userId) {
     this.data = {
-      width: 934,
-      height: 282,
+      width: 885,
+      height: 303,
       background: {
         type: "color",
         image: "#23272A"
       },
-      progressBar: {
-        rounded: true,
-        x: 275.5,
-        y: 183.75,
-        height: 37.5,
-        width: 596.5,
-        track: {
-          color: "#484b4E"
+      user: {
+        id: userId,
+        username: null,
+        bot: false,
+        avatar: {
+          source: null,
+          x: 70,
+          y: 50,
+          height: 180,
+          width: 180
         },
-        bar: {
-          type: "color",
+        discriminator: '0',
+        public_flags: 0,
+        flags: 0,
+        banner: null,
+        accent_color: 0,
+        avatar_decoration_data: {
+          asset: null,
+          sku_id: null,
+          expires_at: null
+        },
+        clan: null,
+        tag: null,
+        createdAt: null,
+        createdTimestamp: 0,
+        defaultAvatarURL: null,
+        avatarURL: null,
+        bannerURL: null
+      },
+      rankData: {
+        rank: {
+          display: false,
+          data: 1,
+          textColor: "#FFFFFF",
+          color: "#F3F3F3",
+          displayText: "RANK"
+        },
+        level: {
+          data: 1,
+          textColor: "#FFFFFF",
+          color: "#F3F3F3",
+          displayText: "LEVEL"
+        },
+        currentXP: {
+          data: 0,
           color: "#FFFFFF"
-        }
+        },
+        requiredXP: {
+          data: 0,
+          color: "#FFFFFF"
+        },
+        progressBar: {
+          rounded: true,
+          x: 275.5,
+          y: 183.75,
+          height: 37.5,
+          width: 596.5,
+          bar: {
+            type: "color",
+            color: "#FFFFFF"
+          }
+        },
       },
-      overlay: {
-        display: true,
-        level: 0.5,
-        color: "#333640"
+      bannerData: {
+        moreBackgroundBlur: false,
+        disableBackgroundBlur: false,
+        backgroundBrightness: 0
       },
-      avatar: {
-        source: null,
-        x: 70,
-        y: 50,
-        height: 180,
-        width: 180
-      },
-      status: {
-        width: 5,
-        type: "online",
-        color: "#43B581",
-        circle: false
-      },
-      rank: {
-        display: true,
-        data: 1,
-        textColor: "#FFFFFF",
-        color: "#F3F3F3",
-        displayText: "RANK"
-      },
-      level: {
-        display: true,
-        data: 1,
-        textColor: "#FFFFFF",
-        color: "#F3F3F3",
-        displayText: "LEVEL"
-      },
-      currentXP: {
-        data: 0,
-        color: "#FFFFFF"
-      },
-      requiredXP: {
-        data: 0,
-        color: "#FFFFFF"
-      },
-      username: {
-        name: null,
-        color: "#FFFFFF"
-      },
-      renderEmojis: false
+      options: {
+        badgesFrame: false,
+        customBadges: false,
+        borderColor: null,
+        borderAllign: null,
+        presenceStatus: null,
+        customUsername: null,
+        usernameColor: null,
+        customSubtitle: null,
+        subtitleColor: null,
+        customDate: null,
+        customTag: null,
+        tagColor: null,
+        localDateType: "en",
+        squareAvatar: null,
+      }
     };
   }
 
   /**
-   * Si debe mostrar el nombre de usuario con emojis (si los hay)
-   * @param {boolean} [apply=false] Establécelo a `true` para mostrar emojis. 
-   * @returns {Rank}
+   * Establece el avatar del usuario
+   * @param {string} avatarUrl URL del avatar
+   * @param {string} AvatarDecorationData Asset de decoración del avatar
+   * @param {boolean} squareAvatar Cambiar la forma del avatar a un cuadrado
+   * @param {string} presenceStatus Estado de presencia
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  renderEmojis(apply = false) {
-    this.data.renderEmojis = !!apply;
+  setAvatar(avatarUrl, AvatarDecorationData, squareAvatar = false) {
+    if (!avatarUrl) throw new Error(`Invalid avatar type "${typeof avatarUrl}"!`);
+    this.data.user.avatarURL = avatarUrl;
+    if (!AvatarDecorationData) throw new Error(`Invalid avatar type "${typeof AvatarDecorationData}"!`);
+    this.data.user.avatar_decoration_data.asset = AvatarDecorationData;
+    this.data.options.squareAvatar = !!squareAvatar;
     return this;
   }
 
   /**
-   * Tamaño de letra
-   * @param {string} size
-   * @returns {Rank}
+   * Establece el banner del usuario
+   * @param {string} bannerUrl URL del banner
+   * @param {boolean} moreBackgroundBlur Más desenfoque de fondo
+   * @param {boolean} disableBackgroundBlur Desactivar desenfoque de fondo
+   * @param {number} backgroundBrightness Brillo de fondo
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setFontSize(size) {
-    this.data.fontSize = size;
-    return this;
-  }
-
-  /**
-   * Establecer nombre de usuario
-   * @param {string} name Username
-   * @param {string} color Username color
-   * @returns {Rank}
-   */
-  setUsername(name, color = "#FFFFFF") {
-    if (typeof name !== "string") throw new Error(`Se espera que el nombre de usuario sea una cadena, se recibe ${typeof name}!`);
-    this.data.username.name = name;
-    this.data.username.color = color && typeof color === "string" ? color : "#FFFFFF";
-    return this;
-  }
-
-  /**
-   * Definir el estilo de la barra de progreso
-   * @param {string|string[]} color Progressbar Color
-   * @param {"COLOR"|"GRADIENT"} [fillType] Progressbar type
-   * @param {boolean} [rounded=true] If progressbar should have rounded edges
-   * @returns {Rank}
-   */
-  setProgressBar(color, fillType = "COLOR", rounded = true) {
-
-    switch (fillType) {
-      case "COLOR":
-        if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida ${typeof color}!`);
-        this.data.progressBar.bar.color = color;
-        this.data.progressBar.bar.type = "color";
-        this.data.progressBar.rounded = !!rounded;
-        break;
-      case "GRADIENT":
-        if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Array, recibido ${typeof color}!`);
-        this.data.progressBar.bar.color = color.slice(0, 2);
-        this.data.progressBar.bar.type = "gradient";
-        this.data.progressBar.rounded = !!rounded;
-        break;
-      default:
-        throw new Error(`Tipo de barra de progreso no compatible "${fillType}"!`);
+  setBanner(bannerUrl, moreBackgroundBlur = false, disableBackgroundBlur = false, backgroundBrightness = 0) {
+    if (!bannerUrl) throw new Error(`Invalid banner type "${typeof bannerUrl}"!`);
+    if (typeof moreBackgroundBlur !== "boolean") throw new Error(`El tipo de desenfoque de fondo debe ser un booleano, recibido ${typeof moreBackgroundBlur}!`);
+    if (typeof disableBackgroundBlur !== "boolean") throw new Error(`El tipo de desenfoque de fondo debe ser un booleano, recibido ${typeof disableBackgroundBlur}!`);
+    if (backgroundBrightness && typeof backgroundBrightness !== "number") throw new Error(`El tipo de brillo de fondo debe ser un número, recibido ${typeof backgroundBrightness}!`);
+    this.data.user.bannerURL = bannerUrl;
+    this.data.bannerData.moreBackgroundBlur = moreBackgroundBlur;
+    this.data.bannerData.disableBackgroundBlur = disableBackgroundBlur;
+    if (backgroundBrightness && typeof backgroundBrightness === "number") {
+      this.data.bannerData.backgroundBrightness = backgroundBrightness;
     }
-
     return this;
-
   }
 
   /**
-   * Fijar la pista de la barra de progreso
-   * @param {string} color Track color
-   * @returns {Rank}
+   * Establece las insignias del usuario
+   * @param {number} flags Insignias del usuario
+   * @param {boolean} bot Si el usuario es un bot o no
+   * @param {boolean} frame Marco de insignias
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setProgressBarTrack(color) {
-    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida "${typeof color}"!`);
-    this.data.progressBar.track.color = color;
-
+  setBadges(flags, bot = false, frame = false) {
+    if (typeof flags !== "number") throw new Error(`El tipo de insignias debe ser un número, recibido ${typeof flags}!`);
+    this.data.user.flags = flags;
+    this.data.user.bot = bot && typeof bot === "boolean" ? bot : false;
+    this.data.options.badgesFrame = !!frame;
     return this;
   }
 
   /**
-   * Establecer superposición de tarjetas
-   * @param {string} color Overlay color
-   * @param {number} [level=0.5] Opacity level
-   * @param {boolean} [display=true] IF it should display overlay
-   * @returns {Rank}
+   * Establece el borde de la tarjeta
+   * @param {string | string[]} color Color HEX del borde, puede ser degradado si se usan 2 colores 
+   * @param {string} allign Alineación de degradado si se usan 2 colores 
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setOverlay(color, level = 0.5, display = true) {
-    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida "${typeof color}"!`);
-    this.data.overlay.color = color;
-    this.data.overlay.display = !!display;
-    this.data.overlay.level = level && typeof level === "number" ? level : 0.5;
+  setBorder(color, allign = "") {
+    if (typeof color !== "string" && !Array.isArray(color)) throw new Error(`El tipo de color debe ser una cadena o un array, recibido ${typeof color}!`);
+    if (typeof allign !== "string") throw new Error(`El tipo de alineación de degradado debe ser una cadena, recibido ${typeof allign}!`);
+    this.data.options.borderColor = color;
+    this.data.options.borderAllign = allign;
     return this;
   }
 
   /**
-   * Establecer xp requerido
-   * @param {number} data Required xp
-   * @param {string} color Color
-   * @returns {Rank}
+   * Establece el nombre de usuario
+   * @param {string} name Nombre de usuario
+   * @param {string} [discriminator="0"] Discriminador del usuario
+   * @param {string} [color="#FFFFFF"] Color del texto
+   * @param {string} customUsername Nombre de usuario personalizado
+   * @param {string} customTag Tag personalizado
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setRequiredXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new Error(`El tipo de dato requerido xp debe ser un número, recibido ${typeof data}!`);
-    this.data.requiredXP.data = data;
-    this.data.requiredXP.color = color && typeof color === "string" ? color : "#FFFFFF";
+  setUsername(name, discriminator, color = "#FFFFFF", customUsername, customTag) {
+    if (typeof name !== "string") throw new Error(`Se espera que el nombre de usuario sea una cadena, se recibe ${typeof name}!`);
+    this.data.user.username = name;
+    this.data.user.discriminator = discriminator && typeof discriminator === "string" ? discriminator : "0";
+    color === "string" ? color : "#FFFFFF";
+    this.data.options.usernameColor = color;
+    if (customUsername) {
+      this.data.options.customUsername = customUsername;
+    }
+    if (customTag) {
+      this.data.options.customTag = customTag;
+    }
+    return this;
+  }
+
+  setBorderColor(color) {
+    if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibido ${typeof color}!`);
+    this.data.borderColor = color;
     return this;
   }
 
   /**
-   * Fijar xp actual
-   * @param {number} data Current xp
-   * @param {string} color Color
-   * @returns {Rank}
+   * Establece el nivel de experiencia actual
+   * @param {number} data Datos de experiencia actual
+   * @param {string} [color="#FFFFFF"] Color del texto
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
   setCurrentXP(data, color = "#FFFFFF") {
     if (typeof data !== "number") throw new Error(`El tipo de dato xp actual debe ser un número, recibido ${typeof data}!`);
-    this.data.currentXP.data = data;
-    this.data.currentXP.color = color && typeof color === "string" ? color : "#FFFFFF";
+    this.data.rankData.currentXP.data = data;
+    this.data.rankData.currentXP.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
   }
 
   /**
-   * Establecer rango
-   * @param {number} data Current Rank
-   * @param {string} text Display text
-   * @param {boolean} [display=true] If it should display rank
-   * @returns {Rank}
+   * Establece la experiencia requerida
+   * @param {number} data Datos de experiencia requerida
+   * @param {string} [color="#FFFFFF"] Color del texto
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setRank(data, text = "RANK", display = true) {
+  setRequiredXP(data, color = "#FFFFFF") {
+    if (typeof data !== "number") throw new Error(`El tipo de dato requerido xp debe ser un número, recibido ${typeof data}!`);
+    this.data.rankData.requiredXP.data = data;
+    this.data.rankData.requiredXP.color = color && typeof color === "string" ? color : "#FFFFFF";
+    return this;
+  }
+
+  /**
+   * Establece el ranking del usuario
+   * @param {number} data Datos de ranking
+   * @param {string} [text="RANK"] Texto de visualización
+   * @param {boolean} [display=false] Mostrar o no el sistema de rango
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
+   */
+  setRank(data, text = "RANK", display = false) {
     if (typeof data !== "number") throw new Error(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
-    this.data.rank.data = data;
-    this.data.rank.display = !!display;
-    if (!text || typeof text !== "string") text = "RANK";
-    this.data.rank.displayText = text;
-
+    this.data.rankData.rank.data = data;
+    this.data.rankData.rank.display = !!display;
+    this.data.rankData.rank.displayText = text;
     return this;
   }
 
   /**
-   * Establecer el color de visualización del rango
-   * @param {string} text text color
-   * @param {string} number Number color
-   * @returns {Rank}
+   * Establece el nivel del usuario
+   * @param {number} data Datos de nivel
+   * @param {string} [text="LEVEL"] Texto de visualización
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setRankColor(text = "#FFFFFF", number = "#FFFFFF") {
-    if (!text || typeof text !== "string") text = "#FFFFFF";
-    if (!number || typeof number !== "string") number = "#FFFFFF";
-    this.data.rank.textColor = text;
-    this.data.rank.color = number;
-    return this;
-  }
-
-  /**
-   * Fijar color de nivel
-   * @param {string} text text color
-   * @param {string} number number color
-   * @returns {Rank}
-   */
-  setLevelColor(text = "#FFFFFF", number = "#FFFFFF") {
-    if (!text || typeof text !== "string") text = "#FFFFFF";
-    if (!number || typeof number !== "string") number = "#FFFFFF";
-    this.data.level.textColor = text;
-    this.data.level.color = number;
-    return this;
-  }
-
-  /**
-   * Establecer nivel
-   * @param {number} data Current Level
-   * @param {string} text Display text
-   * @param {boolean} [display=true] If it should display level
-   * @returns {Rank}
-   */
-  setLevel(data, text = "LEVEL", display = true) {
+  setLevel(data, text = "LEVEL") {
     if (typeof data !== "number") throw new Error(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
-    this.data.level.data = data;
-    this.data.level.display = !!display;
-    if (!text || typeof text !== "string") text = "LEVEL";
-    this.data.level.displayText = text;
-
+    this.data.rankData.level.data = data;
+    this.data.rankData.level.displayText = text;
     return this;
   }
 
   /**
-   * Establecer color de estado personalizado
-   * @param {string} color Color to set
-   * @returns {Rank}
+   * Establece la barra de progreso
+   * @param {string | string[]} color Color de la barra de progreso
+   * @param {string} [fillType="COLOR"] Tipo de relleno
+   * @param {boolean} [rounded=true] Redondear o no
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setCustomStatusColor(color) {
-    if (!color || typeof color !== "string") throw new Error("Color no válido.");
-    this.data.status.color = color;
-    return this;
-  }
-
-  /**
-   * Establecer estado
-   * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status User status
-   * @param {boolean} circle Si el icono de estado debe ser circular.
-   * @param {number|boolean} width Anchura de estado
-   * @returns {Rank}
-   */
-  setStatus(status, circle = false, width = 5) {
-    switch (status) {
-      case "online":
-        this.data.status.type = "online";
-        this.data.status.color = "#43B581";
-        break;
-      case "idle":
-        this.data.status.type = "idle";
-        this.data.status.color = "#FAA61A";
-        break;
-      case "dnd":
-        this.data.status.type = "dnd";
-        this.data.status.color = "#F04747";
-        break;
-      case "offline":
-        this.data.status.type = "offline";
-        this.data.status.color = "#747F8E";
-        break;
-      case "streaming":
-        this.data.status.type = "streaming";
-        this.data.status.color = "#593595";
-        break;
-      default:
-        throw new Error(`Invalid status "${status}"`);
+  setProgressBar(color, fillType = "COLOR", rounded = true) {
+    if (fillType === "COLOR") {
+      if (typeof color !== "string") throw new Error(`El tipo de color debe ser una cadena, recibida ${typeof color}!`);
+      this.data.rankData.progressBar.bar.color = color;
+      this.data.rankData.progressBar.bar.type = "color";
+    } else if (fillType === "GRADIENT") {
+      if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Array, recibido ${typeof color}!`);
+      this.data.rankData.progressBar.bar.color = color.slice(0, 2);
+      this.data.rankData.progressBar.bar.type = "gradient";
+    } else {
+      throw new Error(`Tipo de barra de progreso no compatible "${fillType}"!`);
     }
-
-    if (width !== false) this.data.status.width = typeof width === "number" ? width : 5;
-    else this.data.status.width = false;
-    if ([true, false].includes(circle)) this.data.status.circle = circle;
-
+    this.data.rankData.progressBar.rounded = !!rounded;
     return this;
   }
 
   /**
-   * Establecer imagen/color de fondo
-   * @param {"COLOR"|"IMAGE"} type Background type
-   * @param {string|Buffer} [data] Background color or image
-   * @returns {Rank}
+   * Establece el estado del usuario
+   * @param {string} presenceStatus Estado del usuario
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
    */
-  setBackground(type, data) {
-    if (!data) throw new Error("Falta campo : data");
-    switch (type) {
-      case "COLOR":
-        this.data.background.type = "color";
-        this.data.background.image = data && typeof data === "string" ? data : "#23272A";
-        break;
-      case "IMAGE":
-        this.data.background.type = "image";
-        this.data.background.image = data;
-        break;
-      default:
-        throw new Error(`Tipo de fondo no compatible "${type}"`);
+  setStatus(presenceStatus) {
+    this.data.options.presenceStatus = presenceStatus;
+    return this;
+  }
+
+  /**
+   * Establece la marca de tiempo de creación
+   * @param {number} timestamp Marca de tiempo de creación
+   * @param {string | Date} customDate Fecha o texto personalizado para usar en lugar de cuando el usuario se unió a Discord
+   * @returns {Rank} La instancia de la clase Rank
+   * @throws {Error} Si el URL o el asset no son válidos
+   */
+  setCreatedTimestamp(timestamp, customDate) {
+    if (typeof timestamp !== "number") throw new Error(`El tipo de marca de tiempo debe ser un número, recibido ${typeof timestamp}!`);
+    this.data.user.createdTimestamp = timestamp;
+    if (customDate) {
+      this.data.options.customDate = customDate;
     }
-
-    return this;
-  }
-
-  /**
-   * Avatar de usuario
-   * @param {string|Buffer} data Avatar data
-   * @returns {Rank}
-   */
-  setAvatar(data) {
-    if (!data) throw new Error(`Invalid avatar type "${typeof data}"!`);
-    this.data.avatar.source = data;
     return this;
   }
 
   /**
    * Construye la tarjeta de rango
-   * @param {object} ops Fonts
-   * @param {string} [ops.fontX="MANROPE_BOLD"] Bold font family
-   * @param {string} [ops.fontY="MANROPE_REGULAR"] Regular font family
-   * @returns {Promise<Buffer>}
+   * @param {string} [font="Helvetica"] Familia tipográfica
+   * @returns {Promise<Buffer>} La tarjeta de rango en formato de buffer
    */
-  async build(ops = { fontX: "MANROPE_BOLD,NOTO_COLOR_EMOJI", fontY: "MANROPE_BOLD,NOTO_COLOR_EMOJI" }) {
-    if (typeof this.data.currentXP.data !== "number") throw new Error(`Se espera que currentXP sea un número, se recibe ${typeof this.data.currentXP.data}!`);
-    if (typeof this.data.requiredXP.data !== "number") throw new Error(`Se espera queXP sea un número, se recibe ${typeof this.data.requiredXP.data}!`);
-    if (!this.data.avatar.source) throw new Error("No se ha encontrado la fuente del avatar.");
-    if (!this.data.username.name) throw new Error("Falta el nombre de usuario");
+  async build(font = "Helvetica") {
+    if (!this.data.user.avatarURL) throw new Error("Avatar no disponible.");
+    if (!this.data.user.username) throw new Error("Nombre de usuario no disponible.");
 
-    let bg = null;
-    if (this.data.background.type === "image") bg = await loadImage(this.data.background.image);
-    let avatar = await loadImage(this.data.avatar.source);
-
-    // crear instancia de lienzo
     const canvas = createCanvas(this.data.width, this.data.height);
     const ctx = canvas.getContext("2d");
 
-    // crear fondo
-    if (!!bg) {
-      ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-    } else {
-      ctx.fillStyle = this.data.background.image;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    }
+    const userAvatar = (this.data.user.avatarURL ?? this.data.user.defaultAvatarURL) + '?size=512';
+    const userBanner = this.data.user.bannerURL ? this.data.user.bannerURL + '?size=512' : null;
 
-    // añadir superposición
-    if (!!this.data.overlay.display) {
-      ctx.fillStyle = this.data.overlay.color;
-      ctx.globalAlpha = this.data.overlay.level || 1;
-      ctx.roundRect(20, 20, canvas.width - 40, canvas.height - 40, 10);
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = this.data.overlay.color;
-      ctx.fill();
-    }
+    // Obtener badges y generar canvas junto con su longitud
+    const badgesData = await generateBadgesCanvas(this.data.user, this.data.options);
 
-    // restablecer transparencia
-    ctx.globalAlpha = 1;
-    ctx.shadowBlur = 0;
-
-    // dibujar nombre de usuario
-    ctx.font = `bold 36px ${ops.fontX}`;
-    ctx.fillStyle = this.data.username.color;
-    ctx.textAlign = "start";
-    const name = Util.shorten(this.data.username.name, 10);
-
-    // aplicar nombre de usuario
-    !this.data.renderEmojis ? ctx.fillText(`${name}`, 257 + 18.5, 164) : await Util.renderEmoji(ctx, name, 257 + 18.5, 164);
-
-    // fill level
-    if (this.data.level.display && !isNaN(this.data.level.data)) {
-      ctx.font = `bold 36px ${ops.fontX}`;
-      ctx.fillStyle = this.data.level.textColor;
-      ctx.fillText(this.data.level.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data))).width, 82);
-
-      ctx.font = `bold 32px ${ops.fontX}`;
-      ctx.fillStyle = this.data.level.color;
-      ctx.textAlign = "end";
-      ctx.fillText(Util.toAbbrev(parseInt(this.data.level.data)), 900, 82);
-    }
-
-    // fill rank
-    if (this.data.rank.display && !isNaN(this.data.rank.data)) {
-      ctx.font = `bold 36px ${ops.fontX}`;
-      ctx.fillStyle = this.data.rank.textColor;
-      ctx.fillText(this.data.rank.displayText, 800 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width - 7 - ctx.measureText(Util.toAbbrev(parseInt(this.data.rank.data)) || "-").width, 82);
-
-      ctx.font = `bold 32px ${ops.fontX}`;
-      ctx.fillStyle = this.data.rank.color;
-      ctx.textAlign = "end";
-      ctx.fillText(Util.toAbbrev(parseInt(this.data.rank.data)), 790 - ctx.measureText(Util.toAbbrev(parseInt(this.data.level.data)) || "-").width - 7 - ctx.measureText(this.data.level.displayText).width, 82);
-    }
-
-    // mostrar progreso
-    ctx.font = `bold 30px ${ops.fontX}`;
-    ctx.fillStyle = this.data.requiredXP.color;
-    ctx.textAlign = "start";
-    ctx.lineWidth = 1;
-    ctx.strokeText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
-    ctx.fillText("/ " + Util.toAbbrev(this.data.requiredXP.data), 670 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
-
-    ctx.fillStyle = this.data.currentXP.color;
-    ctx.lineWidth = 1;
-    ctx.strokeText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
-    ctx.fillText(Util.toAbbrev(this.data.currentXP.data), 670, 164);
-
-    ctx.lineWidth = 1;
-    ctx.strokeText("XP", 770 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
-    ctx.fillText("XP", 770 + ctx.measureText(Util.toAbbrev(this.data.currentXP.data)).width + 15, 164);
-    
-    // dibujar la barra de progreso
-    ctx.beginPath();
-    if (!!this.data.progressBar.rounded) {
-      // bg
-      ctx.fillStyle = this.data.progressBar.track.color;
-      ctx.arc(257 + 615, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.fill();
-      ctx.lineWidth = 3;
-      ctx.strokeRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
-      ctx.fillRect(257 + 18.5, 147.5 + 36.25, 615 - 18.5, 37.5);
-      ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
-      ctx.fill();
-
-      ctx.beginPath();
-      // aplicar color
-      if (this.data.progressBar.bar.type === "gradient") {
-        let gradientContext = ctx.createRadialGradient(this._calculateProgress, 0, 500, 0, 0, 0);
-        this.data.progressBar.bar.color.forEach((color, index) => {
-          gradientContext.addColorStop(index, color);
-        });
-        ctx.fillStyle = gradientContext;
-      } else {
-        ctx.fillStyle = this.data.progressBar.bar.color;
-      }
-
-      // barra de progreso
-      ctx.arc(257 + 18.5, 147.5 + 18.5 + 36.25, 18.5, 1.5 * Math.PI, 0.5 * Math.PI, true);
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.fill();
-      ctx.fillRect(257 + 18.5, 147.5 + 36.25, this._calculateProgress, 37.5);
-      ctx.arc(257 + 18.5 + this._calculateProgress, 147.5 + 18.5 + 36.25, 18.75, 1.5 * Math.PI, 0.5 * Math.PI, false);
-      ctx.fill();
-    } else {
-
-      // barra de progreso
-      ctx.fillStyle = this.data.progressBar.bar.color;
-      ctx.lineWidth = 1;
-      ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
-      ctx.fillRect(this.data.progressBar.x, this.data.progressBar.y, this._calculateProgress, this.data.progressBar.height);
-
-      // esquema
-      ctx.beginPath();
-      ctx.strokeStyle = this.data.progressBar.track.color;
-      ctx.lineWidth = 7;
-      ctx.strokeRect(this.data.progressBar.x, this.data.progressBar.y, this.data.progressBar.width, this.data.progressBar.height);
-    }
-
-    ctx.save();
-
-    // circulo
-    ctx.beginPath();
-    ctx.arc(125 + 10, 125 + 20, 100, 0, Math.PI * 2, true);
-    ctx.lineWidth = this.data.status.width;
-    ctx.stroke();
-    ctx.closePath();
+    // Establecer fondo y recorte inicial
+    ctx.roundRect(0, 0, this.data.width, this.data.height, [34]);
     ctx.clip();
 
-    // dibujar avatar
-    ctx.drawImage(avatar, 35, 45, this.data.avatar.width + 20, this.data.avatar.height + 20);
-    ctx.restore();
+    // Dibujar base (fondo)
+    const cardBase = await genBase(this.data.bannerData, userAvatar, userBanner);
+    ctx.drawImage(cardBase, 0, 0);
 
-    // estado usuario
-    if (!!this.data.status.circle) {
-      ctx.beginPath();
-      ctx.fillStyle = this.data.status.color;
-      ctx.arc(215, 205, 20, 0, 2 * Math.PI);
-      ctx.lineWidth = this.data.status.width;
-      ctx.stroke();
-      ctx.fill();
-      ctx.closePath();
-    } else if (!this.data.status.circle && this.data.status.width !== false) {
-      ctx.beginPath();
-      ctx.arc(135, 145, 100, 0, Math.PI * 2, true);
-      ctx.strokeStyle = this.data.status.color;
-      ctx.lineWidth = this.data.status.width;
-      ctx.stroke();
+    // Dibujar el marco decorativo
+    const cardFrame = await genFrame(badgesData, this.data.options);
+    ctx.drawImage(cardFrame, 0, 0);
+
+    // Dibujar el avatar y los textos
+    const cardTextAndAvatar = await genTextAndAvatar(this.data.user, this.data.rankData, this.data.options, userAvatar, font);
+    const textAvatarShadow = addShadow(cardTextAndAvatar);
+    ctx.drawImage(textAvatarShadow, 0, 0);
+    ctx.drawImage(cardTextAndAvatar, 0, 0);
+
+    // Dibujar barra de experiencia si está activada
+    if (this.data.rankData.rank.display) {
+      const xpBar = genXpBar({
+        rankData: {
+          currentXp: this.data.rankData.currentXP.data,
+          requiredXp: this.data.rankData.requiredXP.data,
+          rank: this.data.rankData.rank.data,
+          level: this.data.rankData.level.data,
+          barColor: this.data.rankData.progressBar.bar.color,
+          levelColor: this.data.rankData.level.color,
+          autoColorRank: true,
+        },
+      }, font);
+      ctx.drawImage(xpBar, 0, 0);
     }
 
-    return canvas.encode("png");
+    // Dibujar bordes personalizados
+    if (this.data.options.borderColor) {
+      const border = await genBorder(this.data.options);
+      ctx.drawImage(border, 0, 0);
+    }
+
+    // Dibujar insignias y verificación de bot
+    if (this.data.user?.bot) {
+      const botVerifBadge = await genBotVerifBadge(this.data.user, font);
+      const shadowVerifBadge = addShadow(botVerifBadge);
+      ctx.drawImage(shadowVerifBadge, 0, 0);
+      ctx.drawImage(botVerifBadge, 0, 0);
+    }
+
+    // Dibujar marco del avatar si existe
+    if (this.data.user?.avatar_decoration_data?.asset) {
+      const avatarFrame = await genAvatarFrame(this.data.user, this.data.options);
+      ctx.drawImage(avatarFrame, 0, 0);
+    }
+
+    return canvas.toBuffer("image/png");
   }
-
-  /**
-   * Calculates progress
-   * @type {number}
-   * @private
-   * @ignore
-   */
-  get _calculateProgress() {
-    const cx = this.data.currentXP.data;
-    const rx = this.data.requiredXP.data;
-
-    if (rx <= 0) return 1;
-    if (cx > rx) return parseInt(this.data.progressBar.width) || 0;
-
-    let width = (cx * 615) / rx;
-    if (width > this.data.progressBar.width) width = this.data.progressBar.width;
-    return parseInt(width) || 0;
-  }
-
 }
 
 module.exports = Rank;
