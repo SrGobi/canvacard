@@ -22,6 +22,7 @@ Canvacard Generador De Memes
 **Kind**: global class  
 
 * [Canvacard](#Canvacard)
+    * [new Canvacard()](#new_Canvacard_new)
     * [.CONVOLUTION_MATRIX](#Canvacard.CONVOLUTION_MATRIX) : [<code>ConvolutionMatrix</code>](#ConvolutionMatrix)
     * [.Util](#Canvacard.Util) : <code>Util</code>
     * [.trigger(image)](#Canvacard.trigger) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -76,6 +77,19 @@ Canvacard Generador De Memes
     * [.reply(options)](#Canvacard.reply) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.__wait(dur)](#Canvacard.__wait) ⇒ <code>Promise.&lt;void&gt;</code>
 
+<a name="new_Canvacard_new"></a>
+
+### new Canvacard()
+Canvas image builder
+
+**Example**  
+```js
+    const Canvacard = require("canvacard");
+    Canvacard.Canvas.trigger("./image.png")
+    .then(triggered => {
+      Canvacard.write(triggered, "triggered.gif");
+    })
+    .catch(console.error);```
 <a name="Canvacard.CONVOLUTION_MATRIX"></a>
 
 ### Canvacard.CONVOLUTION\_MATRIX : [<code>ConvolutionMatrix</code>](#ConvolutionMatrix)
