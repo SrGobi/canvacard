@@ -422,19 +422,19 @@ declare class Canvacard {
      * @param {string} [options.replyText] El mensaje de respuesta
      * @returns {Promise<Buffer>}
      * @example
-     * const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-     * const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
-     * canvacard.Canvas.reply({
-     *      avatar1: img,
-     *      avatar2: img2,
-     *      user1: "Maximus",
-     *      user2: "SrGobi",
-     *      hex1: "#FF3300",
-     *      hex2: "#7289da",
-     *      mainText: "kok",
-     *      replyText: "Pog"
-     * })
-     * .then(img => canvacard.write(img, "reply.png"));
+    const img = "https://cdn.discordapp.com/embed/avatars/0.png";
+    const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
+    canvacard.Canvas.reply({
+      avatar1: img,
+      avatar2: img2,
+      user1: "Maximus",
+      user2: "SrGobi",
+      hex1: "#FF3300",
+      hex2: "#7289da",
+      mainText: "kok",
+      replyText: "Pog"
+     })
+    .then(img => canvacard.write(img, "reply.png"));
      */
     static reply(options?: {
         avatar1?: string | Buffer;

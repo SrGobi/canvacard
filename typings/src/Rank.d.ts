@@ -1,7 +1,22 @@
 export = Rank;
+/**
+ * Creador tarjetas de rango
+ */
 declare class Rank {
     /**
-     * Rank image builder
+     * <details open>
+     *  <summary>PREVIEW</summary>
+     * <br>
+     *   <a>
+     *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
+     *   </a>
+     *   <a>
+     *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
+     *   </a>
+     *   <a>
+     *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
+     *   </a>
+     * </details>
      *
      * @example
      * ```js
