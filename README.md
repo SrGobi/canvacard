@@ -27,8 +27,7 @@ import canvacard from "canvacard";
 # Features
 
 - Súper simple y fácil de usar 😎
-- Más rápido que canvacard v4 🚀
-- Todas las fuentes de Google Fonts 📚
+- Más rápido que canvacard v5 🚀
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
 - Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
 - Orientado a objetos 💻
@@ -40,34 +39,31 @@ import canvacard from "canvacard";
 ## Rank Card
 
 ```js
+const { AttachmentBuilder } = require("discord.js");
 const canvacard = require("canvacard");
-const img = "https://cdn.discordapp.com/embed/avatars/0.png";
-const background = "https://i.imgur.com/5O7xmVe.png";
-
-const userData = getDataSomehow();
+const userData = getDataSomehow(); // Simula obtener los datos del usuario
 
 const rank = new canvacard.Rank()
-  .setAvatar(img)
-  .setBackground('IMAGE', background)
+  .setAvatar(userData.avatarURL, userData.avatar_decoration_data.asset, false)
+  .setBanner(userData.bannerURL, true)
+  .setBadges(userData.flags, userData.bot, true)
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
-  .setRank(userData.rank)
-  .setRankColor("#FFFFFF")
-  .setLevel(userData.level)
-  .setLevelColor("#FFFFFF")
-  .setStatus("online", true)
-  .setCustomStatusColor("#23272A")
-  .setOverlay("#23272A", 1 || 0, true)
-  .setProgressBar(["#FF0000", "#0000FF"], "GRADIENT")
-  .setProgressBarTrack("#000000")
-  .setUsername("SrGobi")
-  .renderEmojis(true)
+  .setRank(1, "RANK", true)
+  .setLevel(20, "LEVEL")
+  .setStatus("online")
+  .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+  .setUsername(userData.username, userData.discriminator, "#FFFFFF")
+  .setCreatedTimestamp(userData.createdTimestamp)
+  .setBorder(["#14C49E", "#FF0000"], "vertical");
 
 rank.build()
   .then(data => {
-    const attachment = new Discord.MessageAttachment(data, "RankCard.png");
-    message.channel.send(attachment);
-  });
+    // Usar AttachmentBuilder para enviar el archivo
+    const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
+    message.channel.send({ content: "Aquí está tu tarjeta de rango:", files: [attachment] });
+  })
+  .catch(err => console.error("Error al crear la tarjeta de rango:", err));
 ```
 
 <details open>
@@ -106,9 +102,11 @@ const welcomer = new canvacard.Welcomer()
 
 welcomer.build()
   .then(data => {
-    const attachment = new Discord.MessageAttachment(data, "WelcomerCard.png");
-    message.channel.send(attachment);
-  });
+    // Usar AttachmentBuilder para enviar el archivo
+    const attachment = new AttachmentBuilder(data, { name: "WelcomeCard.png" });
+    message.channel.send({ content: "Aquí está tu tarjeta de bienvenida:", files: [attachment] });
+  })
+  .catch(err => console.error("Error al crear la tarjeta de bienvenida:", err));
 ```
 
 <details open>
@@ -131,22 +129,31 @@ welcomer.build()
 ## Otros ejemplos
 
 ```js
-const Discord = require('discord.js');
-const client = new Discord.Client();
-const canvacard = require('canvacard');
+const { Client, GatewayIntentBits, AttachmentBuilder } = require("discord.js");
+const canvacard = require("canvacard");
+
+const client = new Client({
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent]
+});
 
 client.on('ready', () => {
-	console.log('¡Estoy en línea!');
+  console.log('¡Estoy en línea!');
 });
 
 client.on('messageCreate', async (message) => {
-	if (message.author.bot) return;
-	if (message.content === '!triggered') {
-		let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
-		let image = await canvacard.Canvas.trigger(avatar);
-		let attachment = new Discord.MessageAttachment(image, 'triggered.gif');
-		return message.channel.send(attachment);
-	}
+  if (message.author.bot) return;
+
+  if (message.content === '!triggered') {
+    try {
+      let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+      let image = await canvacard.Canvas.trigger(avatar);
+      // Enviar el archivo generado usando AttachmentBuilder
+      let attachment = new AttachmentBuilder(image, { name: 'triggered.gif' });
+      await message.channel.send({ content: '¡Aquí tienes tu imagen "triggered"!', files: [attachment] });
+    } catch (err) {
+      console.error('Error al generar la imagen triggered:', err);
+    }
+  }
 });
 
 client.login('Tu_Bot_Token_aqui');
