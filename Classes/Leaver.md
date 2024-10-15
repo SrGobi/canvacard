@@ -38,22 +38,21 @@ Leave image builder
 
 **Example**  
 ```js
-const leaveCardURL = await new Leaver()
-        .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
-        .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
-        .setTitulo("Titulo de la Tarjeta")
-        .setSubtitulo("Subtitulo de la Tarjeta")
-        .setOpacityOverlay("0.5")
-        .setColorTitulo(#FFFFFF)
-        .setColorSubtitulo(#FFFFFF)
-        .setColorCircle(#FFFFFF)
-        .setColorOverlay(#FFFFFF)
-        .setTypeOverlay("rounded")
-      leaverCardURL.build()
-        .then(data => {
-            canvacard.write(data, "LeaverCard.png");
-        })
-```
+    const leaveCardURL = await new Leaver()
+      .setAvatar(member.user.displayAvatarURL({ format: 'png', size: 4096 }))
+      .setBackground('IMAGE', https://i.imgur.com/aClDVjh.jpg)
+      .setTitulo("Titulo de la Tarjeta")
+      .setSubtitulo("Subtitulo de la Tarjeta")
+      .setOpacityOverlay("0.5")
+      .setColorTitulo(#FFFFFF)
+      .setColorSubtitulo(#FFFFFF)
+      .setColorCircle(#FFFFFF)
+      .setColorOverlay(#FFFFFF)
+      .setTypeOverlay("rounded")
+    leaverCardURL.build()
+      .then(data => {
+          canvacard.write(data, "LeaverCard.png");
+      })
 <a name="Leaver+data"></a>
 
 ### leaver.data

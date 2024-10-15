@@ -39,16 +39,16 @@ Welcome image builder
 **Example**  
 ```js
     const welcome = new canvacard.Welcomer()
-        .setAvatar(data.defaultAvatarURL)
-        .setBackground('IMAGE', 'https://i.imgur.com/aClDVjh.jpg')
-        .setTitulo("Titulo de la Tarjeta👋")
-        .setSubtitulo("Subtitulo de la Tarjeta 👋")
-        .setOpacityOverlay("0.5")
-        .setColorTitulo('#FFFFFF')
-        .setColorSubtitulo('#FFFFFF')
-        .setColorCircle('#FFFFFF')
-        .setColorOverlay('#5865F2')
-        .setTypeOverlay('ROUNDED');
+      .setAvatar(data.defaultAvatarURL)
+      .setBackground('IMAGE', 'https://i.imgur.com/aClDVjh.jpg')
+      .setTitulo("Titulo de la Tarjeta👋")
+      .setSubtitulo("Subtitulo de la Tarjeta 👋")
+      .setOpacityOverlay("0.5")
+      .setColorTitulo('#FFFFFF')
+      .setColorSubtitulo('#FFFFFF')
+      .setColorCircle('#FFFFFF')
+      .setColorOverlay('#5865F2')
+      .setTypeOverlay('ROUNDED');
     const welcomeImage = await welcome.build("Suravaram");
     canvacard.write(welcomeImage, "./welcomer.png");```Constructor de la tarjeta de bienvenida
 <a name="Welcomer+data"></a>

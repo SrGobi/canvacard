@@ -46,12 +46,11 @@ FortniteShop image builder
 
 **Example**  
 ```js
-const FortniteShopCardURL = await new FortniteShop()
-        .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-        .setText("footer", "ESP CUSTOMS X FORTNITE")
-        .toAttachment();
-      await channel.send({ files: [{ attachment: FortniteShopCardURL, name: 'FortniteShop.png' }] })
-```
+    const FortniteShopCardURL = await new FortniteShop()
+      .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
+      .setText("footer", "ESP CUSTOMS X FORTNITE")
+      .toAttachment();
+    await channel.send({ files: [{ attachment: FortniteShopCardURL, name: 'FortniteShop.png' }] })```
 <a name="FortniteShop+token"></a>
 
 ### fortniteShop.token : <code>string</code>

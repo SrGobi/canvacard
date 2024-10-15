@@ -32,20 +32,20 @@ Rank image builder
 **Example**  
 ```js
     const rank = new canvacard.Rank(data.id)
-        .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
-        .setBanner(data.bannerURL, true)
-        .setBadges(data.flags, data.bot, true)
-        .setCurrentXP(userData.xp)
-        .setRequiredXP(userData.requiredXP)
-        .setRank(1, "RANK", true)
-        .setLevel(20, "LEVEL", true)
-        .setStatus("online")
-        .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-        .setProgressBarTrack("#FFFFFF")
-        .setOverlay("#000000", 1, true)
-        .setUsername(data.global_name, data.discriminator)
-        .setCreatedTimestamp(data.createdTimestamp);
-    
+      .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
+      .setBanner(data.bannerURL, true)
+      .setBadges(data.flags, data.bot, true)
+      .setCurrentXP(userData.xp)
+      .setRequiredXP(userData.requiredXP)
+      .setRank(1, "RANK", true)
+      .setLevel(20, "LEVEL", true)
+      .setStatus("online")
+      .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+      .setProgressBarTrack("#FFFFFF")
+      .setOverlay("#000000", 1, true)
+      .setUsername(data.global_name, data.discriminator)
+      .setCreatedTimestamp(data.createdTimestamp);
+
     const rankImage = await rank.build("Cascadia Code PL");
     canvacard.write(rankImage, "./card.png");```
 <a name="Rank+setAvatar"></a>

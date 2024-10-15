@@ -49,15 +49,13 @@ Creador de imagen de estadisticas de fortnite
 FortniteStats image builder
 
 **Example**  
-```js
-const FortniteStatsCardURL = await new FortniteStats()
-      .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-      .setUser("BLD SRGOBI")
-      .setPlatform("pc")
-      .setText("footer", "ESP CUSTOMS X FORTNITE")
-      .toAttachment();
-  await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })
-```
+```js	 const FortniteStatsCardURL = await new FortniteStats()
+        .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
+        .setUser("BLD SRGOBI")
+        .setPlatform("pc")
+        .setText("footer", "ESP CUSTOMS X FORTNITE")
+        .toAttachment();
+    await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })```
 <a name="FortniteStats+token"></a>
 
 ### fortniteStats.token : <code>string</code>
