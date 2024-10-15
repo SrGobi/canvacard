@@ -221,7 +221,7 @@ class Spotify {
 
   /**
    * Construye la tarjeta de presencia de Spotify.
-   * @param {object} [font="Helvetica"] Familia tipográfica
+   * @param {string} [font="Helvetica"] Familia tipográfica
    * @returns {Promise<Buffer>} La tarjeta de presencia de Spotify en formato de buffer
    */
   async build(font = "Helvetica") {
