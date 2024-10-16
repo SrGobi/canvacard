@@ -4,9 +4,7 @@
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
-  "bin": "./bin/canvacard.js",
   "files": [
-    "bin",
     "scripts",
     "libs",
     "plugins",
@@ -16,11 +14,7 @@
   ],
   "scripts": {
     "test": "cd ../test && node .",
-    "types": "tsc",
-    "postinstall": "node scripts/postinstall.mjs",
-    "docs": "npm run docs:generate",
-    "docs:generate": "node scripts/generateDocs.js",
-    "docs:single": "node scripts/generateDocs.js --single"
+    "types": "tsc"
   },
   "repository": {
     "type": "git",
@@ -67,7 +61,6 @@
   "devDependencies": {
     "@types/node": "^22.7.5",
     "captcha-canvas": "^3.2.2",
-    "jsdoc-to-markdown": "^9.0.2",
     "typescript": "^5.5.4"
   },
   "trustedDependencies": [
