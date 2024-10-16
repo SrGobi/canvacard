@@ -1,0 +1,19 @@
+{
+  "name": "scripts",
+  "version": "0.0.1",
+  "description": "Scripts para Canvacard",
+  "scripts": {
+    "postinstall": "node postinstall.mjs",
+    "docs": "npm run docs:generate",
+    "docs:generate": "node generateDocs.js",
+    "docs:single": "node generateDocs.js --single"
+  },
+  "author": "SrGobi",
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "jsdoc-to-markdown": "^9.0.2",
+    "typescript": "^5.5.4"
+  }
+}
