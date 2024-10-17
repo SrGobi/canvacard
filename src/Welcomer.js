@@ -1,12 +1,12 @@
 // canvacard/src/Welcomer.js
-const Base = require("./Base/GreetingCard");
+const BaseCard = require("./Base/BaseCard");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const APIError = require("./utils/error.utils");
 const shorten = require("./utils/shorten.utils");
 /**
  * Creador de tarjetas de bienvenida
  */
-class Welcomer extends Base {
+class Welcomer extends BaseCard {
 
   /**
    * <details open>

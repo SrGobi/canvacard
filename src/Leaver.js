@@ -1,4 +1,5 @@
-const Base = require("./Base/GreetingCard");
+// main/src/Leaver.js
+const BaseCard = require("./Base/BaseCard");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const shorten = require("./utils/shorten.utils");
 
@@ -6,7 +7,7 @@ const shorten = require("./utils/shorten.utils");
  * Creador de tarjetas de despedida
  */
 
-class Leaver extends Base {
+class Leaver extends BaseCard {
 
   /**
    * ![Leave Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/leave.png)
