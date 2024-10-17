@@ -12,7 +12,7 @@ module.exports = {
   FortniteShop: require("./src/FortniteShop"),
   FortniteStats: require("./src/FortniteStats"),
   Plugins: require("./src/Plugins"),
-  Assets: require("./src/Assets"),
+  Assets: require("./src/AssetsFactory"),
   MSX: {
     Brightness: require("./libs/Brightness"),
     Convolute: require("./libs/Convolute"),
