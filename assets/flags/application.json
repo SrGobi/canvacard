@@ -28,7 +28,7 @@
         "description": "Powered by AutoMod.",
         "shift": 6,
         "undocumented": true,
-        "icon": "icons/automod.svg"
+        "icon": "icons/apps/automod.svg"
     },
     "ALLOW_ASSETS": {
         "description": "Allows the application to create activity assets.",
@@ -99,7 +99,7 @@
         "description": "Indicates if an app has registered global application commands.",
         "shift": 23,
         "undocumented": false,
-        "icon": "icons/supportscommands.svg"
+        "icon": "icons/apps/supportscommands.svg"
     },
     "ACTIVE": {
         "description": "Indicates if an app is considered active. This means that it has had any global command executed in the past 30 days.",

@@ -20,7 +20,8 @@
     "BUG_HUNTER_LEVEL_1": {
         "description": "User is a Bug Hunter.",
         "shift": 3,
-        "undocumented": false
+        "undocumented": false,
+        "icon": "icons/bughunter.svg"
     },
     "MFA_SMS": {
         "description": "User has SMS 2FA enabled.",
@@ -50,10 +51,11 @@
         "undocumented": false,
         "icon": "icons/hypesquadbalance.svg"
     },
-    "PREMIUM_EARLY_SUPPORTER": {
+    "EARLY_SUPPORTER": {
         "description": "User is an Early Supporter.",
         "shift": 9,
-        "undocumented": false
+        "undocumented": false,
+        "icon": "icons/earlysupporter.svg"
     },
     "TEAM_PSEUDO_USER": {
         "description": "Account is a Team account.",
@@ -78,7 +80,8 @@
     "BUG_HUNTER_LEVEL_2": {
         "description": "User has the gold Bug Hunter badge.",
         "shift": 14,
-        "undocumented": false
+        "undocumented": false,
+        "icon": "icons/bughuntergold.svg"
     },
     "UNDERAGE_DELETED": {
         "description": "Unused. User was deleted for being underage.",
@@ -93,12 +96,14 @@
     "VERIFIED_DEVELOPER": {
         "description": "User is a verified bot developer.",
         "shift": 17,
-        "undocumented": false
+        "undocumented": false,
+        "icon": "icons/verified_dev.svg"
     },
     "CERTIFIED_MODERATOR": {
         "description": "User is a Discord certified moderator alum.",
         "shift": 18,
-        "undocumented": false
+        "undocumented": false,
+        "icon": "icons/certified_moderator.svg"
     },
     "BOT_HTTP_INTERACTIONS": {
         "description": "Bot is an HTTP interaction.",
