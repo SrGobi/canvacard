@@ -37,7 +37,7 @@ Canvacard Generador De Memes
     * [.pixelate(image, pixels)](#Canvacard.pixelate) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.sharpen(image, lvl)](#Canvacard.sharpen) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.burn(image, lvl)](#Canvacard.burn) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-    * [.color(color, displayHex, height, width, [font])](#Canvacard.color) ⇒ <code>Buffer</code>
+    * [.color(color, displayHex, height, width, [font])](#Canvacard.color) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.circle(image)](#Canvacard.circle) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.rectangle(x, y, width, height, color, stroke, lineWidth)](#Canvacard.rectangle) ⇒ <code>Buffer</code>
     * [.fuse(image1, image2)](#Canvacard.fuse) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -80,10 +80,10 @@ Canvacard Generador De Memes
 ### new Canvacard()
 **Example**  
 ```js
-    const Canvacard = require("canvacard");
-    Canvacard.Canvas.trigger("./image.png")
+    const canvacard = require("canvacard");
+    canvacard.Canvas.trigger("./image.png")
     .then(triggered => {
-      Canvacard.write(triggered, "triggered.gif");
+      canvacard.write(triggered, "triggered.gif");
     })
     .catch(console.error);```
 <a name="Canvacard.CONVOLUTION_MATRIX"></a>
@@ -103,6 +103,14 @@ Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Imagen para activar |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.trigger("./image.png")
+    .then(triggered => {
+      canvacard.write(triggered, "triggered.gif");
+    })
+    .catch(console.error);```
 <a name="Canvacard.invert"></a>
 
 ### Canvacard.invert(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -114,6 +122,14 @@ Invierte el color de la imagen
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Imagen para invertir |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.invert("./image.png")
+    .then(inverted => {
+      canvacard.write(inverted, "inverted.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.sepia"></a>
 
 ### Canvacard.sepia(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -125,6 +141,14 @@ Aplicar lavado sepia en img
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.sepia("./image.png")
+    .then(sepia => {
+      canvacard.write(sepia, "sepia.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.greyscale"></a>
 
 ### Canvacard.greyscale(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -136,6 +160,14 @@ Efecto de escala de grises sobre la imagen
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.greyscale("./image.png")
+    .then(greyscale => {
+      canvacard.write(greyscale, "greyscale.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.brightness"></a>
 
 ### Canvacard.brightness(image, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -148,6 +180,14 @@ Editar el brillo de la imagen
 | image | <code>string</code> \| <code>Buffer</code> | Imagen |
 | amount | <code>number</code> | Cantidad de brillo |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.brightness("./image.png", 50)
+    .then(brightened => {
+      canvacard.write(brightened, "brightened.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.darkness"></a>
 
 ### Canvacard.darkness(image, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -160,6 +200,14 @@ Editar la oscuridad de la imagen
 | image | <code>string</code> \| <code>Buffer</code> | Imagen |
 | amount | <code>number</code> | Cantidad de oscuridad |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.darkness("./image.png", 50)
+    .then(darkened => {
+      canvacard.write(darkened, "darkened.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.threshold"></a>
 
 ### Canvacard.threshold(img, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -172,6 +220,14 @@ Umbral de imagen
 | img | <code>string</code> \| <code>Buffer</code> | Imagen |
 | amount | <code>number</code> | Cantidad límite |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.threshold("./image.png", 128)
+    .then(thresholded => {
+      canvacard.write(thresholded, "thresholded.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.convolute"></a>
 
 ### Canvacard.convolute(img, matrix, opaque) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -185,6 +241,15 @@ Convolución de la imagen
 | matrix | <code>Array.&lt;number&gt;</code> | Matriz de convolución |
 | opaque | <code>boolean</code> | Si la convolución debe ser opaca |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    const matrix = [0, -1, 0, -1, 5, -1, 0, -1, 0];  // Ejemplo de matriz de convolución
+    canvacard.Canvas.convolute("./image.png", matrix, true)
+    .then(convoluted => {
+      canvacard.write(convoluted, "convoluted.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.createProgressBar"></a>
 
 ### Canvacard.createProgressBar(track, bar) ⇒ <code>Buffer</code>
@@ -206,6 +271,17 @@ Crea barra de progreso
 | [bar.width] | <code>number</code> | Ancho de la barra de progreso |
 | [bar.color] | <code>string</code> | Color de la barra de progreso |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    const fill = {
+      a1: "X", b1: "O", c1: "X",
+      a2: "O", b2: "X", c2: "O",
+      a3: "X", b3: "O", c3: "X"
+    };
+    const color = { bg: "#fff", bar: "#000", x: "#ff0000", o: "#0000ff" };
+    const tictactoeImage = canvacard.Canvas.tictactoe(fill, color);
+    canvacard.write(tictactoeImage, "tictactoe.png");```
 <a name="Canvacard.blur"></a>
 
 ### Canvacard.blur(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -217,6 +293,14 @@ Desenfocar una imagen
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Imagen para difuminar |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.blur("./image.png")
+    .then(blurred => {
+      canvacard.write(blurred, "blurred.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.pixelate"></a>
 
 ### Canvacard.pixelate(image, pixels) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -229,6 +313,14 @@ Pixelar
 | image | <code>string</code> \| <code>Buffer</code> |  | Imagen para pixelar |
 | pixels | <code>number</code> | <code>5</code> | Pixeles |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.pixelate("./image.png", 5)
+    .then(pixelated => {
+      canvacard.write(pixelated, "pixelated.png");
+    })
+    .catch(console.error);
 <a name="Canvacard.sharpen"></a>
 
 ### Canvacard.sharpen(image, lvl) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -241,6 +333,14 @@ Agudizar una imagen
 | image | <code>string</code> \| <code>Buffer</code> |  | Imagen para enfocar |
 | lvl | <code>number</code> | <code>1</code> | intensidad de la nitidez |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.sharpen("./image.png", 1)
+    .then(sharpened => {
+      canvacard.write(sharpened, "sharpened.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.burn"></a>
 
 ### Canvacard.burn(image, lvl) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -253,9 +353,17 @@ Aplica efecto de quemado en una imagen.
 | image | <code>string</code> \| <code>Buffer</code> |  | Fuente de imagen |
 | lvl | <code>number</code> | <code>1</code> | intensidad |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.burn("./image.png", 1)
+    .then(burned => {
+      canvacard.write(burned, "burned.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.color"></a>
 
-### Canvacard.color(color, displayHex, height, width, [font]) ⇒ <code>Buffer</code>
+### Canvacard.color(color, displayHex, height, width, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 HTML5 color a imagen
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
@@ -268,6 +376,14 @@ HTML5 color a imagen
 | width | <code>number</code> | <code>1024</code> | Ancho de la imagen |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.color("#FF0000", true, 1024, 1024, "Arial")
+    .then(colored => {
+      canvacard.write(colored, "colored.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.circle"></a>
 
 ### Canvacard.circle(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -279,6 +395,14 @@ Crea una imagen circular
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.circle("./image.png")
+    .then(circled => {
+      canvacard.write(circled, "circled.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.rectangle"></a>
 
 ### Canvacard.rectangle(x, y, width, height, color, stroke, lineWidth) ⇒ <code>Buffer</code>
@@ -296,10 +420,18 @@ Crea un rectángulo
 | stroke | <code>boolean</code> | Si debe acariciar |
 | lineWidth | <code>number</code> | ancho de línea |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.rectangle(0, 0, 1024, 1024, "#FF0000", true, 5)
+    .then(rectangled => {
+      canvacard.write(rectangled, "rectangled.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.fuse"></a>
 
 ### Canvacard.fuse(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Imágenes de fusion two
+Fusiona dos imágenes
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
@@ -308,6 +440,14 @@ Imágenes de fusion two
 | image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
 | image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.fuse("./image1.png", "./image2.png")
+      .then(fused => {
+      canvacard.write(fused, "fused.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.resize"></a>
 
 ### Canvacard.resize(image, width, height) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -321,6 +461,14 @@ Cambiar el tamaño de una imagen
 | width | <code>number</code> | ancho |
 | height | <code>number</code> | altura |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.resize("./image.png", 500, 500)
+    .then(resized => {
+      canvacard.write(resized, "resized.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.kiss"></a>
 
 ### Canvacard.kiss(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -333,6 +481,14 @@ Besarse ( ͡° ͜ʖ ͡°)
 | image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
 | image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.kiss("./image1.png", "./image2.png")
+    .then(kissed => {
+      canvacard.write(kissed, "kissed.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.spank"></a>
 
 ### Canvacard.spank(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -345,6 +501,14 @@ Azotar a alguien ( ͡° ͜ʖ ͡°)
 | image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
 | image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.spank("./image1.png", "./image2.png")
+    .then(spanked => {
+      canvacard.write(spanked, "spanked.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.slap"></a>
 
 ### Canvacard.slap(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -357,6 +521,14 @@ Abofetear a alguien ( ͡° ͜ʖ ͡°)
 | image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
 | image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.slap("./image1.png", "./image2.png")
+    .then(slap => {
+      canvacard.write(slap, "slap.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.beautiful"></a>
 
 ### Canvacard.beautiful(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -368,6 +540,14 @@ Abofetear a alguien ( ͡° ͜ʖ ͡°)
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.beautiful("./image.png")
+    .then(beautiful => {
+      canvacard.write(beautiful, "beautiful.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.facepalm"></a>
 
 ### Canvacard.facepalm(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -379,6 +559,14 @@ facepalm
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.facepalm("./image.png")
+    .then(facepalm => {
+      canvacard.write(facepalm, "facepalm.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.rainbow"></a>
 
 ### Canvacard.rainbow(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -390,6 +578,14 @@ Rainbow ( ͡° ͜ʖ ͡°)
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.rainbow("./image.png")
+    .then(rainbow => {
+      canvacard.write(rainbow, "rainbow.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.rip"></a>
 
 ### Canvacard.rip(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -401,6 +597,14 @@ Rainbow ( ͡° ͜ʖ ͡°)
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.f(image)
+    .then(f => {
+      canvacard.write(f, "f.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.trash"></a>
 
 ### Canvacard.trash(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -412,6 +616,14 @@ Rainbow ( ͡° ͜ʖ ͡°)
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.trash("./image.png")
+    .then(trash => {
+      canvacard.write(trash, "trash.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.hitler"></a>
 
 ### Canvacard.hitler(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -423,6 +635,14 @@ Peor que hitler
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.hitler("./image.png")
+    .then(hitler => {
+      canvacard.write(hitler, "hitler.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.colorfy"></a>
 
 ### Canvacard.colorfy(image, color) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -435,6 +655,14 @@ Actualiza el color de la imagen
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 | color | <code>string</code> | Color HTML5 |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.colorfy("./image.png", "#FF0000")
+    .then(colorfy => {
+      canvacard.write(colorfy, "colorfy.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.jokeOverHead"></a>
 
 ### Canvacard.jokeOverHead(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -446,6 +674,14 @@ whoosh
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.whoosh("./image.png")
+    .then(whoosh => {
+      canvacard.write(whoosh, "whoosh.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.distracted"></a>
 
 ### Canvacard.distracted(image1, image2, image3) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -459,6 +695,14 @@ Novio distraído
 | image2 | <code>string</code> \| <code>Buffer</code> |  | Cara para el chico |
 | image3 | <code>string</code> \| <code>Buffer</code> | <code>null</code> | Cara para la otra chica [opcional] |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.distracted("./image1.png", "./image2.png", "./image3.png")
+    .then(distracted => {
+      canvacard.write(distracted, "distracted.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.affect"></a>
 
 ### Canvacard.affect(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -470,6 +714,14 @@ No, no afecta a mi bebé.
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.affect("./image.png")
+    .then(affect => {
+      canvacard.write(affect, "affect.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.jail"></a>
 
 ### Canvacard.jail(image, greyscale) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -482,10 +734,18 @@ Celda
 | image | <code>string</code> \| <code>Buffer</code> |  | Fuente de imagen |
 | greyscale | <code>boolean</code> | <code>false</code> | Si debe ser una imagen en escala de grises |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.jail("./image.png")
+    .then(jail => {
+      canvacard.write(jail, "jail.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.bed"></a>
 
 ### Canvacard.bed(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-cama
+Cama
 
 **Kind**: static method of [<code>Canvacard</code>](#Canvacard)  
 
@@ -494,6 +754,14 @@ cama
 | image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
 | image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.bed("./image1.png", "./image2.png")
+    .then(bed => {
+      canvacard.write(bed, "bed.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.delete"></a>
 
 ### Canvacard.delete(image, dark) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -506,6 +774,14 @@ Borrar
 | image | <code>string</code> \| <code>Buffer</code> |  | Fuente de imagen |
 | dark | <code>boolean</code> | <code>false</code> | Si la imagen debe estar en modo oscuro |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.delete("./image.png")
+    .then(deleted => {
+      canvacard.write(deleted, "deleted.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.tictactoe"></a>
 
 ### Canvacard.tictactoe(fill, color) ⇒ <code>Buffer</code>
@@ -531,6 +807,14 @@ TicTacToe
 | [color.x] | <code>string</code> | Color de **X** |
 | [color.o] | <code>string</code> | Color de **O** |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.tictactoe({ a1: "X", b1: "O", c1: "X", a2: "O", b2: "X", c2: "O", a3: "X", b3: "O", c3: "X" }, { bg: "white", bar: "black", x: "red", o: "blue" })
+    .then(tictactoe => {
+      canvacard.write(tictactoe, "tictactoe.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.opinion"></a>
 
 ### Canvacard.opinion(avatar, msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -544,6 +828,14 @@ Opinión
 | msg | <code>string</code> |  | Mensaje de opinión |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.opinion("./image.png", "¡Esto es increíble!")
+    .then(opinion => {
+      canvacard.write(opinion, "opinion.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.gradient"></a>
 
 ### Canvacard.gradient(colorFrom, colorTo, width, height) ⇒ <code>Buffer</code>
@@ -558,6 +850,14 @@ Crea degradado
 | width | <code>number</code> | Ancho de la imagen |
 | height | <code>number</code> | Altura de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.gradient("#FF0000", "#0000FF", 500, 500)
+    .then(gradient => {
+      canvacard.write(gradient, "gradient.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.ohno"></a>
 
 ### Canvacard.ohno(msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -570,6 +870,14 @@ Crea degradado
 | msg | <code>string</code> |  | Mensaje |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.ohno("¡Esto es increíble!")
+    .then(ohno => {
+      canvacard.write(ohno, "ohno.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.changemymind"></a>
 
 ### Canvacard.changemymind(msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -583,6 +891,14 @@ Cambiar de opinión (tomado de jgoralcz/image-microservice)
 | msg | <code>String</code> |  | Mensaje |
 | [font] | <code>String</code> | <code>&quot;Arial&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.changemymind("¡Esto es increíble!")
+    .then(changemymind => {
+      canvacard.write(changemymind, "changemymind.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.clyde"></a>
 
 ### Canvacard.clyde(msg, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -595,6 +911,14 @@ Clyde
 | msg | <code>string</code> |  | Mensaje |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.clyde("¡Esto es increíble!")
+    .then(clyde => {
+      canvacard.write(clyde, "clyde.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.quote"></a>
 
 ### Canvacard.quote(options, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -611,6 +935,14 @@ Cita falsa
 | [options.color] | <code>string</code> |  | Color |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.quote({ image: "./image.png", message: "¡Esto es increíble!", username: "Clyde", color: "#FFFFFF" })
+    .then(quote => {
+      canvacard.write(quote, "quote.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.phub"></a>
 
 ### Canvacard.phub(options, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -626,6 +958,14 @@ Comentario de PornHub
 | [options.image] | <code>String</code> \| <code>Buffer</code> |  | Imagen |
 | [font] | <code>String</code> | <code>&quot;Arial&quot;</code> | Familia tipográfica |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.phub({ username: "Clyde", message: "¡Esto es increíble!", image: "./image.png" })
+    .then(phub => {
+      canvacard.write(phub, "phub.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.wanted"></a>
 
 ### Canvacard.wanted(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -637,6 +977,14 @@ Wanted
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.wanted("./image.png")
+    .then(wanted => {
+      canvacard.write(wanted, "wanted.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.wasted"></a>
 
 ### Canvacard.wasted(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -648,6 +996,14 @@ Wasted
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.wasted("./image.png")
+    .then(wasted => {
+      canvacard.write(wasted, "wasted.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.youtube"></a>
 
 ### Canvacard.youtube(ops) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -663,6 +1019,14 @@ Comentario de YouTube
 | [ops.avatar] | <code>string</code> \| <code>Buffer</code> |  | Fuente de avatar |
 | [ops.dark] | <code>boolean</code> | <code>false</code> | ¿Modo oscuro? |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.youtube({ username: "Clyde", content: "¡Esto es increíble!", avatar: "./image.png" })
+    .then(youtube => {
+      canvacard.write(youtube, "youtube.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.shit"></a>
 
 ### Canvacard.shit(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -674,6 +1038,14 @@ Comentario de YouTube
 | --- | --- | --- |
 | image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
 
+**Example**  
+```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.shit("./shit.png")
+    .then(shit => {
+      canvacard.write(shit, "shit.png");
+    })
+    .catch(console.error);```
 <a name="Canvacard.write"></a>
 
 ### Canvacard.write(data, name) ⇒ <code>void</code>
