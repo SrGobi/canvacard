@@ -1,17 +1,5 @@
 // Creado y mantenido por SrGobi
-
 const Canvacard = require("./src/Canvacard");
-
-/**
- * @param {stirng} moduleName Nombre del módulo
- */
-function load(moduleName) {
-  try {
-    return require(moduleName);
-  } catch (e) {
-    return null;
-  }
-}
 
 module.exports = {
   Canvas: Canvacard,
@@ -21,11 +9,9 @@ module.exports = {
   Spotify: require("./src/Spotify"),
   Welcomer: require("./src/Welcomer"),
   Leaver: require("./src/Leaver"),
-  CaptchaGen: load("captcha-canvas") ? load("captcha-canvas").CaptchaGenerator : null,
   FortniteShop: require("./src/FortniteShop"),
   FortniteStats: require("./src/FortniteStats"),
   Plugins: require("./src/Plugins"),
-  Util: require("./src/Util"),
   Assets: require("./src/Assets"),
   MSX: {
     Brightness: require("./libs/Brightness"),
