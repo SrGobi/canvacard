@@ -1,7 +1,6 @@
 # [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=500&size=40&pause=1000&color=5865F2&multiline=true&random=false&width=435&lines=Canvacard)](#)
 
-Potente herramienta de manipulación de imágenes para manipular imágenes fácilmente.
-
+<p align="center"><a href="https://github.com/SrGobi/canvacard"><img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/banner_Canvacard.png"></a></p>
 <p align="center"><a href="https://nodei.co/npm/canvacard/"><img src="https://nodei.co/npm/canvacard.png"></a></p>
 <p align="center"><img src="https://img.shields.io/npm/v/canvacard?style=for-the-badge"> <img src="https://img.shields.io/npm/l/hercai?style=for-the-badge"> <img src="https://img.shields.io/npm/dt/canvacard?style=for-the-badge"> <a href="https://discord.gg/cqrN3Eg" target="_blank"> <img alt="Discord" src="https://img.shields.io/badge/Support-Click%20here-7289d9?style=for-the-badge&logo=discord"> </a> </p>
 
@@ -26,14 +25,21 @@ import canvacard from "canvacard";
 
 # Features
 
-- 🪟 **Código abierto, sin problemas de privacidad, 100 % transparente** - Canvacard es completamente de código abierto y de uso gratuito. Puedes contribuir al proyecto y no tienes que preocuparte por la privacidad.
-- 💪 **Fácil de usar** - Canvacard proporciona una API intuitiva y simple para generar imágenes de manera eficiente, perfecta para desarrolladores de todos los niveles.
-- 🚀 **Rápido y optimizado** - Las bibliotecas subyacentes están altamente optimizadas, proporcionando un rendimiento sobresaliente en la generación de imágenes.
-- 🔒 **Compatibilidad con Typescript** - Canvacard está escrito en Typescript, lo que proporciona definiciones de tipo listas para usar y una mejor experiencia de desarrollo.
-- 🎨 **Más de 50 métodos de personalización** - Puedes usar una amplia gama de métodos para personalizar completamente tus imágenes o tarjetas.
-- 🖼️ **Generación de tarjetas interactivas y personalizadas** - Canvacard es ideal para crear tarjetas personalizadas para plataformas como Discord, añadiendo imágenes, banners, insignias y más.
-- 🛠️ **Orientado a objetos** - Canvacard está diseñado con un enfoque orientado a objetos, lo que facilita la reutilización de código y la creación de tarjetas complejas con poco esfuerzo.
-- 🤓 **Apto para principiantes** - La documentación y la API son sencillas, por lo que es fácil de usar incluso si no tienes experiencia previa en manipulación de imágenes.
+- 🪟 **Código abierto y sin preocupaciones de privacidad, totalmente transparente** - Canvacard es de código abierto y gratuito. Puedes colaborar y no tendrás que inquietarte por la privacidad.
+
+- 💪 **Sencillo de utilizar** - Canvacard ofrece una API intuitiva y fácil para generar imágenes eficientemente, perfecta para desarrolladores de todos los niveles.
+
+- 🚀 **Velocidad y optimización** - Las bibliotecas que usa están muy optimizadas, ofreciendo un rendimiento excepcional en la creación de imágenes.
+
+- 🔒 **Soporte para Typescript** - Canvacard está desarrollado en Typescript, lo que permite usar definiciones de tipo y mejora la experiencia del desarrollador.
+
+- 🎨 **Más de 50 opciones de personalización** - Tienes acceso a muchas herramientas para ajustar y modificar completamente tus imágenes o tarjetas.
+
+- 🖼️ **Creación de tarjetas interactivas y personalizadas** - Canvacard es perfecto para crear tarjetas personalizadas para Discord, añadiendo gráficos, banners, insignias y más.
+
+- 🛠️ **Diseño orientado a objetos** - Canvacard está construido con un enfoque en programación orientada a objetos, facilitando la reutilización y creación de tarjetas complejas.
+
+- 🤓 **Ideal para principiantes** - La API y documentación son simples, lo que lo hace accesible incluso para quienes tienen poca experiencia en el manejo de imágenes.
 
 # Ejemplos
 
@@ -176,7 +182,3 @@ client.login('Tu_Bot_Token_aqui');
     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop">
   </a>
 </details>
-
-# Nota
-
-> ⚠ | Para usar `Canvacard#CaptchaGen`, es posible que deba instalar paquetes como **[captcha-canvas](https://npmjs.com/package/captcha-canvas)**.
