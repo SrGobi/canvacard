@@ -2,18 +2,7 @@ export = Leaver;
 /**
  * Creador de tarjetas de despedida
  */
-declare class Leaver extends Base {
-    /**
-     * Fondo de la tarjeta
-     * @property {object} backgroundGlobal Fondo de la tarjeta
-     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
-     */
-    data: {
-        backgroundGlobal: {
-            type: string;
-            image: string;
-        };
-    };
+declare class Leaver extends BaseCard {
     /**
      * Color del overlay
      * @type {number|string}
@@ -108,5 +97,5 @@ declare class Leaver extends Base {
      */
     build(font?: string): Promise<Buffer>;
 }
-import Base = require("./Base/GreetingCard");
+import BaseCard = require("./Base/BaseCard");
 //# sourceMappingURL=Leaver.d.ts.map

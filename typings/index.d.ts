@@ -30,16 +30,7 @@ export declare let Plugins: {
     round: (ctx: any, x: any, y: any, width: any, height: any, radius: any) => any;
     abbrev: (num: any) => string;
 };
-export declare let Assets: {
-    new (): import("./src/Assets");
-    load: (warnIfFailed?: boolean) => void;
-    ASSETS_DIR: string;
-    image: {
-        get(name: any): any;
-        getMetadata(name: any): any;
-        all(): {};
-    };
-};
+export declare let Assets: typeof import("./src/AssetsFactory");
 export declare namespace MSX {
     let Brightness: (img: any, amount: any) => Promise<Buffer>;
     let Convolute: (img: any, matrix: any, opaque: any, lvl: any) => Promise<Buffer>;

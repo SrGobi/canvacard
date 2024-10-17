@@ -2,18 +2,7 @@ export = Welcomer;
 /**
  * Creador de tarjetas de bienvenida
  */
-declare class Welcomer extends Base {
-    /**
-     * Fondo de la tarjeta
-     * @property {object} backgroundGlobal Fondo de la tarjeta
-     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
-     */
-    data: {
-        backgroundGlobal: {
-            type: string;
-            image: string;
-        };
-    };
+declare class Welcomer extends BaseCard {
     /**
      * Color del overlay
      * @type {number|string}
@@ -107,5 +96,5 @@ declare class Welcomer extends Base {
      */
     build(font?: string): Promise<Buffer>;
 }
-import Base = require("./Base/GreetingCard");
+import BaseCard = require("./Base/BaseCard");
 //# sourceMappingURL=Welcomer.d.ts.map
