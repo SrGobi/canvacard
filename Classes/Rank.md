@@ -9,7 +9,7 @@ Creador tarjetas de rango
     * [new Rank(userId)](#new_Rank_new)
     * [.setAvatar(avatarUrl, AvatarDecorationData, squareAvatar)](#Rank+setAvatar) ⇒ [<code>Rank</code>](#Rank)
     * [.setBanner(bannerUrl, moreBackgroundBlur, disableBackgroundBlur, backgroundBrightness)](#Rank+setBanner) ⇒ [<code>Rank</code>](#Rank)
-    * [.setBadges(flags, bot, frame)](#Rank+setBadges) ⇒ [<code>Rank</code>](#Rank)
+    * [.setBadges(flags, bot, frame, customBadges)](#Rank+setBadges) ⇒ [<code>Rank</code>](#Rank)
     * [.setBorder(color, allign)](#Rank+setBorder) ⇒ [<code>Rank</code>](#Rank)
     * [.setUsername(name, [discriminator], [color], customUsername, customTag)](#Rank+setUsername) ⇒ [<code>Rank</code>](#Rank)
     * [.setCurrentXP(data, [color])](#Rank+setCurrentXP) ⇒ [<code>Rank</code>](#Rank)
@@ -49,7 +49,7 @@ Creador tarjetas de rango
       .setCreatedTimestamp(data.createdTimestamp);
 
     const rankImage = await rank.build("Cascadia Code PL");
-    canvacard.write(rankImage, "./card.png");```
+    canvacard.write(rankImage, "./rank.png");```
 <a name="Rank+setAvatar"></a>
 
 ### rank.setAvatar(avatarUrl, AvatarDecorationData, squareAvatar) ⇒ [<code>Rank</code>](#Rank)
@@ -89,7 +89,7 @@ Establece el banner del usuario
 
 <a name="Rank+setBadges"></a>
 
-### rank.setBadges(flags, bot, frame) ⇒ [<code>Rank</code>](#Rank)
+### rank.setBadges(flags, bot, frame, customBadges) ⇒ [<code>Rank</code>](#Rank)
 Establece las insignias del usuario
 
 **Kind**: instance method of [<code>Rank</code>](#Rank)  
@@ -104,6 +104,7 @@ Establece las insignias del usuario
 | flags | <code>number</code> |  | Insignias del usuario |
 | bot | <code>boolean</code> | <code>false</code> | Si el usuario es un bot o no |
 | frame | <code>boolean</code> | <code>false</code> | Marco de insignias |
+| customBadges | <code>Array.&lt;string&gt;</code> |  | Insignias personalizadas |
 
 <a name="Rank+setBorder"></a>
 

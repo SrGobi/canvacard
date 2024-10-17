@@ -1,19 +1,3 @@
-## Classes
-
-<dl>
-<dt><a href="#FortniteStats">FortniteStats</a></dt>
-<dd><p>Creador de imagen de estadisticas de fortnite</p>
-</dd>
-</dl>
-
-## Functions
-
-<dl>
-<dt><a href="#formatVariable">formatVariable(prefix, variable)</a> ⇒</dt>
-<dd><p>Obtiene variables y tipos</p>
-</dd>
-</dl>
-
 <a name="FortniteStats"></a>
 
 ## FortniteStats
@@ -50,13 +34,15 @@ Creador de imagen de estadisticas de fortnite
 ![FortniteStats Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_stats.png)
 
 **Example**  
-```js	 const FortniteStatsCardURL = await new FortniteStats()
-        .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-        .setUser("BLD SRGOBI")
-        .setPlatform("pc")
-        .setText("footer", "ESP CUSTOMS X FORTNITE")
-        .toAttachment();
-    await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })```
+```js	
+  const stats = new canvacard.FortniteStats()
+    .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
+    .setUser("BLD SRGOBI")
+    .setPlatform("pc")
+    .setText("footer", "ESP CUSTOMS X FORTNITE")
+
+  const FortniteStatsImage = await stats.build("Cascadia Code PL");
+  canvacard.write(FortniteStatsImage, "./stats.png");```
 <a name="FortniteStats+token"></a>
 
 ### fortniteStats.token : <code>string</code>
@@ -202,17 +188,4 @@ Construye la imagen de la tienda de fortnite
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
-
-<a name="formatVariable"></a>
-
-## formatVariable(prefix, variable) ⇒
-Obtiene variables y tipos
-
-**Kind**: global function  
-**Returns**: La variable formateada  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| prefix | <code>object</code> | El tipo de variable |
-| variable | <code>object</code> | La variable a cambiar |
 

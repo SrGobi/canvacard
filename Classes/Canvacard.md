@@ -24,7 +24,6 @@ Canvacard Generador De Memes
 * [Canvacard](#Canvacard)
     * [new Canvacard()](#new_Canvacard_new)
     * [.CONVOLUTION_MATRIX](#Canvacard.CONVOLUTION_MATRIX) : [<code>ConvolutionMatrix</code>](#ConvolutionMatrix)
-    * [.Util](#Canvacard.Util) : <code>Util</code>
     * [.trigger(image)](#Canvacard.trigger) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.invert(image)](#Canvacard.invert) ⇒ <code>Promise.&lt;Buffer&gt;</code>
     * [.sepia(image)](#Canvacard.sepia) ⇒ <code>Promise.&lt;Buffer&gt;</code>
@@ -79,8 +78,6 @@ Canvacard Generador De Memes
 <a name="new_Canvacard_new"></a>
 
 ### new Canvacard()
-Canvas image builder
-
 **Example**  
 ```js
     const Canvacard = require("canvacard");
@@ -93,12 +90,6 @@ Canvas image builder
 
 ### Canvacard.CONVOLUTION\_MATRIX : [<code>ConvolutionMatrix</code>](#ConvolutionMatrix)
 Datos de matriz para **Canvacard.convolute()**
-
-**Kind**: static property of [<code>Canvacard</code>](#Canvacard)  
-<a name="Canvacard.Util"></a>
-
-### Canvacard.Util : <code>Util</code>
-Canvacard utils
 
 **Kind**: static property of [<code>Canvacard</code>](#Canvacard)  
 <a name="Canvacard.trigger"></a>

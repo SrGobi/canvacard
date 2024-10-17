@@ -49,7 +49,7 @@ Creador de tarjetas de despedida
       .setColorCircle(#FFFFFF)
       .setColorOverlay(#FFFFFF)
       .setTypeOverlay("rounded")
-    leaverCardURL.build()
+    leaverCardURL.build("Cascadia Code PL")
       .then(data => {
           canvacard.write(data, "LeaverCard.png");
       })

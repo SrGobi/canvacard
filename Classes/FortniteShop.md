@@ -9,11 +9,8 @@
 ## Functions
 
 <dl>
-<dt><a href="#formatVariable">formatVariable(prefix, variable)</a> ⇒</dt>
-<dd><p>Obtiene variables y tipos</p>
-</dd>
 <dt><a href="#applyText">applyText(canvas, text, defaultFontSize, width, font)</a> ⇒</dt>
-<dd><p>Obtiene variables y tipos</p>
+<dd><p>Obtiene variables y tipos.</p>
 </dd>
 </dl>
 
@@ -161,23 +158,10 @@ Construye la imagen de la tienda de fortnite
 | --- | --- | --- | --- |
 | [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
 
-<a name="formatVariable"></a>
-
-## formatVariable(prefix, variable) ⇒
-Obtiene variables y tipos
-
-**Kind**: global function  
-**Returns**: La variable formateada  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| prefix | <code>object</code> | El tipo de variable |
-| variable | <code>object</code> | La variable a cambiar |
-
 <a name="applyText"></a>
 
 ## applyText(canvas, text, defaultFontSize, width, font) ⇒
-Obtiene variables y tipos
+Obtiene variables y tipos.
 
 **Kind**: global function  
 **Returns**: La variable formateada  

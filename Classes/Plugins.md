@@ -11,5 +11,4 @@
 | rectangle | <code>function</code> | Complemento de rectángulo |
 | round | <code>function</code> | Complemento redondo |
 | abbrev | <code>function</code> | Complemento de abreviaturas |
-| renderEmoji | <code>function</code> | Complemento de renderizado de emoji |
 
