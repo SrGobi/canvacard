@@ -2,7 +2,6 @@ const Trigger = require("../libs/Trigger");
 const Greyscale = require("../libs/Greyscale");
 const Invert = require("../libs/Invert");
 const Sepia = require("../libs/Sepia");
-const assets = require("./Assets");
 const fs = require("fs");
 const Brightness = require("../libs/Brightness");
 const Threshold = require("../libs/Threshold");
@@ -18,7 +17,7 @@ const invertColor = require("./utils/invertColor.utils");
 const discordTime = require("./utils/discordTime.utils");
 const getAcronym = require("./utils/getAcronym.utils");
 const getLines = require("./utils/getLines.utils");
-
+const { ImageFactory } = require("./AssetsFactory");
 /**
  * Canvacard Generador De Memes
  */
@@ -27,10 +26,10 @@ class Canvacard {
   /**
    * @example
    * ```js
-    const Canvacard = require("canvacard");
-    Canvacard.Canvas.trigger("./image.png")
+    const canvacard = require("canvacard");
+    canvacard.Canvas.trigger("./image.png")
     .then(triggered => {
-      Canvacard.write(triggered, "triggered.gif");
+      canvacard.write(triggered, "triggered.gif");
     })
     .catch(console.error);
    * ```
@@ -41,17 +40,35 @@ class Canvacard {
 
   /**
    * Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.trigger("./image.png")
+    .then(triggered => {
+      canvacard.write(triggered, "triggered.gif");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen para activar
    * @returns {Promise<Buffer>}
    */
   static async trigger(image) {
     if (!image) throw new Error("Imagen esperada, no recibí nada!");
     await Canvacard.__wait();
-    return await Trigger(image, Canvacard.assets.image.get("TRIGGERED"));
+    return await Trigger(image, ImageFactory.TRIGGERED);  // Se usa la imagen desde ImageFactory
   }
 
   /**
    * Invierte el color de la imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.invert("./image.png")
+    .then(inverted => {
+      canvacard.write(inverted, "inverted.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen para invertir
    * @returns {Promise<Buffer>}
    */
@@ -62,6 +79,15 @@ class Canvacard {
 
   /**
    * Aplicar lavado sepia en img
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.sepia("./image.png")
+    .then(sepia => {
+      canvacard.write(sepia, "sepia.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen
    * @returns {Promise<Buffer>}
    */
@@ -72,6 +98,15 @@ class Canvacard {
 
   /**
    * Efecto de escala de grises sobre la imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.greyscale("./image.png")
+    .then(greyscale => {
+      canvacard.write(greyscale, "greyscale.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen
    * @returns {Promise<Buffer>}
    */
@@ -82,6 +117,15 @@ class Canvacard {
 
   /**
    * Editar el brillo de la imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.brightness("./image.png", 50)
+    .then(brightened => {
+      canvacard.write(brightened, "brightened.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen
    * @param {number} amount Cantidad de brillo
    * @returns {Promise<Buffer>}
@@ -94,6 +138,15 @@ class Canvacard {
 
   /**
    * Editar la oscuridad de la imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.darkness("./image.png", 50)
+    .then(darkened => {
+      canvacard.write(darkened, "darkened.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen
    * @param {number} amount Cantidad de oscuridad
    * @returns {Promise<Buffer>}
@@ -106,6 +159,15 @@ class Canvacard {
 
   /**
    * Umbral de imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.threshold("./image.png", 128)
+    .then(thresholded => {
+      canvacard.write(thresholded, "thresholded.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} img Imagen
    * @param {number} amount Cantidad límite
    * @returns {Promise<Buffer>}
@@ -118,6 +180,16 @@ class Canvacard {
 
   /**
    * Convolución de la imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    const matrix = [0, -1, 0, -1, 5, -1, 0, -1, 0];  // Ejemplo de matriz de convolución
+    canvacard.Canvas.convolute("./image.png", matrix, true)
+    .then(convoluted => {
+      canvacard.write(convoluted, "convoluted.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} img Imagen
    * @param {number[]} matrix Matriz de convolución
    * @param {boolean} opaque Si la convolución debe ser opaca
@@ -131,6 +203,18 @@ class Canvacard {
 
   /**
    * Crea barra de progreso
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    const fill = {
+      a1: "X", b1: "O", c1: "X",
+      a2: "O", b2: "X", c2: "O",
+      a3: "X", b3: "O", c3: "X"
+    };
+    const color = { bg: "#fff", bar: "#000", x: "#ff0000", o: "#0000ff" };
+    const tictactoeImage = canvacard.Canvas.tictactoe(fill, color);
+    canvacard.write(tictactoeImage, "tictactoe.png");
+   * ```
    * @param {object} track Opciones de pista de la barra de progreso
    * @param {number} [track.x] El eje x
    * @param {number} [track.y] El eje y
@@ -170,6 +254,15 @@ class Canvacard {
 
   /**
    * Desenfocar una imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.blur("./image.png")
+    .then(blurred => {
+      canvacard.write(blurred, "blurred.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen para difuminar 
    * @returns {Promise<Buffer>}
    */
@@ -190,6 +283,14 @@ class Canvacard {
 
   /**
    * Pixelar
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.pixelate("./image.png", 5)
+    .then(pixelated => {
+      canvacard.write(pixelated, "pixelated.png");
+    })
+    .catch(console.error);
    * @param {string|Buffer} image Imagen para pixelar
    * @param {number} pixels Pixeles
    * @returns {Promise<Buffer>}
@@ -214,6 +315,15 @@ class Canvacard {
 
   /**
    * Agudizar una imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.sharpen("./image.png", 1)
+    .then(sharpened => {
+      canvacard.write(sharpened, "sharpened.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Imagen para enfocar
    * @param {number} lvl intensidad de la nitidez
    * @returns {Promise<Buffer>}
@@ -225,6 +335,15 @@ class Canvacard {
 
   /**
    * Aplica efecto de quemado en una imagen.
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.burn("./image.png", 1)
+    .then(burned => {
+      canvacard.write(burned, "burned.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen 
    * @param {number} lvl intensidad
    * @returns {Promise<Buffer>}
@@ -236,12 +355,21 @@ class Canvacard {
 
   /**
    * HTML5 color a imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.color("#FF0000", true, 1024, 1024, "Arial")
+    .then(colored => {
+      canvacard.write(colored, "colored.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string} color Color HTML5
    * @param {boolean} displayHex Si debe mostrar hexadecimal
    * @param {number} height Altura de imagen
    * @param {number} width Ancho de la imagen
    * @param {string} [font="Arial"] Familia tipográfica
-   * @returns {Buffer}
+   * @returns {Promise<Buffer>}
    */
   static color(color = "#FFFFFF", displayHex = false, height = 1024, width = 1024, font = "Manrope") {
     const canvas = createCanvas(width, height);
@@ -261,6 +389,15 @@ class Canvacard {
 
   /**
    * Crea una imagen circular
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.circle("./image.png")
+    .then(circled => {
+      canvacard.write(circled, "circled.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -276,6 +413,15 @@ class Canvacard {
 
   /**
    * Crea un rectángulo
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.rectangle(0, 0, 1024, 1024, "#FF0000", true, 5)
+    .then(rectangled => {
+      canvacard.write(rectangled, "rectangled.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {number} x eje x
    * @param {number} y eje y
    * @param {number} width ancho
@@ -294,7 +440,16 @@ class Canvacard {
   }
 
   /**
-   * Imágenes de fusion two
+   * Fusiona dos imágenes
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.fuse("./image1.png", "./image2.png")
+      .then(fused => {
+      canvacard.write(fused, "fused.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
    * @returns {Promise<Buffer>}
@@ -317,6 +472,15 @@ class Canvacard {
 
   /**
    * Cambiar el tamaño de una imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.resize("./image.png", 500, 500)
+    .then(resized => {
+      canvacard.write(resized, "resized.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {number} width ancho
    * @param {number} height altura
@@ -335,6 +499,15 @@ class Canvacard {
 
   /**
    * Besarse ( ͡° ͜ʖ ͡°)
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.kiss("./image1.png", "./image2.png")
+    .then(kissed => {
+      canvacard.write(kissed, "kissed.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
    * @returns {Promise<Buffer>}
@@ -345,7 +518,7 @@ class Canvacard {
     await this.__wait();
     const canvas = createCanvas(768, 574);
     const ctx = canvas.getContext("2d");
-    const background = await loadImage(Canvacard.assets.image.get("KISS"));
+    const background = await loadImage(ImageFactory.KISS);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     const avatar = await loadImage(image1);
     const avatar1 = await loadImage(image2);
@@ -356,6 +529,15 @@ class Canvacard {
 
   /**
    * Azotar a alguien ( ͡° ͜ʖ ͡°)
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.spank("./image1.png", "./image2.png")
+    .then(spanked => {
+      canvacard.write(spanked, "spanked.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
    * @returns {Promise<Buffer>}
@@ -366,7 +548,7 @@ class Canvacard {
     await this.__wait();
     const canvas = createCanvas(500, 500);
     const ctx = canvas.getContext("2d");
-    const background = await loadImage(Canvacard.assets.image.get("SPANK"));
+    const background = await loadImage(ImageFactory.SPANK);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     const avatar = await loadImage(image1);
     const avatar1 = await loadImage(image2);
@@ -377,6 +559,15 @@ class Canvacard {
 
   /**
    * Abofetear a alguien ( ͡° ͜ʖ ͡°)
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.slap("./image1.png", "./image2.png")
+    .then(slap => {
+      canvacard.write(slap, "slap.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
    * @returns {Promise<Buffer>}
@@ -387,7 +578,7 @@ class Canvacard {
     await this.__wait();
     const canvas = createCanvas(1000, 500);
     const ctx = canvas.getContext("2d");
-    const background = await loadImage(Canvacard.assets.image.get("BATSLAP"));
+    const background = await loadImage(ImageFactory.BATSLAP);
     ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
     const avatar = await loadImage(image1);
     const avatar1 = await loadImage(image2);
@@ -398,6 +589,15 @@ class Canvacard {
 
   /**
    * ¿Oh esto? ¡Esto es hermoso!
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.beautiful("./image.png")
+    .then(beautiful => {
+      canvacard.write(beautiful, "beautiful.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -405,7 +605,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
-    const base = await loadImage(Canvacard.assets.image.get("BEAUTIFUL"));
+    const base = await loadImage(ImageFactory.BEAUTIFUL);
     const canvas = createCanvas(376, 400);
     const ctx = canvas.getContext("2d");
     ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
@@ -417,13 +617,22 @@ class Canvacard {
 
   /**
    * facepalm
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.facepalm("./image.png")
+    .then(facepalm => {
+      canvacard.write(facepalm, "facepalm.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
   static async facepalm(image) {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
-    let layer = await loadImage(Canvacard.assets.image.get("FACEPALM"));
+    let layer = await loadImage(ImageFactory.FACEPALM);
     let canvas = createCanvas(632, 357);
     let ctx = canvas.getContext("2d");
     ctx.fillStyle = "black";
@@ -436,13 +645,22 @@ class Canvacard {
 
   /**
    * Rainbow ( ͡° ͜ʖ ͡°)
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.rainbow("./image.png")
+    .then(rainbow => {
+      canvacard.write(rainbow, "rainbow.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
   static async rainbow(image) {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
-    let bg = await loadImage(Canvacard.assets.image.get("GAY"));
+    let bg = await loadImage(ImageFactory.GAY);
     let img = await loadImage(image);
     const canvas = createCanvas(img.width, img.height);
     const ctx = canvas.getContext("2d");
@@ -453,6 +671,15 @@ class Canvacard {
 
   /**
    * "F" en el chat
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.f(image)
+    .then(f => {
+      canvacard.write(f, "f.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -460,7 +687,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
-    const bg = await loadImage(Canvacard.assets.image.get("RIP"));
+    const bg = await loadImage(ImageFactory.RIP);
     const canvas = createCanvas(244, 253);
     const ctx = canvas.getContext("2d");
     ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -470,6 +697,15 @@ class Canvacard {
 
   /**
    * ¿Basura?
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.trash("./image.png")
+    .then(trash => {
+      canvacard.write(trash, "trash.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -478,7 +714,7 @@ class Canvacard {
     await this.__wait();
     const blur = await Canvacard.blur(image);
     const img = await loadImage(blur);
-    const bg = await loadImage(Canvacard.assets.image.get("TRASH"));
+    const bg = await loadImage(ImageFactory.TRASH);
 
     const canvas = createCanvas(bg.width, bg.height);
     const ctx = canvas.getContext("2d");
@@ -489,6 +725,15 @@ class Canvacard {
 
   /**
    * Peor que hitler
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.hitler("./image.png")
+    .then(hitler => {
+      canvacard.write(hitler, "hitler.png");
+    })
+    .catch(console.error);
+   *```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -496,7 +741,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
-    const bg = await loadImage(Canvacard.assets.image.get("HITLER"));
+    const bg = await loadImage(ImageFactory.HITLER);
 
     const canvas = createCanvas(bg.width, bg.height);
     const ctx = canvas.getContext("2d");
@@ -509,6 +754,15 @@ class Canvacard {
 
   /**
    * Actualiza el color de la imagen
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.colorfy("./image.png", "#FF0000")
+    .then(colorfy => {
+      canvacard.write(colorfy, "colorfy.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {string} color Color HTML5
    * @returns {Promise<Buffer>}
@@ -529,13 +783,22 @@ class Canvacard {
 
   /**
    * whoosh
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.whoosh("./image.png")
+    .then(whoosh => {
+      canvacard.write(whoosh, "whoosh.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
   static async jokeOverHead(image) {
     if (!image) throw new Error("¡La imagen no se proporcionó!");
     await this.__wait();
-    const layer = await loadImage(Canvacard.assets.image.get("JOKEOVERHEAD"));
+    const layer = await loadImage(ImageFactory.JOKEOVERHEAD);
     const img = await loadImage(image)
     const canvas = createCanvas(425, 404);
     const ctx = canvas.getContext("2d");
@@ -548,6 +811,15 @@ class Canvacard {
 
   /**
    * Novio distraído
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.distracted("./image1.png", "./image2.png", "./image3.png")
+    .then(distracted => {
+      canvacard.write(distracted, "distracted.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image1 Rostro para la niña en color rojo.
    * @param {string|Buffer} image2 Cara para el chico
    * @param {string|Buffer} image3 Cara para la otra chica [opcional]
@@ -557,7 +829,7 @@ class Canvacard {
     if (!image1) throw new Error("¡No se proporcionó la primera imagen!");
     if (!image2) throw new Error("¡No se proporcionó la segunda imagen!");
     await this.__wait();
-    const background = await loadImage(Canvacard.assets.image.get("DISTRACTED"));
+    const background = await loadImage(ImageFactory.DISTRACTED);
     const avatar1 = await loadImage(await Canvacard.circle(image1));
     const avatar2 = await loadImage(await Canvacard.circle(image2));
     const avatar3 = image3 ? await loadImage(await Canvacard.circle(image3)) : null;
@@ -575,6 +847,15 @@ class Canvacard {
 
   /**
    * No, no afecta a mi bebé.
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.affect("./image.png")
+    .then(affect => {
+      canvacard.write(affect, "affect.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -582,7 +863,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
-    const bg = await loadImage(Canvacard.assets.image.get("AFFECT"));
+    const bg = await loadImage(ImageFactory.AFFECT);
 
     const canvas = createCanvas(bg.width, bg.height);
     const ctx = canvas.getContext("2d");
@@ -595,6 +876,15 @@ class Canvacard {
 
   /**
    * Celda
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.jail("./image.png")
+    .then(jail => {
+      canvacard.write(jail, "jail.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {boolean} greyscale Si debe ser una imagen en escala de grises
    * @returns {Promise<Buffer>}
@@ -603,7 +893,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(greyscale ? await Canvacard.greyscale(image) : image);
-    const bg = await loadImage(Canvacard.assets.image.get("JAIL"));
+    const bg = await loadImage(ImageFactory.JAIL);
 
     const canvas = createCanvas(350, 350);
     const ctx = canvas.getContext("2d");
@@ -615,7 +905,16 @@ class Canvacard {
   }
 
   /**
-   * cama
+   * Cama
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.bed("./image1.png", "./image2.png")
+    .then(bed => {
+      canvacard.write(bed, "bed.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
    * @returns {Promise<Buffer>}
@@ -626,7 +925,7 @@ class Canvacard {
     await this.__wait();
     const avatar = await loadImage(image1);
     const avatar1 = await loadImage(image2);
-    const background = await loadImage(Canvacard.assets.image.get("BED"));
+    const background = await loadImage(ImageFactory.BED);
 
     const canvas = createCanvas(background.width, background.height);
     const ctx = canvas.getContext("2d");
@@ -642,6 +941,15 @@ class Canvacard {
 
   /**
    * Borrar
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.delete("./image.png")
+    .then(deleted => {
+      canvacard.write(deleted, "deleted.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {boolean} dark Si la imagen debe estar en modo oscuro
    * @returns {Promise<Buffer>}
@@ -650,7 +958,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
-    const bg = await loadImage(dark ? await Canvacard.invert(Canvacard.assets.image.get("DELETE")) : Canvacard.assets.image.get("DELETE"));
+    const bg = await loadImage(dark ? await Canvacard.invert(ImageFactory.DELETE) : ImageFactory.DELETE);
 
     const canvas = createCanvas(bg.width, bg.height);
     const ctx = canvas.getContext("2d");
@@ -663,6 +971,15 @@ class Canvacard {
 
   /**
    * TicTacToe
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.tictactoe({ a1: "X", b1: "O", c1: "X", a2: "O", b2: "X", c2: "O", a3: "X", b3: "O", c3: "X" }, { bg: "white", bar: "black", x: "red", o: "blue" })
+    .then(tictactoe => {
+      canvacard.write(tictactoe, "tictactoe.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {object} fill Parámetros de TicTacToe
    * @param {"X"|"O"} [fill.a1] valor a1
    * @param {"X"|"O"} [fill.b1] valor b1
@@ -792,6 +1109,15 @@ class Canvacard {
 
   /**
    * Opinión
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.opinion("./image.png", "¡Esto es increíble!")
+    .then(opinion => {
+      canvacard.write(opinion, "opinion.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} avatar Imagen
    * @param {string} msg Mensaje de opinión
    * @param {string} [font="Arial"] Familia tipográfica
@@ -801,7 +1127,7 @@ class Canvacard {
     if (!avatar) throw new Error("Avatar no fue proporcionado!");
     if (!msg) throw new Error("¡No se proporcionó el mensaje!");
     await this.__wait();
-    const bg = await loadImage(Canvacard.assets.image.get("OPINION"));
+    const bg = await loadImage(ImageFactory.OPINION);
     const ava = await loadImage(avatar);
 
     const canvas = createCanvas(482, 481);
@@ -820,6 +1146,15 @@ class Canvacard {
 
   /**
    * Crea degradado
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.gradient("#FF0000", "#0000FF", 500, 500)
+    .then(gradient => {
+      canvacard.write(gradient, "gradient.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string} colorFrom Color inicial
    * @param {string} colorTo Color final
    * @param {number} width Ancho de la imagen
@@ -844,6 +1179,15 @@ class Canvacard {
 
   /**
    * ¡Oh, no! Es estúpido.
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.ohno("¡Esto es increíble!")
+    .then(ohno => {
+      canvacard.write(ohno, "ohno.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string} msg Mensaje
    * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
@@ -851,7 +1195,7 @@ class Canvacard {
   static async ohno(msg, font = "Arial") {
     if (!msg) throw new Error("¡No se proporcionó el mensaje!");
     await Canvacard.__wait();
-    const bg = await loadImage(Canvacard.assets.image.get("OHNO"));
+    const bg = await loadImage(ImageFactory.OHNO);
     const canvas = createCanvas(1000, 1000);
     const ctx = canvas.getContext("2d");
 
@@ -866,6 +1210,15 @@ class Canvacard {
 
   /**
    * Cambiar de opinión (tomado de jgoralcz/image-microservice)
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.changemymind("¡Esto es increíble!")
+    .then(changemymind => {
+      canvacard.write(changemymind, "changemymind.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {String} msg Mensaje
    * @param {String} [font="Arial"] Familia tipográfica
    * @see https://github.com/jgoralcz/image-microservice/blob/master/src/workers/canvas/ChangeMyMind.js
@@ -874,7 +1227,7 @@ class Canvacard {
   static async changemymind(msg, font = "Arial") {
     if (!msg) throw new Error("missing text!");
     await this.__wait();
-    const base = await loadImage(Canvacard.assets.image.get("CHANGEMYMIND"));
+    const base = await loadImage(ImageFactory.CHANGEMYMIND);
     const canvas = createCanvas(base.width, base.height);
     const ctx = canvas.getContext("2d");
     ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
@@ -921,6 +1274,15 @@ class Canvacard {
 
   /**
    * Clyde
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.clyde("¡Esto es increíble!")
+    .then(clyde => {
+      canvacard.write(clyde, "clyde.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string} msg Mensaje
    * @param {string} [font="Arial"] Familia tipográfica
    * @returns {Promise<Buffer>}
@@ -928,8 +1290,8 @@ class Canvacard {
   static async clyde(msg, font = "Manrope") {
     if (!msg) msg = "Please provide text!";
     await this.__wait()
-    let avatar = await loadImage(await Canvacard.circle(Canvacard.assets.image.get("CLYDE")));
-    let badge = await loadImage(Canvacard.assets.image.get("BOTBADGE"));
+    let avatar = await loadImage(await Canvacard.circle(ImageFactory.CLYDE));
+    let badge = await loadImage(ImageFactory.BOTBADGE);
 
     const canvas = createCanvas(1500, 300);
 
@@ -970,6 +1332,15 @@ class Canvacard {
 
   /**
    * Cita falsa
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.quote({ image: "./image.png", message: "¡Esto es increíble!", username: "Clyde", color: "#FFFFFF" })
+    .then(quote => {
+      canvacard.write(quote, "quote.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {object} options Opciones
    * @param {Buffer|string} [options.image] Imagen
    * @param {string} [options.message] Mensaje
@@ -980,7 +1351,7 @@ class Canvacard {
    */
   static async quote(options = { image, message, username, color }, font = "Arial") {
     await this.__wait();
-    if (!options.image) options.image = Canvacard.assets.image.get("CLYDE");
+    if (!options.image) options.image = ImageFactory.CLYDE;
     if (!options.message) options.message = "Por favor, proporcione un mensaje de texto.";
     if (!options.username) options.username = "Clyde";
     if (!options.color) options.color = "#FFFFFF";
@@ -1015,6 +1386,15 @@ class Canvacard {
 
   /**
    * Comentario de PornHub
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.phub({ username: "Clyde", message: "¡Esto es increíble!", image: "./image.png" })
+    .then(phub => {
+      canvacard.write(phub, "phub.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {Object} options Opciones
    * @param {String} [options.username] Nombre de usuario
    * @param {String} [options.message] Comentario
@@ -1029,7 +1409,7 @@ class Canvacard {
 
     await this.__wait();
     let image = await loadImage(options.image);
-    let baseImage = await loadImage(Canvacard.assets.image.get("PHUB"));
+    let baseImage = await loadImage(ImageFactory.PHUB);
 
     let canvas = createCanvas(baseImage.width, baseImage.height);
     let ctx = canvas.getContext("2d");
@@ -1052,6 +1432,15 @@ class Canvacard {
 
   /**
    * Wanted
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.wanted("./image.png")
+    .then(wanted => {
+      canvacard.write(wanted, "wanted.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -1059,7 +1448,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
-    const bg = await loadImage(Canvacard.assets.image.get("WANTED"));
+    const bg = await loadImage(ImageFactory.WANTED);
 
     const canvas = createCanvas(bg.width, bg.height);
     const ctx = canvas.getContext("2d");
@@ -1072,6 +1461,15 @@ class Canvacard {
 
   /**
    * Wasted
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.wasted("./image.png")
+    .then(wasted => {
+      canvacard.write(wasted, "wasted.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -1079,7 +1477,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(await Canvacard.greyscale(image));
-    const bg = await loadImage(Canvacard.assets.image.get("WASTED"));
+    const bg = await loadImage(ImageFactory.WASTED);
 
     const canvas = createCanvas(512, 512);
     const ctx = canvas.getContext("2d");
@@ -1092,6 +1490,15 @@ class Canvacard {
 
   /**
    * Comentario de YouTube
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.youtube({ username: "Clyde", content: "¡Esto es increíble!", avatar: "./image.png" })
+    .then(youtube => {
+      canvacard.write(youtube, "youtube.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {object} ops Opciones de comentarios de YouTube
    * @param {string} [ops.username] Nombre de usuario del autor del comentario
    * @param {string} [ops.content] El comentario
@@ -1106,7 +1513,7 @@ class Canvacard {
     ops.dark = !!ops.dark;
 
     await this.__wait();
-    const bg = await loadImage(!ops.dark ? Canvacard.assets.image.get("YOUTUBE") : await Canvacard.invert(Canvacard.assets.image.get("YOUTUBE")));
+    const bg = await loadImage(!ops.dark ? ImageFactory.YOUTUBE : await Canvacard.invert(ImageFactory.YOUTUBE));
     const avatar = await loadImage(await Canvacard.circle(ops.avatar));
 
     const canvas = createCanvas(bg.width, bg.height);
@@ -1138,6 +1545,15 @@ class Canvacard {
 
   /**
    * ¡Oh, mierda!
+   * @example
+   * ```js
+    const canvacard = require("canvacard");
+    canvacard.Canvas.shit("./shit.png")
+    .then(shit => {
+      canvacard.write(shit, "shit.png");
+    })
+    .catch(console.error);
+   * ```
    * @param {string|Buffer} image Fuente de imagen
    * @returns {Promise<Buffer>}
    */
@@ -1145,7 +1561,7 @@ class Canvacard {
     if (!image) throw new Error("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(await Canvacard.circle(image));
-    const bg = await loadImage(Canvacard.assets.image.get("SHIT"));
+    const bg = await loadImage(ImageFactory.SHIT);
 
     const canvas = createCanvas(bg.width, bg.height);
     const ctx = canvas.getContext("2d");
