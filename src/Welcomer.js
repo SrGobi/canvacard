@@ -1,8 +1,8 @@
 // canvacard/src/Welcomer.js
 const Base = require("./Base/GreetingCard");
-const Util = require("./Util");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
-const APIError = require("./utils/error");
+const APIError = require("./utils/error.utils");
+const shorten = require("./utils/shorten.utils");
 /**
  * Creador de tarjetas de bienvenida
  */
@@ -302,12 +302,12 @@ class Welcomer extends Base {
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
     ctx.font = `60px ${font}`;
-    ctx.fillText(Util.shorten(this.titulo, 30), canvas.width - 550, canvas.height - 120);
+    ctx.fillText(shorten(this.titulo, 30), canvas.width - 550, canvas.height - 120);
 
     // Dibujar Subtitulo
     ctx.fillStyle = this.colorSubtitulo;
     ctx.font = `30px ${font}`;
-    ctx.fillText(Util.shorten(this.subtitulo, 50), canvas.width - 550, canvas.height - 70);
+    ctx.fillText(shorten(this.subtitulo, 50), canvas.width - 550, canvas.height - 70);
 
     // Dibujar Avatar
     ctx.shadowBlur = 0;

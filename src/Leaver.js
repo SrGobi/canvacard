@@ -1,6 +1,6 @@
 const Base = require("./Base/GreetingCard");
-const Util = require("./Util");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
+const shorten = require("./utils/shorten.utils");
 
 /**
  * Creador de tarjetas de despedida
@@ -24,7 +24,7 @@ class Leaver extends Base {
       .setColorCircle(#FFFFFF)
       .setColorOverlay(#FFFFFF)
       .setTypeOverlay("rounded")
-    leaverCardURL.build()
+    leaverCardURL.build("Cascadia Code PL")
       .then(data => {
           canvacard.write(data, "LeaverCard.png");
       })
@@ -286,7 +286,7 @@ class Leaver extends Base {
     ctx.fillStyle = this.colorTitulo;
     ctx.textAlign = "center";
     ctx.font = `60px ${font}`;
-    const titulo = Util.shorten(this.titulo, 30);
+    const titulo = shorten(this.titulo, 30);
     ctx.fillText(`${titulo}`, canvas.width - 550, canvas.height - 120);
 
     // Dibujar Subtitulo
@@ -295,7 +295,7 @@ class Leaver extends Base {
     ctx.fillStyle = this.colorSubtitulo;
     ctx.textAlign = "center";
     ctx.font = `30px ${font}`;
-    const subtitulo = Util.shorten(this.subtitulo, 50);
+    const subtitulo = shorten(this.subtitulo, 50);
     ctx.fillText(`${subtitulo}`, canvas.width - 550, canvas.height - 70);
 
     // Dibujar un circulo de avatar

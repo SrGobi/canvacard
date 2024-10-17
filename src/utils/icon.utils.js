@@ -1,7 +1,7 @@
-const APIError = require('./error');
+const APIError = require('./error.utils');
 const path = require('path');
 /**
- * Función para construir la ruta del archivo SVG
+ * Función para construir la ruta del archivo SVG.
  * @param {string} icon 
  * @returns {string} Ruta del archivo SVG
  */

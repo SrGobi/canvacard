@@ -1,5 +1,5 @@
 /**
- * Funcion que se encarga de parsear el nombre de usuario para que se ajuste al tamaño del canvas
+ * Funcion que se encarga de parsear el nombre de usuario para que se ajuste al tamaño del canvas.
  * @param {string} username Nombre de usuario
  * @param {Object} ctx Contexto del canvas
  * @param {string} ctx.fillStyle Color del texto

@@ -1,10 +1,9 @@
 /**
- * Gets a formatted date string or returns the input as is.
- * 
- * @param {string | Date} dateInput - The date to format. Can be a date string (ISO 8601) or a Date object.
- * @param {number} createdTimestamp - A fallback timestamp to use if dateInput is undefined or null.
- * @param {string} [localDateType='en'] - The locale for the date formatting (default is English).
- * @returns {string} - The formatted date string or the original input.
+ * Obtiene una cadena de fecha formateada o devuelve la entrada tal como está.
+ * @param {string | Date} dateInput - La fecha que se va a formatear. Puede ser una cadena de fecha (ISO 8601) or a Date object.
+ * @param {number} createdTimestamp - Una marca de tiempo de respaldo para usar si dateInput no está definido o es nulo.
+ * @param {string} [localDateType='en'] - La configuración regional para el formato de fecha (el valor predeterminado es inglés).
+ * @returns {string} - La cadena de fecha formateada o la entrada original.
  */
 const getDateOrString = (dateInput, createdTimestamp, localDateType = 'en') => {
   const dateOptions = {

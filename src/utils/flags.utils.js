@@ -1,16 +1,10 @@
-const fs = require('fs');
-const path = require('path');
-const APIError = require('./error');
-
-// Cargar las flags desde los archivos JSON
-const userFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/flags/user.json')));
-const applicationFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/flags/application.json')));
+const APIError = require('./error.utils');
 
 /**
- * Función para verificar flags y obtener las insignias
- * @param {Object} flags
- * @param {BigInt | string} flagNumber
- * @returns {Array<string>}
+ * Función para verificar flags y obtener las insignias.
+ * @param {Object} flags Insignias
+ * @param {BigInt | string} flagNumber Número de insignias
+ * @returns {Array<string>} Insignias
  */
 function checkFlags(flags, flagNumber) {
   let results = [];
@@ -30,8 +24,4 @@ function checkFlags(flags, flagNumber) {
   return results;
 }
 
-module.exports = {
-  userFlags,
-  applicationFlags,
-  checkFlags,
-};
+module.exports = checkFlags;

@@ -1,8 +1,8 @@
 /**
- * This methods takes a large number like "9360" and converts it to a small decimal like "9.3".
- * Used by `abbreviateNumber()` to form abbreviations like "9.3K".
+ * Este método toma un número grande como "9360" y lo convierte en un decimal pequeño como "9.3".
+ * Utilizado por `abbreviateNumber()` para formar abreviaturas como "9.3K".
  *
- * At the moment, this method intentionally avoids number rounding, for simplicity.
+ * Por el momento, este método evita intencionalmente el redondeo de números para simplificar.
  */
 function getFirstDigitsAsDecimal(numString) {
   const digits = ((numString.length - 1) % 3) + 1;
@@ -18,19 +18,19 @@ function getFirstDigitsAsDecimal(numString) {
 }
 
 /**
- * Abbreviation follows format seen in many games:
- * K - thousands
- * M - millions
- * B - billions
- * T - trillions
+ * La abreviatura sigue el formato que se ve en muchos juegos:
+ * K - miles
+ * M - millones
+ * B - billones
+ * T - trillones
  *
- * All larger numbers beyond trillions follow the following format, using every letter of the alphabet paired with itself:
+ * Todos los números mayores que billones siguen el siguiente formato, utilizando cada letra del alfabeto emparejada consigo misma:
  * AA
  * BB
  * ...
  * ZZ
  *
- * This supports all numbers nearly up to a googol (100 zeroes), supporting up to 92 zeroes or 93 digits.
+ * Admite todos los números hasta casi un googol (100 ceros) y admite hasta 92 ceros o 93 dígitos.
  */
 function abbreviateNumber(number) {
   const numString = `${number}`;

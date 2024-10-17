@@ -1,23 +1,11 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const fortnite = require("fortnite-9812");
 const fs = require("fs");
-const moment = require("moment");
-const APIError = require("./utils/error");
+const APIError = require("./utils/error.utils");
+const formatVariable = require("./utils/formatVariable.utils");
 
 /**
- * Obtiene variables y tipos
- * @param {object} prefix El tipo de variable
- * @param {object} variable La variable a cambiar
- * @returns La variable formateada
- */
-const formatVariable = (prefix, variable) => {
-  const formattedVariable = variable.toLowerCase()
-    .split("-").map((word) => word.charAt(0).toUpperCase() + word.substr(1, word.length).toLowerCase()).join("");
-  return prefix + formattedVariable;
-}
-
-/**
- * Obtiene variables y tipos
+ * Obtiene variables y tipos.
  * @param {object} canvas El lienzo
  * @param {object} text El texto
  * @param {object} defaultFontSize El tamaño de píxel de fuente predeterminado
@@ -256,9 +244,12 @@ class FortniteShop {
     } else {
       let dateShop = this.textDate.replace(
         "{date}",
-        moment(shop.data.date)
-          .locale(this.options.lang)
-          .format(this.options.dateFormat)
+        new Intl.DateTimeFormat(this.options.lang, {
+          weekday: 'long', // "dddd"
+          year: 'numeric', // "YYYY"
+          month: 'long',   // "MMMM"
+          day: 'numeric',  // "Do"
+        }).format(new Date(shop.data.date))
       ),
         dailyHeight =
           shop.data.daily.length < 9

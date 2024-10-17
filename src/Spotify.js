@@ -1,5 +1,6 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
-const Util = require("./Util");
+const formatTime = require("./utils/formatTime.utils");
+const shorten = require("./utils/shorten.utils");
 
 /**
  * Creador de tarjetas de presencia de Spotify
@@ -233,8 +234,8 @@ class Spotify {
 
     const total = this.end - this.start;
     const progress = Date.now() - this.start;
-    const progressF = Util.formatTime(progress > total ? total : progress);
-    const ending = Util.formatTime(total);
+    const progressF = formatTime(progress > total ? total : progress);
+    const ending = formatTime(total);
 
     const canvas = createCanvas(this.width, this.height);
     const ctx = canvas.getContext("2d");
@@ -278,20 +279,20 @@ class Spotify {
     // Dibujar el título de la canción
     ctx.fillStyle = "#FFFFFF";
     ctx.font = `bold 50px ${font}`;
-    await Util.renderEmoji(ctx, Util.shorten(this.title, 30), sizeX, sizeY);
+    ctx.fillText(shorten(this.title, 30), sizeX, sizeY);
 
     // Dibujar el nombre del álbum
     if (this.album && typeof this.album === "string") {
       ctx.fillStyle = "#F1F1F1";
       ctx.font = `32px ${font}`;
-      await Util.renderEmoji(ctx, Util.shorten(this.album, 40), sizeX, sizeY + 40);
+      ctx.fillText(shorten(this.album, 40), sizeX, sizeY + 40);
     }
 
 
     // Dibujar el nombre del artista
     ctx.fillStyle = "#F1F1F1";
     ctx.font = `24px ${font}`;
-    await Util.renderEmoji(ctx, Util.shorten(this.artist, 40), sizeX, sizeY + 70);
+    ctx.fillText(shorten(this.artist, 40), sizeX, sizeY + 70);
 
     // Dibujar la pista de la barra de progreso con bordes redondeados
     const progressBarWidth = 400;
@@ -301,12 +302,12 @@ class Spotify {
     // Texto de finalización
     ctx.fillStyle = "#B3B3B3";
     ctx.font = `14px ${font}`;
-    await Util.renderEmoji(ctx, ending, sizeX + 360, sizeY + 120 + progressBarHeight);
+    ctx.fillText(ending, sizeX + 360, sizeY + 120 + progressBarHeight);
 
     // Texto de progreso
     ctx.fillStyle = "#B3B3B3";
     ctx.font = `14px ${font}`;
-    await Util.renderEmoji(ctx, progressF, sizeX, sizeY + 120 + progressBarHeight);
+    ctx.fillText(progressF, sizeX, sizeY + 120 + progressBarHeight);
 
     // Pista de la barra de progreso (fondo)
     ctx.beginPath();

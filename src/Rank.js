@@ -9,7 +9,7 @@ const {
   genBotVerifBadge,
   genXpBar,
   addShadow,
-} = require('./utils/profile-image.utils');
+} = require('./utils/canvas.utils');
 
 
 /**
@@ -49,7 +49,7 @@ class Rank {
       .setCreatedTimestamp(data.createdTimestamp);
 
     const rankImage = await rank.build("Cascadia Code PL");
-    canvacard.write(rankImage, "./card.png");
+    canvacard.write(rankImage, "./rank.png");
    * ```
    *
    * @param {string} userId ID del usuario
@@ -132,7 +132,7 @@ class Rank {
       },
       options: {
         badgesFrame: false,
-        customBadges: false,
+        customBadges: [],
         borderColor: null,
         borderAllign: null,
         presenceStatus: null,
@@ -193,14 +193,16 @@ class Rank {
    * @param {number} flags Insignias del usuario
    * @param {boolean} bot Si el usuario es un bot o no
    * @param {boolean} frame Marco de insignias
+   * @param {string[]} customBadges Insignias personalizadas
    * @returns {Rank} La instancia de la clase Rank
    * @throws {Error} Si el URL o el asset no son válidos
    */
-  setBadges(flags, bot = false, frame = false) {
+  setBadges(flags, bot = false, frame = false, customBadges = []) {
     if (typeof flags !== "number") throw new Error(`El tipo de insignias debe ser un número, recibido ${typeof flags}!`);
     this.data.user.flags = flags;
     this.data.user.bot = bot && typeof bot === "boolean" ? bot : false;
     this.data.options.badgesFrame = !!frame;
+    this.data.options.customBadges = customBadges && Array.isArray(customBadges) ? customBadges : [];
     return this;
   }
 
@@ -214,7 +216,7 @@ class Rank {
   setBorder(color, allign = "") {
     if (typeof color !== "string" && !Array.isArray(color)) throw new Error(`El tipo de color debe ser una cadena o un array, recibido ${typeof color}!`);
     if (typeof allign !== "string") throw new Error(`El tipo de alineación de degradado debe ser una cadena, recibido ${typeof allign}!`);
-    this.data.options.borderColor = color;
+    this.data.options.borderColor = color.slice(0, 20);
     this.data.options.borderAllign = allign;
     return this;
   }
@@ -323,7 +325,7 @@ class Rank {
       this.data.rankData.progressBar.bar.type = "color";
     } else if (fillType === "GRADIENT") {
       if (!Array.isArray(color)) throw new Error(`El tipo de color debe ser Array, recibido ${typeof color}!`);
-      this.data.rankData.progressBar.bar.color = color.slice(0, 2);
+      this.data.rankData.progressBar.bar.color = color.slice(0, 20);
       this.data.rankData.progressBar.bar.type = "gradient";
     } else {
       throw new Error(`Tipo de barra de progreso no compatible "${fillType}"!`);

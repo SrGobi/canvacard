@@ -1,17 +1,6 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const fortnite = require("fortnite");
-
-/**
- * Obtiene variables y tipos
- * @param {object} prefix El tipo de variable
- * @param {object} variable La variable a cambiar
- * @returns La variable formateada
- */
-const formatVariable = (prefix, variable) => {
-  const formattedVariable = variable.toLowerCase()
-    .split("-").map((word) => word.charAt(0).toUpperCase() + word.substring(1, word.length).toLowerCase()).join("");
-  return prefix + formattedVariable;
-}
+const formatVariable = require("./utils/formatVariable.utils");
 
 /**
  * Creador de imagen de estadisticas de fortnite
@@ -24,13 +13,14 @@ class FortniteStats {
   * 
   * @example
   * ```js	
-  *  const FortniteStatsCardURL = await new FortniteStats()
-        .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-        .setUser("BLD SRGOBI")
-        .setPlatform("pc")
-        .setText("footer", "ESP CUSTOMS X FORTNITE")
-        .toAttachment();
-    await channel.send({ files: [{ attachment: FortniteStatsCardURL, name: 'FortniteStats.png' }] })
+  const stats = new canvacard.FortniteStats()
+    .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
+    .setUser("BLD SRGOBI")
+    .setPlatform("pc")
+    .setText("footer", "ESP CUSTOMS X FORTNITE")
+
+  const FortniteStatsImage = await stats.build("Cascadia Code PL");
+  canvacard.write(FortniteStatsImage, "./stats.png");
   * ```
   */
 

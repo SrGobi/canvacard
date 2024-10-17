@@ -8,12 +8,16 @@ const Brightness = require("../libs/Brightness");
 const Threshold = require("../libs/Threshold");
 const Convolute = require("../libs/Convolute");
 const rect = require("../plugins/rect");
-const { createCanvas, GlobalFonts, loadImage } = require("@napi-rs/canvas");
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const Darkness = require("../libs/Darkness");
 const circle = require("../plugins/circle");
 const round = require("../plugins/round");
-const Util = require("./Util");
-
+const formatAndValidateHex = require("./utils/formatAndValidateHex.utils");
+const shorten = require("./utils/shorten.utils");
+const invertColor = require("./utils/invertColor.utils");
+const discordTime = require("./utils/discordTime.utils");
+const getAcronym = require("./utils/getAcronym.utils");
+const getLines = require("./utils/getLines.utils");
 
 /**
  * Canvacard Generador De Memes
@@ -21,7 +25,6 @@ const Util = require("./Util");
 class Canvacard {
 
   /**
-   * Canvas image builder
    * @example
    * ```js
     const Canvacard = require("canvacard");
@@ -31,7 +34,6 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   *
    */
   constructor() {
     throw new Error(`The ${this.constructor.name} class may not be instantiated!`);
@@ -248,7 +250,7 @@ class Canvacard {
     rect(ctx, 0, 0, height, width, color);
 
     if (!!displayHex) {
-      const ic = Util.invertColor(color);
+      const ic = invertColor(color);
       ctx.font = `bold 72px ${font}`;
       ctx.fillStyle = ic;
       ctx.fillText(color.toUpperCase(), canvas.width / 3, canvas.height / 2);
@@ -811,7 +813,7 @@ class Canvacard {
 
     ctx.font = `bold 15px ${font}`;
     ctx.fillStyle = "#000000";
-    await Util.renderEmoji(ctx, Util.shorten(msg, 24), canvas.width / 10, canvas.height / 1.51);
+    ctx.fillText(shorten(msg, 24), canvas.width / 10, canvas.height / 1.51);
 
     return canvas.toBuffer();
   }
@@ -857,7 +859,7 @@ class Canvacard {
 
     ctx.font = `bold 50px ${font}`;
     ctx.fillStyle = "#000000";
-    await Util.renderEmoji(ctx, Util.shorten(msg, 20), 540, 195);
+    ctx.fillText(shorten(msg, 20), 540, 195);
 
     return canvas.toBuffer();
   }
@@ -908,7 +910,7 @@ class Canvacard {
     ctx.font = `${fontSize}px ${font}`;
     ctx.rotate(-0.39575);
 
-    const lines = Util.getLines({ msg, ctx, maxWidth: 345 });
+    const lines = getLines({ msg, ctx, maxWidth: 345 });
     let i = 0;
     while (i < lines.length) {
       ctx.fillText(lines[i], 10, i * fontSize - 5);
@@ -941,7 +943,7 @@ class Canvacard {
     ctx.font = `40px ${font}`;
     ctx.fillStyle = "#FFFFFF";
     ctx.textAlign = "start";
-    await Util.renderEmoji(ctx, Util.shorten(message, 66), 230, 150);
+    ctx.fillText(shorten(message, 66), 230, 150);
 
     ctx.font = `50px ${font}`;
     ctx.fillStyle = "#FFFFFF";
@@ -951,7 +953,7 @@ class Canvacard {
     ctx.font = `40px ${font}`;
     ctx.fillStyle = "#7D7D7D";
     ctx.textAlign = "start";
-    ctx.fillText(Util.discordTime(), 470, 80);
+    ctx.fillText(discordTime(), 470, 80);
 
     ctx.font = `20px ${font}`;
     ctx.fillStyle = "#7D7D7D";
@@ -996,17 +998,17 @@ class Canvacard {
     ctx.font = `40px ${font}`;
     ctx.fillStyle = "#FFFFFF";
     ctx.textAlign = "start";
-    await Util.renderEmoji(ctx, Util.shorten(options.message, 66), 230, 150);
+    ctx.fillText(shorten(options.message, 66), 230, 150);
 
     ctx.font = `50px ${font}`;
     ctx.fillStyle = typeof options.color == "string" ? options.color : "#FFFFFF";
     ctx.textAlign = "start";
-    ctx.fillText(typeof options.username === "string" ? Util.shorten(options.username, 17) : "Clyde", 230, 80);
+    ctx.fillText(typeof options.username === "string" ? shorten(options.username, 17) : "Clyde", 230, 80);
 
     ctx.font = `50px ${font}`;
     ctx.fillStyle = "#7D7D7D";
     ctx.textAlign = "start";
-    ctx.fillText(Util.discordTime(), 240 + ctx.measureText(Util.shorten(options.username, 17)).width + 110, 80);
+    ctx.fillText(discordTime(), 240 + ctx.measureText(shorten(options.username, 17)).width + 110, 80);
 
     return canvas.toBuffer();
   }
@@ -1038,12 +1040,12 @@ class Canvacard {
     ctx.font = `32px ${font}`;
     ctx.fillStyle = "#F99600";
     ctx.textAlign = "start";
-    ctx.fillText(Util.shorten(options.username, 20), 115, 350);
+    ctx.fillText(shorten(options.username, 20), 115, 350);
 
     ctx.font = `32px ${font}`;
     ctx.fillStyle = "#CCCCCC";
     ctx.textAlign = "start";
-    await Util.renderEmoji(ctx, Util.shorten(options.message, 50), 30, 430);
+    ctx.fillText(shorten(options.message, 50), 30, 430);
 
     return canvas.toBuffer();
   }
@@ -1116,8 +1118,8 @@ class Canvacard {
     let time = Math.floor(Math.random() * (59 - 1)) + 1;
     time = `${time + (time == 1 ? " minute" : " minutes")} ago`;
 
-    const username = Util.shorten(ops.username, 21);
-    const comment = Util.shorten(ops.content, 60);
+    const username = shorten(ops.username, 21);
+    const comment = shorten(ops.content, 60);
 
     ctx.font = "20px Roboto";
     ctx.fillStyle = ops.dark ? "#FFFFFF" : "#000000";
@@ -1129,7 +1131,7 @@ class Canvacard {
 
     ctx.font = "18px Roboto";
     ctx.fillStyle = ops.dark ? "#FFFFFF" : "#000000";
-    await Util.renderEmoji(ctx, comment, 92, 80);
+    ctx.fillText(comment, 92, 80);
 
     return canvas.toBuffer();
   }
@@ -1171,7 +1173,7 @@ class Canvacard {
    * @returns {Promise<Buffer>}
    */
   static async guildIcon(name, size = 1024) {
-    const str = Util.getAcronym(name);
+    const str = getAcronym(name);
     if (!str) throw new Error("Couldn't parse acronym!");
     if (typeof size !== "number" || size < 0 || size > 4096 || size % 16 !== 0) throw new Error("Invalid icon size!");
 
@@ -1183,7 +1185,7 @@ class Canvacard {
 
     ctx.fillStyle = "#FFFFFF";
     ctx.font = `bold ${size / 4}px Roboto`;
-    await Util.renderEmoji(ctx, str, canvas.width / 4, canvas.height / 1.7);
+    ctx.fillText(str, canvas.width / 4, canvas.height / 1.7);
 
     return canvas.toBuffer();
   }
@@ -1241,10 +1243,10 @@ class Canvacard {
 
     ctx.font = "38px Manrope";
 
-    await Util.renderEmoji(ctx, Util.shorten(replyText, 32), 186, 200);
+    ctx.fillText(shorten(replyText, 32), 186, 200);
 
     ctx.font = "38px Whitney";
-    ctx.fillStyle = Util.formatHex(hex1, "#FFFFFF");
+    ctx.fillStyle = formatAndValidateHex(hex1, "#FFFFFF");
     ctx.fillText(user1, 185, 147);
 
     const usernameWidth = ctx.measureText(user1).width;
@@ -1255,7 +1257,7 @@ class Canvacard {
 
     const repliedWidth = ctx.measureText(" responder a ").width;
 
-    ctx.fillStyle = Util.formatHex(hex2, "#FFFFFF");
+    ctx.fillStyle = formatAndValidateHex(hex2, "#FFFFFF");
     ctx.font = "38px Whitney";
     ctx.fillText(user2, 165 + usernameWidth + repliedWidth + 20, 167 - 20);
 
@@ -1263,14 +1265,14 @@ class Canvacard {
 
     ctx.font = "26px Whitney";
     ctx.fillStyle = "#7a7c80";
-    const time = Util.discordTime();
+    const time = discordTime();
 
     ctx.fillText(` ${time}`, 165 + usernameWidth + repliedWidth + secondMemberUserWidth + 3 + 20, 167 - 20)
 
     ctx.font = "29px Whitney";
     ctx.globalAlpha = 0.7;
     ctx.fillStyle = "#d1d1d1";
-    ctx.fillText(Util.shorten(mainText, 64), 195 + 20 + 20, 100 + 5 - 20);
+    ctx.fillText(shorten(mainText, 64), 195 + 20 + 20, 100 + 5 - 20);
 
     ctx.strokeStyle = "#a3a2a2";
     ctx.lineWidth = 4;
@@ -1355,14 +1357,6 @@ class Canvacard {
       SHARPEN: [0, -1, 0, -1, 5, -1, 0, -1, 0],
       BURN: [1 / 11, 1 / 11, 1 / 11, 1 / 11, 1 / 11, 1 / 11, 1 / 11, 1 / 11, 1 / 11]
     };
-  }
-
-  /**
-   * Canvacard utils
-   * @type {Util}
-   */
-  static get Util() {
-    return Util;
   }
 
 }
