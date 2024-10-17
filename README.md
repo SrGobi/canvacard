@@ -58,7 +58,7 @@ const rank = new canvacard.Rank()
   .setCreatedTimestamp(userData.createdTimestamp)
   .setBorder(["#14C49E", "#FF0000"], "vertical");
 
-rank.build()
+rank.build("Cascadia Code PL")
   .then(data => {
     // Usar AttachmentBuilder para enviar el archivo
     const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
@@ -107,7 +107,7 @@ const welcomer = new canvacard.Welcomer()
   .setColorOverlay("#000000");
   .setOpacityOverlay("0.4");
 
-welcomer.build()
+welcomer.build("Cascadia Code PL, Noto Color Emoji")
   .then(data => {
     // Usar AttachmentBuilder para enviar el archivo
     const attachment = new AttachmentBuilder(data, { name: "WelcomeCard.png" });
