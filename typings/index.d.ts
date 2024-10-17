@@ -21,7 +21,6 @@ export declare let Rank: typeof import("./src/Rank");
 export declare let Spotify: typeof import("./src/Spotify");
 export declare let Welcomer: typeof import("./src/Welcomer");
 export declare let Leaver: typeof import("./src/Leaver");
-export declare let CaptchaGen: any;
 export declare let FortniteShop: typeof import("./src/FortniteShop");
 export declare let FortniteStats: typeof import("./src/FortniteStats");
 export declare let Plugins: {
@@ -30,9 +29,7 @@ export declare let Plugins: {
     rectangle: (ctx: any, x: any, y: any, height: any, width: any, color: any, stroke?: boolean, lineWidth?: number) => any;
     round: (ctx: any, x: any, y: any, width: any, height: any, radius: any) => any;
     abbrev: (num: any) => string;
-    renderEmoji: (ctx: any, msg: any, x: any, y: any) => Promise<any>;
 };
-export declare let Util: typeof import("./src/Util");
 export declare let Assets: {
     new (): import("./src/Assets");
     load: (warnIfFailed?: boolean) => void;

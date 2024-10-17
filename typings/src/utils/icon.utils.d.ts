@@ -1,6 +1,6 @@
 export = getIconPath;
 /**
- * Función para construir la ruta del archivo SVG
+ * Función para construir la ruta del archivo SVG.
  * @param {string} icon
  * @returns {string} Ruta del archivo SVG
  */

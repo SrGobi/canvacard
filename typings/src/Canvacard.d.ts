@@ -488,11 +488,5 @@ declare class Canvacard {
          */
         BURN: number[];
     };
-    /**
-     * Canvacard utils
-     * @type {Util}
-     */
-    static get Util(): Util;
 }
-import Util = require("./Util");
 //# sourceMappingURL=Canvacard.d.ts.map

@@ -36,7 +36,7 @@ declare class Rank {
         .setCreatedTimestamp(data.createdTimestamp);
   
       const rankImage = await rank.build("Cascadia Code PL");
-      canvacard.write(rankImage, "./card.png");
+      canvacard.write(rankImage, "./rank.png");
      * ```
      *
      * @param {string} userId ID del usuario
@@ -119,7 +119,7 @@ declare class Rank {
         };
         options: {
             badgesFrame: boolean;
-            customBadges: boolean;
+            customBadges: any[];
             borderColor: any;
             borderAllign: any;
             presenceStatus: any;
@@ -158,10 +158,11 @@ declare class Rank {
      * @param {number} flags Insignias del usuario
      * @param {boolean} bot Si el usuario es un bot o no
      * @param {boolean} frame Marco de insignias
+     * @param {string[]} customBadges Insignias personalizadas
      * @returns {Rank} La instancia de la clase Rank
      * @throws {Error} Si el URL o el asset no son válidos
      */
-    setBadges(flags: number, bot?: boolean, frame?: boolean): Rank;
+    setBadges(flags: number, bot?: boolean, frame?: boolean, customBadges?: string[]): Rank;
     /**
      * Establece el borde de la tarjeta
      * @param {string | string[]} color Color HEX del borde, puede ser degradado si se usan 2 colores

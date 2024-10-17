@@ -1,10 +1,9 @@
-export const userFlags: any;
-export const applicationFlags: any;
+export = checkFlags;
 /**
- * Función para verificar flags y obtener las insignias
- * @param {Object} flags
- * @param {BigInt | string} flagNumber
- * @returns {Array<string>}
+ * Función para verificar flags y obtener las insignias.
+ * @param {Object} flags Insignias
+ * @param {BigInt | string} flagNumber Número de insignias
+ * @returns {Array<string>} Insignias
  */
-export function checkFlags(flags: any, flagNumber: BigInt | string): Array<string>;
+declare function checkFlags(flags: any, flagNumber: BigInt | string): Array<string>;
 //# sourceMappingURL=flags.utils.d.ts.map

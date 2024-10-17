@@ -19,9 +19,5 @@ export type Plugins = {
      * Complemento de abreviaturas
      */
     abbrev: Function;
-    /**
-     * Complemento de renderizado de emoji
-     */
-    renderEmoji: Function;
 };
 //# sourceMappingURL=Plugins.d.ts.map
