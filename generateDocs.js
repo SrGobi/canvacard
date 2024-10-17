@@ -15,8 +15,37 @@ const commands = [
   `jsdoc2md ${baseDir}/src/FortniteStats.js > ${docsDir}/Classes/FortniteStats.md`,
   `jsdoc2md ${baseDir}/src/Canvacard.js > ${docsDir}/Classes/Canvacard.md`,
   `jsdoc2md ${baseDir}/src/Plugins.js > ${docsDir}/Classes/Plugins.md`,
-  `jsdoc2md ${baseDir}/src/Util.js > ${docsDir}/Classes/Util.md`
 ];
+
+// Add commands for each utility file
+const utils = [
+  'abbreviate.utils.js',
+  'canvas.utils.js',
+  'discordTime.utils.js',
+  'error.utils.js',
+  'flags.utils.js',
+  'formatAndValidateHex.utils.js',
+  'formatTime.utils.js',
+  'formatVariable.utils.js',
+  'getAcronym.utils.js',
+  'getDateOrString.utils.js',
+  'getLines.utils.js',
+  'icon.utils.js',
+  'invertColor.utils.js',
+  'isNumber.utils.js',
+  'isString.utils.js',
+  'parseImg.utils.js',
+  'parsePng.utils.js',
+  'parseSvg.utils.js',
+  'shorten.utils.js',
+  'truncateText.utils.js',
+  'username.utils.js'
+];
+
+// Generate documentation for each utility file
+utils.forEach(util => {
+  commands.push(`jsdoc2md ${baseDir}/src/utils/${util} > ${docsDir}/Utils/${util.replace('.js', '.md')}`);
+});
 
 const singleCommand = process.argv.includes('--single');
 
