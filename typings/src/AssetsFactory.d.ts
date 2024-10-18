@@ -1,43 +1,25 @@
 export namespace ImageFactory {
-    let AFFECT: string;
     let BATSLAP: string;
-    let BEAUTIFUL: string;
     let BED: string;
-    let BOTBADGE: string;
     let CAPTCHA: string;
-    let CHANGEMYMIND: string;
     let CLYDE: string;
     let DELETE: string;
     let DISCORD: string;
     let DISTRACTED: string;
-    let DND: string;
     let FACEPALM: string;
-    let RAINBOW: string;
-    let HITLER: string;
-    let IDLE: string;
     let IMPOSTER: string;
     let IMPOSTERWITH: string;
     let JAIL: string;
-    let JOKEOVERHEAD: string;
-    let KICK: string;
     let KISS: string;
     let KO: string;
-    let OFFLINE: string;
-    let OHNO: string;
-    let ONLINE: string;
-    let OPINION: string;
     let PHUB: string;
     let PUNCH: string;
-    let RIP: string;
-    let SHIT: string;
     let SNOWFLAKE: string;
     let SPANK: string;
     let TOBECONTINUED: string;
-    let TRASH: string;
     let TRIGGERED: string;
     let WANTED: string;
     let WASTED: string;
-    let WELCOMEBG: string;
     let YOUTUBE: string;
 }
 //# sourceMappingURL=AssetsFactory.d.ts.map

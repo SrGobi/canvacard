@@ -8,14 +8,6 @@ export type Plugins = {
      */
     convolute: Function;
     /**
-     * Complemento de rectángulo
-     */
-    rectangle: Function;
-    /**
-     * Complemento redondo
-     */
-    round: Function;
-    /**
      * Complemento de abreviaturas
      */
     abbrev: Function;

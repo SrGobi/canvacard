@@ -26,8 +26,6 @@ export declare let FortniteStats: typeof import("./src/FortniteStats");
 export declare let Plugins: {
     circle: (ctx: any, w: any, h: any) => any;
     convolute: (ctx: any, canvas: any, matrix: any, opaque: any) => any;
-    rectangle: (ctx: any, x: any, y: any, height: any, width: any, color: any, stroke?: boolean, lineWidth?: number) => any;
-    round: (ctx: any, x: any, y: any, width: any, height: any, radius: any) => any;
     abbrev: (num: any) => string;
 };
 export declare let Assets: typeof import("./src/AssetsFactory");

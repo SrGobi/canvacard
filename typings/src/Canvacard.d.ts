@@ -130,60 +130,6 @@ declare class Canvacard {
      */
     static convolute(img: string | Buffer, matrix: number[], opaque: boolean): Promise<Buffer>;
     /**
-     * Crea barra de progreso
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      const fill = {
-        a1: "X", b1: "O", c1: "X",
-        a2: "O", b2: "X", c2: "O",
-        a3: "X", b3: "O", c3: "X"
-      };
-      const color = { bg: "#fff", bar: "#000", x: "#ff0000", o: "#0000ff" };
-      const tictactoeImage = canvacard.Canvas.tictactoe(fill, color);
-      canvacard.write(tictactoeImage, "tictactoe.png");
-     * ```
-     * @param {object} track Opciones de pista de la barra de progreso
-     * @param {number} [track.x] El eje x
-     * @param {number} [track.y] El eje y
-     * @param {number} [track.width] Ancho de pista de la barra de progreso
-     * @param {number} [track.height] Altura de la pista de la barra de progreso
-     * @param {string} [track.color] Color de la pista de la barra de progreso
-     * @param {boolean} [track.stroke] Usar trazo para pista
-     * @param {number} [track.lineWidth] Este parámetro se utilizará si `track.stroke` se establece en` true`
-     * @param {object} bar Opciones de la barra de progreso
-     * @param {number} [bar.width] Ancho de la barra de progreso
-     * @param {string} [bar.color] Color de la barra de progreso
-     * @returns {Buffer}
-     */
-    static createProgressBar(track?: {
-        x?: number;
-        y?: number;
-        width?: number;
-        height?: number;
-        color?: string;
-        stroke?: boolean;
-        lineWidth?: number;
-    }, bar?: {
-        width?: number;
-        color?: string;
-    }): Buffer;
-    /**
-     * Desenfocar una imagen
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.blur("./image.png")
-      .then(blurred => {
-        canvacard.write(blurred, "blurred.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Imagen para difuminar
-     * @returns {Promise<Buffer>}
-     */
-    static blur(image: string | Buffer): Promise<Buffer>;
-    /**
      * Pixelar
      * @example
      * ```js
@@ -231,25 +177,6 @@ declare class Canvacard {
      */
     static burn(image: string | Buffer, lvl?: number): Promise<Buffer>;
     /**
-     * HTML5 color a imagen
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.color("#FF0000", true, 1024, 1024, "Arial")
-      .then(colored => {
-        canvacard.write(colored, "colored.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string} color Color HTML5
-     * @param {boolean} displayHex Si debe mostrar hexadecimal
-     * @param {number} height Altura de imagen
-     * @param {number} width Ancho de la imagen
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>}
-     */
-    static color(color?: string, displayHex?: boolean, height?: number, width?: number, font?: string): Promise<Buffer>;
-    /**
      * Crea una imagen circular
      * @example
      * ```js
@@ -264,27 +191,6 @@ declare class Canvacard {
      * @returns {Promise<Buffer>}
      */
     static circle(image: string | Buffer): Promise<Buffer>;
-    /**
-     * Crea un rectángulo
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.rectangle(0, 0, 1024, 1024, "#FF0000", true, 5)
-      .then(rectangled => {
-        canvacard.write(rectangled, "rectangled.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {number} x eje x
-     * @param {number} y eje y
-     * @param {number} width ancho
-     * @param {number} height altura
-     * @param {string} color color
-     * @param {boolean} stroke Si debe acariciar
-     * @param {number} lineWidth ancho de línea
-     * @returns {Buffer}
-     */
-    static rectangle(x: number, y: number, width: number, height: number, color: string, stroke: boolean, lineWidth: number): Buffer;
     /**
      * Fusiona dos imágenes
      * @example
@@ -367,21 +273,6 @@ declare class Canvacard {
      */
     static slap(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * ¿Oh esto? ¡Esto es hermoso!
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.beautiful("./image.png")
-      .then(beautiful => {
-        canvacard.write(beautiful, "beautiful.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static beautiful(image: string | Buffer): Promise<Buffer>;
-    /**
      * facepalm
      * @example
      * ```js
@@ -396,66 +287,6 @@ declare class Canvacard {
      * @returns {Promise<Buffer>}
      */
     static facepalm(image: string | Buffer): Promise<Buffer>;
-    /**
-     * Rainbow ( ͡° ͜ʖ ͡°)
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.rainbow("./image.png")
-      .then(rainbow => {
-        canvacard.write(rainbow, "rainbow.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static rainbow(image: string | Buffer): Promise<Buffer>;
-    /**
-     * "F" en el chat
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.f(image)
-      .then(f => {
-        canvacard.write(f, "f.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static rip(image: string | Buffer): Promise<Buffer>;
-    /**
-     * ¿Basura?
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.trash("./image.png")
-      .then(trash => {
-        canvacard.write(trash, "trash.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static trash(image: string | Buffer): Promise<Buffer>;
-    /**
-     * Peor que hitler
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.hitler("./image.png")
-      .then(hitler => {
-        canvacard.write(hitler, "hitler.png");
-      })
-      .catch(console.error);
-     *```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static hitler(image: string | Buffer): Promise<Buffer>;
     /**
      * Actualiza el color de la imagen
      * @example
@@ -473,21 +304,6 @@ declare class Canvacard {
      */
     static colorfy(image: string | Buffer, color: string): Promise<Buffer>;
     /**
-     * whoosh
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.whoosh("./image.png")
-      .then(whoosh => {
-        canvacard.write(whoosh, "whoosh.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static jokeOverHead(image: string | Buffer): Promise<Buffer>;
-    /**
      * Novio distraído
      * @example
      * ```js
@@ -504,21 +320,6 @@ declare class Canvacard {
      * @returns {Promise<Buffer>}
      */
     static distracted(image1: string | Buffer, image2: string | Buffer, image3?: string | Buffer): Promise<Buffer>;
-    /**
-     * No, no afecta a mi bebé.
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.affect("./image.png")
-      .then(affect => {
-        canvacard.write(affect, "affect.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static affect(image: string | Buffer): Promise<Buffer>;
     /**
      * Celda
      * @example
@@ -568,67 +369,6 @@ declare class Canvacard {
      */
     static delete(image: string | Buffer, dark?: boolean): Promise<Buffer>;
     /**
-     * TicTacToe
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.tictactoe({ a1: "X", b1: "O", c1: "X", a2: "O", b2: "X", c2: "O", a3: "X", b3: "O", c3: "X" }, { bg: "white", bar: "black", x: "red", o: "blue" })
-      .then(tictactoe => {
-        canvacard.write(tictactoe, "tictactoe.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {object} fill Parámetros de TicTacToe
-     * @param {"X"|"O"} [fill.a1] valor a1
-     * @param {"X"|"O"} [fill.b1] valor b1
-     * @param {"X"|"O"} [fill.c1] valor c1
-     * @param {"X"|"O"} [fill.a2] valor a2
-     * @param {"X"|"O"} [fill.b2] valor b2
-     * @param {"X"|"O"} [fill.c2] valor c2
-     * @param {"X"|"O"} [fill.a3] valor a3
-     * @param {"X"|"O"} [fill.b3] valor b3
-     * @param {"X"|"O"} [fill.c3] valor c3
-     * @param {object} color Parámetros de color
-     * @param {string} [color.bg] Color de fondo
-     * @param {string} [color.bar] Color de la barra TicTacToe
-     * @param {string} [color.x] Color de **X**
-     * @param {string} [color.o] Color de **O**
-     * @returns {Buffer}
-     */
-    static tictactoe(fill?: {
-        a1?: "X" | "O";
-        b1?: "X" | "O";
-        c1?: "X" | "O";
-        a2?: "X" | "O";
-        b2?: "X" | "O";
-        c2?: "X" | "O";
-        a3?: "X" | "O";
-        b3?: "X" | "O";
-        c3?: "X" | "O";
-    }, color?: {
-        bg?: string;
-        bar?: string;
-        x?: string;
-        o?: string;
-    }): Buffer;
-    /**
-     * Opinión
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.opinion("./image.png", "¡Esto es increíble!")
-      .then(opinion => {
-        canvacard.write(opinion, "opinion.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} avatar Imagen
-     * @param {string} msg Mensaje de opinión
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>}
-     */
-    static opinion(avatar: string | Buffer, msg: string, font?: string): Promise<Buffer>;
-    /**
      * Crea degradado
      * @example
      * ```js
@@ -646,55 +386,6 @@ declare class Canvacard {
      * @returns {Buffer}
      */
     static gradient(colorFrom: string, colorTo: string, width: number, height: number): Buffer;
-    /**
-     * ¡Oh, no! Es estúpido.
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.ohno("¡Esto es increíble!")
-      .then(ohno => {
-        canvacard.write(ohno, "ohno.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string} msg Mensaje
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>}
-     */
-    static ohno(msg: string, font?: string): Promise<Buffer>;
-    /**
-     * Cambiar de opinión (tomado de jgoralcz/image-microservice)
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.changemymind("¡Esto es increíble!")
-      .then(changemymind => {
-        canvacard.write(changemymind, "changemymind.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {String} msg Mensaje
-     * @param {String} [font="Arial"] Familia tipográfica
-     * @see https://github.com/jgoralcz/image-microservice/blob/master/src/workers/canvas/ChangeMyMind.js
-     * @returns {Promise<Buffer>}
-     */
-    static changemymind(msg: string, font?: string): Promise<Buffer>;
-    /**
-     * Clyde
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.clyde("¡Esto es increíble!")
-      .then(clyde => {
-        canvacard.write(clyde, "clyde.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string} msg Mensaje
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>}
-     */
-    static clyde(msg: string, font?: string): Promise<Buffer>;
     /**
      * Cita falsa
      * @example
@@ -798,34 +489,12 @@ declare class Canvacard {
         dark?: boolean;
     }): Promise<Buffer>;
     /**
-     * ¡Oh, mierda!
-     * @example
-     * ```js
-      const canvacard = require("canvacard");
-      canvacard.Canvas.shit("./shit.png")
-      .then(shit => {
-        canvacard.write(shit, "shit.png");
-      })
-      .catch(console.error);
-     * ```
-     * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
-     */
-    static shit(image: string | Buffer): Promise<Buffer>;
-    /**
      * Escribe los datos como archivo
      * @param {Buffer} data datos para escribir
      * @param {string} name nombre del archivo
      * @returns {void}
      */
     static write(data: Buffer, name: string): void;
-    /**
-     * Devuelve el icono predeterminado de un servidor de discord
-     * @param {string} name Nombre del servidor
-     * @param {number} size Icon size. Valid: `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048` & `4096`
-     * @returns {Promise<Buffer>}
-     */
-    static guildIcon(name: string, size?: number): Promise<Buffer>;
     /**
      * Clon de respuesta de discord
      * @param {object} options Opciones

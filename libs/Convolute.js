@@ -12,5 +12,5 @@ module.exports = async (img, matrix, opaque, lvl) => {
     convolute(ctx, canvas, matrix, opaque);
   }
 
-  return canvas.toBuffer();
+  return canvas.toBuffer("image/png");
 };
