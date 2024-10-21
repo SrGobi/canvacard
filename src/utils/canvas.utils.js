@@ -1,10 +1,9 @@
 const { createCanvas, loadImage } = require('@napi-rs/canvas');
-const fs = require('fs');
-const path = require('path');
 const {
   otherImgs,
   statusImgs,
-} = require('../../public/profile-image.files.json');
+} = require('../../assets/base64.files.json');
+const { ImageFactory } = require("../AssetsFactory");
 
 const APIError = require('./error.utils');
 const abbreviateNumber = require('./abbreviate.utils');
@@ -23,10 +22,6 @@ const truncateText = require('./truncateText.utils');
 const alphaValue = 0.4;
 const clydeID = '1081004946872352958';
 
-// Cargar las flags desde los archivos JSON
-const userFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/flags/user.json')));
-const applicationFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../assets/flags/application.json')));
-
 /**
  * Generar el canvas de insignias
  * @param {Object} user Objeto de usuario
@@ -42,10 +37,13 @@ const applicationFlags = JSON.parse(fs.readFileSync(path.join(__dirname, '../../
 async function generateBadgesCanvas(user, options) {
   const { bot, id, flags, discriminator } = user;
 
+  // Cargar las flags desde una URL raw de GitHub (JSON) con fetch
+  const userFlags = await fetch(ImageFactory.FLAGS.USER).then((res) => res.json());
+  const applicationFlags = await fetch(ImageFactory.FLAGS.APPLICATION).then((res) => res.json());
+
   try {
     // Obtener las insignias según los flags
     const userFlagBadges = checkFlags(userFlags, flags).map((flag) => userFlags[flag]?.icon).filter(Boolean);
-    console.log(userFlagBadges);
     const applicationFlagBadges = checkFlags(applicationFlags, flags).map((flag) => applicationFlags[flag]?.icon).filter(Boolean);
 
     // Combinar todas las insignias
@@ -56,8 +54,7 @@ async function generateBadgesCanvas(user, options) {
 
     // Insignias de nombre de usuario heredado
     if (discriminator === "0") {
-      const legacyBadge = "../../assets/flags/icons/username.png";
-      if (legacyBadge) allBadgeIcons.push(getIconPath(legacyBadge));
+      allBadgeIcons.push(getIconPath(ImageFactory.FLAGS.ICONS.USERNAME));
     }
 
     // Lógica adicional para bots
