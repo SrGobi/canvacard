@@ -28,7 +28,7 @@
         "description": "Powered by AutoMod.",
         "shift": 6,
         "undocumented": true,
-        "icon": "icons/apps/automod.svg"
+        "icon": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/images/flags/icons/apps/automod.svg"
     },
     "ALLOW_ASSETS": {
         "description": "Allows the application to create activity assets.",
@@ -99,13 +99,13 @@
         "description": "Indicates if an app has registered global application commands.",
         "shift": 23,
         "undocumented": false,
-        "icon": "icons/apps/supportscommands.svg"
+        "icon": "https://raw.githubusercontent.com/SrGobi/canvacard/assets/images/flags/icons/apps/supportscommands.svg"
     },
     "ACTIVE": {
         "description": "Indicates if an app is considered active. This means that it has had any global command executed in the past 30 days.",
         "shift": 24,
         "undocumented": false
-    },    
+    },
     "IFRAME_MODAL": {
         "description": "Allows the application to use IFrame modals.",
         "shift": 26,
