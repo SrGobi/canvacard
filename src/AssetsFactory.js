@@ -10,7 +10,7 @@ const BASE_URL =
 const prepareURL = (path) => `${BASE_URL}/${path}`;
 
 /**
- * ImageFactory: Proporciona las URLs de las imágenes que se pueden usar en Canvacard.
+ * ImageFactory: Proporciona las URLs de los datos (imagenes o documentos json) que se pueden usar en Canvacard.
  */
 const ImageFactory = {
   BATSLAP: prepareURL("BATSLAP.png"),
@@ -35,6 +35,15 @@ const ImageFactory = {
   WANTED: prepareURL("WANTED.png"),
   WASTED: prepareURL("WASTED.png"),
   YOUTUBE: prepareURL("YOUTUBE.png"),
+  FLAGS: {
+    ICONS: {
+      USERNAME: prepareURL("flags/icons/username.png"),
+    },
+    APPLICATION: prepareURL("flags/application.json"),
+    USER: prepareURL("flags/user.json"),
+  },
+  base64: prepareURL("base64.files.json"),
+
 };
 // Exportar con CommonJS
 module.exports = { ImageFactory };
