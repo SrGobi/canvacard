@@ -10,7 +10,6 @@ module.exports = {
   Welcomer: require("./src/Welcomer"),
   Leaver: require("./src/Leaver"),
   FortniteShop: require("./src/FortniteShop"),
-  FortniteStats: require("./src/FortniteStats"),
   Plugins: require("./src/Plugins"),
   Assets: require("./src/AssetsFactory"),
   MSX: {
