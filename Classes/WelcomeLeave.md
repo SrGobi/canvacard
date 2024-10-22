@@ -9,23 +9,23 @@
 ## Functions
 
 <dl>
-<dt><a href="#setAvatarEstablecer el avatar de la tarjeta">setAvatarEstablecer el avatar de la tarjeta(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setAvatar Establecer el avatar de la tarjeta">setAvatar Establecer el avatar de la tarjeta(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setTituloEstablecer el título de la tarjeta">setTituloEstablecer el título de la tarjeta(value, color)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setTitulo Establecer el título de la tarjeta">setTitulo Establecer el título de la tarjeta(value, color)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setSubtituloEstablecer el subtítulo de la tarjeta">setSubtituloEstablecer el subtítulo de la tarjeta(value, color)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setSubtitulo Establecer el subtítulo de la tarjeta">setSubtitulo Establecer el subtítulo de la tarjeta(value, color)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setColorCircleEstablecer el color del circulo">setColorCircleEstablecer el color del circulo(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setColorCircle Establecer el color del circulo">setColorCircle Establecer el color del circulo(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setColorOverlayEstablecer el color del overlay">setColorOverlayEstablecer el color del overlay(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setColorOverlay Establecer el color del overlay">setColorOverlay Establecer el color del overlay(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setOpacityOverlayEstablecer la opacidad del overlay">setOpacityOverlayEstablecer la opacidad del overlay(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setOpacityOverlay Establecer la opacidad del overlay">setOpacityOverlay Establecer la opacidad del overlay(value)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setBackgroundEstablecer imagen / color de fondo">setBackgroundEstablecer imagen / color de fondo(type, data)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setBackground Establecer imagen / color de fondo">setBackground Establecer imagen / color de fondo(type, data)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#setTypeOverlayEstablecer rectangle / rounded de overlay">setTypeOverlayEstablecer rectangle / rounded de overlay(type)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
+<dt><a href="#setTypeOverlay Establecer rectangle / rounded de overlay">setTypeOverlay Establecer rectangle / rounded de overlay(type)</a> ⇒ <code><a href="#WelcomeLeave">WelcomeLeave</a></code></dt>
 <dd></dd>
-<dt><a href="#buildConstruye la tarjeta de bienvenida">buildConstruye la tarjeta de bienvenida([font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
+<dt><a href="#build Construye la tarjeta de bienvenida">build Construye la tarjeta de bienvenida([font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
 <dd></dd>
 </dl>
 
@@ -134,9 +134,9 @@ Opacidad del overlay
 Tipo de overlay
 
 **Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="setAvatarEstablecer el avatar de la tarjeta"></a>
+<a name="setAvatar Establecer el avatar de la tarjeta"></a>
 
-## setAvatarEstablecer el avatar de la tarjeta(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setAvatar Establecer el avatar de la tarjeta(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -148,9 +148,9 @@ Tipo de overlay
 | --- | --- | --- |
 | value | <code>string</code> \| <code>Buffer</code> | URL de la imagen o Buffer de la imagen |
 
-<a name="setTituloEstablecer el título de la tarjeta"></a>
+<a name="setTitulo Establecer el título de la tarjeta"></a>
 
-## setTituloEstablecer el título de la tarjeta(value, color) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setTitulo Establecer el título de la tarjeta(value, color) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -163,9 +163,9 @@ Tipo de overlay
 | value | <code>string</code> | Valor del título |
 | color | <code>string</code> | Código de color HTML5 "#000000" |
 
-<a name="setSubtituloEstablecer el subtítulo de la tarjeta"></a>
+<a name="setSubtitulo Establecer el subtítulo de la tarjeta"></a>
 
-## setSubtituloEstablecer el subtítulo de la tarjeta(value, color) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setSubtitulo Establecer el subtítulo de la tarjeta(value, color) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -178,9 +178,9 @@ Tipo de overlay
 | value | <code>string</code> | Valor del subtítulo |
 | color | <code>string</code> | Código de color HTML5 "#000000" |
 
-<a name="setColorCircleEstablecer el color del circulo"></a>
+<a name="setColorCircle Establecer el color del circulo"></a>
 
-## setColorCircleEstablecer el color del circulo(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setColorCircle Establecer el color del circulo(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -192,9 +192,9 @@ Tipo de overlay
 | --- | --- | --- |
 | value | <code>string</code> | Código de color HTML5 "#000000" |
 
-<a name="setColorOverlayEstablecer el color del overlay"></a>
+<a name="setColorOverlay Establecer el color del overlay"></a>
 
-## setColorOverlayEstablecer el color del overlay(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setColorOverlay Establecer el color del overlay(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -206,9 +206,9 @@ Tipo de overlay
 | --- | --- | --- |
 | value | <code>string</code> | Código de color HTML5 "#000000" |
 
-<a name="setOpacityOverlayEstablecer la opacidad del overlay"></a>
+<a name="setOpacityOverlay Establecer la opacidad del overlay"></a>
 
-## setOpacityOverlayEstablecer la opacidad del overlay(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setOpacityOverlay Establecer la opacidad del overlay(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -220,9 +220,9 @@ Tipo de overlay
 | --- | --- | --- |
 | value | <code>number</code> | Valor de 0 a 1 para la opacidad |
 
-<a name="setBackgroundEstablecer imagen / color de fondo"></a>
+<a name="setBackground Establecer imagen / color de fondo"></a>
 
-## setBackgroundEstablecer imagen / color de fondo(type, data) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setBackground Establecer imagen / color de fondo(type, data) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -235,9 +235,9 @@ Tipo de overlay
 | type | <code>&quot;COLOR&quot;</code> \| <code>&quot;IMAGE&quot;</code> | Tipo de fondo |
 | data | <code>string</code> | URL de la imagen o código de color HTML |
 
-<a name="setTypeOverlayEstablecer rectangle / rounded de overlay"></a>
+<a name="setTypeOverlay Establecer rectangle / rounded de overlay"></a>
 
-## setTypeOverlayEstablecer rectangle / rounded de overlay(type) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
+## setTypeOverlay Establecer rectangle / rounded de overlay(type) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
 **Kind**: global function  
 **Returns**: [<code>WelcomeLeave</code>](#WelcomeLeave) - La instancia actual de WelcomeLeave  
 **Throws**:
@@ -249,9 +249,9 @@ Tipo de overlay
 | --- | --- | --- |
 | type | <code>&quot;RECTANGLE&quot;</code> \| <code>&quot;ROUNDED&quot;</code> | Tipo de fondo |
 
-<a name="buildConstruye la tarjeta de bienvenida"></a>
+<a name="build Construye la tarjeta de bienvenida"></a>
 
-## buildConstruye la tarjeta de bienvenida([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+## build Construye la tarjeta de bienvenida([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 **Kind**: global function  
 **Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de bienvenida en formato de buffer  
 **Throws**:
