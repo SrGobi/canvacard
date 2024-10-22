@@ -1,10 +1,8 @@
 # Table of contents
 
 * [🥳 Welcome](README.md)
-* [🖋️ Plugins](<Plugins.md>)
 * [🗂️ Classes](<Classes/README.md>)
-  * [🎨 Leaver](<Classes/Leaver.md>)
-  * [🎨 Welcomer](<Classes/Welcomer.md>)
+  * [🎨 Welcome / Leave](<Classes/WelcomeLeave.md>)
   * [🎮 FortniteShop](<Classes/FortniteShop.md>)
   * [🎯 Canvacard](<Classes/Canvacard.md>)
   * [🎶 Spotify](<Classes/Spotify.md>)
