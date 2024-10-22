@@ -12,7 +12,6 @@ const commands = [
   `jsdoc2md ${baseDir}/src/Rank.js > ${docsDir}/Classes/Rank.md`,
   `jsdoc2md ${baseDir}/src/Spotify.js > ${docsDir}/Classes/Spotify.md`,
   `jsdoc2md ${baseDir}/src/FortniteShop.js > ${docsDir}/Classes/FortniteShop.md`,
-  `jsdoc2md ${baseDir}/src/FortniteStats.js > ${docsDir}/Classes/FortniteStats.md`,
   `jsdoc2md ${baseDir}/src/Canvacard.js > ${docsDir}/Classes/Canvacard.md`,
   `jsdoc2md ${baseDir}/src/Plugins.js > ${docsDir}/Classes/Plugins.md`,
 ];
