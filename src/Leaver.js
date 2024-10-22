@@ -196,7 +196,7 @@ class Leaver extends BaseCard {
   /**
    * Valor del color del overlay
    * @param {number|string} value
-   * @returns {Leaver}
+   * @returns {Leaver} La instancia de la clase Leaver
    */
   setOpacityOverlay(value) {
     this.opacityOverlay = value;
@@ -207,9 +207,11 @@ class Leaver extends BaseCard {
    * Establecer imagen / color de fondo
    * @param {"COLOR"|"IMAGE"} type Tipo de fondo
    * @param {string|Buffer} [data] Color o imagen de fondo
+   * @returns {Leaver} La instancia de la clase Leaver
+   * @throws {APIError} Si no se proporciona el tipo o los datos
    */
   setBackground(type, data) {
-    if (!data) throw new Error("Falta campo: datos");
+    if (!data) throw new APIError("Falta campo: datos");
     switch (type) {
       case "COLOR":
         this.data.backgroundGlobal.type = "color";
@@ -220,7 +222,7 @@ class Leaver extends BaseCard {
         this.data.backgroundGlobal.image = data;
         break;
       default:
-        throw new Error(`Tipo de fondo no admitido "${type}"`);
+        throw new APIError(`Tipo de fondo no admitido "${type}"`);
     }
     return this;
   }
@@ -228,9 +230,11 @@ class Leaver extends BaseCard {
   /**
    * Establecer rectangle / rounded de overlay
    * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
+   * @returns {Leaver} La instancia de la clase Leaver
+   * @throws {APIError} Si no se proporciona el tipo
    */
   setTypeOverlay(type) {
-    if (!type) throw new Error("Falta campo: tipo");
+    if (!type) throw new APIError("Falta campo: tipo");
     switch (type) {
       case "RECTANGLE":
         this.typeOverlay.type = "RECTANGLE";
@@ -239,15 +243,15 @@ class Leaver extends BaseCard {
         this.typeOverlay.type = "ROUNDED";
         break;
       default:
-        throw new Error(`Tipo de overlay no admitido "${type}"`);
+        throw new APIError(`Tipo de overlay no admitido "${type}"`);
     }
     return this;
   }
 
   /**
    * Construye la tarjeta de despedida
-   * @param {string} [font="Arial"] Familia tipográfica
-   * @returns {Promise<Buffer>} La tarjeta de despedida en formato de buffer
+   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+   * @returns {Promise<Buffer>} Imagen de la tarjeta de despedida en formato de buffer
    */
   async build(font = "Arial") {
     // Crear lienzo

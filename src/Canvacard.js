@@ -13,6 +13,7 @@ const formatAndValidateHex = require("./utils/formatAndValidateHex.utils");
 const shorten = require("./utils/shorten.utils");
 const discordTime = require("./utils/discordTime.utils");
 const { ImageFactory } = require("./AssetsFactory");
+const APIError = require("./utils/error.utils");
 /**
  * Canvacard Generador De Memes
  */
@@ -30,7 +31,7 @@ class Canvacard {
    * ```
    */
   constructor() {
-    throw new Error(`The ${this.constructor.name} class may not be instantiated!`);
+    throw new APIError(`The ${this.constructor.name} class may not be instantiated!`);
   }
 
   /**
@@ -45,10 +46,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Imagen para activar
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen "triggered"
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async trigger(image) {
-    if (!image) throw new Error("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
     await Canvacard.__wait();
     return await Trigger(image, ImageFactory.TRIGGERED);  // Se usa la imagen desde ImageFactory
   }
@@ -65,10 +67,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Imagen para invertir
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen invertida
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async invert(image) {
-    if (!image) throw new Error("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
     return await Invert(image);
   }
 
@@ -84,10 +87,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen sep
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async sepia(image) {
-    if (!image) throw new Error("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
     return await Sepia(image);
   }
 
@@ -103,10 +107,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen en escala de grises
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async greyscale(image) {
-    if (!image) throw new Error("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
     return await Greyscale(image);
   }
 
@@ -123,11 +128,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Imagen
    * @param {number} amount Cantidad de brillo
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen con brillo
+   * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
    */
   static async brightness(image, amount) {
-    if (!image) throw new Error("Imagen esperada, no recibí nada!");
-    if (isNaN(amount)) throw new Error("¡La cantidad debe ser un número!");
+    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
+    if (isNaN(amount)) throw new APIError("¡La cantidad debe ser un número!");
     return await Brightness(image, amount);
   }
 
@@ -144,11 +150,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Imagen
    * @param {number} amount Cantidad de oscuridad
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen oscura
+   * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
    */
   static async darkness(image, amount) {
-    if (!image) throw new Error("Imagen esperada, no recibí nada!");
-    if (isNaN(amount)) throw new Error("¡La cantidad debe ser un número!");
+    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
+    if (isNaN(amount)) throw new APIError("¡La cantidad debe ser un número!");
     return await Darkness(image, amount);
   }
 
@@ -165,11 +172,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} img Imagen
    * @param {number} amount Cantidad límite
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen umbralizada
+   * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
    */
   static async threshold(img, amount) {
-    if (!img) throw new Error("Imagen esperada, no recibí nada!");
-    if (isNaN(amount)) throw new Error("¡La cantidad debe ser un número!");
+    if (!img) throw new APIError("Imagen esperada, no recibí nada!");
+    if (isNaN(amount)) throw new APIError("¡La cantidad debe ser un número!");
     return await Threshold(img, amount);
   }
 
@@ -188,11 +196,12 @@ class Canvacard {
    * @param {string|Buffer} img Imagen
    * @param {number[]} matrix Matriz de convolución
    * @param {boolean} opaque Si la convolución debe ser opaca
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen convolucionada
+   * @throws {APIError} Si no se proporciona la imagen o la matriz no es un Array
    */
   static async convolute(img, matrix, opaque) {
-    if (!img) throw new Error("Imagen esperada, no recibí nada!");
-    if (!Array.isArray(matrix)) throw new Error("La matriz de convolución debe ser Array.");
+    if (!img) throw new APIError("Imagen esperada, no recibí nada!");
+    if (!Array.isArray(matrix)) throw new APIError("La matriz de convolución debe ser Array.");
     return await Convolute(img, matrix, opaque);
   }
 
@@ -208,10 +217,11 @@ class Canvacard {
     .catch(console.error);
    * @param {string|Buffer} image Imagen para pixelar
    * @param {number} pixels Pixeles
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen pixelada
+   * @throws {APIError} Si no se proporciona la imagen o los píxeles no son un número
    */
   static async pixelate(image, pixels = 5) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     if (!pixels || typeof pixels !== "number") pixels = 100;
     if (pixels < 1) pixels = 100;
     if (pixels > 100) pixels = 100;
@@ -241,10 +251,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Imagen para enfocar
    * @param {number} lvl intensidad de la nitidez
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen enfocada
+   * @throws {APIError} Si no se proporciona la imagen o el nivel no es un número
    */
   static async sharpen(image, lvl = 1) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (isNaN(lvl)) throw new APIError("¡El nivel debe ser un número!");
     return await Convolute(image, Canvacard.CONVOLUTION_MATRIX.SHARPEN, true, lvl);
   }
 
@@ -261,10 +273,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Fuente de imagen 
    * @param {number} lvl intensidad
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen quemada
+   * @throws {APIError} Si no se proporciona la imagen o el nivel no es un número
    */
   static async burn(image, lvl = 1) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (isNaN(lvl)) throw new APIError("¡El nivel debe ser un número!");
     return await Convolute(image, Canvacard.CONVOLUTION_MATRIX.BURN, true, lvl);
   }
 
@@ -280,10 +294,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen circular
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async circle(image) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     const img = await loadImage(image);
     const canvas = createCanvas(img.width, img.height);
     const ctx = canvas.getContext("2d");
@@ -305,11 +320,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen fusionada
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async fuse(image1, image2) {
-    if (!image1) throw new Error("Falta el parámetro 'imagen1'.");
-    if (!image2) throw new Error("Falta el parámetro 'imagen2'.");
+    if (!image1) throw new APIError("Falta el parámetro 'imagen1'.");
+    if (!image2) throw new APIError("Falta el parámetro 'imagen2'.");
 
     const img1 = await loadImage(image1);
     const img2 = await loadImage(image2);
@@ -337,10 +353,11 @@ class Canvacard {
    * @param {string|Buffer} image Fuente de imagen
    * @param {number} width ancho
    * @param {number} height altura
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen redimensionada
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async resize(image, width, height) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     const img = await loadImage(image);
     const w = width && !isNaN(width) ? width : img.width;
     const h = height && !isNaN(height) ? width : img.height;
@@ -363,11 +380,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de beso
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async kiss(image1, image2) {
-    if (!image1) throw new Error("¡La primera imagen no fue proporcionada!");
-    if (!image2) throw new Error("¡La segunda imagen no fue proporcionada!");
+    if (!image1) throw new APIError("¡La primera imagen no fue proporcionada!");
+    if (!image2) throw new APIError("¡La segunda imagen no fue proporcionada!");
     await this.__wait();
     const canvas = createCanvas(768, 574);
     const ctx = canvas.getContext("2d");
@@ -393,11 +411,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de "spank"
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async spank(image1, image2) {
-    if (!image1) throw new Error("¡La primera imagen no fue proporcionada!");
-    if (!image2) throw new Error("¡La segunda imagen no fue proporcionada!");
+    if (!image1) throw new APIError("¡La primera imagen no fue proporcionada!");
+    if (!image2) throw new APIError("¡La segunda imagen no fue proporcionada!");
     await this.__wait();
     const canvas = createCanvas(500, 500);
     const ctx = canvas.getContext("2d");
@@ -423,11 +442,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de "slap"
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async slap(image1, image2) {
-    if (!image1) throw new Error("¡La imagen no fue proporcionada!");
-    if (!image2) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image1) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image2) throw new APIError("¡La imagen no fue proporcionada!");
     await this.__wait();
     const canvas = createCanvas(1000, 500);
     const ctx = canvas.getContext("2d");
@@ -452,10 +472,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de facepalm
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async facepalm(image) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     await this.__wait();
     let layer = await loadImage(ImageFactory.FACEPALM);
     let canvas = createCanvas(632, 357);
@@ -481,10 +502,11 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {string} color Color HTML5
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen coloreada
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async colorfy(image, color) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     const img = await loadImage(image);
     const canvas = createCanvas(img.width, img.height);
     const ctx = canvas.getContext("2d");
@@ -511,11 +533,12 @@ class Canvacard {
    * @param {string|Buffer} image1 Rostro para la niña en color rojo.
    * @param {string|Buffer} image2 Cara para el chico
    * @param {string|Buffer} image3 Cara para la otra chica [opcional]
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de distracción
+   * @throws {APIError} Si no se proporciona la primera imagen
    */
   static async distracted(image1, image2, image3 = null) {
-    if (!image1) throw new Error("¡No se proporcionó la primera imagen!");
-    if (!image2) throw new Error("¡No se proporcionó la segunda imagen!");
+    if (!image1) throw new APIError("¡No se proporcionó la primera imagen!");
+    if (!image2) throw new APIError("¡No se proporcionó la segunda imagen!");
     await this.__wait();
     const background = await loadImage(ImageFactory.DISTRACTED);
     const avatar1 = await loadImage(await Canvacard.circle(image1));
@@ -546,10 +569,11 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {boolean} greyscale Si debe ser una imagen en escala de grises
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de la celda
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async jail(image, greyscale = false) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(greyscale ? await Canvacard.greyscale(image) : image);
     const bg = await loadImage(ImageFactory.JAIL);
@@ -576,11 +600,12 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image1 Primera imagen
    * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de cama
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async bed(image1, image2) {
-    if (!image1) throw new Error("¡No se proporcionó la primera imagen!");
-    if (!image2) throw new Error("¡No se proporcionó la segunda imagen!");
+    if (!image1) throw new APIError("¡No se proporcionó la primera imagen!");
+    if (!image2) throw new APIError("¡No se proporcionó la segunda imagen!");
     await this.__wait();
     const avatar = await loadImage(image1);
     const avatar1 = await loadImage(image2);
@@ -611,10 +636,11 @@ class Canvacard {
    * ```
    * @param {string|Buffer} image Fuente de imagen
    * @param {boolean} dark Si la imagen debe estar en modo oscuro
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen eliminada
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async delete(image, dark = false) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
     const bg = await loadImage(dark ? await Canvacard.invert(ImageFactory.DELETE) : ImageFactory.DELETE);
@@ -643,11 +669,12 @@ class Canvacard {
    * @param {string} colorTo Color final
    * @param {number} width Ancho de la imagen
    * @param {number} height Altura de imagen
-   * @returns {Buffer}
+   * @returns {Promise<Buffer>} Imagen degradada
+   * @throws {APIError} Si no se proporciona el color inicial o final
    */
   static gradient(colorFrom, colorTo, width, height) {
-    if (!colorFrom) throw new Error("¡ColorFrom no fue proporcionado!");
-    if (!colorTo) throw new Error("ColorTo no fue proporcionado!");
+    if (!colorFrom) throw new APIError("¡ColorFrom no fue proporcionado!");
+    if (!colorTo) throw new APIError("ColorTo no fue proporcionado!");
 
     const canvas = createCanvas(width || 400, height || 200);
     const ctx = canvas.getContext("2d");
@@ -677,8 +704,8 @@ class Canvacard {
    * @param {string} [options.message] Mensaje
    * @param {string} [options.username] Nombre de usuario
    * @param {string} [options.color] Color
-   * @param {string} [font="Arial"] Familia tipográfica
-   * @returns {Promise<Buffer>}
+   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+   * @returns {Promise<Buffer>} Imagen de cita falsa
    */
   static async quote(options = { image, message, username, color }, font = "Arial") {
     await this.__wait();
@@ -730,13 +757,14 @@ class Canvacard {
    * @param {String} [options.username] Nombre de usuario
    * @param {String} [options.message] Comentario
    * @param {String|Buffer} [options.image] Imagen
-   * @param {String} [font="Arial"] Familia tipográfica
-   * @returns {Promise<Buffer>}
+   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+   * @returns {Promise<Buffer>} Imagen de comentario de PornHub
+   * @throws {APIError} Si no se proporciona el nombre de usuario, el mensaje o la imagen
    */
   static async phub(options = { username: null, message: null, image: null }, font = "Arial") {
-    if (!options.username) throw new Error("¡El nombre de usuario no puede estar vacío!");
-    if (!options.message) throw new Error("¡El mensaje no puede estar vacío!");
-    if (!options.image) throw new Error("¡La imagen no puede estar vacía!");
+    if (!options.username) throw new APIError("¡El nombre de usuario no puede estar vacío!");
+    if (!options.message) throw new APIError("¡El mensaje no puede estar vacío!");
+    if (!options.image) throw new APIError("¡La imagen no puede estar vacía!");
 
     await this.__wait();
     let image = await loadImage(options.image);
@@ -773,10 +801,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de "wanted"
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async wanted(image) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(image);
     const bg = await loadImage(ImageFactory.WANTED);
@@ -802,10 +831,11 @@ class Canvacard {
     .catch(console.error);
    * ```
    * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de "wasted"
+   * @throws {APIError} Si no se proporciona la imagen
    */
   static async wasted(image) {
-    if (!image) throw new Error("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
     await this.__wait();
     const img = await loadImage(await Canvacard.greyscale(image));
     const bg = await loadImage(ImageFactory.WASTED);
@@ -835,12 +865,13 @@ class Canvacard {
    * @param {string} [ops.content] El comentario
    * @param {string|Buffer} [ops.avatar] Fuente de avatar
    * @param {boolean} [ops.dark=false] ¿Modo oscuro?
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de comentario de YouTube
+   * @throws {APIError} Si no se proporciona el nombre de usuario, el contenido o el avatar
    */
   static async youtube(ops = { username: null, content: null, avatar: null, dark: false }) {
-    if (!ops.username || typeof ops.username !== "string") throw new Error("¡El nombre de usuario no puede estar vacío!");
-    if (!ops.content || typeof ops.content !== "string") throw new Error("¡El contenido no puede estar vacío!");
-    if (!ops.avatar) throw new Error("¡Es posible que la fuente del avatar no esté vacía!");
+    if (!ops.username || typeof ops.username !== "string") throw new APIError("¡El nombre de usuario no puede estar vacío!");
+    if (!ops.content || typeof ops.content !== "string") throw new APIError("¡El contenido no puede estar vacío!");
+    if (!ops.avatar) throw new APIError("¡Es posible que la fuente del avatar no esté vacía!");
     ops.dark = !!ops.dark;
 
     await this.__wait();
@@ -895,7 +926,8 @@ class Canvacard {
    * @param {string} [options.hex2] Color hexadecimal de la otra persona
    * @param {string} [options.mainText] El mensaje
    * @param {string} [options.replyText] El mensaje de respuesta
-   * @returns {Promise<Buffer>}
+   * @returns {Promise<Buffer>} Imagen de respuesta de discord
+   * @throws {APIError} Si no se proporciona el avatar, el nombre de usuario o el mensaje
    * @example
   const img = "https://cdn.discordapp.com/embed/avatars/0.png";
   const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
@@ -914,12 +946,12 @@ class Canvacard {
   static async reply(options = { avatar1: null, avatar2: null, user1: null, user2: null, hex1: null, hex2: null, mainText: null, replyText: null }) {
     const { avatar1, avatar2, user1, user2, hex1, hex2, mainText, replyText } = options;
 
-    if (!avatar1) throw new Error("¡No se proporcionó el primer avatar!");
-    if (!avatar2) throw new Error("¡No se proporcionó el segundo avatar!");
-    if (!user1) throw new Error("¡No se proporcionó el primer nombre de usuario!");
-    if (!user2) throw new Error("¡No se proporcionó el segundo nombre de usuario!");
-    if (!mainText || typeof mainText !== "string") throw new Error("¡No se proporcionó el texto principal!");
-    if (!replyText || typeof replyText !== "string") throw new Error("¡No se proporcionó el texto de respuesta!");
+    if (!avatar1) throw new APIError("¡No se proporcionó el primer avatar!");
+    if (!avatar2) throw new APIError("¡No se proporcionó el segundo avatar!");
+    if (!user1) throw new APIError("¡No se proporcionó el primer nombre de usuario!");
+    if (!user2) throw new APIError("¡No se proporcionó el segundo nombre de usuario!");
+    if (!mainText || typeof mainText !== "string") throw new APIError("¡No se proporcionó el texto principal!");
+    if (!replyText || typeof replyText !== "string") throw new APIError("¡No se proporcionó el texto de respuesta!");
     if (!hex1 || typeof hex1 !== "string") hex1 = "#FFFFFF";
     if (!hex2 || typeof hex2 !== "string") hex2 = "#FFFFFF";
 

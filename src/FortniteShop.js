@@ -4,7 +4,25 @@ const APIError = require("./utils/error.utils");
 const formatVariable = require("./utils/formatVariable.utils");
 const parseSvg = require("./utils/parseSvg.utils");
 
+/**
+ * Creador de tiene de artículos de Fortnite
+ */
 class FortniteShop {
+  /**
+   * <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">
+   * 
+   * Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
+   * 
+   * @example
+   * ```js
+    const shop = new canvacard.FortniteShop()
+		.setToken("f4a26b940ef54a9a4238cef040bd08fa9001cd6c")
+		.setText("footer", "ESP CUSTOMS X FORTNITE")
+
+	  const FortniteShopImage = await shop.build("Luckiest Guy");
+	  canvacard.write(FortniteShopImage, "./fortnite_shop.png");
+   * ```
+   */
   constructor() {
     this.token = "f4a26b940ef54a9a4238cef040bd08fa9001cd6c";
     this.textHeader = "TIENDA DE ARTÍCULOS FORTNITE";
@@ -12,17 +30,33 @@ class FortniteShop {
     this.options = { lang: "es", dateFormat: "dddd, MMMM Do YYYY" };
   }
 
+  /**
+   * Establecer el token de la API de Fortnite
+   * @param {string} value Token de la API de Fortnite
+   * @returns {FortniteShop} La instancia actual de FortniteShop
+   */
   setToken(value) {
     this.token = value;
     return this;
   }
 
+  /**
+   * Establecer el texto del encabezado
+   * @param {string} value Texto del encabezado
+   * @returns {FortniteShop} La instancia actual de FortniteShop
+   */
   setText(variable, value) {
     const formattedVariable = formatVariable("text", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
   }
 
+  /**
+   * Construir la tarjeta de la tienda de Fortnite
+   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+   * @returns {Promise<Buffer>} Imagen de la tarjeta de la tienda de Fortnite
+   * @throws {APIError} Si no se puede obtener la información de la tienda
+   */
   async build(font = "Arial") {
     if (!this.token) return console.log("Por favor ingrese un token válido para fortnite-api.com!");
 
