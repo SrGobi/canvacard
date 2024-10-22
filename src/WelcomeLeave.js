@@ -29,13 +29,11 @@ class WelcomeLeave {
    * @example
    * ```js
     const welcome = new canvacard.Welcomer()
-      .setAvatar(data.defaultAvatarURL)
-      .setBackground('IMAGE', 'https://i.imgur.com/aClDVjh.jpg')
-      .setTitulo("Titulo de la Tarjeta👋")
-      .setSubtitulo("Subtitulo de la Tarjeta 👋")
-      .setOpacityOverlay("0.5")
-      .setColorTitulo('#FFFFFF')
-      .setColorSubtitulo('#FFFFFF')
+      .setAvatar(data.avatarURL)
+      .setBackground('COLOR', '#000000')
+      .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
+      .setSubtitulo("Subtitulo de la Tarjeta 👋", '#FFFFFF')
+      .setOpacityOverlay(1)
       .setColorCircle('#FFFFFF')
       .setColorOverlay('#5865F2')
       .setTypeOverlay('ROUNDED');
