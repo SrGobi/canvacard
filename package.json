@@ -51,11 +51,10 @@
   "homepage": "https://canvacard.srgobi.com",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.58",
-    "@skyra/gifenc": "^1.0.1",
-    "fortnite": "^4.3.2"
+    "@skyra/gifenc": "^1.0.1"
   },
   "devDependencies": {
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.7.8",
     "typescript": "^5.6.3"
   }
 }
