@@ -1,5 +1,4 @@
 // canvacard/src/WelcomeLeave.js
-const BaseCard = require("./Base/BaseCard");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const APIError = require("./utils/error.utils");
 const shorten = require("./utils/shorten.utils");
