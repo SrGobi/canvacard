@@ -2,9 +2,8 @@
 
 <dl>
 <dt><a href="#WelcomeLeave">WelcomeLeave</a></dt>
-<dd></dd>
-<dt><a href="#WelcomeLeave">WelcomeLeave</a></dt>
-<dd></dd>
+<dd><p>Creador de tarjetas de bienvenida o despedida</p>
+</dd>
 </dl>
 
 ## Functions
@@ -33,10 +32,11 @@
 <a name="WelcomeLeave"></a>
 
 ## WelcomeLeave
+Creador de tarjetas de bienvenida o despedida
+
 **Kind**: global class  
 
 * [WelcomeLeave](#WelcomeLeave)
-    * [new WelcomeLeave()](#new_WelcomeLeave_new)
     * [new WelcomeLeave()](#new_WelcomeLeave_new)
     * [.backgroundGlobal](#WelcomeLeave+backgroundGlobal)
     * [.avatar](#WelcomeLeave+avatar) : <code>string</code>
@@ -48,120 +48,6 @@
     * [.colorOverlay](#WelcomeLeave+colorOverlay) : <code>number</code> \| <code>string</code>
     * [.opacityOverlay](#WelcomeLeave+opacityOverlay) : <code>string</code>
     * [.typeOverlay](#WelcomeLeave+typeOverlay) : <code>string</code>
-
-<a name="new_WelcomeLeave_new"></a>
-
-### new WelcomeLeave()
-Creador de tarjetas de bienvenida o despedida
-
-<a name="new_WelcomeLeave_new"></a>
-
-### new WelcomeLeave()
-<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_1.png" alt="Welcome Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_2.png" alt="Welcome Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_3.png" alt="Welcome Card Preview 3">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_4.png" alt="Welcome Card Preview 4">  </a></details>
-
-**Example**  
-```js
-    const welcome = new canvacard.Welcomer()
-      .setAvatar(data.avatarURL)
-      .setBackground('COLOR', '#000000')
-      .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
-      .setSubtitulo("Subtitulo de la Tarjeta 👋", '#FFFFFF')
-      .setOpacityOverlay(1)
-      .setColorCircle('#FFFFFF')
-      .setColorOverlay('#5865F2')
-      .setTypeOverlay('ROUNDED');
-    const welcomeImage = await welcome.build("Suravaram");
-    canvacard.write(welcomeImage, "./welcomer.png");```
-<a name="WelcomeLeave+backgroundGlobal"></a>
-
-### welcomeLeave.backgroundGlobal
-Fondo de la tarjeta
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-**Properties**
-
-| Name | Type | Default | Description |
-| --- | --- | --- | --- |
-| backgroundGlobal | <code>object</code> |  | Fondo de la tarjeta |
-| [backgroundGlobal.type] | <code>&quot;IMAGE&quot;</code> \| <code>&quot;COLOR&quot;</code> | <code>&quot;color&quot;</code> | Tipo de fondo |
-
-<a name="WelcomeLeave+avatar"></a>
-
-### welcomeLeave.avatar : <code>string</code>
-Avatar de la tarjeta
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+titulo"></a>
-
-### welcomeLeave.titulo : <code>string</code>
-Título creado con Canvacard
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+subtitulo"></a>
-
-### welcomeLeave.subtitulo : <code>string</code>
-Subtítulo creado con Canvacard
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+colorTitulo"></a>
-
-### welcomeLeave.colorTitulo : <code>string</code>
-Color del título creado con Canvacard
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+colorSubtitulo"></a>
-
-### welcomeLeave.colorSubtitulo : <code>string</code>
-Color del Subtítulo creado con Canvacard
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+colorCircle"></a>
-
-### welcomeLeave.colorCircle : <code>string</code>
-Color del circulo
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+colorOverlay"></a>
-
-### welcomeLeave.colorOverlay : <code>number</code> \| <code>string</code>
-Color del overlay
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+opacityOverlay"></a>
-
-### welcomeLeave.opacityOverlay : <code>string</code>
-Opacidad del overlay
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave+typeOverlay"></a>
-
-### welcomeLeave.typeOverlay : <code>string</code>
-Tipo de overlay
-
-**Kind**: instance property of [<code>WelcomeLeave</code>](#WelcomeLeave)  
-<a name="WelcomeLeave"></a>
-
-## WelcomeLeave
-**Kind**: global class  
-
-* [WelcomeLeave](#WelcomeLeave)
-    * [new WelcomeLeave()](#new_WelcomeLeave_new)
-    * [new WelcomeLeave()](#new_WelcomeLeave_new)
-    * [.backgroundGlobal](#WelcomeLeave+backgroundGlobal)
-    * [.avatar](#WelcomeLeave+avatar) : <code>string</code>
-    * [.titulo](#WelcomeLeave+titulo) : <code>string</code>
-    * [.subtitulo](#WelcomeLeave+subtitulo) : <code>string</code>
-    * [.colorTitulo](#WelcomeLeave+colorTitulo) : <code>string</code>
-    * [.colorSubtitulo](#WelcomeLeave+colorSubtitulo) : <code>string</code>
-    * [.colorCircle](#WelcomeLeave+colorCircle) : <code>string</code>
-    * [.colorOverlay](#WelcomeLeave+colorOverlay) : <code>number</code> \| <code>string</code>
-    * [.opacityOverlay](#WelcomeLeave+opacityOverlay) : <code>string</code>
-    * [.typeOverlay](#WelcomeLeave+typeOverlay) : <code>string</code>
-
-<a name="new_WelcomeLeave_new"></a>
-
-### new WelcomeLeave()
-Creador de tarjetas de bienvenida o despedida
 
 <a name="new_WelcomeLeave_new"></a>
 
