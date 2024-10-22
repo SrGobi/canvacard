@@ -269,9 +269,9 @@ Establece la marca de tiempo de creación
 Construye la tarjeta de rango
 
 **Kind**: instance method of [<code>Rank</code>](#Rank)  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - La tarjeta de rango en formato de buffer  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de rango en formato de buffer  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
 

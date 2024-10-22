@@ -9,7 +9,6 @@
   * [🎯 Canvacard](<Classes/Canvacard.md>)
   * [🎶 Spotify](<Classes/Spotify.md>)
   * [🏆 Rank](<Classes/Rank.md>)
-  * [📊 FortniteStats](<Classes/FortniteStats.md>)
   * [🖋️ Plugins](<Classes/Plugins.md>)
 * [🧰 Utils](<Utils/README.md>)
   * [🔧 Abbreviate](<Utils/abbreviate.utils.md>)

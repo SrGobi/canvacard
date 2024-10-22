@@ -218,11 +218,11 @@ Definir fondo
 Construye la tarjeta de presencia de Spotify.
 
 **Kind**: instance method of [<code>Spotify</code>](#Spotify)  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - La tarjeta de presencia de Spotify en formato de buffer  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de presencia de Spotify en formato de buffer  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
 
 <a name="SpotifyDataBG"></a>
 

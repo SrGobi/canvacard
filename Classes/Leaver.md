@@ -27,8 +27,8 @@ Creador de tarjetas de despedida
     * [.setColorCircle(value)](#Leaver+setColorCircle) ⇒ [<code>Leaver</code>](#Leaver)
     * [.setColorOverlay(value)](#Leaver+setColorOverlay) ⇒ [<code>Leaver</code>](#Leaver)
     * [.setOpacityOverlay(value)](#Leaver+setOpacityOverlay) ⇒ [<code>Leaver</code>](#Leaver)
-    * [.setBackground(type, [data])](#Leaver+setBackground)
-    * [.setTypeOverlay(type)](#Leaver+setTypeOverlay)
+    * [.setBackground(type, [data])](#Leaver+setBackground) ⇒ [<code>Leaver</code>](#Leaver)
+    * [.setTypeOverlay(type)](#Leaver+setTypeOverlay) ⇒ [<code>Leaver</code>](#Leaver)
     * [.build([font])](#Leaver+build) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 
 <a name="new_Leaver_new"></a>
@@ -221,6 +221,7 @@ Valor del color del overlay
 Valor del color del overlay
 
 **Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Returns**: [<code>Leaver</code>](#Leaver) - La instancia de la clase Leaver  
 
 | Param | Type |
 | --- | --- |
@@ -228,10 +229,15 @@ Valor del color del overlay
 
 <a name="Leaver+setBackground"></a>
 
-### leaver.setBackground(type, [data])
+### leaver.setBackground(type, [data]) ⇒ [<code>Leaver</code>](#Leaver)
 Establecer imagen / color de fondo
 
 **Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Returns**: [<code>Leaver</code>](#Leaver) - La instancia de la clase Leaver  
+**Throws**:
+
+- <code>APIError</code> Si no se proporciona el tipo o los datos
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -240,10 +246,15 @@ Establecer imagen / color de fondo
 
 <a name="Leaver+setTypeOverlay"></a>
 
-### leaver.setTypeOverlay(type)
+### leaver.setTypeOverlay(type) ⇒ [<code>Leaver</code>](#Leaver)
 Establecer rectangle / rounded de overlay
 
 **Kind**: instance method of [<code>Leaver</code>](#Leaver)  
+**Returns**: [<code>Leaver</code>](#Leaver) - La instancia de la clase Leaver  
+**Throws**:
+
+- <code>APIError</code> Si no se proporciona el tipo
+
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -255,9 +266,9 @@ Establecer rectangle / rounded de overlay
 Construye la tarjeta de despedida
 
 **Kind**: instance method of [<code>Leaver</code>](#Leaver)  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - La tarjeta de despedida en formato de buffer  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de despedida en formato de buffer  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Familia tipográfica |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
 
