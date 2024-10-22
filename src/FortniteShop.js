@@ -1,2420 +1,268 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
-const fortnite = require("fortnite-9812");
 const fs = require("fs");
 const APIError = require("./utils/error.utils");
 const formatVariable = require("./utils/formatVariable.utils");
-
-/**
- * Obtiene variables y tipos.
- * @param {object} canvas El lienzo
- * @param {object} text El texto
- * @param {object} defaultFontSize El tamaño de píxel de fuente predeterminado
- * @param {object} width El ancho máximo del texto
- * @param {object} font La fuente del texto
- * @returns La variable formateada
- */
-const applyText = (canvas, text, defaultFontSize, width, font) => {
-  const ctx = canvas.getContext("2d");
-  do {
-    ctx.font = `${(defaultFontSize -= 1)}px ${font}`;
-  } while (ctx.measureText(text).width > width);
-  return ctx.font;
-}
-
-
-/**
- * Creador de imagen de la tienda de fortnite
- */
+const parseSvg = require("./utils/parseSvg.utils");
 
 class FortniteShop {
-
-  /**
-   * ![FortniteStats Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png)
-   * 
-   * @example
-   * ```js
-    const FortniteShopCardURL = await new FortniteShop()
-      .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-      .setText("footer", "ESP CUSTOMS X FORTNITE")
-      .toAttachment();
-    await channel.send({ files: [{ attachment: FortniteShopCardURL, name: 'FortniteShop.png' }] })
-    * ```
-   */
-
   constructor() {
-    /**
-     * Token
-     * @type {string}
-     */
-    this.token = "642ce759-161a-4241-b10f-957a94c7305a";
-    /**
-     * Texto del encabezado
-     * @type {string}
-     */
+    this.token = "f4a26b940ef54a9a4238cef040bd08fa9001cd6c";
     this.textHeader = "TIENDA DE ARTÍCULOS FORTNITE";
-    /**
-     * Texto del dia
-     * @type {string}
-     */
-    this.textDaily = "DIARIO";
-    /**
-     * Texto de destacados
-     * @type {string}
-     */
-    this.textFeatured = "DESTACADOS";
-    /**
-     * Textos de datos
-     * @type {string}
-     */
-    this.textDate = "Tienda Fortnite de {date}";
-    /**
-     * Texto del footer
-     * @type {string}
-     */
     this.textFooter = "Generado con canvascard";
-    this.options = {
-      lang: "es",
-      dateFormat: "dddd, MMMM Do YYYY",
-    };
-    /**
-     * imagen de fondo
-     * @type {string}
-     */
-    this.background = `${__dirname}/../assets/img/fortnite/shop/background.png`;
+    this.options = { lang: "es", dateFormat: "dddd, MMMM Do YYYY" };
   }
 
-  /**
-   * Valor del Token
-   * @param {string} value
-   * @returns {FortniteShop}
-   */
   setToken(value) {
     this.token = value;
     return this;
   }
 
-  /**
-   * Valor del background
-   * @param {string} value
-   * @returns {FortniteShop}
-   */
-  setBackground(value) {
-    this.background = value;
-    return this;
-  }
-
-  /**
-   * Valor del texto
-   * @param {string} value
-   * @returns {FortniteShop}
-   */
   setText(variable, value) {
     const formattedVariable = formatVariable("text", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
   }
 
-  /**
-   * Valor del idioma
-   * @param {string} value
-   * @returns {FortniteShop}
-   */
-  lang(value) {
-    this.options.lang = value;
-    return this;
-  }
-
-  /**
-   * Valor del formato de fecha
-   * @param {string} value
-   * @returns {FortniteShop}
-   */
-  dateFormat(value) {
-    this.options.dateFormat = value;
-    return this;
-  }
-
-  /**
-   * Construye la imagen de la tienda de fortnite
-   * @param {string} [font="Arial"] Familia tipográfica
-   * @returns {Promise<string>} La imagen de la tienda de fortnite
-   */
   async build(font = "Arial") {
-    if (!this.token) return console.log("Please enter a valid token fnbr.co !");
+    if (!this.token) return console.log("Por favor ingrese un token válido para fortnite-api.com!");
 
-    const rarityCard = (value) => {
-      let colorBorder = "#b1b1b1",
-        colorCenter = "#bebebe",
-        colorExt = "#646464";
-
-      if (value === "legendary") {
-        colorBorder = "#e98d4b";
-        colorCenter = "#ea8d23";
-        colorExt = "#78371d";
-      } else if (value === "epic") {
-        colorBorder = "#e95eff";
-        colorCenter = "#c359ff";
-        colorExt = "#4b2483";
-      } else if (value === "rare") {
-        colorBorder = "#37d1ff";
-        colorCenter = "#2cc1ff";
-        colorExt = "#143977";
-      } else if (value === "uncommon") {
-        colorBorder = "#87e339";
-        colorCenter = "#69bb1e";
-        colorExt = "#175117";
-      } else if (value === "common") {
-        colorBorder = "#b1b1b1";
-        colorCenter = "#bebebe";
-        colorExt = "#646464";
-      } else if (value === "dark") {
-        colorBorder = "#ff42e7";
-        colorCenter = "#fb22df";
-        colorExt = "#520c6f";
-      } else if (value === "dc") {
-        colorBorder = "#6094ce";
-        colorCenter = "#5475c7";
-        colorExt = "#243461";
-      } else if (value === "marvel") {
-        colorBorder = "#ef3537";
-        colorCenter = "#c53334";
-        colorExt = "#761b1b";
-      } else if (value === "lava") {
-        colorBorder = "#d19635";
-        colorCenter = "#ea8d23";
-        colorExt = "#6a0a31";
-      } else if (value === "frozen") {
-        colorBorder = "#c4dff7";
-        colorCenter = "#94dfff";
-        colorExt = "#269ed6";
-      } else if (value === "slurp") {
-        colorBorder = "#53f0ff";
-        colorCenter = "#29f1a3";
-        colorExt = "#12a9a4";
-      } else if (value === "icon_series") {
-        colorBorder = "#52e0e0";
-        colorCenter = "#256b6b";
-        colorExt = "#12a9a4";
-      } else if (value === "shadow") {
-        colorBorder = "#949494";
-        colorCenter = "#717171";
-        colorExt = "#191919";
-      } else if (value === "star_wars") {
-        colorBorder = "#e7c413";
-        colorCenter = "#1b366e";
-        colorExt = "#081737";
-      }
-
-      return {
-        colorBorder: colorBorder,
-        colorCenter: colorCenter,
-        colorExt: colorExt,
-      };
-    };
-
-    const fortniteClient = new fortnite.Client({ fnbrToken: this.token });
-
-    let shop = await fortniteClient.fnbrShop();
-
-    const filesDir = `${__dirname}/../assets/img/fortnite/shop/cache`;
-
-    fs.readdir(filesDir, function (err, files) {
-      //error de manejo
-      if (error) {
-        throw new APIError(`Unable to scan directory: ${error.message}`);
-      }
-
-      files.forEach(function (file) {
-        if (file.split(".")[1] === "png") {
-          if (Number(file.split("_")[0]) < Date.now() - 86400000 * 5) {
-            fs.unlinkSync(
-              `${__dirname}/../assets/img/fortnite/shop/cache/${file}`
-            );
-          }
-        }
-      });
+    const shopRequest = await fetch("https://fortnite-api.com/v2/shop/br/combined?language=es", {
+      headers: { "x-api-key": this.token }
     });
 
-    const path = `${__dirname}/../assets/img/fortnite/shop/cache/${new Date(
-      shop.data.date
-    ).getTime()}_${this.options.lang}.png`;
+    if (!shopRequest.ok) throw new APIError("Error al obtener datos de la tienda: " + shopRequest.statusText);
 
-    if (fs.existsSync(path)) {
-      return path;
-    } else {
-      let dateShop = this.textDate.replace(
-        "{date}",
-        new Intl.DateTimeFormat(this.options.lang, {
-          weekday: 'long', // "dddd"
-          year: 'numeric', // "YYYY"
-          month: 'long',   // "MMMM"
-          day: 'numeric',  // "Do"
-        }).format(new Date(shop.data.date))
-      ),
-        dailyHeight =
-          shop.data.daily.length < 9
-            ? Math.ceil(shop.data.daily.length / 2) * 297
-            : Math.ceil(shop.data.daily.length / 3) * 297,
-        featuredHeight =
-          shop.data.featured.length < 9
-            ? Math.ceil(shop.data.featured.length / 2) * 297
-            : Math.ceil(shop.data.featured.length / 3) * 297,
-        canvas =
-          shop.data.daily.length < 9 && shop.data.featured.length < 9
-            ? shop.data.daily.length >= shop.data.featured.length
-              ? createCanvas(1220, 250 + dailyHeight)
-              : createCanvas(1220, 250 + featuredHeight)
-            : shop.data.daily.length >= shop.data.featured.length
-              ? createCanvas(1220 + 297 * 2, 250 + dailyHeight)
-              : createCanvas(1220 + 297 * 2, 250 + featuredHeight),
-        ctx = canvas.getContext("2d");
+    const shopData = await shopRequest.json();
+    const entries = shopData.data.featured.entries;
 
-      /* BACKGROUND */
-      if (this.background.startsWith("#")) {
-        let background = this.background;
-        ctx.fillStyle = background;
-        if (canvas.height > 2026) {
-          ctx.fillRect(0, 0, (canvas.height * 3268) / 2027, canvas.height);
-        } else {
-          ctx.fillRect(0, 0, 3268, 2027);
-        }
+    // Crear un nuevo arreglo para los ítems
+    let items = [];
+    const existingItemsSet = new Set(); // Usar Set para evitar duplicados
+
+    for (const entry of entries) {
+      if (entry.bundle) {
+        // Si es un lote, obtener el primer ítem del lote para la rareza
+        const bundle = entry.bundle;
+        const firstItem = entry.items[0]; // Obtener el primer ítem
+
+        // Agregar el lote al arreglo, usando la rareza del primer ítem
+        items.push({
+          name: bundle.name,
+          type: bundle.info,
+          images: bundle.image,
+          regularPrice: entry.regularPrice,
+          finalPrice: entry.finalPrice,
+          rarity: firstItem?.rarity || { backendValue: 'EFortRarity::Common' } // Agregar rareza del primer ítem o valor por defecto
+        });
       } else {
-        let background = await loadImage(
-          `${__dirname}/../assets/img/fortnite/shop/background.png`
-        );
-        if (canvas.height > 2026) {
-          ctx.drawImage(
-            background,
-            0,
-            0,
-            (canvas.height * 3268) / 2027,
-            canvas.height
-          );
-        } else {
-          ctx.drawImage(background, 0, 0, 3268, 2027);
-        }
+        // Si es un artículo suelto, agregar solo el artículo
+        entry.items.forEach(item => {
+          if (!existingItemsSet.has(item.name)) {
+            existingItemsSet.add(item.name);
+            items.push({
+              name: item.name,
+              type: "Article",
+              rarity: item.rarity,
+              images: item.images?.icon || item.images?.smallIcon || item.images?.featured,
+              finalPrice: entry.finalPrice // Añadir el precio al objeto del ítem
+            });
+          }
+        });
       }
-      // Título del sorteo
-      ctx.fillStyle = "#ffffff";
-      ctx.font = `70px ${font}`;
-      ctx.textAlign = "center";
-      ctx.fillText(this.textHeader, canvas.width / 2, 71);
-      ctx.font = `50px ${font}`;
-      if (shop.data.daily.length < 9 && shop.data.featured.length < 9) {
-        // Dibujar destacados
-        ctx.fillText(this.textFeatured, 298, 185);
-        // Dibujar diariamente
-        ctx.fillText(this.textDaily, 923, 185);
-      } else {
-        // Dibujar destacados
-        ctx.fillText(this.textFeatured, 447, 185);
-        // Dibujar diariamente
-        ctx.fillText(this.textDaily, canvas.width - 447, 185);
-      }
-      // Dibujar pie de página
-      ctx.font = `43px ${font}`;
-      ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 18);
-      // Extraer y extraer la fecha de la tienda
-      ctx.font = `49px ${font}`;
-      ctx.fillText(dateShop, canvas.width / 2, 125);
-
-      if (shop.data.daily.length < 9 && shop.data.featured.length < 9) {
-        for (let i = 0; i < shop.data.featured.length; i++) {
-          if (i & 1) {
-            if (shop.data.featured[i].images.featured) {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.featured[i].rarity
-              );
-
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(313, 51 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                313 + 3 + (268 - 3 * 2) / 2,
-                51 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 313 + 3,
-                (268 - 3 * 2) / 2 + 51 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(313 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-              let item = await loadImage(
-                shop.data.featured[i].images.featured
-              );
-              ctx.drawImage(item, 313 + 3, 51 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(313 + 3, 51 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.featured[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.featured[i].name,
-                313 + 134,
-                51 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.featured[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(vbuck, 313 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 122,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  313 + 100,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 129,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  313 + 107,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 136,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  313 + 114,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 143,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-            } else {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.featured[i].rarity
-              );
-
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(313, 51 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                313 + 3 + (268 - 3 * 2) / 2,
-                51 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 313 + 3,
-                (268 - 3 * 2) / 2 + 51 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(313 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-              let item = await loadImage(
-                shop.data.featured[i].images.icon
-              );
-              ctx.drawImage(item, 313 + 3, 51 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(313 + 3, 51 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.featured[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.featured[i].name,
-                313 + 134,
-                51 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.featured[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(vbuck, 313 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 122,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  313 + 100,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 129,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  313 + 107,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 136,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  313 + 114,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  313 + 143,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-            }
-          } else {
-            if (shop.data.featured[i].images.featured) {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.featured[i].rarity
-              );
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(15, 200 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                15 + 3 + (268 - 3 * 2) / 2,
-                200 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 15 + 3,
-                (268 - 3 * 2) / 2 + 200 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(15 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-              let item = await loadImage(
-                shop.data.featured[i].images.featured
-              );
-              ctx.drawImage(item, 15 + 3, 200 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(15 + 3, 200 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.featured[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.featured[i].name,
-                15 + 134,
-                200 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.featured[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 149 * i, 25, 25);
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 122,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  15 + 100,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 129,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  15 + 107,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 136,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  15 + 114,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 143,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-            } else {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.featured[i].rarity
-              );
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(15, 200 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                15 + 3 + (268 - 3 * 2) / 2,
-                200 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 15 + 3,
-                (268 - 3 * 2) / 2 + 200 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(15 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-              let item = await loadImage(
-                shop.data.featured[i].images.icon
-              );
-              ctx.drawImage(item, 15 + 3, 200 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(15 + 3, 200 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.featured[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.featured[i].name,
-                15 + 134,
-                200 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.featured[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 149 * i, 25, 25);
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 122,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  15 + 100,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 129,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  15 + 107,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 136,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  15 + 114,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.featured[i].price,
-                  15 + 143,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-            }
-          }
-        }
-        for (let i = 0; i < shop.data.daily.length; i++) {
-          if (i & 1) {
-            if (shop.data.daily[i].images.daily) {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.daily[i].rarity
-              );
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(938, 51 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                938 + 3 + (268 - 3 * 2) / 2,
-                51 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 938 + 3,
-                (268 - 3 * 2) / 2 + 51 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(938 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-              let item = await loadImage(
-                shop.data.daily[i].images.daily
-              );
-              ctx.drawImage(item, 938 + 3, 51 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(938 + 3, 51 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.daily[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.daily[i].name,
-                938 + 134,
-                51 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.daily[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(vbuck, 938 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 122,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  938 + 100,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 129,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  938 + 107,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 136,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  938 + 114,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 143,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-            } else {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.daily[i].rarity
-              );
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(938, 51 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                938 + 3 + (268 - 3 * 2) / 2,
-                51 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 938 + 3,
-                (268 - 3 * 2) / 2 + 51 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(938 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-              let item = await loadImage(shop.data.daily[i].images.icon);
-              ctx.drawImage(item, 938 + 3, 51 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(938 + 3, 51 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.daily[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.daily[i].name,
-                938 + 134,
-                51 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.daily[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(vbuck, 938 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 122,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  938 + 100,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 129,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  938 + 107,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 136,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  938 + 114,
-                  51 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  938 + 143,
-                  51 + 192 + 65 + 149 * i
-                );
-              }
-            }
-          } else {
-            if (shop.data.daily[i].images.daily) {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.daily[i].rarity
-              );
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(640, 200 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                640 + 3 + (268 - 3 * 2) / 2,
-                200 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 640 + 3,
-                (268 - 3 * 2) / 2 + 200 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(
-                640 + 3,
-                200 + 149 * i + 3,
-                268 - 3 * 2,
-                268 - 3 * 2
-              );
-
-              let item = await loadImage(
-                shop.data.daily[i].images.daily
-              );
-              ctx.drawImage(item, 640 + 3, 200 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(640 + 3, 200 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.daily[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.daily[i].name,
-                640 + 134,
-                200 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.daily[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 93,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 122,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 100,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 129,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 107,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 136,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 114,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 143,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-            } else {
-              const { colorBorder, colorCenter, colorExt } = rarityCard(
-                shop.data.daily[i].rarity
-              );
-              ctx.fillStyle = colorBorder;
-              ctx.fillRect(640, 200 + 149 * i, 268, 268);
-              const grd = ctx.createRadialGradient(
-                640 + 3 + (268 - 3 * 2) / 2,
-                200 + 149 * i + 3 + (268 - 3 * 2) / 2,
-                4,
-                (268 - 3 * 2) / 2 + 640 + 3,
-                (268 - 3 * 2) / 2 + 200 + 149 * i + 3,
-                (268 - 3 * 2) * 0.8
-              );
-              grd.addColorStop(0, colorCenter);
-              grd.addColorStop(1, colorExt);
-              ctx.fillStyle = grd;
-              ctx.fillRect(
-                640 + 3,
-                200 + 149 * i + 3,
-                268 - 3 * 2,
-                268 - 3 * 2
-              );
-
-              let item = await loadImage(shop.data.daily[i].images.icon);
-              ctx.drawImage(item, 640 + 3, 200 + 3 + 149 * i, 262, 262);
-              ctx.globalAlpha = 0.4;
-              ctx.fillStyle = "#000000";
-              ctx.fillRect(640 + 3, 200 + 192 + 149 * i, 262, 73);
-              ctx.globalAlpha = 1;
-              ctx.font = applyText(
-                canvas,
-                shop.data.daily[i].name,
-                38,
-                260,
-                font
-              );
-              ctx.fillStyle = "#ffffff";
-              ctx.textAlign = "center";
-              ctx.fillText(
-                shop.data.daily[i].name,
-                640 + 134,
-                200 + 192 + 32 + 149 * i
-              );
-              let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-                vbuck = await loadImage(
-                  shop.data.daily[i].priceIconLink
-                );
-              ctx.textAlign = "left";
-              ctx.font = `30px ${font}`;
-              if (price >= 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 93,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 122,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 100 && price < 1000) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 100,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 129,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 10 && price < 100) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 107,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 136,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-              if (price >= 0 && price < 10) {
-                ctx.drawImage(
-                  vbuck,
-                  640 + 114,
-                  200 + 192 + 42 + 149 * i,
-                  25,
-                  25
-                );
-                ctx.fillText(
-                  shop.data.daily[i].price,
-                  640 + 143,
-                  200 + 192 + 65 + 149 * i
-                );
-              }
-            }
-          }
-        }
-      } else {
-        let i1Featured = Math.ceil(shop.data.featured.length / 3),
-          i2Featured = Math.ceil((shop.data.featured.length - i1Featured) / 2),
-          i3Featured = Math.ceil(
-            shop.data.featured.length - (i1Featured + i2Featured)
-          ),
-          i1Daily = Math.ceil(shop.data.daily.length / 3),
-          i2Daily = Math.ceil((shop.data.daily.length - i1Daily) / 2),
-          i3Daily = Math.ceil(shop.data.daily.length - (i1Daily + i2Daily));
-        for (let i = 0; i < i1Featured; i++) {
-          if (shop.data.featured[i].images.featured) {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.featured[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(15, 200 + 298 * i, 268, 268);
-            const grd = ctx.createRadialGradient(
-              15 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * i + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 15 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * i + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(15 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-            let item = await loadImage(
-              shop.data.featured[i].images.featured
-            );
-            ctx.drawImage(item, 15 + 3, 200 + 3 + 298 * i, 262, 262);
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(15 + 3, 200 + 192 + 298 * i, 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.featured[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.featured[i].name,
-              15 + 134,
-              200 + 192 + 32 + 298 * i
-            );
-            let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(
-                shop.data.featured[i].priceIconLink
-              );
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 122,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(vbuck, 15 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 129,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(vbuck, 15 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 136,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(vbuck, 15 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 143,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-          } else {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.featured[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(15, 200 + 298 * i, 268, 268);
-            const grd = ctx.createRadialGradient(
-              15 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * i + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 15 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * i + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(15 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-            let item = await loadImage(
-              shop.data.featured[i].images.icon
-            );
-            ctx.drawImage(item, 15 + 3, 200 + 3 + 298 * i, 262, 262);
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(15 + 3, 200 + 192 + 298 * i, 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.featured[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.featured[i].name,
-              15 + 134,
-              200 + 192 + 32 + 298 * i
-            );
-            let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(
-                shop.data.featured[i].priceIconLink
-              );
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 122,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(vbuck, 15 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 129,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(vbuck, 15 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 136,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(vbuck, 15 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.featured[i].price,
-                15 + 143,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-          }
-        }
-        for (let i = i1Featured; i < i1Featured + i2Featured; i++) {
-          if (shop.data.featured[i].images.featured) {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.featured[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(313, 200 + 298 * (i - i1Featured), 268, 268);
-            const grd = ctx.createRadialGradient(
-              313 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * (i - i1Featured) + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 313 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Featured) + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              313 + 3,
-              200 + 298 * (i - i1Featured) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(
-              shop.data.featured[i].images.featured
-            );
-            ctx.drawImage(
-              item,
-              313 + 3,
-              200 + 3 + 298 * (i - i1Featured),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(313 + 3, 200 + 192 + 298 * (i - i1Featured), 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.featured[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.featured[i].name,
-              313 + 134,
-              200 + 192 + 32 + 298 * (i - i1Featured)
-            );
-            let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(
-                shop.data.featured[i].priceIconLink
-              );
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                313 + 93,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 122,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                313 + 100,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 129,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                313 + 107,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 136,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                313 + 114,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 143,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-          } else {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.featured[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(313, 200 + 298 * (i - i1Featured), 268, 268);
-            const grd = ctx.createRadialGradient(
-              313 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * (i - i1Featured) + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 313 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Featured) + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              313 + 3,
-              200 + 298 * (i - i1Featured) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(
-              shop.data.featured[i].images.icon
-            );
-            ctx.drawImage(
-              item,
-              313 + 3,
-              200 + 3 + 298 * (i - i1Featured),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(313 + 3, 200 + 192 + 298 * (i - i1Featured), 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.featured[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.featured[i].name,
-              313 + 134,
-              200 + 192 + 32 + 298 * (i - i1Featured)
-            );
-            let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(
-                shop.data.featured[i].priceIconLink
-              );
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                313 + 93,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 122,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                313 + 100,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 129,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                313 + 107,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 136,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                313 + 114,
-                200 + 192 + 42 + 298 * (i - i1Featured),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                313 + 143,
-                200 + 192 + 65 + 298 * (i - i1Featured)
-              );
-            }
-          }
-        }
-        for (
-          let i = i1Featured + i2Featured;
-          i < i1Featured + i2Featured + i3Featured;
-          i++
-        ) {
-          if (shop.data.featured[i].images.featured) {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.featured[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(
-              611,
-              200 + 298 * (i - (i1Featured + i2Featured)),
-              268,
-              268
-            );
-            const grd = ctx.createRadialGradient(
-              611 + 3 + (268 - 3 * 2) / 2,
-              200 +
-              298 * (i - (i1Featured + i2Featured)) +
-              3 +
-              (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 611 + 3,
-              (268 - 3 * 2) / 2 +
-              200 +
-              298 * (i - (i1Featured + i2Featured)) +
-              3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              611 + 3,
-              200 + 298 * (i - (i1Featured + i2Featured)) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(
-              shop.data.featured[i].images.featured
-            );
-            ctx.drawImage(
-              item,
-              611 + 3,
-              200 + 3 + 298 * (i - (i1Featured + i2Featured)),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(
-              611 + 3,
-              200 + 192 + 298 * (i - (i1Featured + i2Featured)),
-              262,
-              73
-            );
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.featured[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.featured[i].name,
-              611 + 134,
-              200 + 192 + 32 + 298 * (i - (i1Featured + i2Featured))
-            );
-            let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(
-                shop.data.featured[i].priceIconLink
-              );
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                611 + 93,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 122,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                611 + 100,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 129,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                611 + 107,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 136,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                611 + 114,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 143,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-          } else {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.featured[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(
-              611,
-              200 + 298 * (i - (i1Featured + i2Featured)),
-              268,
-              268
-            );
-            const grd = ctx.createRadialGradient(
-              611 + 3 + (268 - 3 * 2) / 2,
-              200 +
-              298 * (i - (i1Featured + i2Featured)) +
-              3 +
-              (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 611 + 3,
-              (268 - 3 * 2) / 2 +
-              200 +
-              298 * (i - (i1Featured + i2Featured)) +
-              3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              611 + 3,
-              200 + 298 * (i - (i1Featured + i2Featured)) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(
-              shop.data.featured[i].images.icon
-            );
-            ctx.drawImage(
-              item,
-              611 + 3,
-              200 + 3 + 298 * (i - (i1Featured + i2Featured)),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(
-              611 + 3,
-              200 + 192 + 298 * (i - (i1Featured + i2Featured)),
-              262,
-              73
-            );
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.featured[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.featured[i].name,
-              611 + 134,
-              200 + 192 + 32 + 298 * (i - (i1Featured + i2Featured))
-            );
-            let price = shop.data.featured[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(
-                shop.data.featured[i].priceIconLink
-              );
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                611 + 93,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 122,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                611 + 100,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 129,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                611 + 107,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 136,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                611 + 114,
-                200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.featured[i].price,
-                611 + 143,
-                200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured))
-              );
-            }
-          }
-        }
-        for (let i = 0; i < i1Daily; i++) {
-          if (shop.data.daily[i].images.daily) {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.daily[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(939, 200 + 298 * i, 268, 268);
-            const grd = ctx.createRadialGradient(
-              939 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * i + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 939 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * i + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(939 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-            let item = await loadImage(
-              shop.data.featured[i].images.featured
-            );
-            ctx.drawImage(item, 939 + 3, 200 + 3 + 298 * i, 262, 262);
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(939 + 3, 200 + 192 + 298 * i, 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.daily[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.daily[i].name,
-              939 + 134,
-              200 + 192 + 32 + 298 * i
-            );
-            let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(vbuck, 939 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 122,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(vbuck, 939 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 129,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(vbuck, 939 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 136,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(vbuck, 939 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 143,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-          } else {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.daily[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(939, 200 + 298 * i, 268, 268);
-            const grd = ctx.createRadialGradient(
-              939 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * i + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 939 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * i + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(939 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-            let item = await loadImage(shop.data.daily[i].images.icon);
-            ctx.drawImage(item, 939 + 3, 200 + 3 + 298 * i, 262, 262);
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(939 + 3, 200 + 192 + 298 * i, 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.daily[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.daily[i].name,
-              939 + 134,
-              200 + 192 + 32 + 298 * i
-            );
-            let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(vbuck, 939 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 122,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(vbuck, 939 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 129,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(vbuck, 939 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 136,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(vbuck, 939 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-              ctx.fillText(
-                shop.data.daily[i].price,
-                939 + 143,
-                200 + 192 + 65 + 298 * i
-              );
-            }
-          }
-        }
-        for (let i = i1Daily; i < i1Daily + i2Daily; i++) {
-          if (shop.data.daily[i].images.daily) {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.daily[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(1237, 200 + 298 * (i - i1Daily), 268, 268);
-            const grd = ctx.createRadialGradient(
-              1237 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * (i - i1Daily) + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 1237 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Daily) + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              1237 + 3,
-              200 + 298 * (i - i1Daily) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(shop.data.daily[i].images.daily);
-            ctx.drawImage(
-              item,
-              1237 + 3,
-              200 + 3 + 298 * (i - i1Daily),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(1237 + 3, 200 + 192 + 298 * (i - i1Daily), 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.daily[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.daily[i].name,
-              1237 + 134,
-              200 + 192 + 32 + 298 * (i - i1Daily)
-            );
-            let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 93,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 122,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 100,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 129,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 107,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 136,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 114,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 143,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-          } else {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.daily[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(1237, 200 + 298 * (i - i1Daily), 268, 268);
-            const grd = ctx.createRadialGradient(
-              1237 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * (i - i1Daily) + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 1237 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Daily) + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              1237 + 3,
-              200 + 298 * (i - i1Daily) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(shop.data.daily[i].images.icon);
-            ctx.drawImage(
-              item,
-              1237 + 3,
-              200 + 3 + 298 * (i - i1Daily),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(1237 + 3, 200 + 192 + 298 * (i - i1Daily), 262, 73);
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.daily[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.daily[i].name,
-              1237 + 134,
-              200 + 192 + 32 + 298 * (i - i1Daily)
-            );
-            let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 93,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 122,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 100,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 129,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 107,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 136,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                1237 + 114,
-                200 + 192 + 42 + 298 * (i - i1Daily),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1237 + 143,
-                200 + 192 + 65 + 298 * (i - i1Daily)
-              );
-            }
-          }
-        }
-        for (let i = i1Daily + i2Daily; i < i1Daily + i2Daily + i3Daily; i++) {
-          if (shop.data.daily[i].images.daily) {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.daily[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(1535, 200 + 298 * (i - (i1Daily + i2Daily)), 268, 268);
-            const grd = ctx.createRadialGradient(
-              1535 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * (i - (i1Daily + i2Daily)) + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 1535 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * (i - (i1Daily + i2Daily)) + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              1535 + 3,
-              200 + 298 * (i - (i1Daily + i2Daily)) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(shop.data.daily[i].images.daily);
-            ctx.drawImage(
-              item,
-              1535 + 3,
-              200 + 3 + 298 * (i - (i1Daily + i2Daily)),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(
-              1535 + 3,
-              200 + 192 + 298 * (i - (i1Daily + i2Daily)),
-              262,
-              73
-            );
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.daily[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.daily[i].name,
-              1535 + 134,
-              200 + 192 + 32 + 298 * (i - (i1Daily + i2Daily))
-            );
-            let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 93,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 122,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 100,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 129,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 107,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 136,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 114,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 143,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-          } else {
-            const { colorBorder, colorCenter, colorExt } = rarityCard(
-              shop.data.daily[i].rarity
-            );
-            ctx.fillStyle = colorBorder;
-            ctx.fillRect(1535, 200 + 298 * (i - (i1Daily + i2Daily)), 268, 268);
-            const grd = ctx.createRadialGradient(
-              1535 + 3 + (268 - 3 * 2) / 2,
-              200 + 298 * (i - (i1Daily + i2Daily)) + 3 + (268 - 3 * 2) / 2,
-              4,
-              (268 - 3 * 2) / 2 + 1535 + 3,
-              (268 - 3 * 2) / 2 + 200 + 298 * (i - (i1Daily + i2Daily)) + 3,
-              (268 - 3 * 2) * 0.8
-            );
-            grd.addColorStop(0, colorCenter);
-            grd.addColorStop(1, colorExt);
-            ctx.fillStyle = grd;
-            ctx.fillRect(
-              1535 + 3,
-              200 + 298 * (i - (i1Daily + i2Daily)) + 3,
-              268 - 3 * 2,
-              268 - 3 * 2
-            );
-
-            let item = await loadImage(shop.data.daily[i].images.icon);
-            ctx.drawImage(
-              item,
-              1535 + 3,
-              200 + 3 + 298 * (i - (i1Daily + i2Daily)),
-              262,
-              262
-            );
-            ctx.globalAlpha = 0.4;
-            ctx.fillStyle = "#000000";
-            ctx.fillRect(
-              1535 + 3,
-              200 + 192 + 298 * (i - (i1Daily + i2Daily)),
-              262,
-              73
-            );
-            ctx.globalAlpha = 1;
-            ctx.font = applyText(
-              canvas,
-              shop.data.daily[i].name,
-              38,
-              260,
-              font
-            );
-            ctx.fillStyle = "#ffffff";
-            ctx.textAlign = "center";
-            ctx.fillText(
-              shop.data.daily[i].name,
-              1535 + 134,
-              200 + 192 + 32 + 298 * (i - (i1Daily + i2Daily))
-            );
-            let price = shop.data.daily[i].price.replace(/[,]/gi, ""),
-              vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-            ctx.textAlign = "left";
-            ctx.font = `30px ${font}`;
-            if (price >= 1000) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 93,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 122,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-            if (price >= 100 && price < 1000) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 100,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 129,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-            if (price >= 10 && price < 100) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 107,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 136,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-            if (price >= 0 && price < 10) {
-              ctx.drawImage(
-                vbuck,
-                1535 + 114,
-                200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)),
-                25,
-                25
-              );
-              ctx.fillText(
-                shop.data.daily[i].price,
-                1535 + 143,
-                200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily))
-              );
-            }
-          }
-        }
-      }
-
-      await fs.writeFileSync(path, canvas.toBuffer());
-
-      return path;
     }
+
+    // Ordenar los ítems por finalPrice (de menor a mayor)
+    items.sort((a, b) => b.finalPrice - a.finalPrice);
+
+    const itemsPerRow = 8; // Máximo 8 ítems por fila
+    const maxRows = 10;    // Máximo 10 filas
+    const itemWidth = 384; // Ancho de cada ítem
+    const itemHeight = 384; // Alto de cada ítem
+    const padding = 15;    // Espacio entre los ítems
+    const canvasWidth = itemsPerRow * itemWidth + (itemsPerRow - 1) * padding;
+    const canvasHeight = maxRows * itemHeight + (maxRows - 1) * padding + 300;  // Ajuste extra para encabezado
+
+    const canvas = createCanvas(canvasWidth, canvasHeight);
+    const ctx = canvas.getContext("2d");
+
+    // Crear un gradiente radial circular azul
+    const gradient = ctx.createRadialGradient(
+      canvasWidth / 2,   // Centro X del gradiente
+      canvasHeight / 2,  // Centro Y del gradiente
+      0,                 // Radio inicial (0 para comenzar en un punto)
+      canvasWidth / 2,   // Centro X del gradiente
+      canvasHeight / 2,  // Centro Y del gradiente
+      canvasWidth    // Radio final ajustado al ancho del canvas
+    );
+    gradient.addColorStop(0, '#0064BD');  // Azul claro (SkyBlue)
+    gradient.addColorStop(1, '#001E8E');  // Azul oscuro
+
+    // Aplicar el gradiente como fondo
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+    // Dibujar encabezado
+    ctx.fillStyle = "#ffffff";
+    ctx.font = `70px ${font}`;
+    ctx.textAlign = "center";
+    ctx.fillText(this.textHeader, canvas.width / 2, 100);
+
+    // Inicializar variables de posición
+    let currentRow = 0;
+    let currentColumn = 0;
+
+    // Iterar sobre los ítems y dibujarlos en el canvas
+    for (const item of items) {
+      try {
+        const { name, type, rarity, images, finalPrice } = item;
+
+        // Calcular la posición del ítem basado en la columna y fila actual
+        const x = currentColumn * (itemWidth + padding);
+        const y = 200 + currentRow * (itemHeight + padding);
+
+        // Obtener colores según rareza
+        const rarityColors = this.getRarityColors(rarity.backendValue || 'EFortRarity::Common');
+
+        // Dibujar el fondo del ítem
+        ctx.fillStyle = rarityColors.colorCenter;
+
+        ctx.fillRect(x, y, itemWidth, itemHeight);  // Fondo para el artículo
+
+        ctx.beginPath();
+
+        // Cargar y dibujar la imagen del ítem o del lote
+        const itemIcon = await loadImage(images);
+
+        // Si es un artículo suelto
+        ctx.drawImage(itemIcon, x, y, itemWidth, itemHeight);
+
+        ctx.globalAlpha = 1;
+        ctx.closePath();
+        ctx.save();
+
+        ctx.beginPath();
+        const overlay = await loadImage(`${__dirname}/../assets/img/fortnite/shop/SmallOverlay.png`);
+        ctx.drawImage(overlay, x, y, itemWidth, itemHeight);
+
+        ctx.closePath();
+        ctx.save();
+
+        ctx.globalAlpha = 1;
+
+        // Ajustar el nombre del ítem (lote o artículo)
+        this.drawItemName(ctx, name, x + 196, y + 310, 375, font);
+
+        // Ajustar el precio dentro del área de la tarjeta
+        await this.drawItemPrice(ctx, finalPrice, x + 192, y + 340, 200, font);
+
+        currentColumn++;
+
+        // Si alcanzamos el máximo número de columnas, pasar a la siguiente fila
+        if (currentColumn >= itemsPerRow) {
+          currentColumn = 0;
+          currentRow++;
+
+          // Si alcanzamos el máximo número de filas, terminamos
+          if (currentRow >= maxRows) break;
+        }
+      } catch (error) {
+        console.error("Error al procesar el ítem:", item, error);
+        // Saltar el ítem que tiene un error y continuar con el siguiente
+        continue;
+      }
+    }
+
+    // Pie de página
+    ctx.font = `50px ${font}`;
+    ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 50);
+
+    // Guardar la imagen
+    const outputPath = `${__dirname}/../assets/img/fortnite/shop/output.png`;
+    const buffer = canvas.toBuffer("image/png");
+    fs.writeFileSync(outputPath, buffer);
+
+    return canvas.toBuffer("image/png");
   }
-};
+
+  // Función para obtener un valor numérico según la rareza del ítem
+  getRarityValue(rarity) {
+    const rarityValues = {
+      "EFortRarity::Legendary": 5,
+      "EFortRarity::Epic": 4,
+      "EFortRarity::Rare": 3,
+      "EFortRarity::Uncommon": 2,
+      "EFortRarity::Common": 1
+    };
+    return rarityValues[rarity] || 0; // Usar 0 por defecto si no se encuentra
+  }
+
+  // Función para obtener colores según la rareza del ítem
+  getRarityColors(rarity) {
+    const rarities = {
+      "EFortRarity::Legendary": { colorBorder: "#e98d4b", colorCenter: "#ea8d23" },
+      "EFortRarity::Epic": { colorBorder: "#e95eff", colorCenter: "#c359ff" },
+      "EFortRarity::Rare": { colorBorder: "#37d1ff", colorCenter: "#2cc1ff" },
+      "EFortRarity::Uncommon": { colorBorder: "#87e339", colorCenter: "#69bb1e" },
+      "EFortRarity::Common": { colorBorder: "#b1b1b1", colorCenter: "#bebebe" }
+    };
+    return rarities[rarity] || rarities.common;  // Usar común por defecto
+  }
+
+  // Función para dividir el nombre en dos líneas si es necesario
+  drawItemName(ctx, text, x, y, maxWidth, font) {
+    ctx.font = `30px ${font}`;
+    ctx.fillStyle = "#ffffff";
+
+    const words = text.split(' ');
+    let line = '';
+    let lineHeight = 30;
+    let lineCount = 0;
+    const maxLines = 2; // Máximo 2 líneas
+
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' ';
+      const metrics = ctx.measureText(testLine);
+      const testWidth = metrics.width;
+
+      if (testWidth > maxWidth && lineCount < maxLines - 1) {
+        ctx.fillText(line, x, y);
+        line = words[i] + ' ';
+        y += lineHeight;
+        lineCount++;
+      } else {
+        line = testLine;
+      }
+    }
+    // Dibujar la última línea
+    ctx.fillText(line, x, y);
+  }
+
+  // Función para ajustar el precio dentro de la tarjeta
+  async drawItemPrice(ctx, price, x, y, maxWidth, font) {
+    const vbuckIcon = await loadImage(parseSvg(`${__dirname}/../assets/img/fortnite/shop/vBucks.svg`));
+    const iconSize = 20;
+
+    // Dibujar el ícono de V-Bucks
+    ctx.drawImage(vbuckIcon, x - 40, y + 10, iconSize, iconSize);
+
+    // Dibujar el precio ajustado al ancho disponible
+    ctx.font = `30px ${font}`;
+    ctx.fillStyle = "#ffffff";
+    let priceText = `${price}`;
+    const priceWidth = ctx.measureText(priceText).width;
+
+    // Si el precio excede el espacio disponible, ajustar el tamaño de la fuente
+    if (priceWidth > maxWidth - iconSize - 10) {
+      let fontSize = 30;
+      do {
+        fontSize -= 1;
+        ctx.font = `${fontSize}px ${font}`;
+      } while (ctx.measureText(priceText).width > maxWidth - iconSize - 10);
+    }
+
+    // Dibujar el texto del precio
+    ctx.fillText(priceText, x + iconSize, y + 30);
+  }
+}
 
 module.exports = FortniteShop;
