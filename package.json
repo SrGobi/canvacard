@@ -52,8 +52,7 @@
   "dependencies": {
     "@napi-rs/canvas": "^0.1.58",
     "@skyra/gifenc": "^1.0.1",
-    "fortnite": "^4.3.2",
-    "fortnite-9812": "^1.0.4"
+    "fortnite": "^4.3.2"
   },
   "devDependencies": {
     "@types/node": "^22.7.5",
