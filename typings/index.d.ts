@@ -22,7 +22,6 @@ export declare let Spotify: typeof import("./src/Spotify");
 export declare let Welcomer: typeof import("./src/Welcomer");
 export declare let Leaver: typeof import("./src/Leaver");
 export declare let FortniteShop: typeof import("./src/FortniteShop");
-export declare let FortniteStats: typeof import("./src/FortniteStats");
 export declare let Plugins: {
     circle: (ctx: any, w: any, h: any) => any;
     convolute: (ctx: any, canvas: any, matrix: any, opaque: any) => any;

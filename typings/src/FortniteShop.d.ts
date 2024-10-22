@@ -1,82 +1,37 @@
 export = FortniteShop;
 /**
- * Creador de imagen de la tienda de fortnite
+ * Creador de tiene de artículos de Fortnite
  */
 declare class FortniteShop {
-    /**
-     * Token
-     * @type {string}
-     */
     token: string;
-    /**
-     * Texto del encabezado
-     * @type {string}
-     */
     textHeader: string;
-    /**
-     * Texto del dia
-     * @type {string}
-     */
-    textDaily: string;
-    /**
-     * Texto de destacados
-     * @type {string}
-     */
-    textFeatured: string;
-    /**
-     * Textos de datos
-     * @type {string}
-     */
-    textDate: string;
-    /**
-     * Texto del footer
-     * @type {string}
-     */
     textFooter: string;
     options: {
         lang: string;
         dateFormat: string;
     };
     /**
-     * imagen de fondo
-     * @type {string}
-     */
-    background: string;
-    /**
-     * Valor del Token
-     * @param {string} value
-     * @returns {FortniteShop}
+     * Establecer el token de la API de Fortnite
+     * @param {string} value Token de la API de Fortnite
+     * @returns {FortniteShop} La instancia actual de FortniteShop
      */
     setToken(value: string): FortniteShop;
     /**
-     * Valor del background
-     * @param {string} value
-     * @returns {FortniteShop}
-     */
-    setBackground(value: string): FortniteShop;
-    /**
-     * Valor del texto
-     * @param {string} value
-     * @returns {FortniteShop}
+     * Establecer el texto del encabezado
+     * @param {string} value Texto del encabezado
+     * @returns {FortniteShop} La instancia actual de FortniteShop
      */
     setText(variable: any, value: string): FortniteShop;
     /**
-     * Valor del idioma
-     * @param {string} value
-     * @returns {FortniteShop}
+     * Construir la tarjeta de la tienda de Fortnite
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+     * @returns {Promise<Buffer>} Imagen de la tarjeta de la tienda de Fortnite
+     * @throws {APIError} Si no se puede obtener la información de la tienda
      */
-    lang(value: string): FortniteShop;
-    /**
-     * Valor del formato de fecha
-     * @param {string} value
-     * @returns {FortniteShop}
-     */
-    dateFormat(value: string): FortniteShop;
-    /**
-     * Construye la imagen de la tienda de fortnite
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<string>} La imagen de la tienda de fortnite
-     */
-    build(font?: string): Promise<string>;
+    build(font?: string): Promise<Buffer>;
+    getRarityValue(rarity: any): any;
+    getRarityColors(rarity: any): any;
+    drawItemName(ctx: any, text: any, x: any, y: any, maxWidth: any, font: any): void;
+    drawItemPrice(ctx: any, price: any, x: any, y: any, maxWidth: any, font: any): Promise<void>;
 }
 //# sourceMappingURL=FortniteShop.d.ts.map

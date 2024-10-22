@@ -21,5 +21,13 @@ export namespace ImageFactory {
     let WANTED: string;
     let WASTED: string;
     let YOUTUBE: string;
+    namespace FLAGS {
+        namespace ICONS {
+            let USERNAME: string;
+        }
+        let APPLICATION: string;
+        let USER: string;
+    }
+    let base64: string;
 }
 //# sourceMappingURL=AssetsFactory.d.ts.map

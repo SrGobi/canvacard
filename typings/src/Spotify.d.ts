@@ -135,8 +135,8 @@ declare class Spotify {
     setBackground(type?: "COLOR" | "IMAGE", data?: string | Buffer | Canvas.Image): Spotify;
     /**
      * Construye la tarjeta de presencia de Spotify.
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>} La tarjeta de presencia de Spotify en formato de buffer
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+     * @returns {Promise<Buffer>} Imagen de la tarjeta de presencia de Spotify en formato de buffer
      */
     build(font?: string): Promise<Buffer>;
     /**

@@ -76,24 +76,28 @@ declare class Leaver extends BaseCard {
     /**
      * Valor del color del overlay
      * @param {number|string} value
-     * @returns {Leaver}
+     * @returns {Leaver} La instancia de la clase Leaver
      */
     setOpacityOverlay(value: number | string): Leaver;
     /**
      * Establecer imagen / color de fondo
      * @param {"COLOR"|"IMAGE"} type Tipo de fondo
      * @param {string|Buffer} [data] Color o imagen de fondo
+     * @returns {Leaver} La instancia de la clase Leaver
+     * @throws {APIError} Si no se proporciona el tipo o los datos
      */
-    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): this;
+    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): Leaver;
     /**
      * Establecer rectangle / rounded de overlay
      * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
+     * @returns {Leaver} La instancia de la clase Leaver
+     * @throws {APIError} Si no se proporciona el tipo
      */
-    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
+    setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): Leaver;
     /**
      * Construye la tarjeta de despedida
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>} La tarjeta de despedida en formato de buffer
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+     * @returns {Promise<Buffer>} Imagen de la tarjeta de despedida en formato de buffer
      */
     build(font?: string): Promise<Buffer>;
 }

@@ -15,7 +15,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Imagen para activar
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen "triggered"
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static trigger(image: string | Buffer): Promise<Buffer>;
     /**
@@ -30,7 +31,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Imagen para invertir
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen invertida
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static invert(image: string | Buffer): Promise<Buffer>;
     /**
@@ -45,7 +47,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen sep
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static sepia(image: string | Buffer): Promise<Buffer>;
     /**
@@ -60,7 +63,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen en escala de grises
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static greyscale(image: string | Buffer): Promise<Buffer>;
     /**
@@ -76,7 +80,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Imagen
      * @param {number} amount Cantidad de brillo
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen con brillo
+     * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
      */
     static brightness(image: string | Buffer, amount: number): Promise<Buffer>;
     /**
@@ -92,7 +97,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Imagen
      * @param {number} amount Cantidad de oscuridad
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen oscura
+     * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
      */
     static darkness(image: string | Buffer, amount: number): Promise<Buffer>;
     /**
@@ -108,7 +114,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} img Imagen
      * @param {number} amount Cantidad límite
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen umbralizada
+     * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
      */
     static threshold(img: string | Buffer, amount: number): Promise<Buffer>;
     /**
@@ -126,7 +133,8 @@ declare class Canvacard {
      * @param {string|Buffer} img Imagen
      * @param {number[]} matrix Matriz de convolución
      * @param {boolean} opaque Si la convolución debe ser opaca
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen convolucionada
+     * @throws {APIError} Si no se proporciona la imagen o la matriz no es un Array
      */
     static convolute(img: string | Buffer, matrix: number[], opaque: boolean): Promise<Buffer>;
     /**
@@ -141,7 +149,8 @@ declare class Canvacard {
       .catch(console.error);
      * @param {string|Buffer} image Imagen para pixelar
      * @param {number} pixels Pixeles
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen pixelada
+     * @throws {APIError} Si no se proporciona la imagen o los píxeles no son un número
      */
     static pixelate(image: string | Buffer, pixels?: number): Promise<Buffer>;
     /**
@@ -157,7 +166,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Imagen para enfocar
      * @param {number} lvl intensidad de la nitidez
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen enfocada
+     * @throws {APIError} Si no se proporciona la imagen o el nivel no es un número
      */
     static sharpen(image: string | Buffer, lvl?: number): Promise<Buffer>;
     /**
@@ -173,7 +183,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Fuente de imagen
      * @param {number} lvl intensidad
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen quemada
+     * @throws {APIError} Si no se proporciona la imagen o el nivel no es un número
      */
     static burn(image: string | Buffer, lvl?: number): Promise<Buffer>;
     /**
@@ -188,7 +199,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen circular
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static circle(image: string | Buffer): Promise<Buffer>;
     /**
@@ -204,7 +216,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image1 Primera imagen
      * @param {string|Buffer} image2 Segunda imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen fusionada
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static fuse(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
@@ -221,7 +234,8 @@ declare class Canvacard {
      * @param {string|Buffer} image Fuente de imagen
      * @param {number} width ancho
      * @param {number} height altura
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen redimensionada
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static resize(image: string | Buffer, width: number, height: number): Promise<Buffer>;
     /**
@@ -237,7 +251,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image1 Primera imagen
      * @param {string|Buffer} image2 Segunda imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de beso
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static kiss(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
@@ -253,7 +268,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image1 Primera imagen
      * @param {string|Buffer} image2 Segunda imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de "spank"
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static spank(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
@@ -269,7 +285,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image1 Primera imagen
      * @param {string|Buffer} image2 Segunda imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de "slap"
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static slap(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
@@ -284,7 +301,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de facepalm
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static facepalm(image: string | Buffer): Promise<Buffer>;
     /**
@@ -300,7 +318,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Fuente de imagen
      * @param {string} color Color HTML5
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen coloreada
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static colorfy(image: string | Buffer, color: string): Promise<Buffer>;
     /**
@@ -317,7 +336,8 @@ declare class Canvacard {
      * @param {string|Buffer} image1 Rostro para la niña en color rojo.
      * @param {string|Buffer} image2 Cara para el chico
      * @param {string|Buffer} image3 Cara para la otra chica [opcional]
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de distracción
+     * @throws {APIError} Si no se proporciona la primera imagen
      */
     static distracted(image1: string | Buffer, image2: string | Buffer, image3?: string | Buffer): Promise<Buffer>;
     /**
@@ -333,7 +353,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Fuente de imagen
      * @param {boolean} greyscale Si debe ser una imagen en escala de grises
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de la celda
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static jail(image: string | Buffer, greyscale?: boolean): Promise<Buffer>;
     /**
@@ -349,7 +370,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image1 Primera imagen
      * @param {string|Buffer} image2 Segunda imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de cama
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static bed(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
@@ -365,7 +387,8 @@ declare class Canvacard {
      * ```
      * @param {string|Buffer} image Fuente de imagen
      * @param {boolean} dark Si la imagen debe estar en modo oscuro
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen eliminada
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static delete(image: string | Buffer, dark?: boolean): Promise<Buffer>;
     /**
@@ -383,9 +406,10 @@ declare class Canvacard {
      * @param {string} colorTo Color final
      * @param {number} width Ancho de la imagen
      * @param {number} height Altura de imagen
-     * @returns {Buffer}
+     * @returns {Promise<Buffer>} Imagen degradada
+     * @throws {APIError} Si no se proporciona el color inicial o final
      */
-    static gradient(colorFrom: string, colorTo: string, width: number, height: number): Buffer;
+    static gradient(colorFrom: string, colorTo: string, width: number, height: number): Promise<Buffer>;
     /**
      * Cita falsa
      * @example
@@ -402,8 +426,8 @@ declare class Canvacard {
      * @param {string} [options.message] Mensaje
      * @param {string} [options.username] Nombre de usuario
      * @param {string} [options.color] Color
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>}
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+     * @returns {Promise<Buffer>} Imagen de cita falsa
      */
     static quote(options?: {
         image?: Buffer | string;
@@ -426,8 +450,9 @@ declare class Canvacard {
      * @param {String} [options.username] Nombre de usuario
      * @param {String} [options.message] Comentario
      * @param {String|Buffer} [options.image] Imagen
-     * @param {String} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>}
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+     * @returns {Promise<Buffer>} Imagen de comentario de PornHub
+     * @throws {APIError} Si no se proporciona el nombre de usuario, el mensaje o la imagen
      */
     static phub(options?: {
         username?: string;
@@ -446,7 +471,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de "wanted"
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static wanted(image: string | Buffer): Promise<Buffer>;
     /**
@@ -461,7 +487,8 @@ declare class Canvacard {
       .catch(console.error);
      * ```
      * @param {string|Buffer} image Fuente de imagen
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de "wasted"
+     * @throws {APIError} Si no se proporciona la imagen
      */
     static wasted(image: string | Buffer): Promise<Buffer>;
     /**
@@ -480,7 +507,8 @@ declare class Canvacard {
      * @param {string} [ops.content] El comentario
      * @param {string|Buffer} [ops.avatar] Fuente de avatar
      * @param {boolean} [ops.dark=false] ¿Modo oscuro?
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de comentario de YouTube
+     * @throws {APIError} Si no se proporciona el nombre de usuario, el contenido o el avatar
      */
     static youtube(ops?: {
         username?: string;
@@ -506,7 +534,8 @@ declare class Canvacard {
      * @param {string} [options.hex2] Color hexadecimal de la otra persona
      * @param {string} [options.mainText] El mensaje
      * @param {string} [options.replyText] El mensaje de respuesta
-     * @returns {Promise<Buffer>}
+     * @returns {Promise<Buffer>} Imagen de respuesta de discord
+     * @throws {APIError} Si no se proporciona el avatar, el nombre de usuario o el mensaje
      * @example
     const img = "https://cdn.discordapp.com/embed/avatars/0.png";
     const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";

@@ -91,8 +91,8 @@ declare class Welcomer extends BaseCard {
     setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): this;
     /**
      * Construye la tarjeta de bienvenida
-     * @param {string} [font="Arial"] Familia tipográfica
-     * @returns {Promise<Buffer>} La tarjeta de bienvenida en formato de buffer
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+     * @returns {Promise<Buffer>} Imagen de la tarjeta de bienvenida en formato de buffer
      */
     build(font?: string): Promise<Buffer>;
 }

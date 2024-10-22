@@ -106,7 +106,7 @@ declare class FortniteStats {
     setText(variable: any, value: string): FortniteStats;
     /**
      * Construye la imagen de la tienda de fortnite
-     * @param {string} [font="Arial"] Familia tipográfica
+     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
      * @returns {Promise<string>} La imagen de la tienda de fortnite
      */
     build(font?: string): Promise<string>;
