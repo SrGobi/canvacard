@@ -6,9 +6,7 @@ const docsDir = path.resolve(__dirname, '../docs');
 
 // Define the list of JSDoc commands
 const commands = [
-  `jsdoc2md ${baseDir}/plugins/* > ${docsDir}/Plugins.md`,
-  `jsdoc2md ${baseDir}/src/Welcomer.js > ${docsDir}/Classes/Welcomer.md`,
-  `jsdoc2md ${baseDir}/src/Leaver.js > ${docsDir}/Classes/Leaver.md`,
+  `jsdoc2md ${baseDir}/src/WelcomeLeave.js > ${docsDir}/Classes/WelcomeLeave.md`,
   `jsdoc2md ${baseDir}/src/Rank.js > ${docsDir}/Classes/Rank.md`,
   `jsdoc2md ${baseDir}/src/Spotify.js > ${docsDir}/Classes/Spotify.md`,
   `jsdoc2md ${baseDir}/src/FortniteShop.js > ${docsDir}/Classes/FortniteShop.md`,
