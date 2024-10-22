@@ -1,4 +1,4 @@
-// canvacard/src/Welcomer.js
+// canvacard/src/WelcomeLeave.js
 const BaseCard = require("./Base/BaseCard");
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const APIError = require("./utils/error.utils");
@@ -6,7 +6,7 @@ const shorten = require("./utils/shorten.utils");
 /**
  * Creador de tarjetas de bienvenida
  */
-class Welcomer extends BaseCard {
+class WelcomeLeave {
 
   /**
    * <details open>
@@ -46,15 +46,12 @@ class Welcomer extends BaseCard {
    * Constructor de la tarjeta de bienvenida
    */
   constructor() {
-    super();
     /**
      * Fondo de la tarjeta
      * @property {object} backgroundGlobal Fondo de la tarjeta
      * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
      */
-    this.data = {
-      backgroundGlobal: { type: "COLOR", image: "#23272A" },
-    };
+    this.backgroundGlobal = { type: "COLOR", image: "#23272A" };
     /**
      * Avatar de la tarjeta
      * @type {string}
@@ -100,120 +97,80 @@ class Welcomer extends BaseCard {
      * @type {string}
      */
     this.typeOverlay = { type: "ROUNDED" };
-    /**
-     * Color del fondo
-     * @type {string}
-     */
-    this.colorBackground = "#000000";
-
-    // Actualizar datos predeterminados
-    this.__updateData();
-  }
-
-  /**
-   * Actualiza el estado predeterminado de los valores
-   * @private
-   */
-  __updateData() {
-    this.setAvatar(`https://cdn.discordapp.com/embed/avatars/0.png`);
-    this.setBackground("COLOR", "#2c2f33" || "IMAGE", `https://i.imgur.com/aClDVjh.jpg`);
-    this.setTitulo("Titulo personalizable!");
-    this.setSubtitulo("Subtitulo personalizable!");
-    this.setColorTitulo("#FFFFFF");
-    this.setColorSubtitulo("#5865f2");
-    this.setColorCircle("#FFFFFF");
-    this.setColorOverlay("#000000");
-    this.setOpacityOverlay("0.4");
-    this.setTypeOverlay("ROUNDED");
-    this.setColor("border", "#4D5E94");
-    this.setColor("titulo", "#4D5E94");
-    this.setColor("subtitulo", "#4D5E94");
-    this.setColor("avatar", "#4D5E94");
-  }
-
-  /**
-   * Establecer color
-   * @param {"titulo"|"titulo-border"|"titulo-box"|"subtitulo"|"subtitulo-border"|"subtitulo-box"|"avatar"|"background"|"border"} id
-   * @param {string} color Código de color HTML5
-   * @returns {Welcomer}
-   */
-  setColor(id, color) {
-    super.setColor(id, color);
-    return this;
   }
   /**
    * Valor del avatar
-   * @param {string|Buffer} value
-   * @returns {Welcomer}
+   * @param {string|Buffer} value URL de la imagen o Buffer de la imagen
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} El avatar debe ser un string o un Buffer
    */
   setAvatar(value) {
+    if (!value) throw new APIError("Falta campo: avatar");
     this.avatar = value;
     return this;
   }
 
   /**
    * Valor del título
-   * @param {string} value
-   * @returns {Welcomer}
+   * @param {string} value Valor del título
+   * @param {string} color Código de color HTML5 "#000000"
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} El título debe ser un string
    */
-  setTitulo(value) {
+  setTitulo(value, color) {
+    if (typeof value !== 'string') throw new APIError("El título debe ser un string");
     this.titulo = value;
+    if (typeof color !== 'string') throw new APIError("La opacidad debe ser un string");
+    this.colorTitulo = color;
     return this;
   }
 
   /**
    * Valor del subtítulo
-   * @param {string} value
-   * @returns {Welcomer}
+   * @param {string} value Valor del subtítulo
+   * @param {string} color Código de color HTML5 "#000000"
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} El subtítulo debe ser un string
    */
-  setSubtitulo(value) {
+  setSubtitulo(value, color) {
+    if (typeof value !== 'string') throw new APIError("El subtítulo debe ser un string");
     this.subtitulo = value;
-    return this;
-  }
-  /**
-   * Valor del color del título
-   * @param {string} value
-   * @returns {Welcomer}
-   */
-  setColorTitulo(value) {
-    this.colorTitulo = value;
-    return this;
-  }
-  /**
-   * Valor del color del subtítulo
-   * @param {string} value
-   * @returns {Welcomer}
-   */
-  setColorSubtitulo(value) {
-    this.colorSubtitulo = value;
+    if (typeof color !== 'string') throw new APIError("La opacidad debe ser un string");
+    this.colorSubtitulo = color;
     return this;
   }
   /**
    * Valor del color del círculo
-   * @param {string} value
-   * @returns {Welcomer}
+   * @param {string} value Código de color HTML5 "#000000"
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} La opacidad debe ser un string
    */
   setColorCircle(value) {
+    if (typeof value !== 'string') throw new APIError("La opacidad debe ser un string");
     this.colorCircle = value;
     return this;
   }
 
   /**
    * Valor del color del overlay
-   * @param {string} value
-   * @returns {Welcomer}
+   * @param {string} value Código de color HTML5 "#000000"
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} La opacidad debe ser un string
    */
   setColorOverlay(value) {
+    if (typeof value !== 'string') throw new APIError("La opacidad debe ser un string");
     this.colorOverlay = value;
     return this;
   }
 
   /**
    * Valor del color del overlay
-   * @param {number|string} value
-   * @returns {Welcomer}
+   * @param {number} value Valor de 0 a 1 para la opacidad
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} La opacidad debe ser un número
    */
   setOpacityOverlay(value) {
+    if (isNaN(value)) throw new APIError("La opacidad debe ser un número");
     this.opacityOverlay = value;
     return this;
   }
@@ -221,18 +178,20 @@ class Welcomer extends BaseCard {
   /**
    * Establecer imagen / color de fondo
    * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-   * @param {string|Buffer} [data] Color o imagen de fondo
+   * @param {string} data URL de la imagen o código de color HTML
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} Tipo de fondo no admitido
    */
   setBackground(type, data) {
-    if (!data) throw new Error("Falta campo: datos");
+    if (!data) throw new APIError("Falta campo: datos");
     if (type === "COLOR") {
-      this.data.backgroundGlobal.type = "color";
-      this.data.backgroundGlobal.image = typeof data === "string" ? data : "#23272A";
+      this.backgroundGlobal.type = "color";
+      this.backgroundGlobal.image = typeof data === "string" ? data : "#23272A";
     } else if (type === "IMAGE") {
-      this.data.backgroundGlobal.type = "image";
-      this.data.backgroundGlobal.image = data;
+      this.backgroundGlobal.type = "image";
+      this.backgroundGlobal.image = data;
     } else {
-      throw new Error(`Tipo de fondo no admitido "${type}"`);
+      throw new APIError(`Tipo de fondo no admitido "${type}"`);
     }
     return this;
   }
@@ -240,9 +199,11 @@ class Welcomer extends BaseCard {
   /**
    * Establecer rectangle / rounded de overlay
    * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
+   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
+   * @throws {APIError} Tipo de overlay no admitido
    */
   setTypeOverlay(type) {
-    if (!type) throw new Error("Falta campo: tipo");
+    if (!type) throw new APIError("Falta campo: tipo");
     switch (type) {
       case "RECTANGLE":
         this.typeOverlay.type = "RECTANGLE";
@@ -251,7 +212,7 @@ class Welcomer extends BaseCard {
         this.typeOverlay.type = "ROUNDED";
         break;
       default:
-        throw new Error(`Tipo de overlay no admitido "${type}"`);
+        throw new APIError(`Tipo de overlay no admitido "${type}"`);
     }
     return this;
   }
@@ -260,22 +221,19 @@ class Welcomer extends BaseCard {
    * Construye la tarjeta de bienvenida
    * @param {string} [font="Arial"] Fuente de texto para la tarjeta
    * @returns {Promise<Buffer>} Imagen de la tarjeta de bienvenida en formato de buffer
+   * @throws {APIError} Si no se puede cargar la imagen de fondo
    */
   async build(font = "Arial") {
     const canvas = createCanvas(1100, 500);
     const ctx = canvas.getContext("2d");
 
-    // Dibujar fondo
-    ctx.fillStyle = this.colorBackground;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     let bg = null;
     try {
-      if (this.data.backgroundGlobal.type === "image") {
-        bg = await loadImage(this.data.backgroundGlobal.image);
+      if (this.backgroundGlobal.type === "image") {
+        bg = await loadImage(this.backgroundGlobal.image);
         ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
       } else {
-        ctx.fillStyle = this.data.backgroundGlobal.image;
+        ctx.fillStyle = this.backgroundGlobal.image;
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
     } catch (error) {
@@ -326,4 +284,4 @@ class Welcomer extends BaseCard {
   }
 }
 
-module.exports = Welcomer;
+module.exports = WelcomeLeave;

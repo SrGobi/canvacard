@@ -19,8 +19,7 @@ export declare let ConvolutionMatrix: {
 };
 export declare let Rank: typeof import("./src/Rank");
 export declare let Spotify: typeof import("./src/Spotify");
-export declare let Welcomer: typeof import("./src/Welcomer");
-export declare let Leaver: typeof import("./src/Leaver");
+export declare let WelcomeLeave: typeof import("./src/WelcomeLeave");
 export declare let FortniteShop: typeof import("./src/FortniteShop");
 export declare let Plugins: {
     circle: (ctx: any, w: any, h: any) => any;
