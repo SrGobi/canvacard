@@ -31,7 +31,6 @@ declare class Rank {
         .setLevel(20, "LEVEL", true)
         .setStatus("online")
         .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-        .setProgressBarTrack("#FFFFFF")
         .setOverlay("#000000", 1, true)
         .setUsername(data.global_name, data.discriminator)
         .setCreatedTimestamp(data.createdTimestamp);
