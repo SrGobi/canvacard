@@ -3,10 +3,10 @@ const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const APIError = require("./utils/error.utils");
 const shorten = require("./utils/shorten.utils");
 /**
- * Creador de tarjetas de bienvenida
+ * @kind class
+ * @description Creador de tarjetas de bienvenida o despedida
  */
 class WelcomeLeave {
-
   /**
    * <details open>
    *  <summary>PREVIEW</summary>
@@ -27,7 +27,7 @@ class WelcomeLeave {
    * 
    * @example
    * ```js
-    const welcome = new canvacard.Welcomer()
+    const welcome = new canvacard.WelcomeLeave()
       .setAvatar(data.avatarURL)
       .setBackground('COLOR', '#000000')
       .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
@@ -39,64 +39,75 @@ class WelcomeLeave {
     const welcomeImage = await welcome.build("Suravaram");
     canvacard.write(welcomeImage, "./welcomer.png");
    * ```
-   * 
-   * Constructor de la tarjeta de bienvenida
    */
   constructor() {
     /**
      * Fondo de la tarjeta
      * @property {object} backgroundGlobal Fondo de la tarjeta
      * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
+     * @private
      */
     this.backgroundGlobal = { type: "COLOR", image: "#23272A" };
     /**
      * Avatar de la tarjeta
-     * @type {string}
+     * @property {string}
+     * @private
      */
     this.avatar = `${__dirname}/../assets/img/default-avatar.png`;
     /**
      * Título creado con Canvacard
-     * @type {string}
+     * @property {string}
+     * @private
      */
     this.titulo = "Titulo personalizable!";
     /**
      * Subtítulo creado con Canvacard
-     * @type {string}
+     * @property {string}
+     * @private
      */
     this.subtitulo = "Descripcion personalizable!";
     /**
      * Color del título creado con Canvacard
-     * @type {string}
+     * @property {string}
+     * @private
      */
     this.colorTitulo = "#FFFFFF";
     /**
      * Color del Subtítulo creado con Canvacard
-     * @type {string}
+     * @property {string}
+     * @private
      */
     this.colorSubtitulo = "#5865f2";
     /**
      * Color del circulo
-     * @type {string}
+     * @property {string}
+     * @private
      */
     this.colorCircle = "#FFFFFF";
     /**
      * Color del overlay
-     * @type {number|string}
+     * @property {string}
+     * @private
      */
     this.colorOverlay = "#000000";
     /**
      * Opacidad del overlay
-     * @type {string}
+     * @property {number}
+     * @private
      */
-    this.opacityOverlay = "0.4";
+    this.opacityOverlay = 0.4;
     /**
      * Tipo de overlay
-     * @type {string}
+     * @property {object} typeOverlay Tipo de overlay
+     * @property {"RECTANGLE"|"ROUNDED"} [typeOverlay.type="ROUNDED"] Tipo de overlay
+     * @private
      */
     this.typeOverlay = { type: "ROUNDED" };
   }
   /**
-   * Valor del avatar
+   * @method setAvatar
+   * @name setAvatar
+   * @description Establecer el avatar de la tarjeta
    * @param {string|Buffer} value URL de la imagen o Buffer de la imagen
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
    * @throws {APIError} El avatar debe ser un string o un Buffer
@@ -108,7 +119,9 @@ class WelcomeLeave {
   }
 
   /**
-   * Valor del título
+   * @method setTitulo
+   * @name setTitulo
+   * @description Establecer el título de la tarjeta
    * @param {string} value Valor del título
    * @param {string} color Código de color HTML5 "#000000"
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
@@ -123,7 +136,9 @@ class WelcomeLeave {
   }
 
   /**
-   * Valor del subtítulo
+   * @method setSubtitulo
+   * @name setSubtitulo
+   * @description Establecer el subtítulo de la tarjeta
    * @param {string} value Valor del subtítulo
    * @param {string} color Código de color HTML5 "#000000"
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
@@ -136,8 +151,11 @@ class WelcomeLeave {
     this.colorSubtitulo = color;
     return this;
   }
+
   /**
-   * Valor del color del círculo
+   * @method setColorCircle
+   * @name setColorCircle
+   * @description Establecer el color del circulo
    * @param {string} value Código de color HTML5 "#000000"
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
    * @throws {APIError} La opacidad debe ser un string
@@ -149,7 +167,9 @@ class WelcomeLeave {
   }
 
   /**
-   * Valor del color del overlay
+   * @method setColorOverlay
+   * @name setColorOverlay
+   * @description Establecer el color del overlay
    * @param {string} value Código de color HTML5 "#000000"
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
    * @throws {APIError} La opacidad debe ser un string
@@ -161,7 +181,9 @@ class WelcomeLeave {
   }
 
   /**
-   * Valor del color del overlay
+   * @method setOpacityOverlay
+   * @name setOpacityOverlay
+   * @description Establecer la opacidad del overlay
    * @param {number} value Valor de 0 a 1 para la opacidad
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
    * @throws {APIError} La opacidad debe ser un número
@@ -173,7 +195,9 @@ class WelcomeLeave {
   }
 
   /**
-   * Establecer imagen / color de fondo
+   * @method setBackground
+   * @name setBackground
+   * @description Establecer imagen / color de fondo
    * @param {"COLOR"|"IMAGE"} type Tipo de fondo
    * @param {string} data URL de la imagen o código de color HTML
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
@@ -194,7 +218,9 @@ class WelcomeLeave {
   }
 
   /**
-   * Establecer rectangle / rounded de overlay
+   * @method setTypeOverlay
+   * @name setTypeOverlay
+   * @description Establecer rectangle / rounded de overlay
    * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
    * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
    * @throws {APIError} Tipo de overlay no admitido
@@ -215,8 +241,10 @@ class WelcomeLeave {
   }
 
   /**
-   * Construye la tarjeta de bienvenida
-   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
+   * @method build
+   * @name build
+   * @description Construye la tarjeta de bienvenida
+   * @param {string} [font=Arial] Fuente de texto para la tarjeta
    * @returns {Promise<Buffer>} Imagen de la tarjeta de bienvenida en formato de buffer
    * @throws {APIError} Si no se puede cargar la imagen de fondo
    */
