@@ -23,7 +23,7 @@ For **EsModule** And **TypeScript**
 import canvacard from "canvacard";
 ```
 
-# Features
+# ✨Features
 
 - 🪟 **Código abierto y sin preocupaciones de privacidad, totalmente transparente** - Canvacard es de código abierto y gratuito. Puedes colaborar y no tendrás que inquietarte por la privacidad.
 
@@ -41,7 +41,7 @@ import canvacard from "canvacard";
 
 - 🤓 **Ideal para principiantes** - La API y documentación son simples, lo que lo hace accesible incluso para quienes tienen poca experiencia en el manejo de imágenes.
 
-# Ejemplos
+# 📦Examples
 
 ## [Rank Card](https://canvacard.srgobi.com/classes/rank)
 
