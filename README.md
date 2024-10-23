@@ -93,25 +93,22 @@ rank.build("Cascadia Code PL")
   </a>
 </details>
 
-## [Welcomer Card](https://canvacard.srgobi.com/classes/welcomer)
+## [WelcomeLeave Card](https://canvacard.srgobi.com/classes/welcomeleave)
 
 ```js
 const canvacard = require("canvacard");
 const img = "https://cdn.discordapp.com/embed/avatars/0.png";
 const background = "https://i.imgur.com/5O7xmVe.png";
 
-const welcomer = new canvacard.Welcomer()
+const welcomer = new canvacard.WelcomeLeave()
   .setAvatar(img)
-  .setBackground('IMAGE', background)
-  .setTitulo("WELCOME")
-  .setSubtitulo("Subtitulo personalizable!")
-  .setTitulo("Titulo personalizable!")
-  .setSubtitulo("Subtitulo personalizable!")
-  .setColorTitulo("#FFFFFF");
-  .setColorSubtitulo("#5865f2");
-  .setColorCircle("#FFFFFF");
-  .setColorOverlay("#000000");
-  .setOpacityOverlay("0.4");
+  .setBackground('COLOR', '#000000')
+  .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
+  .setSubtitulo("Subtitulo de la Tarjeta 👋", '#FFFFFF')
+  .setOpacityOverlay(1)
+  .setColorCircle('#FFFFFF')
+  .setColorOverlay('#5865F2')
+  .setTypeOverlay('ROUNDED');
 
 welcomer.build("Cascadia Code PL, Noto Color Emoji")
   .then(data => {
