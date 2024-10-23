@@ -1,7 +1,20 @@
 export = FortniteShop;
 /**
  * @kind class
- * Creador de tiene de artículos de Fortnite
+ * @description Creador de tarjetas de la tienda de Fortnite
+ * <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">
+ *
+ * Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
+ *
+ * @example
+ * ```js
+const shop = new canvacard.FortniteShop()
+  .setToken("f4a26b940ef54a9a4238cef040bd08fa9001cd6c")
+  .setText("footer", "ESP CUSTOMS X FORTNITE")
+
+const FortniteShopImage = await shop.build("Luckiest Guy");
+canvacard.write(FortniteShopImage, "./fortnite_shop.png");
+ * ```
  */
 declare class FortniteShop {
     token: string;

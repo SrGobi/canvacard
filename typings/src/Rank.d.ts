@@ -1,44 +1,43 @@
 export = Rank;
 /**
  * @kind class
- * Creador tarjetas de rango
+ * @description Creador de tarjetas de rango
+ * <details open>
+ *  <summary>PREVIEW</summary>
+ * <br>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
+ *   </a>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
+ *   </a>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
+ *   </a>
+ * </details>
+ *
+ * @example
+ * ```js
+const rank = new canvacard.Rank(data.id)
+  .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
+  .setBanner(data.bannerURL, true)
+  .setBadges(data.flags, data.bot, true)
+  .setCurrentXP(userData.xp)
+  .setRequiredXP(userData.requiredXP)
+  .setRank(1, "RANK", true)
+  .setLevel(20, "LEVEL", true)
+  .setStatus("online")
+  .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+  .setOverlay("#000000", 1, true)
+  .setUsername(data.global_name, data.discriminator)
+  .setCreatedTimestamp(data.createdTimestamp);
+
+const rankImage = await rank.build("Cascadia Code PL");
+canvacard.write(rankImage, "./rank.png");
+ * ```
  */
 declare class Rank {
     /**
-     * <details open>
-     *  <summary>PREVIEW</summary>
-     * <br>
-     *   <a>
-     *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
-     *   </a>
-     *   <a>
-     *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
-     *   </a>
-     *   <a>
-     *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
-     *   </a>
-     * </details>
-     *
-     * @example
-     * ```js
-      const rank = new canvacard.Rank(data.id)
-        .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
-        .setBanner(data.bannerURL, true)
-        .setBadges(data.flags, data.bot, true)
-        .setCurrentXP(userData.xp)
-        .setRequiredXP(userData.requiredXP)
-        .setRank(1, "RANK", true)
-        .setLevel(20, "LEVEL", true)
-        .setStatus("online")
-        .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-        .setOverlay("#000000", 1, true)
-        .setUsername(data.global_name, data.discriminator)
-        .setCreatedTimestamp(data.createdTimestamp);
-  
-      const rankImage = await rank.build("Cascadia Code PL");
-      canvacard.write(rankImage, "./rank.png");
-     * ```
-     *
      * @param {string} userId ID del usuario
      */
     constructor(userId: string);

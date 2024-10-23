@@ -5,27 +5,23 @@ const APIError = require("./utils/error.utils");
 
 /**
  * @kind class
- * Creador de tarjetas de presencia de Spotify
+ * @description Creador de tarjetas de presencia de Spotify
+ * ![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
+ * 
+ * @example
+ * ```js
+const spotify = new canvacard.Spotify()
+  .setAuthor("SAIKO")
+  .setAlbum("SAKURA 👋")
+  .setStartTimestamp(Date.now() - 10000)
+  .setEndTimestamp(Date.now() + 50000)
+  .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
+  .setTitle("YO LO SOÑÉ");
+const spotifyImage = await spotify.build("Cascadia Code PL");
+canvacard.write(spotifyImage, "./spotify.png");
+ * ```
  */
 class Spotify {
-
-  /**
-   * ![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
-   * 
-   * @example
-   * ```js
-    const spotify = new canvacard.Spotify()
-      .setAuthor("SAIKO")
-      .setAlbum("SAKURA 👋")
-      .setStartTimestamp(Date.now() - 10000)
-      .setEndTimestamp(Date.now() + 50000)
-      .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
-      .setTitle("YO LO SOÑÉ");
-    const spotifyImage = await spotify.build("Cascadia Code PL");
-    canvacard.write(spotifyImage, "./spotify.png");
-   * ```
-   *
-   */
   constructor() {
 
     /**

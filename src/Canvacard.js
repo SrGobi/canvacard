@@ -14,23 +14,21 @@ const shorten = require("./utils/shorten.utils");
 const discordTime = require("./utils/discordTime.utils");
 const { ImageFactory } = require("./AssetsFactory");
 const APIError = require("./utils/error.utils");
+
 /**
  * @kind class
- * Canvacard Generador De Memes
+ * @description Generador de imágenes
+ * @example
+ * ```js
+const canvacard = require("canvacard");
+canvacard.Canvas.trigger("./image.png")
+  .then(triggered => {
+    canvacard.write(triggered, "triggered.gif");
+  })
+  .catch(console.error);
+ * ```
  */
 class Canvacard {
-
-  /**
-   * @example
-   * ```js
-    const canvacard = require("canvacard");
-    canvacard.Canvas.trigger("./image.png")
-    .then(triggered => {
-      canvacard.write(triggered, "triggered.gif");
-    })
-    .catch(console.error);
-   * ```
-   */
   constructor() {
     throw new APIError(`The ${this.constructor.name} class may not be instantiated!`);
   }
