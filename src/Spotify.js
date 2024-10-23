@@ -6,7 +6,13 @@ const APIError = require("./utils/error.utils");
 /**
  * @kind class
  * @description Creador de tarjetas de presencia de Spotify
- * ![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
+ * <details open>
+ *  <summary>PREVIEW</summary>
+ * <br>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">
+ *   </a>
+ * </details>
  * 
  * @example
  * ```js
