@@ -26,7 +26,7 @@
 <a name="new_FortniteShop_new"></a>
 
 ### new FortniteShop()
-Creador de tarjetas de la tienda de Fortnite<img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
+Creador de tarjetas de la tienda de Fortnite<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">  </a></details>Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
 
 **Example**  
 ```js

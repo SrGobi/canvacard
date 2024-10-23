@@ -44,7 +44,7 @@
 <a name="new_Spotify_new"></a>
 
 ### new Spotify()
-Creador de tarjetas de presencia de Spotify![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
+Creador de tarjetas de presencia de Spotify<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">  </a></details>
 
 **Example**  
 ```js
