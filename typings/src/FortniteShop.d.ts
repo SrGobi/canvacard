@@ -2,7 +2,13 @@ export = FortniteShop;
 /**
  * @kind class
  * @description Creador de tarjetas de la tienda de Fortnite
- * <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">
+ * <details open>
+ *  <summary>PREVIEW</summary>
+ * <br>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">
+ *   </a>
+ * </details>
  *
  * Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
  *
