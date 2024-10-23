@@ -1,10 +1,13 @@
 export = Canvacard;
 /**
+ * @kind class
  * Canvacard Generador De Memes
  */
 declare class Canvacard {
     /**
-     * Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
+     * @method trigger
+     * @name trigger
+     * @description Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -20,7 +23,9 @@ declare class Canvacard {
      */
     static trigger(image: string | Buffer): Promise<Buffer>;
     /**
-     * Invierte el color de la imagen
+     * @method invert
+     * @name invert
+     * @description Invierte el color de la imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -36,7 +41,9 @@ declare class Canvacard {
      */
     static invert(image: string | Buffer): Promise<Buffer>;
     /**
-     * Aplicar lavado sepia en img
+     * @method sepia
+     * @name sepia
+     * @description Aplicar lavado sepia en img
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -52,7 +59,9 @@ declare class Canvacard {
      */
     static sepia(image: string | Buffer): Promise<Buffer>;
     /**
-     * Efecto de escala de grises sobre la imagen
+     * @method greyscale
+     * @name greyscale
+     * @description Efecto de escala de grises sobre la imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -68,7 +77,9 @@ declare class Canvacard {
      */
     static greyscale(image: string | Buffer): Promise<Buffer>;
     /**
-     * Editar el brillo de la imagen
+     * @method brightness
+     * @name brightness
+     * @description Editar el brillo de la imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -85,7 +96,9 @@ declare class Canvacard {
      */
     static brightness(image: string | Buffer, amount: number): Promise<Buffer>;
     /**
-     * Editar la oscuridad de la imagen
+     * @method darkness
+     * @name darkness
+     * @description Editar la oscuridad de la imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -102,7 +115,9 @@ declare class Canvacard {
      */
     static darkness(image: string | Buffer, amount: number): Promise<Buffer>;
     /**
-     * Umbral de imagen
+     * @method threshold
+     * @name threshold
+     * @descrioption Umbral de imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -119,7 +134,9 @@ declare class Canvacard {
      */
     static threshold(img: string | Buffer, amount: number): Promise<Buffer>;
     /**
-     * Convolución de la imagen
+     * @method convolute
+     * @name convolute
+     * @description Convolución de la imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -138,7 +155,9 @@ declare class Canvacard {
      */
     static convolute(img: string | Buffer, matrix: number[], opaque: boolean): Promise<Buffer>;
     /**
-     * Pixelar
+     * @method pixelate
+     * @name pixelate
+     * @description Pixelar
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -154,7 +173,9 @@ declare class Canvacard {
      */
     static pixelate(image: string | Buffer, pixels?: number): Promise<Buffer>;
     /**
-     * Agudizar una imagen
+     * @method sharpen
+     * @name sharpen
+     * @description Agudizar una imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -171,7 +192,9 @@ declare class Canvacard {
      */
     static sharpen(image: string | Buffer, lvl?: number): Promise<Buffer>;
     /**
-     * Aplica efecto de quemado en una imagen.
+     * @method burn
+     * @name burn
+     * @description Aplica efecto de quemado en una imagen.
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -188,7 +211,9 @@ declare class Canvacard {
      */
     static burn(image: string | Buffer, lvl?: number): Promise<Buffer>;
     /**
-     * Crea una imagen circular
+     * @method circle
+     * @name circle
+     * @description Crea una imagen circular
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -204,7 +229,9 @@ declare class Canvacard {
      */
     static circle(image: string | Buffer): Promise<Buffer>;
     /**
-     * Fusiona dos imágenes
+     * @method fuse
+     * @name fuse
+     * @description Fusiona dos imágenes
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -221,7 +248,9 @@ declare class Canvacard {
      */
     static fuse(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * Cambiar el tamaño de una imagen
+     * @method resize
+     * @name resize
+     * @description Cambiar el tamaño de una imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -239,7 +268,9 @@ declare class Canvacard {
      */
     static resize(image: string | Buffer, width: number, height: number): Promise<Buffer>;
     /**
-     * Besarse ( ͡° ͜ʖ ͡°)
+     * @method kiss
+     * @name kiss
+     * @description Besarse ( ͡° ͜ʖ ͡°)
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -256,7 +287,9 @@ declare class Canvacard {
      */
     static kiss(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * Azotar a alguien ( ͡° ͜ʖ ͡°)
+     * @method spank
+     * @name spank
+     * @description Azotar a alguien ( ͡° ͜ʖ ͡°)
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -273,7 +306,9 @@ declare class Canvacard {
      */
     static spank(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * Abofetear a alguien ( ͡° ͜ʖ ͡°)
+     * @method slap
+     * @name slap
+     * @description Abofetear a alguien ( ͡° ͜ʖ ͡°)
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -290,7 +325,9 @@ declare class Canvacard {
      */
     static slap(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * facepalm
+     * @method facepalm
+     * @name facepalm
+     * @description Hacer una imagen de palma en la cara
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -306,7 +343,9 @@ declare class Canvacard {
      */
     static facepalm(image: string | Buffer): Promise<Buffer>;
     /**
-     * Actualiza el color de la imagen
+     * @method colorfy
+     * @name colorfy
+     * @description Actualiza el color de la imagen
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -323,7 +362,9 @@ declare class Canvacard {
      */
     static colorfy(image: string | Buffer, color: string): Promise<Buffer>;
     /**
-     * Novio distraído
+     * @method distracted
+     * @name distracted
+     * @description Crear una imagen de meme de distracción
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -341,7 +382,9 @@ declare class Canvacard {
      */
     static distracted(image1: string | Buffer, image2: string | Buffer, image3?: string | Buffer): Promise<Buffer>;
     /**
-     * Celda
+     * @method jail
+     * @name jail
+     * @description Crear una imagen de celda
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -358,7 +401,9 @@ declare class Canvacard {
      */
     static jail(image: string | Buffer, greyscale?: boolean): Promise<Buffer>;
     /**
-     * Cama
+     * @method bed
+     * @name bed
+     * @description Crear una imagen de cama
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -375,7 +420,9 @@ declare class Canvacard {
      */
     static bed(image1: string | Buffer, image2: string | Buffer): Promise<Buffer>;
     /**
-     * Borrar
+     * @method delete
+     * @name delete
+     * @description Crear una imagen eliminada
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -392,7 +439,9 @@ declare class Canvacard {
      */
     static delete(image: string | Buffer, dark?: boolean): Promise<Buffer>;
     /**
-     * Crea degradado
+     * @method gradient
+     * @name gradient
+     * @description Crear una imagen degradada
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -411,7 +460,9 @@ declare class Canvacard {
      */
     static gradient(colorFrom: string, colorTo: string, width: number, height: number): Promise<Buffer>;
     /**
-     * Cita falsa
+     * @method quote
+     * @name quote
+     * @description Crear una imagen de cita falsa
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -436,7 +487,9 @@ declare class Canvacard {
         color?: string;
     }, font?: string): Promise<Buffer>;
     /**
-     * Comentario de PornHub
+     * @method phub
+     * @name phub
+     * @description Comentario de PornHub
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -460,7 +513,9 @@ declare class Canvacard {
         image?: string | Buffer;
     }, font?: string): Promise<Buffer>;
     /**
-     * Wanted
+     * @method wanted
+     * @name wanted
+     * @description Crear una imagen de se busca
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -476,7 +531,9 @@ declare class Canvacard {
      */
     static wanted(image: string | Buffer): Promise<Buffer>;
     /**
-     * Wasted
+     * @method wasted
+     * @name wasted
+     * @description Crear una imagen de "wasted"
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -492,7 +549,9 @@ declare class Canvacard {
      */
     static wasted(image: string | Buffer): Promise<Buffer>;
     /**
-     * Comentario de YouTube
+     * @method youtube
+     * @name youtube
+     * @description Comentario de YouTube
      * @example
      * ```js
       const canvacard = require("canvacard");
@@ -517,14 +576,18 @@ declare class Canvacard {
         dark?: boolean;
     }): Promise<Buffer>;
     /**
-     * Escribe los datos como archivo
+     * @method write
+     * @name write
+     * @description Escribe los datos como archivo
      * @param {Buffer} data datos para escribir
      * @param {string} name nombre del archivo
      * @returns {void}
      */
     static write(data: Buffer, name: string): void;
     /**
-     * Clon de respuesta de discord
+     * @method reply
+     * @name reply
+     * @description Clon de respuesta de discord
      * @param {object} options Opciones
      * @param {string|Buffer} [options.avatar1] Avatar de la persona que respondió
      * @param {string|Buffer} [options.avatar2] Avatar de la otra persona
@@ -562,17 +625,12 @@ declare class Canvacard {
         replyText?: string;
     }): Promise<Buffer>;
     /**
-     * Canvacard assets
-     * @type {CanvacardAssets}
-     * @private
-     */
-    private static get assets();
-    /**
      * Método de Canvacard utilizado para `wait`.
      * @param {number} dur Número de milisegundos a esperar
-     * @returns {Promise<void>}
+     * @returns {Promise<void>} Promesa resuelta después de la espera
+     * @private
      */
-    static __wait(dur: number): Promise<void>;
+    private static __wait;
     /**
      * Matriz de convolución Canvacard
      * @typedef {object} ConvolutionMatrix
@@ -580,28 +638,13 @@ declare class Canvacard {
      * @property {number[]} BLUR Blur Matrix
      * @property {number[]} SHARPEN Sharpen Matrix
      * @property {number[]} BURN Burn Matrix
+     * @private
      */
     /**
      * Datos de matriz para **Canvacard.convolute()**
      * @type {ConvolutionMatrix}
+     * @private
      */
-    static get CONVOLUTION_MATRIX(): {
-        /**
-         * Edges Matrix
-         */
-        EDGES: number[];
-        /**
-         * Blur Matrix
-         */
-        BLUR: number[];
-        /**
-         * Sharpen Matrix
-         */
-        SHARPEN: number[];
-        /**
-         * Burn Matrix
-         */
-        BURN: number[];
-    };
+    private static get CONVOLUTION_MATRIX();
 }
 //# sourceMappingURL=Canvacard.d.ts.map

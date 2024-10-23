@@ -1,8 +1,10 @@
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const formatTime = require("./utils/formatTime.utils");
 const shorten = require("./utils/shorten.utils");
+const APIError = require("./utils/error.utils");
 
 /**
+ * @kind class
  * Creador de tarjetas de presencia de Spotify
  */
 class Spotify {
@@ -28,49 +30,52 @@ class Spotify {
 
     /**
      * Título de la canción
-     * @type {string}
+     * @property {string}
+     * @private
      */
-    this.title = null;
+    this.title = "Titulo de la Canción";
 
     /**
      * Thumbnail
-     * @type {string|Buffer|Canvas.Image}
+     * @property {string|Buffer|Canvas.Image}
+     * @private
      */
     this.image = null;
 
     /**
      * Artista de la canción
-     * @type {string}
+     * @property {string}
+     * @private
      */
-    this.artist = null;
+    this.artist = "Artista de la Canción";
 
     /**
      * Nombre del álbum de Spotify
-     * @type {string}
+     * @property {string}
+     * @private
      */
-    this.album = null;
+    this.album = "Nombre del Álbum";
 
     /**
      * Marca de tiempo de inicio de presencia de discord
-     * @type {number}
+     * @property {number}
+     * @private
      */
     this.start = null;
 
     /**
      * Marca de tiempo de finalización de presencia de discord
-     * @type {number}
+     * @property {number}
+     * @private
      */
     this.end = null;
 
     /**
-     * @typedef {object} SpotifyDataBG
-     * @property {number} type Tipo de fondo
-     * @property {string|Buffer} data Datos de fondo
-     */
-
-    /**
-     * Fondo
-     * @type {SpotifyDataBG}
+     * Fondo de la tarjeta
+     * @property {object} background Fondo
+     * @property {number} background.type Tipo de fondo
+     * @property {string|Buffer} background.data Datos de fondo
+     * @private
      */
     this.background = {
       type: 0,
@@ -78,14 +83,11 @@ class Spotify {
     };
 
     /**
-     * @typedef {object} SpotifyProgressBarData
-     * @property {string} bgColor Barra de progreso bg color
-     * @property {string} color Barra de progreso bg color
-     */
-
-    /**
      * Detalles de la barra de progreso
-     * @type {SpotifyProgressBarData}
+     * @property {object} progressBar Detalles de la barra de progreso
+     * @property {string} progressBar.bgColor Barra de progreso bg color
+     * @property {string} progressBar.color Barra de progreso bg color
+     * @private
      */
     this.progressBar = {
       bgColor: "#E8E8E8",
@@ -94,24 +96,29 @@ class Spotify {
 
     /**
      * Ancho de la tarjeta
-     * @type {number}
+     * @property {number}
      * @default 775
+     * @private
      */
     this.width = 775;
 
     /**
      * Altura de la tarjeta
-     * @type {number}
+     * @property {number}
      * @default 300
+     * @private
      */
     this.height = 300;
   }
 
   /**
-   * Establecer detalles de la barra de progreso
+   * @method setProgressBar
+   * @name setProgressBar
+   * @description Establecer detalles de la barra de progreso
    * @param {"TRACK"|"BAR"} type Tipo de barra de progreso
    * @param {string} color Color para establecer
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Tipo de barra de progreso no válido
    */
   setProgressBar(type, color) {
     switch (type) {
@@ -123,49 +130,61 @@ class Spotify {
         this.progressBar.bgColor = color && typeof color === "string" ? color : "#E8E8E8";
         break;
       default:
-        throw new Error(`Tipo de barra de progreso no válido "${type}"!`);
+        throw new APIError(`Tipo de barra de progreso no válido "${type}"!`);
     }
 
     return this;
   }
 
   /**
-   * Establecer título
+   * @method setTitle
+   * @name setTitle
+   * @description Establecer título
    * @param {string} title Título para establecer
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Título esperado pero no recibido
    */
   setTitle(title) {
-    if (!title || typeof title !== "string") throw new Error(`Título esperado, recibido ${typeof title}!`);
+    if (!title || typeof title !== "string") throw new APIError(`Título esperado, recibido ${typeof title}!`);
     this.title = title;
     return this;
   }
 
   /**
-   * Establecer imagen
+   * @method setImage
+   * @name setImage
+   * @description Establecer imagen
    * @param {string|Buffer|Canvas.Image} source Fuente de imagen
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Fuente de imagen esperada pero no recibida
    */
   setImage(source) {
-    if (!source) throw new Error(`Fuente de imagen esperada, recibida ${typeof title}!`);
+    if (!source) throw new APIError(`Fuente de imagen esperada, recibida ${typeof title}!`);
     this.image = source;
     return this;
   }
 
   /**
-   * Establecer nombre de artista
+   * @method setAuthor
+   * @name setAuthor
+   * @description Establecer nombre de artista
    * @param {string} name Nombre del artista
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Nombre esperado del artista pero no recibido
    */
   setAuthor(name) {
-    if (!name || typeof name !== "string") throw new Error(`Nombre esperado del artista, recibido ${typeof name}!`);
+    if (!name || typeof name !== "string") throw new APIError(`Nombre esperado del artista, recibido ${typeof name}!`);
     this.artist = name;
     return this;
   }
 
   /**
-   * Establecer el nombre del álbum
+   * @method setAlbum
+   * @name setAlbum
+   * @description Establecer el nombre del álbum
    * @param {string} name Nombre del álbum
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Nombre del álbum esperado pero no recibido
    */
   setAlbum(name) {
     if (!name || typeof name !== "string") throw new Error(`Nombre del álbum esperado, recibido ${typeof name}!`);
@@ -174,34 +193,43 @@ class Spotify {
   }
 
   /**
-   * Establecer marca de tiempo de inicio
+   * @method setStartTimestamp
+   * @name setStartTimestamp
+   * @description Establecer marca de tiempo de inicio
    * @param {Date|number} time Marca de tiempo
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Marca de tiempo esperada pero no recibida
    */
   setStartTimestamp(time) {
-    if (!time) throw new Error(`Marca de tiempo esperada, recibida ${typeof time}!`);
+    if (!time) throw new APIError(`Marca de tiempo esperada, recibida ${typeof time}!`);
     if (time instanceof Date) time = time.getTime();
     this.start = time;
     return this;
   }
 
   /**
-   * Establecer marca de tiempo de finalización
+   * @method setEndTimestamp
+   * @name setEndTimestamp
+   * @description Establecer marca de tiempo de finalización
    * @param {Date|number} time Marca de tiempo
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Marca de tiempo esperada pero no recibida
    */
   setEndTimestamp(time) {
-    if (!time) throw new Error(`Marca de tiempo esperada, recibida ${typeof time}!`);
+    if (!time) throw new APIError(`Marca de tiempo esperada, recibida ${typeof time}!`);
     if (time instanceof Date) time = time.getTime();
     this.end = time;
     return this;
   }
 
   /**
-   * Definir fondo
+   * @method setBackground
+   * @name setBackground
+   * @description Establecer fondo de la tarjeta
    * @param {"COLOR"|"IMAGE"} type Tipo de fondo
    * @param {string|Buffer|Canvas.Image} data Datos de fondo
-   * @returns {Spotify}
+   * @returns {Spotify} La instancia actual de Spotify
+   * @throws {APIError} Tipo de fondo no válido
    */
   setBackground(type = "COLOR", data = "#2F3136") {
     switch (type) {
@@ -210,27 +238,29 @@ class Spotify {
         this.background.data = data && typeof data === "string" ? data : "#2F3136";
         break;
       case "IMAGE":
-        if (!data) throw new Error("¡Faltan datos de fondo!");
+        if (!data) throw new APIError("¡Faltan datos de fondo!");
         this.background.type = 1;
         this.background.data = data;
         break;
       default:
-        throw new Error(`Tipo de fondo no válido "${type}"!`);
+        throw new APIError(`Tipo de fondo no válido "${type}"!`);
     }
-
     return this;
   }
 
   /**
-   * Construye la tarjeta de presencia de Spotify.
+   * @method build
+   * @name build
+   * @description Construye la tarjeta de presencia de Spotify.
    * @param {string} [font="Arial"] Fuente de texto para la tarjeta
    * @returns {Promise<Buffer>} Imagen de la tarjeta de presencia de Spotify en formato de buffer
+   * @throws {APIError} Faltan opciones
    */
   async build(font = "Arial") {
-    if (!this.title) throw new Error('Falta el "título" en las opciones.');
-    if (!this.artist) throw new Error('Falta "artista" en las opciones.');
-    if (!this.start) throw new Error('Falta "inicio" en las opciones.');
-    if (!this.end) throw new Error('Falta "final" en las opciones.');
+    if (!this.title) throw new APIError('Falta el "título" en las opciones.');
+    if (!this.artist) throw new APIError('Falta "artista" en las opciones.');
+    if (!this.start) throw new APIError('Falta "inicio" en las opciones.');
+    if (!this.end) throw new APIError('Falta "final" en las opciones.');
 
     const total = this.end - this.start;
     const progress = Date.now() - this.start;

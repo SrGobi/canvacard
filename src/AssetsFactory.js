@@ -6,6 +6,7 @@ const BASE_URL =
  * Prepara la URL completa para una imagen.
  * @param {string} path - El nombre de la imagen.
  * @returns {string} - URL completa de la imagen.
+ * @private
  */
 const prepareURL = (path) => `${BASE_URL}/${path}`;
 

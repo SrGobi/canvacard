@@ -15,6 +15,7 @@ const discordTime = require("./utils/discordTime.utils");
 const { ImageFactory } = require("./AssetsFactory");
 const APIError = require("./utils/error.utils");
 /**
+ * @kind class
  * Canvacard Generador De Memes
  */
 class Canvacard {
@@ -35,7 +36,9 @@ class Canvacard {
   }
 
   /**
-   * Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
+   * @method trigger
+   * @name trigger
+   * @description Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -56,7 +59,9 @@ class Canvacard {
   }
 
   /**
-   * Invierte el color de la imagen
+   * @method invert
+   * @name invert
+   * @description Invierte el color de la imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -76,7 +81,9 @@ class Canvacard {
   }
 
   /**
-   * Aplicar lavado sepia en img
+   * @method sepia
+   * @name sepia
+   * @description Aplicar lavado sepia en img
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -96,7 +103,9 @@ class Canvacard {
   }
 
   /**
-   * Efecto de escala de grises sobre la imagen
+   * @method greyscale
+   * @name greyscale
+   * @description Efecto de escala de grises sobre la imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -116,7 +125,9 @@ class Canvacard {
   }
 
   /**
-   * Editar el brillo de la imagen
+   * @method brightness
+   * @name brightness
+   * @description Editar el brillo de la imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -138,7 +149,9 @@ class Canvacard {
   }
 
   /**
-   * Editar la oscuridad de la imagen
+   * @method darkness
+   * @name darkness
+   * @description Editar la oscuridad de la imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -160,7 +173,9 @@ class Canvacard {
   }
 
   /**
-   * Umbral de imagen
+   * @method threshold
+   * @name threshold
+   * @descrioption Umbral de imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -182,7 +197,9 @@ class Canvacard {
   }
 
   /**
-   * Convolución de la imagen
+   * @method convolute
+   * @name convolute
+   * @description Convolución de la imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -206,7 +223,9 @@ class Canvacard {
   }
 
   /**
-   * Pixelar
+   * @method pixelate
+   * @name pixelate
+   * @description Pixelar
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -239,7 +258,9 @@ class Canvacard {
   }
 
   /**
-   * Agudizar una imagen
+   * @method sharpen
+   * @name sharpen
+   * @description Agudizar una imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -261,7 +282,9 @@ class Canvacard {
   }
 
   /**
-   * Aplica efecto de quemado en una imagen.
+   * @method burn
+   * @name burn
+   * @description Aplica efecto de quemado en una imagen.
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -283,7 +306,9 @@ class Canvacard {
   }
 
   /**
-   * Crea una imagen circular
+   * @method circle
+   * @name circle
+   * @description Crea una imagen circular
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -308,7 +333,9 @@ class Canvacard {
   }
 
   /**
-   * Fusiona dos imágenes
+   * @method fuse
+   * @name fuse
+   * @description Fusiona dos imágenes
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -340,7 +367,9 @@ class Canvacard {
   }
 
   /**
-   * Cambiar el tamaño de una imagen
+   * @method resize
+   * @name resize
+   * @description Cambiar el tamaño de una imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -368,7 +397,9 @@ class Canvacard {
   }
 
   /**
-   * Besarse ( ͡° ͜ʖ ͡°)
+   * @method kiss
+   * @name kiss
+   * @description Besarse ( ͡° ͜ʖ ͡°)
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -399,7 +430,9 @@ class Canvacard {
   }
 
   /**
-   * Azotar a alguien ( ͡° ͜ʖ ͡°)
+   * @method spank
+   * @name spank
+   * @description Azotar a alguien ( ͡° ͜ʖ ͡°)
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -430,7 +463,9 @@ class Canvacard {
   }
 
   /**
-   * Abofetear a alguien ( ͡° ͜ʖ ͡°)
+   * @method slap
+   * @name slap
+   * @description Abofetear a alguien ( ͡° ͜ʖ ͡°)
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -461,7 +496,9 @@ class Canvacard {
   }
 
   /**
-   * facepalm
+   * @method facepalm
+   * @name facepalm
+   * @description Hacer una imagen de palma en la cara
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -490,7 +527,9 @@ class Canvacard {
   }
 
   /**
-   * Actualiza el color de la imagen
+   * @method colorfy
+   * @name colorfy
+   * @description Actualiza el color de la imagen
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -520,7 +559,9 @@ class Canvacard {
   }
 
   /**
-   * Novio distraído
+   * @method distracted
+   * @name distracted
+   * @description Crear una imagen de meme de distracción
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -557,7 +598,9 @@ class Canvacard {
   }
 
   /**
-   * Celda
+   * @method jail
+   * @name jail
+   * @description Crear una imagen de celda
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -588,7 +631,9 @@ class Canvacard {
   }
 
   /**
-   * Cama
+   * @method bed
+   * @name bed
+   * @description Crear una imagen de cama
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -624,7 +669,9 @@ class Canvacard {
   }
 
   /**
-   * Borrar
+   * @method delete
+   * @name delete
+   * @description Crear una imagen eliminada
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -655,7 +702,9 @@ class Canvacard {
   }
 
   /**
-   * Crea degradado
+   * @method gradient
+   * @name gradient
+   * @description Crear una imagen degradada
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -689,7 +738,9 @@ class Canvacard {
   }
 
   /**
-   * Cita falsa
+   * @method quote
+   * @name quote
+   * @description Crear una imagen de cita falsa
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -743,7 +794,9 @@ class Canvacard {
   }
 
   /**
-   * Comentario de PornHub
+   * @method phub
+   * @name phub
+   * @description Comentario de PornHub
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -790,7 +843,9 @@ class Canvacard {
   }
 
   /**
-   * Wanted
+   * @method wanted
+   * @name wanted
+   * @description Crear una imagen de se busca
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -820,7 +875,9 @@ class Canvacard {
   }
 
   /**
-   * Wasted
+   * @method wasted
+   * @name wasted
+   * @description Crear una imagen de "wasted"
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -850,7 +907,9 @@ class Canvacard {
   }
 
   /**
-   * Comentario de YouTube
+   * @method youtube
+   * @name youtube
+   * @description Comentario de YouTube
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -906,7 +965,9 @@ class Canvacard {
   }
 
   /**
-   * Escribe los datos como archivo
+   * @method write
+   * @name write
+   * @description Escribe los datos como archivo
    * @param {Buffer} data datos para escribir
    * @param {string} name nombre del archivo
    * @returns {void}
@@ -916,7 +977,9 @@ class Canvacard {
   }
 
   /**
-   * Clon de respuesta de discord
+   * @method reply
+   * @name reply
+   * @description Clon de respuesta de discord
    * @param {object} options Opciones
    * @param {string|Buffer} [options.avatar1] Avatar de la persona que respondió
    * @param {string|Buffer} [options.avatar2] Avatar de la otra persona
@@ -1044,18 +1107,10 @@ class Canvacard {
   }
 
   /**
-   * Canvacard assets
-   * @type {CanvacardAssets}
-   * @private
-   */
-  static get assets() {
-    return assets;
-  }
-
-  /**
    * Método de Canvacard utilizado para `wait`.
    * @param {number} dur Número de milisegundos a esperar
-   * @returns {Promise<void>}
+   * @returns {Promise<void>} Promesa resuelta después de la espera
+   * @private
    */
   static __wait(dur) {
     return new Promise((res) => {
@@ -1070,11 +1125,13 @@ class Canvacard {
    * @property {number[]} BLUR Blur Matrix
    * @property {number[]} SHARPEN Sharpen Matrix
    * @property {number[]} BURN Burn Matrix
+   * @private
    */
 
   /**
    * Datos de matriz para **Canvacard.convolute()**
    * @type {ConvolutionMatrix}
+   * @private
    */
   static get CONVOLUTION_MATRIX() {
     return {

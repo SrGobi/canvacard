@@ -5,6 +5,7 @@ const formatVariable = require("./utils/formatVariable.utils");
 const parseSvg = require("./utils/parseSvg.utils");
 
 /**
+ * @kind class
  * Creador de tiene de artículos de Fortnite
  */
 class FortniteShop {
@@ -31,34 +32,44 @@ class FortniteShop {
   }
 
   /**
-   * Establecer el token de la API de Fortnite
+   * @method setToken
+   * @name setToken
+   * @description Establecer el token de la API de Fortnite
    * @param {string} value Token de la API de Fortnite
    * @returns {FortniteShop} La instancia actual de FortniteShop
+   * @throws {APIError} Si no se proporciona un token válido
    */
   setToken(value) {
+    if (!value || typeof value !== "string") throw new APIError("Por favor, proporcione un token válido para fortnite-api.com!");
     this.token = value;
     return this;
   }
 
   /**
-   * Establecer el texto del encabezado
+   * @method setText
+   * @name setText
+   * @description Establecer el texto del encabezado
    * @param {string} value Texto del encabezado
    * @returns {FortniteShop} La instancia actual de FortniteShop
+   * @throws {APIError} Si el valor no es una cadena
    */
   setText(variable, value) {
+    if (typeof value !== "string") throw new APIError("El valor debe ser una cadena de texto!");
     const formattedVariable = formatVariable("text", variable);
     if (this[formattedVariable]) this[formattedVariable] = value;
     return this;
   }
 
   /**
-   * Construir la tarjeta de la tienda de Fortnite
+   * @method build
+   * @name build
+   * @description Construir la tarjeta de la tienda de Fortnite
    * @param {string} [font="Arial"] Fuente de texto para la tarjeta
    * @returns {Promise<Buffer>} Imagen de la tarjeta de la tienda de Fortnite
    * @throws {APIError} Si no se puede obtener la información de la tienda
    */
   async build(font = "Arial") {
-    if (!this.token) return console.log("Por favor ingrese un token válido para fortnite-api.com!");
+    if (!this.token) throw new APIError("Por favor, proporcione un token válido para fortnite-api.com!");
 
     const shopRequest = await fetch("https://fortnite-api.com/v2/shop/br/combined?language=es", {
       headers: { "x-api-key": this.token }

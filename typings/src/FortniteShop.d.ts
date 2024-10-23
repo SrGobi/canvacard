@@ -1,5 +1,6 @@
 export = FortniteShop;
 /**
+ * @kind class
  * Creador de tiene de artículos de Fortnite
  */
 declare class FortniteShop {
@@ -11,19 +12,27 @@ declare class FortniteShop {
         dateFormat: string;
     };
     /**
-     * Establecer el token de la API de Fortnite
+     * @method setToken
+     * @name setToken
+     * @description Establecer el token de la API de Fortnite
      * @param {string} value Token de la API de Fortnite
      * @returns {FortniteShop} La instancia actual de FortniteShop
+     * @throws {APIError} Si no se proporciona un token válido
      */
     setToken(value: string): FortniteShop;
     /**
-     * Establecer el texto del encabezado
+     * @method setText
+     * @name setText
+     * @description Establecer el texto del encabezado
      * @param {string} value Texto del encabezado
      * @returns {FortniteShop} La instancia actual de FortniteShop
+     * @throws {APIError} Si el valor no es una cadena
      */
     setText(variable: any, value: string): FortniteShop;
     /**
-     * Construir la tarjeta de la tienda de Fortnite
+     * @method build
+     * @name build
+     * @description Construir la tarjeta de la tienda de Fortnite
      * @param {string} [font="Arial"] Fuente de texto para la tarjeta
      * @returns {Promise<Buffer>} Imagen de la tarjeta de la tienda de Fortnite
      * @throws {APIError} Si no se puede obtener la información de la tienda
