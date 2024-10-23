@@ -1,3 +1,10 @@
+## Classes
+
+<dl>
+<dt><a href="#Canvacard">Canvacard</a></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -98,15 +105,20 @@
 <a name="Canvacard"></a>
 
 ## Canvacard
-**Kind**: global classCanvacard Generador De Memes  
+**Kind**: global class  
+<a name="new_Canvacard_new"></a>
+
+### new Canvacard()
+Generador de imágenes
+
 **Example**  
 ```js
-    const canvacard = require("canvacard");
-    canvacard.Canvas.trigger("./image.png")
-    .then(triggered => {
-      canvacard.write(triggered, "triggered.gif");
-    })
-    .catch(console.error);```
+const canvacard = require("canvacard");
+canvacard.Canvas.trigger("./image.png")
+  .then(triggered => {
+    canvacard.write(triggered, "triggered.gif");
+  })
+  .catch(console.error);```
 <a name="trigger"></a>
 
 ## trigger(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>

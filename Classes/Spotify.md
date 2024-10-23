@@ -1,3 +1,10 @@
+## Classes
+
+<dl>
+<dt><a href="#Spotify">Spotify</a></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -33,20 +40,23 @@
 <a name="Spotify"></a>
 
 ## Spotify
-![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
+**Kind**: global class  
+<a name="new_Spotify_new"></a>
 
-**Kind**: global classCreador de tarjetas de presencia de Spotify  
+### new Spotify()
+Creador de tarjetas de presencia de Spotify![Spotify Card](https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png)
+
 **Example**  
 ```js
-    const spotify = new canvacard.Spotify()
-      .setAuthor("SAIKO")
-      .setAlbum("SAKURA 👋")
-      .setStartTimestamp(Date.now() - 10000)
-      .setEndTimestamp(Date.now() + 50000)
-      .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
-      .setTitle("YO LO SOÑÉ");
-    const spotifyImage = await spotify.build("Cascadia Code PL");
-    canvacard.write(spotifyImage, "./spotify.png");```
+const spotify = new canvacard.Spotify()
+  .setAuthor("SAIKO")
+  .setAlbum("SAKURA 👋")
+  .setStartTimestamp(Date.now() - 10000)
+  .setEndTimestamp(Date.now() + 50000)
+  .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
+  .setTitle("YO LO SOÑÉ");
+const spotifyImage = await spotify.build("Cascadia Code PL");
+canvacard.write(spotifyImage, "./spotify.png");```
 <a name="setProgressBar"></a>
 
 ## setProgressBar(type, color) ⇒ [<code>Spotify</code>](#Spotify)

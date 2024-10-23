@@ -44,21 +44,21 @@
 <a name="new_WelcomeLeave_new"></a>
 
 ### new WelcomeLeave()
-Creador de tarjetas de bienvenida o despedida
+Creador de tarjetas de bienvenida o despedida<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_1.png" alt="Welcome Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_2.png" alt="Welcome Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/welcome_3.png" alt="Welcome Card Preview 3">  </a></details>
 
 **Example**  
 ```js
-    const welcome = new canvacard.WelcomeLeave()
-      .setAvatar(data.avatarURL)
-      .setBackground('COLOR', '#000000')
-      .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
-      .setSubtitulo("Subtitulo de la Tarjeta 👋", '#FFFFFF')
-      .setOpacityOverlay(1)
-      .setColorCircle('#FFFFFF')
-      .setColorOverlay('#5865F2')
-      .setTypeOverlay('ROUNDED');
-    const welcomeImage = await welcome.build("Suravaram");
-    canvacard.write(welcomeImage, "./welcomer.png");```
+const welcome = new canvacard.WelcomeLeave()
+  .setAvatar(data.avatarURL)
+  .setBackground('COLOR', '#000000')
+  .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
+  .setSubtitulo("Subtitulo de la Tarjeta 👋", '#FFFFFF')
+  .setOpacityOverlay(1)
+  .setColorCircle('#FFFFFF')
+  .setColorOverlay('#5865F2')
+  .setTypeOverlay('ROUNDED');
+const welcomeImage = await welcome.build("Suravaram");
+canvacard.write(welcomeImage, "./welcomer.png");```
 <a name="setAvatar"></a>
 
 ## setAvatar(value) ⇒ [<code>WelcomeLeave</code>](#WelcomeLeave)
