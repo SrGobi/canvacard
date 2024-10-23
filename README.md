@@ -93,7 +93,7 @@ rank.build("Cascadia Code PL")
   </a>
 </details>
 
-## [WelcomeLeave Card](https://canvacard.srgobi.com/classes/welcomeleave)
+## [Welcome / Leave Card](https://canvacard.srgobi.com/classes/welcomeleave)
 
 ```js
 const canvacard = require("canvacard");
@@ -136,6 +136,44 @@ welcomer.build("Cascadia Code PL, Noto Color Emoji")
   </a>
 </details>
 
+## [Spotify Card](https://canvacard.srgobi.com/classes/spotify)
+
+```js
+const canvacard = require("canvacard");
+
+const spotify = new canvacard.Spotify()
+  .setAuthor("SAIKO")
+  .setAlbum("SAKURA 👋")
+  .setStartTimestamp(Date.now() - 10000)
+  .setEndTimestamp(Date.now() + 50000)
+  .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
+  .setTitle("YO LO SOÑÉ");
+
+spotify.build("Cascadia Code PL, Noto Color Emoji")
+  .then(data => {
+    // Usar AttachmentBuilder para enviar el archivo
+    const attachment = new AttachmentBuilder(data, { name: "WelcomeCard.png" });
+    message.channel.send({ content: "Aquí está tu tarjeta de bienvenida:", files: [attachment] });
+  })
+  .catch(err => console.error("Error al crear la tarjeta de bienvenida:", err));
+```
+
+<img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">
+
+## [Spotify Card](https://canvacard.srgobi.com/classes/spotify)
+
+```js
+const canvacard = require("canvacard");
+
+canvacard.Canvas.circle(data.avatarURL)
+.then(data => {
+  canvacard.write(data, "circle.png");
+})
+.catch(console.error);
+```
+
+<img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/images/circle" alt="Circle Preview">
+
 ## [Otros ejemplos](https://canvacard.srgobi.com)
 
 ```js
@@ -172,9 +210,6 @@ client.login('Tu_Bot_Token_aqui');
 <details open>
 <summary>PREVIEW</summary>
 <br>
-  <a>
-    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_stats.png" alt="Fortnite Stats">
-  </a>
   <a>
     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop">
   </a>
