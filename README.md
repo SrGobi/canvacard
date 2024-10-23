@@ -160,7 +160,7 @@ spotify.build("Cascadia Code PL, Noto Color Emoji")
 
 <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">
 
-## [Spotify Card](https://canvacard.srgobi.com/classes/spotify)
+## [Spotify Card](https://canvacard.srgobi.com/classes/canvacard)
 
 ```js
 const canvacard = require("canvacard");
