@@ -5,12 +5,12 @@
   "main": "index.js",
   "types": "typings/index.d.ts",
   "files": [
-    "scripts",
+    "assets",
     "libs",
     "plugins",
     "src",
-    "index.js",
-    "typings"
+    "typings",
+    "index.js"
   ],
   "scripts": {
     "test": "cd ../test && node .",

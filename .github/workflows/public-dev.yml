@@ -42,6 +42,7 @@ jobs:
 
       # Publicar una versión de desarrollo en NPM
       - name: Publish Dev Version
+        id: publish
         run: |
           TIMESTAMP=$(date +%s)
           COMMIT=$(git rev-parse --short HEAD)
@@ -49,3 +50,10 @@ jobs:
           pnpm publish --tag dev --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}  # Autenticación con NPM
+
+      # Deprecate prior development releases
+      - name: Deprecate prior development releases
+        run: |
+          pnpm deprecate "*dev*" "Esta versión está deprecada. Por favor, utiliza una versión más nueva."
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
