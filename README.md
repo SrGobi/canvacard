@@ -54,6 +54,7 @@ const rank = new canvacard.Rank()
   .setAvatar(userData.avatarURL, userData.avatar_decoration_data.asset, false)
   .setBanner(userData.bannerURL, true)
   .setBadges(userData.flags, userData.bot, true)
+  .setBorder(["#22274a", "#001eff"], "vertical")
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
@@ -61,8 +62,7 @@ const rank = new canvacard.Rank()
   .setStatus("online")
   .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
   .setUsername(userData.username, userData.discriminator, "#FFFFFF")
-  .setCreatedTimestamp(userData.createdTimestamp)
-  .setBorder(["#14C49E", "#FF0000"], "vertical");
+  .setCreatedTimestamp(userData.createdTimestamp);
 
 rank.build("Cascadia Code PL")
   .then(data => {

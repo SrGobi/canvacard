@@ -56,7 +56,20 @@
 <a name="new_Rank_new"></a>
 
 ### new Rank(userId)
-Rank card creator<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">  </a></details>
+Rank card creator
+<details open>
+ <summary>PREVIEW</summary>
+<br>
+  <a>
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
+  </a>
+  <a>
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
+  </a>
+  <a>
+    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
+  </a>
+</details>
 
 
 | Param | Type | Description |
@@ -69,7 +82,7 @@ const rank = new canvacard.Rank(data.id)
   .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
   .setBanner(data.bannerURL, true)
   .setBadges(data.flags, data.bot, true)
-  .setBorder("#FFFFFF", "to right")
+  .setBorder(["#22274a", "#001eff"], "vertical")
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
@@ -80,7 +93,8 @@ const rank = new canvacard.Rank(data.id)
   .setCreatedTimestamp(data.createdTimestamp);
 
 const rankImage = await rank.build("Cascadia Code PL");
-canvacard.write(rankImage, "./rank.png");```
+canvacard.write(rankImage, "./rank.png");
+```
 <a name="setAvatar"></a>
 
 ## setAvatar(avatarUrl, AvatarDecorationData, squareAvatar) ⇒ [<code>Rank</code>](#Rank)
