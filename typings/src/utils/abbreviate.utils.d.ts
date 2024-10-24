@@ -1,18 +1,18 @@
 export = abbreviateNumber;
 /**
- * La abreviatura sigue el formato que se ve en muchos juegos:
- * K - miles
- * M - millones
- * B - billones
- * T - trillones
+ * The abbreviation follows the format seen in many games:
+ * K - thousands
+ * M - millions
+ * B - billons
+ * T - trillons
  *
- * Todos los números mayores que billones siguen el siguiente formato, utilizando cada letra del alfabeto emparejada consigo misma:
+ * All numbers greater than billions follow the following format, using each letter of the alphabet paired with itself:
  * AA
  * BB
  * ...
  * ZZ
  *
- * Admite todos los números hasta casi un googol (100 ceros) y admite hasta 92 ceros o 93 dígitos.
+ * It supports all numbers up to almost a googol (100 zeros) and supports up to 92 zeros or 93 digits.
  */
 declare function abbreviateNumber(number: any): string;
 //# sourceMappingURL=abbreviate.utils.d.ts.map

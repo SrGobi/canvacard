@@ -1,14 +1,15 @@
 export = parseUsername;
 /**
- * Funcion que se encarga de parsear el nombre de usuario para que se ajuste al tamaño del canvas.
- * @param {string} username Nombre de usuario
- * @param {Object} ctx Contexto del canvas
- * @param {string} ctx.fillStyle Color del texto
- * @param {string} ctx.textAlign Alineacion del texto
- * @param {TextMetrics} ctx.measureText Medida del texto
- * @param {string} [font='Arial'] Fuente del texto
- * @param {string} size Tamaño del texto
- * @param {number} maxLength  Longitud maxima del texto
+ * @name parseUsername
+ * @description Function that parses the username to fit the canvas size.
+ * @param {string} username User name
+ * @param {Object} ctx Canvas context
+ * @param {string} ctx.fillStyle Text color
+ * @param {string} ctx.textAlign Text alignment
+ * @param {TextMetrics} ctx.measureText - Text size
+ * @param {string} [font='Arial'] Text source
+ * @param {string} size Text size
+ * @param {number} maxLength Maximum text length
  * @returns {Object} { username: string, newSize: number, textLength: number }
  */
 declare function parseUsername(username: string, ctx: {

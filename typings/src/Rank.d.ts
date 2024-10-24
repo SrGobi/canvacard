@@ -1,7 +1,7 @@
 export = Rank;
 /**
  * @kind class
- * @description Creador de tarjetas de rango
+ * @description Rank card creator
  * <details open>
  *  <summary>PREVIEW</summary>
  * <br>
@@ -22,13 +22,13 @@ const rank = new canvacard.Rank(data.id)
   .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
   .setBanner(data.bannerURL, true)
   .setBadges(data.flags, data.bot, true)
+  .setBorder(["#22274a", "#001eff"], "vertical")
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
   .setLevel(20, "LEVEL", true)
   .setStatus("online")
   .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-  .setOverlay("#000000", 1, true)
   .setUsername(data.global_name, data.discriminator)
   .setCreatedTimestamp(data.createdTimestamp);
 
@@ -38,7 +38,7 @@ canvacard.write(rankImage, "./rank.png");
  */
 declare class Rank {
     /**
-     * @param {string} userId ID del usuario
+     * @param {string} userId User ID
      */
     constructor(userId: string);
     data: {
@@ -136,139 +136,139 @@ declare class Rank {
     /**
      * @method setAvatar
      * @name setAvatar
-     * @description Establece el avatar del usuario
-     * @param {string} avatarUrl URL del avatar
-     * @param {string} AvatarDecorationData Asset de decoración del avatar
-     * @param {boolean} squareAvatar Cambiar la forma del avatar a un cuadrado
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the user avatar
+     * @param {string} avatarUrl Avatar URL
+     * @param {string} AvatarDecorationData Avatar decoration asset
+     * @param {boolean} squareAvatar Square avatar
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setAvatar(avatarUrl: string, AvatarDecorationData: string, squareAvatar?: boolean): Rank;
     /**
      * @method setBanner
      * @name setBanner
-     * @description Establece el banner del usuario
-     * @param {string} bannerUrl URL del banner
-     * @param {boolean} moreBackgroundBlur Más desenfoque de fondo
-     * @param {boolean} disableBackgroundBlur Desactivar desenfoque de fondo
-     * @param {number} backgroundBrightness Brillo de fondo
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the user banner
+     * @param {string} bannerUrl Banner URL
+     * @param {boolean} moreBackgroundBlur More background blur
+     * @param {boolean} disableBackgroundBlur Disable background blur
+     * @param {number} backgroundBrightness Background brightness
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setBanner(bannerUrl: string, moreBackgroundBlur?: boolean, disableBackgroundBlur?: boolean, backgroundBrightness?: number): Rank;
     /**
      * @method setBadges
      * @name setBadges
-     * @description Establece las insignias del usuario
-     * @param {number} flags Insignias del usuario
-     * @param {boolean} bot Si el usuario es un bot o no
-     * @param {boolean} frame Marco de insignias
-     * @param {string[]} customBadges Insignias personalizadas
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the user badges and frame
+     * @param {number} flags User flags
+     * @param {boolean} bot Whether the user is a bot or not
+     * @param {boolean} frame Badge frame
+     * @param {string[]} customBadges Custom badges
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setBadges(flags: number, bot?: boolean, frame?: boolean, customBadges?: string[]): Rank;
     /**
      * @method setBorder
      * @name setBorder
-     * @description Establece el borde de la tarjeta
-     * @param {string | string[]} color Color HEX del borde, puede ser degradado si se usan 2 colores
-     * @param {string} allign Alineación de degradado si se usan 2 colores
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the border of the card
+     * @param {string | string[]} color HEX color of the border, can be gradient if 2 colors are used
+     * @param {string} allign Gradient alignment if 2 colors are used
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setBorder(color: string | string[], allign?: string): Rank;
     /**
      * @method setUsername
      * @name setUsername
-     * @description Establece el nombre de usuario
-     * @param {string} name Nombre de usuario
-     * @param {string} [discriminator="0"] Discriminador del usuario
-     * @param {string} [color="#FFFFFF"] Color del texto
-     * @param {string} customUsername Nombre de usuario personalizado
-     * @param {string} customTag Tag personalizado
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the username of the user
+     * @param {string} name Username of the user
+     * @param {string} [discriminator="0"] Discriminator of the user
+     * @param {string} [color="#FFFFFF"] Color of the username
+     * @param {string} customUsername Custom username
+     * @param {string} customTag Custom tag
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setUsername(name: string, discriminator?: string, color?: string, customUsername: string, customTag: string): Rank;
     /**
      * @method setCurrentXP
      * @name setCurrentXP
-     * @description Establece el nivel de experiencia actual
-     * @param {number} data Datos de experiencia actual
-     * @param {string} [color="#FFFFFF"] Color del texto
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the current experience
+     * @param {number} data Current experience data
+     * @param {string} [color="#FFFFFF"] Text color
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setCurrentXP(data: number, color?: string): Rank;
     /**
      * @method setRequiredXP
      * @name setRequiredXP
-     * @description Establece la experiencia requerida
-     * @param {number} data Datos de experiencia requerida
-     * @param {string} [color="#FFFFFF"] Color del texto
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the required experience
+     * @param {number} data Required experience data
+     * @param {string} [color="#FFFFFF"] Text color
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setRequiredXP(data: number, color?: string): Rank;
     /**
      * @method setRank
      * @name setRank
-     * @description Establece el ranking del usuario
-     * @param {number} data Datos de ranking
-     * @param {string} [text="RANK"] Texto de visualización
-     * @param {boolean} [display=false] Mostrar o no el sistema de rango
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the user rank
+     * @param {number} data Rank data
+     * @param {string} [text="RANK"] Display text
+     * @param {boolean} [display=false] Display system rank or not
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setRank(data: number, text?: string, display?: boolean): Rank;
     /**
      * @method setLevel
      * @name setLevel
      * @description Establece el nivel del usuario
-     * @param {number} data Datos de nivel
-     * @param {string} [text="LEVEL"] Texto de visualización
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @param {number} data Level data
+     * @param {string} [text="LEVEL"] Display text
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setLevel(data: number, text?: string): Rank;
     /**
      * @method setProgressBar
      * @name setProgressBar
-     * @description Establece la barra de progreso
-     * @param {string | string[]} color Color de la barra de progreso
-     * @param {string} [fillType="COLOR"] Tipo de relleno
-     * @param {boolean} [rounded=true] Redondear o no
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the progress bar
+     * @param {string | string[]} color Color of the progress bar, can be gradient if 2 colors are used
+     * @param {string} [fillType="COLOR"] Type of progress bar
+     * @param {boolean} [rounded=true] Rounded corners of the progress bar
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setProgressBar(color: string | string[], fillType?: string, rounded?: boolean): Rank;
     /**
      * @method setStatus
      * @name setStatus
-     * @description Establece el estado del usuario
-     * @param {string} presenceStatus Estado del usuario
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the user presence status
+     * @param {string} presenceStatus Presence status
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setStatus(presenceStatus: string): Rank;
     /**
      * @method setCreatedTimestamp
      * @name setCreatedTimestamp
-     * @description Establece la marca de tiempo de creación
-     * @param {number} timestamp Marca de tiempo de creación
-     * @param {string | Date} customDate Fecha o texto personalizado para usar en lugar de cuando el usuario se unió a Discord
-     * @returns {Rank} La instancia de la clase Rank
-     * @throws {APIError} Si el URL o el asset no son válidos
+     * @description Set the user created timestamp
+     * @param {number} timestamp Timestamp of when the user joined Discord
+     * @param {string | Date} customDate Custom date format for the timestamp
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setCreatedTimestamp(timestamp: number, customDate: string | Date): Rank;
     /**
      * @method build
      * @name build
-     * @description Construye la tarjeta de rango
-     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
-     * @returns {Promise<Buffer>} Imagen de la tarjeta de rango en formato de buffer
-     * @throws {APIError} Faltan datos
+     * @description Build the rank card
+     * @param {string} [font="Arial"] Font to use in the card
+     * @returns {Promise<Buffer>} Card image in buffer format
+     * @throws {APIError} Missing field: data
      */
     build(font?: string): Promise<Buffer>;
 }

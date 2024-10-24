@@ -1,8 +1,9 @@
 export = discordTime;
 /**
- * Convierte la marca de tiempo regular en una hora similar a la de Discord.
- * @param {Date|number} time Marca de tiempo para convertir
- * @returns {string} Cadena de tiempo similar a Discord
+ * @name discordTime
+ * @description Convert regular timestamp to Discord-like time.
+ * @param {Date|number} time Timestamp to convert
+ * @returns {string} Discord-like time chain
  */
 declare function discordTime(time?: Date | number): string;
 //# sourceMappingURL=discordTime.utils.d.ts.map

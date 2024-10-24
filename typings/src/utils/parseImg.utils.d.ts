@@ -1,8 +1,9 @@
 export = parseImg;
 /**
- * Verificar si la insignia personalizada es válida
- * @param {string} imgString URL de la imagen
- * @returns {string} URL de la imagen
+ * @name parseImg
+ * @description Check if the custom badge is valid
+ * @param {string} imgStringImage image URL
+ * @returns {string} Image URL
  */
-declare function parseImg(imgString: string): string;
+declare function parseImg(imgString: any): string;
 //# sourceMappingURL=parseImg.utils.d.ts.map

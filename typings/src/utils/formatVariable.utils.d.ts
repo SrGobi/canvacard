@@ -1,9 +1,10 @@
 export = formatVariable;
 /**
- * Obtiene variables y tipos.
- * @param {object} prefix El tipo de variable
- * @param {object} variable La variable a cambiar
- * @returns La variable formateada
+ * @name formatVariable
+ * @description Gets variables and types.
+ * @param {object} prefix The type of variable
+ * @param {object} variable The variable to change
+ * @returns {string} The formatted variable
  */
-declare function formatVariable(prefix: object, variable: object): any;
+declare function formatVariable(prefix: object, variable: object): string;
 //# sourceMappingURL=formatVariable.utils.d.ts.map

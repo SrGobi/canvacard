@@ -1,13 +1,14 @@
 /**
- * Generar el canvas de insignias
- * @param {Object} user Objeto de usuario
- * @param {string} user.bot Si el usuario es un bot
- * @param {string} user.id ID del usuario
- * @param {Object} user.flags Insignias del usuario
- * @param {string} user.discriminator Discriminador del usuario
- * @param {Object} options Objeto de opciones
- * @param {string[]} options.customBadges Insignias personalizadas
- * @param {boolean} options.overwriteBadges Sobreescribir las insignias
+ * @name generateBadgesCanvas
+ * @description Generate the badge canvas
+ * @param {Object} user User object
+ * @param {string} user.bot If the user is a bot
+ * @param {string} user.id User ID
+ * @param {Object} user.flags User Badges
+ * @param {string} user.discriminator User Discriminator
+ * @param {Object} options Object of options
+ * @param {string[]} options.customBadges Custom Badges
+ * @param {boolean} options.overwriteBadges Overwrite the badges
  * @returns {Promise<Buffer>} Canvas
  */
 export function generateBadgesCanvas(user: {
@@ -20,61 +21,65 @@ export function generateBadgesCanvas(user: {
     overwriteBadges: boolean;
 }): Promise<Buffer>;
 /**
- * Genera el fondo de la tarjeta
- * @param {Object} options Objeto de opciones
- * @param {string} avatarData URL del avatar
- * @param {string} bannerData URL del banner
+ * @name genBase
+ * @description Generate the card background
+ * @param {Object} options Object of options
+ * @param {string} avatarData Avatar URL
+ * @param {string} bannerData Banner URL
  * @returns {Promise<Buffer>} Canvas
  */
 export function genBase(options: any, avatarData: string, bannerData: string): Promise<Buffer>;
 /**
- * Genera el marco de la tarjeta
+ * @name genFrame
+ * @description Generate the card frame
  * @param {Object} badgesData
  * @param {CanvasElemet} badgesData.canvas
  * @param {string} badgesData.badgesLength
  * @param {Object} options
  * @param {string} options.badgesFrame
- * @returns Canvas
+ * @returns {Promise<Buffer>} Canvas
  */
 export function genFrame(badgesData: {
     canvas: CanvasElemet;
     badgesLength: string;
 }, options: {
     badgesFrame: string;
-}): Promise<import("@napi-rs/canvas").Canvas>;
+}): Promise<Buffer>;
 /**
- * Genera los bordes de la tarjeta con un gradiente de varios colores
- * @param {Object} options
- * @param {string|string[]} options.borderColor - Puede ser un color o un array de colores
- * @param {string} options.borderAllign - Dirección del borde ('vertical' o 'horizontal')
- * @returns Canvas
+ * @name genBorder
+ * @description Generate the edges of the card with a multi-color gradient
+ * @param {Object} options Options object
+ * @param {string|string[]} options.borderColor It can be a color or an array of colors
+ * @param {string} options.borderAllign Edge direction ('vertical' or 'horizontal')
+ * @returns {Promise<Buffer>} Canvas
  */
 export function genBorder(options: {
     borderColor: string | string[];
     borderAllign: string;
-}): Promise<import("@napi-rs/canvas").Canvas>;
+}): Promise<Buffer>;
 /**
- * Genera el texto y el avatar de la tarjeta
- * @param {Object} user Datos del usuario
- * @param {string} user.username Nombre de usuario
- * @param {string} user.discriminator Discriminador
- * @param {boolean} user.bot Es un bot
- * @param {number} user.createdTimestamp Marca de tiempo de creación
- * @param {string} user.id ID del usuario
- * @param {Object} options Opciones de la tarjeta
- * @param {string} options.customUsername Nombre de usuario personalizado
- * @param {string} options.usernameColor Color del nombre de usuario
- * @param {string} options.customSubtitle Subtítulo personalizado
- * @param {string} options.subtitleColor Color del subtítulo
- * @param {string | Date} options.customDate Fecha personalizada
- * @param {string} options.localDateType Formato local para la fecha, por ejemplo, 'en' | 'es', etc.
- * @param {string} options.customTag Tag personalizado
- * @param {string} options.tagColor Color HEX de la etiqueta
- * @param {boolean} options.squareAvatar Cambiar la forma del avatar a un cuadrado
- * @param {boolean} options.presenceStatus Mostrar el estado de presencia
- * @param {Object} rankData Datos de rango
- * @param {string} avatarData URL del avatar
- * @param {string} [font="Arial"] Familia tipográfica
+ * @name genTextAndAvatar
+ * @description Generate the card text and avatar
+ * @param {Object} user User data
+ * @param {string} user.username User name
+ * @param {string} user.discriminator User discriminator
+ * @param {boolean} user.bot If the user is a bot
+ * @param {number} user.createdTimestamp User creation timestamp
+ * @param {string} user.id User ID
+ * @param {Object} options Options object
+ * @param {string} options.customUsername Custom username
+ * @param {string} options.usernameColor Username color
+ * @param {string} options.customSubtitle Custom subtitle
+ * @param {string} options.subtitleColor Subtitle color
+ * @param {string | Date} options.customDate Custom date
+ * @param {string} options.localDateType Local format for the date, for example, 'en' | 'es', etc.
+ * @param {string} options.customTag Custom tag
+ * @param {string} options.tagColor HEX Color of the label
+ * @param {boolean} options.squareAvatar Change the shape of the avatar to a square
+ * @param {boolean} options.presenceStatus Show presence status
+ * @param {Object} rankData Range data
+ * @param {string} avatarData Avatar URL
+ * @param {string} [font="Arial"] Typeface family
  * @returns {Promise<Buffer>}
  */
 export function genTextAndAvatar(user: {
@@ -96,12 +101,13 @@ export function genTextAndAvatar(user: {
     presenceStatus: boolean;
 }, avatarData: string, font?: string): Promise<Buffer>;
 /**
- * Esta función genera el marco del avatar
- * @param {Object} user Objeto del usuario
- * @param {Object} user.avatar_decoration_data Datos de decoración del avatar
- * @param {string} user.avatar_decoration_data.asset Asset de decoración del avatar
- * @param {Object} options Objeto de opciones
- * @param {string} options.presenceStatus Presencia del usuario
+ * @name genAvatarFrame
+ * @description This function generates the avatar frame
+ * @param {Object} user User data
+ * @param {Object} user.avatar_decoration_data Avatar decoration data
+ * @param {string} user.avatar_decoration_data.asset Avatar decoration asset
+ * @param {Object} options Object of options
+ * @param {string} options.presenceStatus User presence
  * @returns {Promise<Buffer>} Canvas
  */
 export function genAvatarFrame(user: {
@@ -112,16 +118,16 @@ export function genAvatarFrame(user: {
     presenceStatus: string;
 }): Promise<Buffer>;
 /**
- * Generar la barra de experiencia
- * @param {Object} options
- * @param {Object} options.rankData
- * @param {number} options.rankData.currentXp
- * @param {number} options.rankData.requiredXp
- * @param {number} options.rankData.level
- * @param {number} options.rankData.rank
- * @param {string | string[]} options.rankData.barColor
- * @param {string} options.rankData.levelColor
- * @param {boolean} options.rankData.autoColorRank
+ * Generate the experience bar
+ * @param {Object} options Options object
+ * @param {Object} options.rankData Rank data
+ * @param {number} options.rankData.currentXp User current XP
+ * @param {number} options.rankData.requiredXp XP required to level up
+ * @param {number} options.rankData.level User level
+ * @param {number} options.rankData.rank User rank
+ * @param {string | string[]} options.rankData.barColor Color of the XP bar
+ * @param {string} options.rankData.levelColor Color of the level text
+ * @param {boolean} options.rankData.autoColorRank Automatically color the rank
  * @returns {Promise<Buffer>} Canvas
  */
 export function genXpBar(options: {
@@ -136,11 +142,12 @@ export function genXpBar(options: {
     };
 }, font: any): Promise<Buffer>;
 /**
- * Generar la insignia de verificación de bot
- * @param {Object} user Objeto de usuario
- * @param {string} user.username Nombre de usuario
- * @param {number} user.flags Valor numérico de las flags del usuario
- * @param {string} [font="Arial"] Familia tipográfica
+ * @name genBotVerifBadge
+ * @description Generate the bot verification badge
+ * @param {Object} user User object
+ * @param {string} user.username User name
+ * @param {number} user.flags Numeric value of the user flags
+ * @param {string} [font="Arial"] Typeface family
  * @returns {Promise<Buffer>} Canvas
  */
 export function genBotVerifBadge(user: {
@@ -148,8 +155,9 @@ export function genBotVerifBadge(user: {
     flags: number;
 }, font?: string): Promise<Buffer>;
 /**
- * Sombras para el canvas
- * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
+ * @name addShadow
+ * @description Shadows for the canvas
+ * @param {Image | Canvas} canvasToEdit Image or canvas to edit
  * @returns {Promise<Buffer>} Canvas
  */
 export function addShadow(canvasToEdit: (new (width?: number, height?: number) => HTMLImageElement) | Canvas): Promise<Buffer>;

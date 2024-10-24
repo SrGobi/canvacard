@@ -1,11 +1,10 @@
 export = getIconPath;
 /**
- * Función para obtener la URL del ícono de una insignia.
- * Si el ícono es una ruta relativa, se transforma en una URL absoluta apuntando al repositorio de GitHub.
- *
- * @param {string} iconUrl - Nombre del ícono o URL del ícono.
- * @returns {string} URL absoluta del ícono.
- * @throws {APIError} Si hay un problema al construir la URL del ícono.
+ * @name getIconPath
+ * @description Function to get the URL of a badge icon. If the icon is a relative path, it is transformed into an absolute URL pointing to the GitHub repository.
+ * @param {string} iconUrl Icon name or icon URL.
+ * @returns {string} Absolute URL of the icon.
+ * @throws {APIError} If there is a problem building the icon URL.
  */
 declare function getIconPath(iconUrl: string): string;
 //# sourceMappingURL=icon.utils.d.ts.map

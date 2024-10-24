@@ -1,7 +1,7 @@
 export = WelcomeLeave;
 /**
  * @kind class
- * @description Creador de tarjetas de bienvenida o despedida
+ * @description Welcome or Leave card creator
  * <details open>
  *  <summary>PREVIEW</summary>
  * <br>
@@ -33,149 +33,149 @@ canvacard.write(welcomeImage, "./welcomer.png");
  */
 declare class WelcomeLeave {
     /**
-     * Fondo de la tarjeta
-     * @property {object} backgroundGlobal Fondo de la tarjeta
-     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
+     * Card background
+     * @property {object} backgroundGlobal Card background
+     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Type of fund
      * @private
      */
     private backgroundGlobal;
     /**
-     * Avatar de la tarjeta
+     * Avatar of card
      * @property {string}
      * @private
      */
     private avatar;
     /**
-     * Título creado con Canvacard
+     * Title
      * @property {string}
      * @private
      */
     private titulo;
     /**
-     * Subtítulo creado con Canvacard
+     * Subtitle
      * @property {string}
      * @private
      */
     private subtitulo;
     /**
-     * Color del título creado con Canvacard
+     * Color of the Title
      * @property {string}
      * @private
      */
     private colorTitulo;
     /**
-     * Color del Subtítulo creado con Canvacard
+     * Color of the Subtitle
      * @property {string}
      * @private
      */
     private colorSubtitulo;
     /**
-     * Color del circulo
+     * Color of the circle
      * @property {string}
      * @private
      */
     private colorCircle;
     /**
-     * Color del overlay
+     * Color of the overlay
      * @property {string}
      * @private
      */
     private colorOverlay;
     /**
-     * Opacidad del overlay
+     * Opacity of the overlay
      * @property {number}
      * @private
      */
     private opacityOverlay;
     /**
-     * Tipo de overlay
-     * @property {object} typeOverlay Tipo de overlay
-     * @property {"RECTANGLE"|"ROUNDED"} [typeOverlay.type="ROUNDED"] Tipo de overlay
+     * Type of overlay
+     * @property {object} typeOverlay Type of overlay
+     * @property {"RECTANGLE"|"ROUNDED"} [typeOverlay.type="ROUNDED"] Type of overlay
      * @private
      */
     private typeOverlay;
     /**
      * @method setAvatar
      * @name setAvatar
-     * @description Establecer el avatar de la tarjeta
-     * @param {string|Buffer} value URL de la imagen o Buffer de la imagen
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} El avatar debe ser un string o un Buffer
+     * @description Set the avatar of the card
+     * @param {string|Buffer} value Avatar URL or Buffer
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} Missing field: avatar
      */
     setAvatar(value: string | Buffer): WelcomeLeave;
     /**
      * @method setTitulo
      * @name setTitulo
-     * @description Establecer el título de la tarjeta
-     * @param {string} value Valor del título
-     * @param {string} color Código de color HTML5 "#000000"
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} El título debe ser un string
+     * @description Set the title of the card
+     * @param {string} value Title value
+     * @param {string} color HTML5 color code "#000000"
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} The title must be a string
      */
     setTitulo(value: string, color: string): WelcomeLeave;
     /**
      * @method setSubtitulo
      * @name setSubtitulo
-     * @description Establecer el subtítulo de la tarjeta
-     * @param {string} value Valor del subtítulo
-     * @param {string} color Código de color HTML5 "#000000"
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} El subtítulo debe ser un string
+     * @description Set the subtitle of the card
+     * @param {string} value Subtitle value
+     * @param {string} color HTML5 color code "#000000"
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} The subtitle must be a string
      */
     setSubtitulo(value: string, color: string): WelcomeLeave;
     /**
      * @method setColorCircle
      * @name setColorCircle
-     * @description Establecer el color del circulo
-     * @param {string} value Código de color HTML5 "#000000"
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} La opacidad debe ser un string
+     * @description Set the color of the circle
+     * @param {string} value HTML5 color code "#000000"
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} The color must be a string
      */
     setColorCircle(value: string): WelcomeLeave;
     /**
      * @method setColorOverlay
      * @name setColorOverlay
-     * @description Establecer el color del overlay
-     * @param {string} value Código de color HTML5 "#000000"
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} La opacidad debe ser un string
+     * @description Set the color of the overlay
+     * @param {string} value HTML5 color code "#000000"
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} The color must be a string
      */
     setColorOverlay(value: string): WelcomeLeave;
     /**
      * @method setOpacityOverlay
      * @name setOpacityOverlay
-     * @description Establecer la opacidad del overlay
-     * @param {number} value Valor de 0 a 1 para la opacidad
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} La opacidad debe ser un número
+     * @description Set the opacity of the overlay
+     * @param {number} value Opacity value (0 to 1)
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} The opacity must be a number
      */
     setOpacityOverlay(value: number): WelcomeLeave;
     /**
      * @method setBackground
      * @name setBackground
-     * @description Establecer imagen / color de fondo
-     * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-     * @param {string} data URL de la imagen o código de color HTML
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} Tipo de fondo no admitido
+     * @description Set background image/color of the card
+     * @param {"COLOR"|"IMAGE"} type Type of background
+     * @param {string} data Image URL or HTML color code
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} Missing field: data
      */
     setBackground(type: "COLOR" | "IMAGE", data: string): WelcomeLeave;
     /**
      * @method setTypeOverlay
      * @name setTypeOverlay
-     * @description Establecer rectangle / rounded de overlay
-     * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
-     * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-     * @throws {APIError} Tipo de overlay no admitido
+     * @description Set the type of overlay
+     * @param {"RECTANGLE"|"ROUNDED"} type Type of overlay
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     * @throws {APIError} Missing field: type
      */
     setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): WelcomeLeave;
     /**
      * @method build
      * @name build
-     * @description Construye la tarjeta de bienvenida
-     * @param {string} [font=Arial] Fuente de texto para la tarjeta
-     * @returns {Promise<Buffer>} Imagen de la tarjeta de bienvenida en formato de buffer
-     * @throws {APIError} Si no se puede cargar la imagen de fondo
+     * @description Build the card
+     * @param {string} [font=Arial] Font to use in the card
+     * @returns {Promise<Buffer>} Card image in buffer format
+     * @throws {APIError} Error loading background image
      */
     build(font?: string): Promise<Buffer>;
 }

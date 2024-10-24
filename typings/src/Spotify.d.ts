@@ -1,7 +1,7 @@
 export = Spotify;
 /**
  * @kind class
- * @description Creador de tarjetas de presencia de Spotify
+ * @description Spotify card creator
  * <details open>
  *  <summary>PREVIEW</summary>
  * <br>
@@ -25,66 +25,66 @@ canvacard.write(spotifyImage, "./spotify.png");
  */
 declare class Spotify {
     /**
-     * Título de la canción
+     * Title of the song
      * @property {string}
      * @private
      */
     private title;
     /**
-     * Thumbnail
+     * Image of the song
      * @property {string|Buffer|Canvas.Image}
      * @private
      */
     private image;
     /**
-     * Artista de la canción
+     * Name of the artist
      * @property {string}
      * @private
      */
     private artist;
     /**
-     * Nombre del álbum de Spotify
+     * Name of the album
      * @property {string}
      * @private
      */
     private album;
     /**
-     * Marca de tiempo de inicio de presencia de discord
+     * Start timestamp
      * @property {number}
      * @private
      */
     private start;
     /**
-     * Marca de tiempo de finalización de presencia de discord
+     * End timestamp
      * @property {number}
      * @private
      */
     private end;
     /**
-     * Fondo de la tarjeta
-     * @property {object} background Fondo
-     * @property {number} background.type Tipo de fondo
-     * @property {string|Buffer} background.data Datos de fondo
+     * Background of the card
+     * @property {object} background Background
+     * @property {number} background.type Type of background
+     * @property {string|Buffer} background.data Background data
      * @private
      */
     private background;
     /**
-     * Detalles de la barra de progreso
-     * @property {object} progressBar Detalles de la barra de progreso
-     * @property {string} progressBar.bgColor Barra de progreso bg color
-     * @property {string} progressBar.color Barra de progreso bg color
+     * Progress bar details
+     * @property {object} progressBar Progress bar details
+     * @property {string} progressBar.bgColor Progress bar bg color
+     * @property {string} progressBar.color Progress bar color
      * @private
      */
     private progressBar;
     /**
-     * Ancho de la tarjeta
+     * Width of the card
      * @property {number}
      * @default 775
      * @private
      */
     private width;
     /**
-     * Altura de la tarjeta
+     * Height of the card
      * @property {number}
      * @default 300
      * @private
@@ -93,20 +93,20 @@ declare class Spotify {
     /**
      * @method setProgressBar
      * @name setProgressBar
-     * @description Establecer detalles de la barra de progreso
-     * @param {"TRACK"|"BAR"} type Tipo de barra de progreso
-     * @param {string} color Color para establecer
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Tipo de barra de progreso no válido
+     * @description Set progress bar details
+     * @param {"TRACK"|"BAR"} type Type of progress bar
+     * @param {string} color Color of the progress bar
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Invalid progress bar type
      */
     setProgressBar(type: "TRACK" | "BAR", color: string): Spotify;
     /**
      * @method setTitle
      * @name setTitle
-     * @description Establecer título
-     * @param {string} title Título para establecer
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Título esperado pero no recibido
+     * @description Set title
+     * @param {string} title Title of the song
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Title expected but not received
      */
     setTitle(title: string): Spotify;
     /**
@@ -114,67 +114,67 @@ declare class Spotify {
      * @name setImage
      * @description Establecer imagen
      * @param {string|Buffer|Canvas.Image} source Fuente de imagen
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Fuente de imagen esperada pero no recibida
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Image source expected but not received
      */
     setImage(source: string | Buffer | Canvas.Image): Spotify;
     /**
      * @method setAuthor
      * @name setAuthor
-     * @description Establecer nombre de artista
-     * @param {string} name Nombre del artista
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Nombre esperado del artista pero no recibido
+     * @description Set the name of the artist
+     * @param {string} name Name of the artist
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Artist name expected but not received
      */
     setAuthor(name: string): Spotify;
     /**
      * @method setAlbum
      * @name setAlbum
-     * @description Establecer el nombre del álbum
-     * @param {string} name Nombre del álbum
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Nombre del álbum esperado pero no recibido
+     * @description Set the name of the album
+     * @param {string} name Name of the album
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Album name expected but not received
      */
     setAlbum(name: string): Spotify;
     /**
      * @method setStartTimestamp
      * @name setStartTimestamp
-     * @description Establecer marca de tiempo de inicio
-     * @param {Date|number} time Marca de tiempo
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Marca de tiempo esperada pero no recibida
+     * @description Set start timestamp
+     * @param {Date|number} time Timestamp
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Timestamp expected but not received
      */
     setStartTimestamp(time: Date | number): Spotify;
     /**
      * @method setEndTimestamp
      * @name setEndTimestamp
-     * @description Establecer marca de tiempo de finalización
-     * @param {Date|number} time Marca de tiempo
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Marca de tiempo esperada pero no recibida
+     * @description Set end timestamp
+     * @param {Date|number} time Timestamp
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Timestamp expected but not received
      */
     setEndTimestamp(time: Date | number): Spotify;
     /**
      * @method setBackground
      * @name setBackground
-     * @description Establecer fondo de la tarjeta
-     * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-     * @param {string|Buffer|Canvas.Image} data Datos de fondo
-     * @returns {Spotify} La instancia actual de Spotify
-     * @throws {APIError} Tipo de fondo no válido
+     * @description Set background image/color of the card
+     * @param {"COLOR"|"IMAGE"} type Type of background
+     * @param {string|Buffer|Canvas.Image} data Image URL or HTML color code
+     * @returns {Spotify} The current instance of Spotify
+     * @throws {APIError} Missing background data
      */
     setBackground(type?: "COLOR" | "IMAGE", data?: string | Buffer | Canvas.Image): Spotify;
     /**
      * @method build
      * @name build
-     * @description Construye la tarjeta de presencia de Spotify.
-     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
-     * @returns {Promise<Buffer>} Imagen de la tarjeta de presencia de Spotify en formato de buffer
-     * @throws {APIError} Faltan opciones
+     * @description Build the Spotify presence card
+     * @param {string} [font="Arial"] Font to use in the card
+     * @returns {Promise<Buffer>} Card image in buffer format
+     * @throws {APIError} Missing of options
      */
     build(font?: string): Promise<Buffer>;
     /**
-     * Progreso de devoluciones
+     * Returns progress
      * @type {number}
      * @private
      * @ignore

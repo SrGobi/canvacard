@@ -1,7 +1,7 @@
 export = FortniteShop;
 /**
  * @kind class
- * @description Creador de tarjetas de la tienda de Fortnite
+ * @description Fortnite Shop card creator
  * <details open>
  *  <summary>PREVIEW</summary>
  * <br>
@@ -10,7 +10,7 @@ export = FortniteShop;
  *   </a>
  * </details>
  *
- * Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
+ * To obtain a Fortnite API token, visit [fortnite-api.com](https://fortnite-api.com/)
  *
  * @example
  * ```js
@@ -33,28 +33,28 @@ declare class FortniteShop {
     /**
      * @method setToken
      * @name setToken
-     * @description Establecer el token de la API de Fortnite
-     * @param {string} value Token de la API de Fortnite
-     * @returns {FortniteShop} La instancia actual de FortniteShop
-     * @throws {APIError} Si no se proporciona un token válido
+     * @description Set the Fortnite API token
+     * @param {string} value Fortnite API token
+     * @returns {FortniteShop} The current instance of FortniteShop
+     * @throws {APIError} If the value is not a string
      */
     setToken(value: string): FortniteShop;
     /**
      * @method setText
      * @name setText
-     * @description Establecer el texto del encabezado
-     * @param {string} value Texto del encabezado
-     * @returns {FortniteShop} La instancia actual de FortniteShop
-     * @throws {APIError} Si el valor no es una cadena
+     * @description Set the text for the Fortnite Shop card
+     * @param {string} value Text to set for the card
+     * @returns {FortniteShop} The current instance of FortniteShop
+     * @throws {APIError} If the value is not a string
      */
     setText(variable: any, value: string): FortniteShop;
     /**
      * @method build
      * @name build
-     * @description Construir la tarjeta de la tienda de Fortnite
-     * @param {string} [font="Arial"] Fuente de texto para la tarjeta
-     * @returns {Promise<Buffer>} Imagen de la tarjeta de la tienda de Fortnite
-     * @throws {APIError} Si no se puede obtener la información de la tienda
+     * @description Build the Fortnite Shop card
+     * @param {string} [font="Arial"] Font to use for the card
+     * @returns {Promise<Buffer>} Card image in buffer format
+     * @throws {APIError} If the token is not provided
      */
     build(font?: string): Promise<Buffer>;
     getRarityValue(rarity: any): any;

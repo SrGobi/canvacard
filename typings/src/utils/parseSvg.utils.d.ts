@@ -1,8 +1,9 @@
 export = parseSvg;
 /**
- * Verificar si la insignia personalizada es válida (SVG)
- * @param {string} imgString URL de la imagen
- * @returns {string} URL de la imagen
+ * @name parseSvg
+ * @description Check if the custom badge is valid (SVG)
+ * @param {string} imgString Image URL
+ * @returns {string} Image URL
  */
 declare function parseSvg(imgString: string): string;
 //# sourceMappingURL=parseSvg.utils.d.ts.map
