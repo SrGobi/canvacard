@@ -1,4 +1,4 @@
-// Creado y mantenido por SrGobi
+// Created and maintained by SrGobi
 const Canvacard = require("./src/Canvacard");
 
 module.exports = {
