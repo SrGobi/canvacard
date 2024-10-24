@@ -9,96 +9,96 @@
 
 <dl>
 <dt><a href="#trigger">trigger(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Este método se puede utilizar para aplicar el efecto Disparado en la imagen.</p>
+<dd><p>Trigger an image</p>
 </dd>
 <dt><a href="#invert">invert(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Invierte el color de la imagen</p>
+<dd><p>Invert an image</p>
 </dd>
 <dt><a href="#sepia">sepia(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Aplicar lavado sepia en img</p>
+<dd><p>Sepia an image</p>
 </dd>
 <dt><a href="#greyscale">greyscale(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Efecto de escala de grises sobre la imagen</p>
+<dd><p>Greyscale an image</p>
 </dd>
 <dt><a href="#brightness">brightness(image, amount)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Editar el brillo de la imagen</p>
+<dd><p>Edit the brightness of the image</p>
 </dd>
 <dt><a href="#darkness">darkness(image, amount)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Editar la oscuridad de la imagen</p>
+<dd><p>Darken an image</p>
 </dd>
-<dt><a href="#threshold">threshold(img, amount)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
+<dt><a href="#threshold">threshold(image, amount)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
 <dd></dd>
-<dt><a href="#convolute">convolute(img, matrix, opaque)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Convolución de la imagen</p>
+<dt><a href="#convolute">convolute(image, matrix, opaque)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
+<dd><p>Convolute an image</p>
 </dd>
 <dt><a href="#pixelate">pixelate(image, pixels)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Pixelar</p>
+<dd><p>Pixelate an image</p>
 </dd>
 <dt><a href="#sharpen">sharpen(image, lvl)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Agudizar una imagen</p>
+<dd><p>Sharpen an image</p>
 </dd>
 <dt><a href="#burn">burn(image, lvl)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Aplica efecto de quemado en una imagen.</p>
+<dd><p>Burn an image</p>
 </dd>
 <dt><a href="#circle">circle(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crea una imagen circular</p>
+<dd><p>Circle an image</p>
 </dd>
 <dt><a href="#fuse">fuse(image1, image2)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Fusiona dos imágenes</p>
+<dd><p>Fuse two images</p>
 </dd>
 <dt><a href="#resize">resize(image, width, height)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Cambiar el tamaño de una imagen</p>
+<dd><p>Resize an image</p>
 </dd>
 <dt><a href="#kiss">kiss(image1, image2)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Besarse ( ͡° ͜ʖ ͡°)</p>
+<dd><p>Kiss someone ( ͡° ͜ʖ ͡°)</p>
 </dd>
 <dt><a href="#spank">spank(image1, image2)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Azotar a alguien ( ͡° ͜ʖ ͡°)</p>
+<dd><p>To spank someone ( ͡° ͜ʖ ͡°)</p>
 </dd>
 <dt><a href="#slap">slap(image1, image2)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Abofetear a alguien ( ͡° ͜ʖ ͡°)</p>
+<dd><p>Slap someone ( ͡° ͜ʖ ͡°)</p>
 </dd>
 <dt><a href="#facepalm">facepalm(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Hacer una imagen de palma en la cara</p>
+<dd><p>Facepalm someone</p>
 </dd>
 <dt><a href="#colorfy">colorfy(image, color)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Actualiza el color de la imagen</p>
+<dd><p>Colorfy an image</p>
 </dd>
 <dt><a href="#distracted">distracted(image1, image2, image3)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen de meme de distracción</p>
+<dd><p>Distract someone</p>
 </dd>
 <dt><a href="#jail">jail(image, greyscale)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen de celda</p>
+<dd><p>Create a jail image</p>
 </dd>
 <dt><a href="#bed">bed(image1, image2)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen de cama</p>
+<dd><p>Create a bed image</p>
 </dd>
 <dt><a href="#delete">delete(image, dark)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen eliminada</p>
+<dd><p>Create a deleted image</p>
 </dd>
 <dt><a href="#gradient">gradient(colorFrom, colorTo, width, height)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen degradada</p>
+<dd><p>Create a gradient image</p>
 </dd>
 <dt><a href="#quote">quote(options, [font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen de cita falsa</p>
+<dd><p>Create a fake quote image</p>
 </dd>
 <dt><a href="#phub">phub(options, [font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Comentario de PornHub</p>
+<dd><p>PornHub Comment</p>
 </dd>
 <dt><a href="#wanted">wanted(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen de se busca</p>
+<dd><p>Create a &quot;wanted&quot; image</p>
 </dd>
 <dt><a href="#wasted">wasted(image)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Crear una imagen de &quot;wasted&quot;</p>
+<dd><p>Create a &quot;wasted&quot; image</p>
 </dd>
 <dt><a href="#youtube">youtube(ops)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Comentario de YouTube</p>
+<dd><p>Create a YouTube comment image</p>
 </dd>
 <dt><a href="#write">write(data, name)</a> ⇒ <code>void</code></dt>
-<dd><p>Escribe los datos como archivo</p>
+<dd><p>Writes data as a file</p>
 </dd>
 <dt><a href="#reply">reply(options)</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Clon de respuesta de discord</p>
+<dd><p>Discord Reply Clone</p>
 </dd>
 </dl>
 
@@ -109,7 +109,7 @@
 <a name="new_Canvacard_new"></a>
 
 ### new Canvacard()
-Generador de imágenes
+Image generator
 
 **Example**  
 ```js
@@ -122,18 +122,18 @@ canvacard.Canvas.trigger("./image.png")
 <a name="trigger"></a>
 
 ## trigger(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
+Trigger an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen "triggered"  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Triggered image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen para activar |
+| image | <code>string</code> \| <code>Buffer</code> | Image to trigger |
 
 **Example**  
 ```js
@@ -146,18 +146,18 @@ Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
 <a name="invert"></a>
 
 ## invert(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Invierte el color de la imagen
+Invert an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen invertida  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Inverted image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen para invertir |
+| image | <code>string</code> \| <code>Buffer</code> | Image to invert |
 
 **Example**  
 ```js
@@ -170,18 +170,18 @@ Invierte el color de la imagen
 <a name="sepia"></a>
 
 ## sepia(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Aplicar lavado sepia en img
+Sepia an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen sep  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Sepia image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen |
+| image | <code>string</code> \| <code>Buffer</code> | Image to sepia |
 
 **Example**  
 ```js
@@ -194,18 +194,18 @@ Aplicar lavado sepia en img
 <a name="greyscale"></a>
 
 ## greyscale(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Efecto de escala de grises sobre la imagen
+Greyscale an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen en escala de grises  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Greyscale image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen |
+| image | <code>string</code> \| <code>Buffer</code> | Image to greyscale |
 
 **Example**  
 ```js
@@ -218,19 +218,19 @@ Efecto de escala de grises sobre la imagen
 <a name="brightness"></a>
 
 ## brightness(image, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Editar el brillo de la imagen
+Edit the brightness of the image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen con brillo  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Brightened image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o la cantidad no es un número
+- <code>APIError</code> If image is not provided o la cantidad no es un número
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen |
-| amount | <code>number</code> | Cantidad de brillo |
+| image | <code>string</code> \| <code>Buffer</code> | Image to brighten |
+| amount | <code>number</code> | Amount of brightness |
 
 **Example**  
 ```js
@@ -243,19 +243,19 @@ Editar el brillo de la imagen
 <a name="darkness"></a>
 
 ## darkness(image, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Editar la oscuridad de la imagen
+Darken an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen oscura  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Darkened image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o la cantidad no es un número
+- <code>APIError</code> If image is not provided o la cantidad no es un número
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen |
-| amount | <code>number</code> | Cantidad de oscuridad |
+| image | <code>string</code> \| <code>Buffer</code> | Image to darken |
+| amount | <code>number</code> | Amount of darkness |
 
 **Example**  
 ```js
@@ -267,19 +267,19 @@ Editar la oscuridad de la imagen
     .catch(console.error);```
 <a name="threshold"></a>
 
-## threshold(img, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+## threshold(image, amount) ⇒ <code>Promise.&lt;Buffer&gt;</code>
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen umbralizada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Thresholded image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o la cantidad no es un número
+- <code>APIError</code> If image is not provided o la cantidad no es un número
 
-**Descrioption**: Umbral de imagen  
+**Descrioption**: Threshold an image  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| img | <code>string</code> \| <code>Buffer</code> | Imagen |
-| amount | <code>number</code> | Cantidad límite |
+| image | <code>string</code> \| <code>Buffer</code> | Image to threshold |
+| amount | <code>number</code> | Amount of threshold |
 
 **Example**  
 ```js
@@ -291,21 +291,21 @@ Editar la oscuridad de la imagen
     .catch(console.error);```
 <a name="convolute"></a>
 
-## convolute(img, matrix, opaque) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Convolución de la imagen
+## convolute(image, matrix, opaque) ⇒ <code>Promise.&lt;Buffer&gt;</code>
+Convolute an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen convolucionada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Convoluted image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o la matriz no es un Array
+- <code>APIError</code> If image is not provided o la matriz no es un Array
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| img | <code>string</code> \| <code>Buffer</code> | Imagen |
-| matrix | <code>Array.&lt;number&gt;</code> | Matriz de convolución |
-| opaque | <code>boolean</code> | Si la convolución debe ser opaca |
+| image | <code>string</code> \| <code>Buffer</code> | Image to convolute |
+| matrix | <code>Array.&lt;number&gt;</code> | Convolution matrix |
+| opaque | <code>boolean</code> | If the image should be opaque |
 
 **Example**  
 ```js
@@ -319,19 +319,19 @@ Convolución de la imagen
 <a name="pixelate"></a>
 
 ## pixelate(image, pixels) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Pixelar
+Pixelate an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen pixelada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Pixelated image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o los píxeles no son un número
+- <code>APIError</code> If image is not provided o los píxeles no son un número
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen para pixelar |
-| pixels | <code>number</code> | Pixeles |
+| image | <code>string</code> \| <code>Buffer</code> | Image to pixelate |
+| pixels | <code>number</code> | Amount of pixels |
 
 **Example**  
 ```js
@@ -344,19 +344,19 @@ Pixelar
 <a name="sharpen"></a>
 
 ## sharpen(image, lvl) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Agudizar una imagen
+Sharpen an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen enfocada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Sharpened image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o el nivel no es un número
+- <code>APIError</code> If image is not provided o el nivel no es un número
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Imagen para enfocar |
-| lvl | <code>number</code> | intensidad de la nitidez |
+| image | <code>string</code> \| <code>Buffer</code> | Image to sharpen |
+| lvl | <code>number</code> | Level of sharpening |
 
 **Example**  
 ```js
@@ -369,19 +369,19 @@ Agudizar una imagen
 <a name="burn"></a>
 
 ## burn(image, lvl) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Aplica efecto de quemado en una imagen.
+Burn an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen quemada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Burned image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen o el nivel no es un número
+- <code>APIError</code> If image is not provided o el nivel no es un número
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
-| lvl | <code>number</code> | intensidad |
+| image | <code>string</code> \| <code>Buffer</code> | Image to burn |
+| lvl | <code>number</code> | Level of burning |
 
 **Example**  
 ```js
@@ -394,18 +394,18 @@ Aplica efecto de quemado en una imagen.
 <a name="circle"></a>
 
 ## circle(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crea una imagen circular
+Circle an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen circular  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Circled image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
+| image | <code>string</code> \| <code>Buffer</code> | Image to circle |
 
 **Example**  
 ```js
@@ -418,19 +418,19 @@ Crea una imagen circular
 <a name="fuse"></a>
 
 ## fuse(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Fusiona dos imágenes
+Fuse two images
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen fusionada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Fused image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
-| image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
+| image1 | <code>string</code> \| <code>Buffer</code> | First image |
+| image2 | <code>string</code> \| <code>Buffer</code> | Second image |
 
 **Example**  
 ```js
@@ -443,20 +443,20 @@ Fusiona dos imágenes
 <a name="resize"></a>
 
 ## resize(image, width, height) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Cambiar el tamaño de una imagen
+Resize an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen redimensionada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Resized image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
-| width | <code>number</code> | ancho |
-| height | <code>number</code> | altura |
+| image | <code>string</code> \| <code>Buffer</code> | Image to resize |
+| width | <code>number</code> | Width |
+| height | <code>number</code> | Height |
 
 **Example**  
 ```js
@@ -469,19 +469,19 @@ Cambiar el tamaño de una imagen
 <a name="kiss"></a>
 
 ## kiss(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Besarse ( ͡° ͜ʖ ͡°)
+Kiss someone ( ͡° ͜ʖ ͡°)
 
 **Kind**: global function  
 **Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de beso  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
-| image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
+| image1 | <code>string</code> \| <code>Buffer</code> | First image |
+| image2 | <code>string</code> \| <code>Buffer</code> | Second image |
 
 **Example**  
 ```js
@@ -494,19 +494,19 @@ Besarse ( ͡° ͜ʖ ͡°)
 <a name="spank"></a>
 
 ## spank(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Azotar a alguien ( ͡° ͜ʖ ͡°)
+To spank someone ( ͡° ͜ʖ ͡°)
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de "spank"  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Image of spank  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
-| image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
+| image1 | <code>string</code> \| <code>Buffer</code> | First image |
+| image2 | <code>string</code> \| <code>Buffer</code> | Second image |
 
 **Example**  
 ```js
@@ -519,19 +519,19 @@ Azotar a alguien ( ͡° ͜ʖ ͡°)
 <a name="slap"></a>
 
 ## slap(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Abofetear a alguien ( ͡° ͜ʖ ͡°)
+Slap someone ( ͡° ͜ʖ ͡°)
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de "slap"  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Image of slap  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
-| image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
+| image1 | <code>string</code> \| <code>Buffer</code> | First image |
+| image2 | <code>string</code> \| <code>Buffer</code> | Second image |
 
 **Example**  
 ```js
@@ -544,18 +544,18 @@ Abofetear a alguien ( ͡° ͜ʖ ͡°)
 <a name="facepalm"></a>
 
 ## facepalm(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Hacer una imagen de palma en la cara
+Facepalm someone
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de facepalm  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Image of facepalm  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
+| image | <code>string</code> \| <code>Buffer</code> | Image to facepalm |
 
 **Example**  
 ```js
@@ -568,19 +568,19 @@ Hacer una imagen de palma en la cara
 <a name="colorfy"></a>
 
 ## colorfy(image, color) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Actualiza el color de la imagen
+Colorfy an image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen coloreada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Colorfied image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
-| color | <code>string</code> | Color HTML5 |
+| image | <code>string</code> \| <code>Buffer</code> | Image to colorfy |
+| color | <code>string</code> | Color to apply to the image (hex) |
 
 **Example**  
 ```js
@@ -593,20 +593,20 @@ Actualiza el color de la imagen
 <a name="distracted"></a>
 
 ## distracted(image1, image2, image3) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen de meme de distracción
+Distract someone
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de distracción  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Distracted image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la primera imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image1 | <code>string</code> \| <code>Buffer</code> | Rostro para la niña en color rojo. |
-| image2 | <code>string</code> \| <code>Buffer</code> | Cara para el chico |
-| image3 | <code>string</code> \| <code>Buffer</code> | Cara para la otra chica [opcional] |
+| image1 | <code>string</code> \| <code>Buffer</code> | Face for the girl in red. |
+| image2 | <code>string</code> \| <code>Buffer</code> | Face for the boy. |
+| image3 | <code>string</code> \| <code>Buffer</code> | Face for the other girl [optional] |
 
 **Example**  
 ```js
@@ -619,19 +619,19 @@ Crear una imagen de meme de distracción
 <a name="jail"></a>
 
 ## jail(image, greyscale) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen de celda
+Create a jail image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la celda  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Jailed image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
-| greyscale | <code>boolean</code> | Si debe ser una imagen en escala de grises |
+| image | <code>string</code> \| <code>Buffer</code> | Image to jail |
+| greyscale | <code>boolean</code> | If the image should be greyscale |
 
 **Example**  
 ```js
@@ -644,19 +644,19 @@ Crear una imagen de celda
 <a name="bed"></a>
 
 ## bed(image1, image2) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen de cama
+Create a bed image
 
 **Kind**: global function  
 **Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de cama  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image1 | <code>string</code> \| <code>Buffer</code> | Primera imagen |
-| image2 | <code>string</code> \| <code>Buffer</code> | Segunda imagen |
+| image1 | <code>string</code> \| <code>Buffer</code> | First image |
+| image2 | <code>string</code> \| <code>Buffer</code> | Second image |
 
 **Example**  
 ```js
@@ -669,19 +669,19 @@ Crear una imagen de cama
 <a name="delete"></a>
 
 ## delete(image, dark) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen eliminada
+Create a deleted image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen eliminada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Deleted image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
-| dark | <code>boolean</code> | Si la imagen debe estar en modo oscuro |
+| image | <code>string</code> \| <code>Buffer</code> | Image to delete |
+| dark | <code>boolean</code> | If the image should be dark |
 
 **Example**  
 ```js
@@ -694,21 +694,21 @@ Crear una imagen eliminada
 <a name="gradient"></a>
 
 ## gradient(colorFrom, colorTo, width, height) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen degradada
+Create a gradient image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen degradada  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Gradient image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona el color inicial o final
+- <code>APIError</code> If colorFrom or colorTo is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| colorFrom | <code>string</code> | Color inicial |
-| colorTo | <code>string</code> | Color final |
-| width | <code>number</code> | Ancho de la imagen |
-| height | <code>number</code> | Altura de imagen |
+| colorFrom | <code>string</code> | First color |
+| colorTo | <code>string</code> | Second color |
+| width | <code>number</code> | Width of image |
+| height | <code>number</code> | Height of image |
 
 **Example**  
 ```js
@@ -721,24 +721,24 @@ Crear una imagen degradada
 <a name="quote"></a>
 
 ## quote(options, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen de cita falsa
+Create a fake quote image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de cita falsa  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Quote image  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| options | <code>object</code> |  | Opciones |
-| [options.image] | <code>Buffer</code> \| <code>string</code> |  | Imagen |
-| [options.message] | <code>string</code> |  | Mensaje |
-| [options.username] | <code>string</code> |  | Nombre de usuario |
+| options | <code>object</code> |  | Options |
+| [options.image] | <code>Buffer</code> \| <code>string</code> |  | Image |
+| [options.message] | <code>string</code> |  | Message |
+| [options.username] | <code>string</code> |  | Username |
 | [options.color] | <code>string</code> |  | Color |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Text font for the card |
 
 **Example**  
 ```js
     const canvacard = require("canvacard");
-    canvacard.Canvas.quote({ image: "./image.png", message: "¡Esto es increíble!", username: "Clyde", color: "#FFFFFF" })
+    canvacard.Canvas.quote({ image: "./image.png", message: "This is amazing!", username: "Clyde", color: "#FFFFFF" })
     .then(quote => {
       canvacard.write(quote, "quote.png");
     })
@@ -746,27 +746,27 @@ Crear una imagen de cita falsa
 <a name="phub"></a>
 
 ## phub(options, [font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Comentario de PornHub
+PornHub Comment
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de comentario de PornHub  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - PornHub Comment image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona el nombre de usuario, el mensaje o la imagen
+- <code>APIError</code> If username, message or image is not provided
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| options | <code>Object</code> |  | Opciones |
-| [options.username] | <code>String</code> |  | Nombre de usuario |
-| [options.message] | <code>String</code> |  | Comentario |
-| [options.image] | <code>String</code> \| <code>Buffer</code> |  | Imagen |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
+| options | <code>Object</code> |  | Options |
+| [options.username] | <code>String</code> |  | Username |
+| [options.message] | <code>String</code> |  | Message |
+| [options.image] | <code>String</code> \| <code>Buffer</code> |  | Image |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Text font for card |
 
 **Example**  
 ```js
     const canvacard = require("canvacard");
-    canvacard.Canvas.phub({ username: "Clyde", message: "¡Esto es increíble!", image: "./image.png" })
+    canvacard.Canvas.phub({ username: "Clyde", message: "This is amazing!", image: "./image.png" })
     .then(phub => {
       canvacard.write(phub, "phub.png");
     })
@@ -774,18 +774,18 @@ Comentario de PornHub
 <a name="wanted"></a>
 
 ## wanted(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen de se busca
+Create a "wanted" image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de "wanted"  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Wanted image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
+| image | <code>string</code> \| <code>Buffer</code> | Image to wanted |
 
 **Example**  
 ```js
@@ -798,18 +798,18 @@ Crear una imagen de se busca
 <a name="wasted"></a>
 
 ## wasted(image) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Crear una imagen de "wasted"
+Create a "wasted" image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de "wasted"  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Wasted image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona la imagen
+- <code>APIError</code> If image is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| image | <code>string</code> \| <code>Buffer</code> | Fuente de imagen |
+| image | <code>string</code> \| <code>Buffer</code> | Image to wasted |
 
 **Example**  
 ```js
@@ -822,27 +822,27 @@ Crear una imagen de "wasted"
 <a name="youtube"></a>
 
 ## youtube(ops) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Comentario de YouTube
+Create a YouTube comment image
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de comentario de YouTube  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - YouTube comment image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona el nombre de usuario, el contenido o el avatar
+- <code>APIError</code> If username, content or avatar is not provided
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| ops | <code>object</code> |  | Opciones de comentarios de YouTube |
-| [ops.username] | <code>string</code> |  | Nombre de usuario del autor del comentario |
-| [ops.content] | <code>string</code> |  | El comentario |
-| [ops.avatar] | <code>string</code> \| <code>Buffer</code> |  | Fuente de avatar |
-| [ops.dark] | <code>boolean</code> | <code>false</code> | ¿Modo oscuro? |
+| ops | <code>object</code> |  | Options |
+| [ops.username] | <code>string</code> |  | Username |
+| [ops.content] | <code>string</code> |  | Content |
+| [ops.avatar] | <code>string</code> \| <code>Buffer</code> |  | Avatar |
+| [ops.dark] | <code>boolean</code> | <code>false</code> | Dark mode |
 
 **Example**  
 ```js
     const canvacard = require("canvacard");
-    canvacard.Canvas.youtube({ username: "Clyde", content: "¡Esto es increíble!", avatar: "./image.png" })
+    canvacard.Canvas.youtube({ username: "Clyde", content: "This is amazing!", avatar: "./image.png" })
     .then(youtube => {
       canvacard.write(youtube, "youtube.png");
     })
@@ -850,38 +850,38 @@ Comentario de YouTube
 <a name="write"></a>
 
 ## write(data, name) ⇒ <code>void</code>
-Escribe los datos como archivo
+Writes data as a file
 
 **Kind**: global function  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| data | <code>Buffer</code> | datos para escribir |
-| name | <code>string</code> | nombre del archivo |
+| data | <code>Buffer</code> | data to write |
+| name | <code>string</code> | file name |
 
 <a name="reply"></a>
 
 ## reply(options) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Clon de respuesta de discord
+Discord Reply Clone
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de respuesta de discord  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Reply image  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona el avatar, el nombre de usuario o el mensaje
+- <code>APIError</code> If the avatar, username or message is not provided
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| options | <code>object</code> | Opciones |
-| [options.avatar1] | <code>string</code> \| <code>Buffer</code> | Avatar de la persona que respondió |
-| [options.avatar2] | <code>string</code> \| <code>Buffer</code> | Avatar de la otra persona |
-| [options.user1] | <code>string</code> | Nombre de usuario de la persona que respondió |
-| [options.user2] | <code>string</code> | Nombre de usuario de la otra persona |
-| [options.hex1] | <code>string</code> | Color hexadecimal de la persona que respondió |
-| [options.hex2] | <code>string</code> | Color hexadecimal de la otra persona |
-| [options.mainText] | <code>string</code> | El mensaje |
-| [options.replyText] | <code>string</code> | El mensaje de respuesta |
+| options | <code>object</code> | Options |
+| [options.avatar1] | <code>string</code> \| <code>Buffer</code> | Avatar of the person who responded |
+| [options.avatar2] | <code>string</code> \| <code>Buffer</code> | Avatar of the other person |
+| [options.user1] | <code>string</code> | Username of the person who responded |
+| [options.user2] | <code>string</code> | Username of the other person |
+| [options.hex1] | <code>string</code> | Hexadecimal color of the person who responded |
+| [options.hex2] | <code>string</code> | Hexadecimal color of the other person |
+| [options.mainText] | <code>string</code> | Message of the person who responded |
+| [options.replyText] | <code>string</code> | Message of the other person |
 
 **Example**  
 ```js

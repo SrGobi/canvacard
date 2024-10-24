@@ -1,12 +1,11 @@
-<a name="formatTime"></a>
+<a name="module_formatTime"></a>
 
-## formatTime(time) ⇒ <code>string</code>
-Formatea la marca de tiempo en una cadena de fecha.
+## formatTime ⇒ <code>string</code>
+Formats the timestamp into a date string.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - Cadena de fecha formateada  
+**Returns**: <code>string</code> - Formatted date string  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| time | <code>number</code> | Marca de tiempo para convertir |
+| time | <code>number</code> | Timestamp to convert |
 

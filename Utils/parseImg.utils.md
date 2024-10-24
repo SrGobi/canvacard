@@ -1,12 +1,12 @@
 <a name="parseImg"></a>
 
-## parseImg(imgString) ⇒ <code>string</code>
-Verificar si la insignia personalizada es válida
+## parseImg ⇒ <code>string</code>
+Check if the custom badge is valid
 
-**Kind**: global function  
-**Returns**: <code>string</code> - URL de la imagen  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Image URL  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| imgString | <code>string</code> | URL de la imagen |
+| imgStringImage | <code>string</code> | image URL |
 

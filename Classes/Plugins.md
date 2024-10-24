@@ -6,7 +6,7 @@
 
 | Name | Type | Description |
 | --- | --- | --- |
-| circle | <code>function</code> | Complemento de círculo |
-| convolute | <code>function</code> | Complemento convolute |
-| abbrev | <code>function</code> | Complemento de abreviaturas |
+| circle | <code>function</code> | Complement of circle |
+| convolute | <code>function</code> | Convolute complement |
+| abbrev | <code>function</code> | Complement of abbreviations |
 

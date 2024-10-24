@@ -9,43 +9,43 @@
 
 <dl>
 <dt><a href="#setAvatar">setAvatar(avatarUrl, AvatarDecorationData, squareAvatar)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el avatar del usuario</p>
+<dd><p>Set the user avatar</p>
 </dd>
 <dt><a href="#setBanner">setBanner(bannerUrl, moreBackgroundBlur, disableBackgroundBlur, backgroundBrightness)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el banner del usuario</p>
+<dd><p>Set the user banner</p>
 </dd>
 <dt><a href="#setBadges">setBadges(flags, bot, frame, customBadges)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece las insignias del usuario</p>
+<dd><p>Set the user badges and frame</p>
 </dd>
 <dt><a href="#setBorder">setBorder(color, allign)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el borde de la tarjeta</p>
+<dd><p>Set the border of the card</p>
 </dd>
 <dt><a href="#setUsername">setUsername(name, [discriminator], [color], customUsername, customTag)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el nombre de usuario</p>
+<dd><p>Set the username of the user</p>
 </dd>
 <dt><a href="#setCurrentXP">setCurrentXP(data, [color])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el nivel de experiencia actual</p>
+<dd><p>Set the current experience</p>
 </dd>
 <dt><a href="#setRequiredXP">setRequiredXP(data, [color])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece la experiencia requerida</p>
+<dd><p>Set the required experience</p>
 </dd>
 <dt><a href="#setRank">setRank(data, [text], [display])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el ranking del usuario</p>
+<dd><p>Set the user rank</p>
 </dd>
 <dt><a href="#setLevel">setLevel(data, [text])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
 <dd><p>Establece el nivel del usuario</p>
 </dd>
 <dt><a href="#setProgressBar">setProgressBar(color, [fillType], [rounded])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece la barra de progreso</p>
+<dd><p>Set the progress bar</p>
 </dd>
 <dt><a href="#setStatus">setStatus(presenceStatus)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece el estado del usuario</p>
+<dd><p>Set the user presence status</p>
 </dd>
 <dt><a href="#setCreatedTimestamp">setCreatedTimestamp(timestamp, customDate)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
-<dd><p>Establece la marca de tiempo de creación</p>
+<dd><p>Set the user created timestamp</p>
 </dd>
 <dt><a href="#build">build([font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Construye la tarjeta de rango</p>
+<dd><p>Build the rank card</p>
 </dd>
 </dl>
 
@@ -56,12 +56,12 @@
 <a name="new_Rank_new"></a>
 
 ### new Rank(userId)
-Creador de tarjetas de rango<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">  </a></details>
+Rank card creator<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">  </a></details>
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| userId | <code>string</code> | ID del usuario |
+| userId | <code>string</code> | User ID |
 
 **Example**  
 ```js
@@ -69,13 +69,13 @@ const rank = new canvacard.Rank(data.id)
   .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
   .setBanner(data.bannerURL, true)
   .setBadges(data.flags, data.bot, true)
+  .setBorder("#FFFFFF", "to right")
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
   .setLevel(20, "LEVEL", true)
   .setStatus("online")
   .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-  .setOverlay("#000000", 1, true)
   .setUsername(data.global_name, data.discriminator)
   .setCreatedTimestamp(data.createdTimestamp);
 
@@ -84,147 +84,147 @@ canvacard.write(rankImage, "./rank.png");```
 <a name="setAvatar"></a>
 
 ## setAvatar(avatarUrl, AvatarDecorationData, squareAvatar) ⇒ [<code>Rank</code>](#Rank)
-Establece el avatar del usuario
+Set the user avatar
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| avatarUrl | <code>string</code> | URL del avatar |
-| AvatarDecorationData | <code>string</code> | Asset de decoración del avatar |
-| squareAvatar | <code>boolean</code> | Cambiar la forma del avatar a un cuadrado |
+| avatarUrl | <code>string</code> | Avatar URL |
+| AvatarDecorationData | <code>string</code> | Avatar decoration asset |
+| squareAvatar | <code>boolean</code> | Square avatar |
 
 <a name="setBanner"></a>
 
 ## setBanner(bannerUrl, moreBackgroundBlur, disableBackgroundBlur, backgroundBrightness) ⇒ [<code>Rank</code>](#Rank)
-Establece el banner del usuario
+Set the user banner
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| bannerUrl | <code>string</code> | URL del banner |
-| moreBackgroundBlur | <code>boolean</code> | Más desenfoque de fondo |
-| disableBackgroundBlur | <code>boolean</code> | Desactivar desenfoque de fondo |
-| backgroundBrightness | <code>number</code> | Brillo de fondo |
+| bannerUrl | <code>string</code> | Banner URL |
+| moreBackgroundBlur | <code>boolean</code> | More background blur |
+| disableBackgroundBlur | <code>boolean</code> | Disable background blur |
+| backgroundBrightness | <code>number</code> | Background brightness |
 
 <a name="setBadges"></a>
 
 ## setBadges(flags, bot, frame, customBadges) ⇒ [<code>Rank</code>](#Rank)
-Establece las insignias del usuario
+Set the user badges and frame
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| flags | <code>number</code> | Insignias del usuario |
-| bot | <code>boolean</code> | Si el usuario es un bot o no |
-| frame | <code>boolean</code> | Marco de insignias |
-| customBadges | <code>Array.&lt;string&gt;</code> | Insignias personalizadas |
+| flags | <code>number</code> | User flags |
+| bot | <code>boolean</code> | Whether the user is a bot or not |
+| frame | <code>boolean</code> | Badge frame |
+| customBadges | <code>Array.&lt;string&gt;</code> | Custom badges |
 
 <a name="setBorder"></a>
 
 ## setBorder(color, allign) ⇒ [<code>Rank</code>](#Rank)
-Establece el borde de la tarjeta
+Set the border of the card
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| color | <code>string</code> \| <code>Array.&lt;string&gt;</code> | Color HEX del borde, puede ser degradado si se usan 2 colores |
-| allign | <code>string</code> | Alineación de degradado si se usan 2 colores |
+| color | <code>string</code> \| <code>Array.&lt;string&gt;</code> | HEX color of the border, can be gradient if 2 colors are used |
+| allign | <code>string</code> | Gradient alignment if 2 colors are used |
 
 <a name="setUsername"></a>
 
 ## setUsername(name, [discriminator], [color], customUsername, customTag) ⇒ [<code>Rank</code>](#Rank)
-Establece el nombre de usuario
+Set the username of the user
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| name | <code>string</code> |  | Nombre de usuario |
-| [discriminator] | <code>string</code> | <code>&quot;\&quot;0\&quot;&quot;</code> | Discriminador del usuario |
-| [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Color del texto |
-| customUsername | <code>string</code> |  | Nombre de usuario personalizado |
-| customTag | <code>string</code> |  | Tag personalizado |
+| name | <code>string</code> |  | Username of the user |
+| [discriminator] | <code>string</code> | <code>&quot;\&quot;0\&quot;&quot;</code> | Discriminator of the user |
+| [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Color of the username |
+| customUsername | <code>string</code> |  | Custom username |
+| customTag | <code>string</code> |  | Custom tag |
 
 <a name="setCurrentXP"></a>
 
 ## setCurrentXP(data, [color]) ⇒ [<code>Rank</code>](#Rank)
-Establece el nivel de experiencia actual
+Set the current experience
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| data | <code>number</code> |  | Datos de experiencia actual |
-| [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Color del texto |
+| data | <code>number</code> |  | Current experience data |
+| [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Text color |
 
 <a name="setRequiredXP"></a>
 
 ## setRequiredXP(data, [color]) ⇒ [<code>Rank</code>](#Rank)
-Establece la experiencia requerida
+Set the required experience
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| data | <code>number</code> |  | Datos de experiencia requerida |
-| [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Color del texto |
+| data | <code>number</code> |  | Required experience data |
+| [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Text color |
 
 <a name="setRank"></a>
 
 ## setRank(data, [text], [display]) ⇒ [<code>Rank</code>](#Rank)
-Establece el ranking del usuario
+Set the user rank
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| data | <code>number</code> |  | Datos de ranking |
-| [text] | <code>string</code> | <code>&quot;\&quot;RANK\&quot;&quot;</code> | Texto de visualización |
-| [display] | <code>boolean</code> | <code>false</code> | Mostrar o no el sistema de rango |
+| data | <code>number</code> |  | Rank data |
+| [text] | <code>string</code> | <code>&quot;\&quot;RANK\&quot;&quot;</code> | Display text |
+| [display] | <code>boolean</code> | <code>false</code> | Display system rank or not |
 
 <a name="setLevel"></a>
 
@@ -232,81 +232,81 @@ Establece el ranking del usuario
 Establece el nivel del usuario
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| data | <code>number</code> |  | Datos de nivel |
-| [text] | <code>string</code> | <code>&quot;\&quot;LEVEL\&quot;&quot;</code> | Texto de visualización |
+| data | <code>number</code> |  | Level data |
+| [text] | <code>string</code> | <code>&quot;\&quot;LEVEL\&quot;&quot;</code> | Display text |
 
 <a name="setProgressBar"></a>
 
 ## setProgressBar(color, [fillType], [rounded]) ⇒ [<code>Rank</code>](#Rank)
-Establece la barra de progreso
+Set the progress bar
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| color | <code>string</code> \| <code>Array.&lt;string&gt;</code> |  | Color de la barra de progreso |
-| [fillType] | <code>string</code> | <code>&quot;\&quot;COLOR\&quot;&quot;</code> | Tipo de relleno |
-| [rounded] | <code>boolean</code> | <code>true</code> | Redondear o no |
+| color | <code>string</code> \| <code>Array.&lt;string&gt;</code> |  | Color of the progress bar, can be gradient if 2 colors are used |
+| [fillType] | <code>string</code> | <code>&quot;\&quot;COLOR\&quot;&quot;</code> | Type of progress bar |
+| [rounded] | <code>boolean</code> | <code>true</code> | Rounded corners of the progress bar |
 
 <a name="setStatus"></a>
 
 ## setStatus(presenceStatus) ⇒ [<code>Rank</code>](#Rank)
-Establece el estado del usuario
+Set the user presence status
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| presenceStatus | <code>string</code> | Estado del usuario |
+| presenceStatus | <code>string</code> | Presence status |
 
 <a name="setCreatedTimestamp"></a>
 
 ## setCreatedTimestamp(timestamp, customDate) ⇒ [<code>Rank</code>](#Rank)
-Establece la marca de tiempo de creación
+Set the user created timestamp
 
 **Kind**: global function  
-**Returns**: [<code>Rank</code>](#Rank) - La instancia de la clase Rank  
+**Returns**: [<code>Rank</code>](#Rank) - The current instance of Rank  
 **Throws**:
 
-- <code>APIError</code> Si el URL o el asset no son válidos
+- <code>APIError</code> If the URL or asset is invalid
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| timestamp | <code>number</code> | Marca de tiempo de creación |
-| customDate | <code>string</code> \| <code>Date</code> | Fecha o texto personalizado para usar en lugar de cuando el usuario se unió a Discord |
+| timestamp | <code>number</code> | Timestamp of when the user joined Discord |
+| customDate | <code>string</code> \| <code>Date</code> | Custom date format for the timestamp |
 
 <a name="build"></a>
 
 ## build([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Construye la tarjeta de rango
+Build the rank card
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de rango en formato de buffer  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Card image in buffer format  
 **Throws**:
 
-- <code>APIError</code> Faltan datos
+- <code>APIError</code> Missing field: data
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Font to use in the card |
 

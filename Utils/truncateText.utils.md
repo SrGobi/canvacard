@@ -1,14 +1,14 @@
 <a name="truncateText"></a>
 
-## truncateText(text, [limit], [fromEnd]) ⇒ <code>string</code>
-Trunca el texto a una longitud especificada y agrega puntos suspensivos si es necesario.
+## truncateText ⇒ <code>string</code>
+Truncates text to a specified length and adds an ellipsis if necessary.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - - El texto original o truncado.  
+**Kind**: global variable  
+**Returns**: <code>string</code> - The original or truncated text.  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| text | <code>string</code> |  | El texto a truncar. |
-| [limit] | <code>number</code> | <code>25</code> | La longitud máxima del texto antes del truncamiento (el valor predeterminado es 25). |
-| [fromEnd] | <code>boolean</code> | <code>false</code> | Si es verdadero, el truncamiento se realizará desde el final del texto (el valor predeterminado es falso). |
+| text | <code>string</code> |  | The text to be truncated. |
+| [limit] | <code>number</code> | <code>25</code> | The maximum length of text before truncation (default is 25). |
+| [fromEnd] | <code>boolean</code> | <code>false</code> | If true, truncation will be performed from the end of the text (default is false). |
 

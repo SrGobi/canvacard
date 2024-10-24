@@ -1,13 +1,13 @@
 <a name="shorten"></a>
 
-## shorten(text, len) ⇒ <code>string</code>
-Acorta el texto a una longitud específica y agrega puntos suspensivos si es necesario.
+## shorten ⇒ <code>string</code>
+Shorten text to a specific length and add ellipses if necessary.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - Texto original o acortado  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Original or shortened text  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| text | <code>string</code> | Texto a acortar |
-| len | <code>number</code> | Longitud máxima del texto antes de acortarlo |
+| text | <code>string</code> | Text to be shortened |
+| len | <code>number</code> | Maximum length of text before shortening |
 

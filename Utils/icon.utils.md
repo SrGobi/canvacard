@@ -1,16 +1,16 @@
 <a name="getIconPath"></a>
 
-## getIconPath(iconUrl) ⇒ <code>string</code>
-Función para obtener la URL del ícono de una insignia.Si el ícono es una ruta relativa, se transforma en una URL absoluta apuntando al repositorio de GitHub.
+## getIconPath ⇒ <code>string</code>
+Function to get the URL of a badge icon. If the icon is a relative path, it is transformed into an absolute URL pointing to the GitHub repository.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - URL absoluta del ícono.  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Absolute URL of the icon.  
 **Throws**:
 
-- <code>APIError</code> Si hay un problema al construir la URL del ícono.
+- <code>APIError</code> If there is a problem building the icon URL.
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| iconUrl | <code>string</code> | Nombre del ícono o URL del ícono. |
+| iconUrl | <code>string</code> | Icon name or icon URL. |
 

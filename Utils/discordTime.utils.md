@@ -1,12 +1,12 @@
 <a name="discordTime"></a>
 
-## discordTime(time) ⇒ <code>string</code>
-Convierte la marca de tiempo regular en una hora similar a la de Discord.
+## discordTime ⇒ <code>string</code>
+Convert regular timestamp to Discord-like time.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - Cadena de tiempo similar a Discord  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Discord-like time chain  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| time | <code>Date</code> \| <code>number</code> | Marca de tiempo para convertir |
+| time | <code>Date</code> \| <code>number</code> | Timestamp to convert |
 

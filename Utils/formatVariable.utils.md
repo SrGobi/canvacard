@@ -1,13 +1,13 @@
 <a name="formatVariable"></a>
 
-## formatVariable(prefix, variable) ⇒
-Obtiene variables y tipos.
+## formatVariable ⇒ <code>string</code>
+Gets variables and types.
 
-**Kind**: global function  
-**Returns**: La variable formateada  
+**Kind**: global variable  
+**Returns**: <code>string</code> - The formatted variable  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| prefix | <code>object</code> | El tipo de variable |
-| variable | <code>object</code> | La variable a cambiar |
+| prefix | <code>object</code> | The type of variable |
+| variable | <code>object</code> | The variable to change |
 

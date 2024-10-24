@@ -9,13 +9,13 @@
 
 <dl>
 <dt><a href="#setToken">setToken(value)</a> ⇒ <code><a href="#FortniteShop">FortniteShop</a></code></dt>
-<dd><p>Establecer el token de la API de Fortnite</p>
+<dd><p>Set the Fortnite API token</p>
 </dd>
 <dt><a href="#setText">setText(value)</a> ⇒ <code><a href="#FortniteShop">FortniteShop</a></code></dt>
-<dd><p>Establecer el texto del encabezado</p>
+<dd><p>Set the text for the Fortnite Shop card</p>
 </dd>
 <dt><a href="#build">build([font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Construir la tarjeta de la tienda de Fortnite</p>
+<dd><p>Build the Fortnite Shop card</p>
 </dd>
 </dl>
 
@@ -26,7 +26,7 @@
 <a name="new_FortniteShop_new"></a>
 
 ### new FortniteShop()
-Creador de tarjetas de la tienda de Fortnite<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">  </a></details>Para obtener un token de la API de Fortnite, visite [fortnite-api.com](https://fortnite-api.com/)
+Fortnite Shop card creator<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">  </a></details>To obtain a Fortnite API token, visit [fortnite-api.com](https://fortnite-api.com/)
 
 **Example**  
 ```js
@@ -39,48 +39,48 @@ canvacard.write(FortniteShopImage, "./fortnite_shop.png");```
 <a name="setToken"></a>
 
 ## setToken(value) ⇒ [<code>FortniteShop</code>](#FortniteShop)
-Establecer el token de la API de Fortnite
+Set the Fortnite API token
 
 **Kind**: global function  
-**Returns**: [<code>FortniteShop</code>](#FortniteShop) - La instancia actual de FortniteShop  
+**Returns**: [<code>FortniteShop</code>](#FortniteShop) - The current instance of FortniteShop  
 **Throws**:
 
-- <code>APIError</code> Si no se proporciona un token válido
+- <code>APIError</code> If the value is not a string
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| value | <code>string</code> | Token de la API de Fortnite |
+| value | <code>string</code> | Fortnite API token |
 
 <a name="setText"></a>
 
 ## setText(value) ⇒ [<code>FortniteShop</code>](#FortniteShop)
-Establecer el texto del encabezado
+Set the text for the Fortnite Shop card
 
 **Kind**: global function  
-**Returns**: [<code>FortniteShop</code>](#FortniteShop) - La instancia actual de FortniteShop  
+**Returns**: [<code>FortniteShop</code>](#FortniteShop) - The current instance of FortniteShop  
 **Throws**:
 
-- <code>APIError</code> Si el valor no es una cadena
+- <code>APIError</code> If the value is not a string
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| value | <code>string</code> | Texto del encabezado |
+| value | <code>string</code> | Text to set for the card |
 
 <a name="build"></a>
 
 ## build([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Construir la tarjeta de la tienda de Fortnite
+Build the Fortnite Shop card
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de la tienda de Fortnite  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Card image in buffer format  
 **Throws**:
 
-- <code>APIError</code> Si no se puede obtener la información de la tienda
+- <code>APIError</code> If the token is not provided
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Font to use for the card |
 

@@ -1,13 +1,13 @@
 <a name="formatAndValidateHex"></a>
 
-## formatAndValidateHex(hex, alt) ⇒ <code>string</code>
-Formatea y valida el código hexadecimal.
+## formatAndValidateHex ⇒ <code>string</code>
+Formats and validates the hexadecimal code.
 
-**Kind**: global function  
-**Returns**: <code>string</code> - Código hexadecimal formateado y validado  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Formatted and validated hexadecimal code  
 
-| Param | Type | Default | Description |
-| --- | --- | --- | --- |
-| hex | <code>string</code> |  | Código hexadecimal para formatear y validar |
-| alt | <code>string</code> | <code>&quot;#000000&quot;</code> | Color alternativo si el código es inválido |
+| Param | Type | Description |
+| --- | --- | --- |
+| hex | <code>string</code> | Hexadecimal code for formatting and validation |
+| alt | <code>string</code> | Alternative color if code is invalid |
 

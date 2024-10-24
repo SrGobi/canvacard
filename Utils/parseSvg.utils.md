@@ -1,36 +1,36 @@
-## Functions
+## Members
 
 <dl>
-<dt><a href="#parseSvg">parseSvg(imgString)</a> ⇒ <code>string</code></dt>
-<dd><p>Verificar si la insignia personalizada es válida (SVG)</p>
+<dt><a href="#parseSvg">parseSvg</a> ⇒ <code>string</code></dt>
+<dd><p>Check if the custom badge is valid (SVG)</p>
 </dd>
-<dt><a href="#validateImage">validateImage(imgString, format)</a> ⇒ <code>string</code></dt>
-<dd><p>Función auxiliar para validar imágenes</p>
+<dt><a href="#validateImage">validateImage</a> ⇒ <code>string</code></dt>
+<dd><p>Helper function to validate images</p>
 </dd>
 </dl>
 
 <a name="parseSvg"></a>
 
-## parseSvg(imgString) ⇒ <code>string</code>
-Verificar si la insignia personalizada es válida (SVG)
+## parseSvg ⇒ <code>string</code>
+Check if the custom badge is valid (SVG)
 
-**Kind**: global function  
-**Returns**: <code>string</code> - URL de la imagen  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Image URL  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| imgString | <code>string</code> | URL de la imagen |
+| imgString | <code>string</code> | Image URL |
 
 <a name="validateImage"></a>
 
-## validateImage(imgString, format) ⇒ <code>string</code>
-Función auxiliar para validar imágenes
+## validateImage ⇒ <code>string</code>
+Helper function to validate images
 
-**Kind**: global function  
-**Returns**: <code>string</code> - URL de la imagen  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Image URL  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| imgString | <code>string</code> | URL de la imagen |
-| format | <code>string</code> | Formato de la imagen ('png', 'svg', etc.) |
+| imgString | <code>string</code> | Image URL |
+| format | <code>string</code> | Image format ('png', 'svg', etc.) |
 

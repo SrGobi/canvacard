@@ -9,31 +9,31 @@
 
 <dl>
 <dt><a href="#setProgressBar">setProgressBar(type, color)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer detalles de la barra de progreso</p>
+<dd><p>Set progress bar details</p>
 </dd>
 <dt><a href="#setTitle">setTitle(title)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer título</p>
+<dd><p>Set title</p>
 </dd>
 <dt><a href="#setImage">setImage(source)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
 <dd><p>Establecer imagen</p>
 </dd>
 <dt><a href="#setAuthor">setAuthor(name)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer nombre de artista</p>
+<dd><p>Set the name of the artist</p>
 </dd>
 <dt><a href="#setAlbum">setAlbum(name)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer el nombre del álbum</p>
+<dd><p>Set the name of the album</p>
 </dd>
 <dt><a href="#setStartTimestamp">setStartTimestamp(time)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer marca de tiempo de inicio</p>
+<dd><p>Set start timestamp</p>
 </dd>
 <dt><a href="#setEndTimestamp">setEndTimestamp(time)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer marca de tiempo de finalización</p>
+<dd><p>Set end timestamp</p>
 </dd>
 <dt><a href="#setBackground">setBackground(type, data)</a> ⇒ <code><a href="#Spotify">Spotify</a></code></dt>
-<dd><p>Establecer fondo de la tarjeta</p>
+<dd><p>Set background image/color of the card</p>
 </dd>
 <dt><a href="#build">build([font])</a> ⇒ <code>Promise.&lt;Buffer&gt;</code></dt>
-<dd><p>Construye la tarjeta de presencia de Spotify.</p>
+<dd><p>Build the Spotify presence card</p>
 </dd>
 </dl>
 
@@ -44,7 +44,7 @@
 <a name="new_Spotify_new"></a>
 
 ### new Spotify()
-Creador de tarjetas de presencia de Spotify<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">  </a></details>
+Spotify card creator<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">  </a></details>
 
 **Example**  
 ```js
@@ -60,35 +60,35 @@ canvacard.write(spotifyImage, "./spotify.png");```
 <a name="setProgressBar"></a>
 
 ## setProgressBar(type, color) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer detalles de la barra de progreso
+Set progress bar details
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Tipo de barra de progreso no válido
+- <code>APIError</code> Invalid progress bar type
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| type | <code>&quot;TRACK&quot;</code> \| <code>&quot;BAR&quot;</code> | Tipo de barra de progreso |
-| color | <code>string</code> | Color para establecer |
+| type | <code>&quot;TRACK&quot;</code> \| <code>&quot;BAR&quot;</code> | Type of progress bar |
+| color | <code>string</code> | Color of the progress bar |
 
 <a name="setTitle"></a>
 
 ## setTitle(title) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer título
+Set title
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Título esperado pero no recibido
+- <code>APIError</code> Title expected but not received
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| title | <code>string</code> | Título para establecer |
+| title | <code>string</code> | Title of the song |
 
 <a name="setImage"></a>
 
@@ -96,10 +96,10 @@ Establecer título
 Establecer imagen
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Fuente de imagen esperada pero no recibida
+- <code>APIError</code> Image source expected but not received
 
 
 | Param | Type | Description |
@@ -109,97 +109,97 @@ Establecer imagen
 <a name="setAuthor"></a>
 
 ## setAuthor(name) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer nombre de artista
+Set the name of the artist
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Nombre esperado del artista pero no recibido
+- <code>APIError</code> Artist name expected but not received
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>string</code> | Nombre del artista |
+| name | <code>string</code> | Name of the artist |
 
 <a name="setAlbum"></a>
 
 ## setAlbum(name) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer el nombre del álbum
+Set the name of the album
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Nombre del álbum esperado pero no recibido
+- <code>APIError</code> Album name expected but not received
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| name | <code>string</code> | Nombre del álbum |
+| name | <code>string</code> | Name of the album |
 
 <a name="setStartTimestamp"></a>
 
 ## setStartTimestamp(time) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer marca de tiempo de inicio
+Set start timestamp
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Marca de tiempo esperada pero no recibida
+- <code>APIError</code> Timestamp expected but not received
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| time | <code>Date</code> \| <code>number</code> | Marca de tiempo |
+| time | <code>Date</code> \| <code>number</code> | Timestamp |
 
 <a name="setEndTimestamp"></a>
 
 ## setEndTimestamp(time) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer marca de tiempo de finalización
+Set end timestamp
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Marca de tiempo esperada pero no recibida
+- <code>APIError</code> Timestamp expected but not received
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| time | <code>Date</code> \| <code>number</code> | Marca de tiempo |
+| time | <code>Date</code> \| <code>number</code> | Timestamp |
 
 <a name="setBackground"></a>
 
 ## setBackground(type, data) ⇒ [<code>Spotify</code>](#Spotify)
-Establecer fondo de la tarjeta
+Set background image/color of the card
 
 **Kind**: global function  
-**Returns**: [<code>Spotify</code>](#Spotify) - La instancia actual de Spotify  
+**Returns**: [<code>Spotify</code>](#Spotify) - The current instance of Spotify  
 **Throws**:
 
-- <code>APIError</code> Tipo de fondo no válido
+- <code>APIError</code> Missing background data
 
 
 | Param | Type | Description |
 | --- | --- | --- |
-| type | <code>&quot;COLOR&quot;</code> \| <code>&quot;IMAGE&quot;</code> | Tipo de fondo |
-| data | <code>string</code> \| <code>Buffer</code> \| <code>Canvas.Image</code> | Datos de fondo |
+| type | <code>&quot;COLOR&quot;</code> \| <code>&quot;IMAGE&quot;</code> | Type of background |
+| data | <code>string</code> \| <code>Buffer</code> \| <code>Canvas.Image</code> | Image URL or HTML color code |
 
 <a name="build"></a>
 
 ## build([font]) ⇒ <code>Promise.&lt;Buffer&gt;</code>
-Construye la tarjeta de presencia de Spotify.
+Build the Spotify presence card
 
 **Kind**: global function  
-**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Imagen de la tarjeta de presencia de Spotify en formato de buffer  
+**Returns**: <code>Promise.&lt;Buffer&gt;</code> - Card image in buffer format  
 **Throws**:
 
-- <code>APIError</code> Faltan opciones
+- <code>APIError</code> Missing of options
 
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |
-| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Fuente de texto para la tarjeta |
+| [font] | <code>string</code> | <code>&quot;\&quot;Arial\&quot;&quot;</code> | Font to use in the card |
 

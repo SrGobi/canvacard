@@ -1,13 +1,13 @@
 <a name="isNumber"></a>
 
-## isNumber(param, type) ⇒
-Verificar si el parámetro es un número
+## isNumber ⇒ <code>number</code>
+Checks if the parameter is a number
 
-**Kind**: global function  
-**Returns**: Parámetro  
+**Kind**: global variable  
+**Returns**: <code>number</code> - Parameter  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| param | <code>number</code> | Parámetro |
-| type | <code>string</code> | Tipo de parámetro |
+| param | <code>number</code> | Parameter to check |
+| type | <code>string</code> | Parameter type |
 

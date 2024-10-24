@@ -1,13 +1,13 @@
 <a name="isString"></a>
 
-## isString(param, type) ⇒
-Verificar si el parámetro es una cadena
+## isString ⇒ <code>string</code>
+Checks if the parameter is a string
 
-**Kind**: global function  
-**Returns**: Parámetro  
+**Kind**: global variable  
+**Returns**: <code>string</code> - Parameter  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| param | <code>string</code> | Parámetro |
-| type | <code>string</code> | Tipo de parámetro |
+| param | <code>string</code> | Parameter to check |
+| type | <code>string</code> | Parameter type |
 
