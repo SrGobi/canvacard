@@ -4,7 +4,7 @@ name: Publish Dev Version
 on:
   schedule:
     - cron: '0 */12 * * *' # Se ejecuta cada 12 horas
-  workflow_dispatch:  # También se puede ejecutar manualmente
+  workflow_dispatch: # También se puede ejecutar manualmente
 
 jobs:
   publish-dev:
@@ -49,11 +49,13 @@ jobs:
           pnpm version prerelease --preid "dev.$TIMESTAMP-$COMMIT"
           pnpm publish --tag dev --access public --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}  # Autenticación con NPM
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }} # Autenticación con NPM
 
       # Deprecate prior development releases
       - name: Deprecate prior development releases
         run: |
-          pnpm deprecate "*dev*" "Esta versión está deprecada. Por favor, utiliza una versión más nueva."
+          for version in $(npm view ${{ github.event.repository.name }} versions --json | jq -r '.[] | select(. | contains("dev."))'); do
+            pnpm exec npm deprecate ${{ github.event.repository.name }}@$version "This version is deprecated. Please use a newer version."
+          done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
