@@ -16,11 +16,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalar bun
-      - name: Install bun
-        uses: oven-sh/setup-bun@v2
+      # Instalar pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
         with:
-          bun-version: latest
+          version: latest
 
       # Instalar Node.js y configurar el registro de NPM
       - name: Setup Node.js
@@ -31,18 +31,18 @@ jobs:
 
       # Instalar las dependencias
       - name: Install dependencies
-        run: bun install --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       # Construir el proyecto (compilar, transpilar o generar artefactos si es necesario)
       - name: Build project
-        run: bun run build
+        run: pnpm run build
 
       # Publicar una versión de desarrollo en NPM
       - name: Publish Dev Version
         run: |
           TIMESTAMP=$(date +%s)
           COMMIT=$(git rev-parse --short HEAD)
-          bun version prerelease --preid "dev.$TIMESTAMP-$COMMIT"
-          bun publish --tag dev --access public --no-git-checks
+          pnpm version prerelease --preid "dev.$TIMESTAMP-$COMMIT"
+          pnpm publish --tag dev --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}  # Autenticación con NPM
