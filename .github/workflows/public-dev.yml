@@ -34,10 +34,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
 
-      # Construir el proyecto (compilar, transpilar o generar artefactos si es necesario)
-      - name: Build project
-        run: pnpm run build
-
       # Publicar una versión de desarrollo en NPM
       - name: Publish Dev Version
         run: |
