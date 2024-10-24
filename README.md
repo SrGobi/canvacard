@@ -25,21 +25,21 @@ import canvacard from "canvacard";
 
 # ✨Features
 
-- 🪟 **Código abierto y sin preocupaciones de privacidad, totalmente transparente** - Canvacard es de código abierto y gratuito. Puedes colaborar y no tendrás que inquietarte por la privacidad.
+- 🪟 **Open source and no privacy concerns, fully transparent** - Canvacard is open source and free. You can contribute and you don't have to worry about privacy.
 
-- 💪 **Sencillo de utilizar** - Canvacard ofrece una API intuitiva y fácil para generar imágenes eficientemente, perfecta para desarrolladores de todos los niveles.
+- 💪 **Easy to use** - Canvacard offers an intuitive and easy API to efficiently generate images, perfect for developers of all levels.
 
-- 🚀 **Velocidad y optimización** - Las bibliotecas que usa están muy optimizadas, ofreciendo un rendimiento excepcional en la creación de imágenes.
+- 🚀 **Speed ​​and optimization** - The libraries it uses are highly optimized, offering exceptional performance when creating images.
 
-- 🔒 **Soporte para Typescript** - Canvacard está desarrollado en Typescript, lo que permite usar definiciones de tipo y mejora la experiencia del desarrollador.
+- 🔒 **Typescript support** - Canvacard is built in Typescript, which allows for the use of type definitions and improves the developer experience.
 
-- 🎨 **Más de 50 opciones de personalización** - Tienes acceso a muchas herramientas para ajustar y modificar completamente tus imágenes o tarjetas.
+- 🎨 **More than 50 customization options** - You have access to many tools to completely adjust and modify your images or cards.
 
-- 🖼️ **Creación de tarjetas interactivas y personalizadas** - Canvacard es perfecto para crear tarjetas personalizadas para Discord, añadiendo gráficos, banners, insignias y más.
+- 🖼️ **Creating interactive and personalized cards** - Canvacard is perfect for creating custom cards for Discord, adding graphics, banners, badges, and more.
 
-- 🛠️ **Diseño orientado a objetos** - Canvacard está construido con un enfoque en programación orientada a objetos, facilitando la reutilización y creación de tarjetas complejas.
+- 🛠️ **Object Oriented Design** - Canvacard is built with an object-oriented programming approach, making it easy to reuse and create complex cards.
 
-- 🤓 **Ideal para principiantes** - La API y documentación son simples, lo que lo hace accesible incluso para quienes tienen poca experiencia en el manejo de imágenes.
+- 🤓 **Ideal for beginners** - The API and documentation are simple, making it accessible even to those with little experience handling images.
 
 # 📦Examples
 
@@ -48,12 +48,13 @@ import canvacard from "canvacard";
 ```js
 const { AttachmentBuilder } = require("discord.js");
 const canvacard = require("canvacard");
-const userData = getDataSomehow(); // Simula obtener los datos del usuario
+const userData = getDataSomehow(); // Simulates obtaining user data
 
 const rank = new canvacard.Rank()
   .setAvatar(userData.avatarURL, userData.avatar_decoration_data.asset, false)
   .setBanner(userData.bannerURL, true)
   .setBadges(userData.flags, userData.bot, true)
+  .setBorder(["#22274a", "#001eff"], "vertical")
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
@@ -61,16 +62,15 @@ const rank = new canvacard.Rank()
   .setStatus("online")
   .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
   .setUsername(userData.username, userData.discriminator, "#FFFFFF")
-  .setCreatedTimestamp(userData.createdTimestamp)
-  .setBorder(["#14C49E", "#FF0000"], "vertical");
+  .setCreatedTimestamp(userData.createdTimestamp);
 
 rank.build("Cascadia Code PL")
   .then(data => {
-    // Usar AttachmentBuilder para enviar el archivo
+    // Use AttachmentBuilder to upload the file
     const attachment = new AttachmentBuilder(data, { name: "RankCard.png" });
-    message.channel.send({ content: "Aquí está tu tarjeta de rango:", files: [attachment] });
+    message.channel.send({ content: "Here is your rank card:", files: [attachment] });
   })
-  .catch(err => console.error("Error al crear la tarjeta de rango:", err));
+  .catch(err => console.error("Error creating rank card:", err));
 ```
 
 <details open>
@@ -103,8 +103,8 @@ const background = "https://i.imgur.com/5O7xmVe.png";
 const welcomer = new canvacard.WelcomeLeave()
   .setAvatar(img)
   .setBackground('COLOR', '#000000')
-  .setTitulo("Titulo de la Tarjeta👋", '#FFFFFF')
-  .setSubtitulo("Subtitulo de la Tarjeta 👋", '#FFFFFF')
+  .setTitulo("Card Title 👋", '#FFFFFF')
+  .setSubtitulo("Card Caption 👋", '#FFFFFF')
   .setOpacityOverlay(1)
   .setColorCircle('#FFFFFF')
   .setColorOverlay('#5865F2')
@@ -112,11 +112,11 @@ const welcomer = new canvacard.WelcomeLeave()
 
 welcomer.build("Cascadia Code PL, Noto Color Emoji")
   .then(data => {
-    // Usar AttachmentBuilder para enviar el archivo
+    // Use AttachmentBuilder to upload the file
     const attachment = new AttachmentBuilder(data, { name: "WelcomeCard.png" });
-    message.channel.send({ content: "Aquí está tu tarjeta de bienvenida:", files: [attachment] });
+    message.channel.send({ content: "Here is your welcome card:", files: [attachment] });
   })
-  .catch(err => console.error("Error al crear la tarjeta de bienvenida:", err));
+  .catch(err => console.error("Error creating welcome card:", err));
 ```
 
 <details open>
@@ -151,11 +151,11 @@ const spotify = new canvacard.Spotify()
 
 spotify.build("Cascadia Code PL, Noto Color Emoji")
   .then(data => {
-    // Usar AttachmentBuilder para enviar el archivo
-    const attachment = new AttachmentBuilder(data, { name: "WelcomeCard.png" });
-    message.channel.send({ content: "Aquí está tu tarjeta de bienvenida:", files: [attachment] });
+    // Use AttachmentBuilder to upload the file
+    const attachment = new AttachmentBuilder(data, { name: "SpotifyCard.png" });
+    message.channel.send({ content: "Here is your spotify card:", files: [attachment] });
   })
-  .catch(err => console.error("Error al crear la tarjeta de bienvenida:", err));
+  .catch(err => console.error("Error creating spotify card:", err));
 ```
 
 <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">
@@ -185,7 +185,7 @@ const client = new Client({
 });
 
 client.on('ready', () => {
-  console.log('¡Estoy en línea!');
+  console.log('¡I am online!');
 });
 
 client.on('messageCreate', async (message) => {
@@ -197,14 +197,14 @@ client.on('messageCreate', async (message) => {
       let image = await canvacard.Canvas.trigger(avatar);
       // Enviar el archivo generado usando AttachmentBuilder
       let attachment = new AttachmentBuilder(image, { name: 'triggered.gif' });
-      await message.channel.send({ content: '¡Aquí tienes tu imagen "triggered"!', files: [attachment] });
+      await message.channel.send({ content: 'Here is your "triggered" image!', files: [attachment] });
     } catch (err) {
-      console.error('Error al generar la imagen triggered:', err);
+      console.error('Error generating image triggered:', err);
     }
   }
 });
 
-client.login('Tu_Bot_Token_aqui');
+client.login('Your_Bot_Token_Here');
 ```
 
 <details open>
