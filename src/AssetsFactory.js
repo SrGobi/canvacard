@@ -16,7 +16,6 @@ const prepareURL = (path) => `${BASE_URL}/${path}`;
 const ImageFactory = {
   BATSLAP: prepareURL("BATSLAP.png"),
   BED: prepareURL("BED.png"),
-  CAPTCHA: prepareURL("CAPTCHA.png"),
   CLYDE: prepareURL("CLYDE.png"),
   DELETE: prepareURL("DELETE.png"),
   DISCORD: prepareURL("DISCORD.png"),

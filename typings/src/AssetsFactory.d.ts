@@ -1,7 +1,6 @@
 export namespace ImageFactory {
     let BATSLAP: string;
     let BED: string;
-    let CAPTCHA: string;
     let CLYDE: string;
     let DELETE: string;
     let DISCORD: string;
