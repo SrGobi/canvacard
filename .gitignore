@@ -1,7 +1,2 @@
 # Dependency directories
 node_modules/
-
-# Cache directory
-package-lock.json
-
-bun.lockb

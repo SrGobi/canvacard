@@ -18,19 +18,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Instalar Node.js y configurar el registro de NPM
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20  # Usa la versión de Node.js que prefieras
-          cache: 'pnpm'  # Cache para las dependencias
-          registry-url: 'https://registry.npmjs.org'
-
       # Instalar pnpm
       - name: Install pnpm
         uses: pnpm/action-setup@v3
         with:
           version: latest
+
+      # Instalar Node.js y configurar el registro de NPM
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
 
       # Instalar las dependencias
       - name: Install dependencies
