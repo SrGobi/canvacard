@@ -1,0 +1,49 @@
+# .github/workflows/dev.yml
+name: Publish Dev Version
+
+on:
+  schedule:
+    - cron: '0 */12 * * *' # Se ejecuta cada 12 horas
+  workflow_dispatch:  # También se puede ejecutar manualmente
+
+jobs:
+  publish-dev:
+    name: Build & Publish Dev Version
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout del código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Instalar Node.js y configurar el registro de NPM
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      # Instalar pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      # Instalar las dependencias
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # Construir el proyecto (compilar, transpilar o generar artefactos si es necesario)
+      - name: Build project
+        run: pnpm run build
+
+      # Publicar una versión de desarrollo en NPM
+      - name: Publish Dev Version
+        run: |
+          TIMESTAMP=$(date +%s)
+          COMMIT=$(git rev-parse --short HEAD)
+          pnpm version prerelease --preid "dev.$TIMESTAMP-$COMMIT"
+          pnpm publish --tag dev --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}  # Autenticación con NPM
