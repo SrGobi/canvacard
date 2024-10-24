@@ -1,20 +1,21 @@
 const APIError = require("./error.utils");
 
 /**
- * Verificar si la insignia personalizada es válida
- * @param {string} imgString URL de la imagen
- * @returns {string} URL de la imagen
+ * @name parseImg
+ * @description Check if the custom badge is valid
+ * @param {string} imgStringImage image URL
+ * @returns {string} Image URL
  */
 function parseImg(imgString) {
   if (!imgString || typeof imgString !== 'string') {
-    throw new APIError(`La insignia personalizada no válida ('${imgString || undefined}') debe ser un archivo de imagen 'png | jpg | jpeg | gif'`);
+    throw new APIError(`Invalid custom badge ('${imgString || undefined}') must be a 'png | jpg | jpeg | gif' image file`);
   }
   const URL = imgString.split('.');
   const imgType = URL[URL.length - 1];
   const imgCheck = /(jpg|jpeg|png|gif)/gi.test(imgType);
 
   if (!imgCheck)
-    throw new APIError(`Fondo personalizado no válido ('${imgString || undefined}') debe ser un archivo de imagen 'png | jpg | jpeg | gif'`);
+    throw new APIError(`Invalid custom background ('${imgString || undefined}') must be a 'png | jpg | jpeg | gif' image file`);
 
   return imgString;
 }

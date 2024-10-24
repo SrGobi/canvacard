@@ -1,30 +1,32 @@
 const APIError = require("./error.utils");
 
 /**
- * Verificar si la insignia personalizada es válida (SVG)
- * @param {string} imgString URL de la imagen
- * @returns {string} URL de la imagen
+ * @name parseSvg
+ * @description Check if the custom badge is valid (SVG)
+ * @param {string} imgString Image URL
+ * @returns {string} Image URL
  */
 function parseSvg(imgString) {
   return validateImage(imgString, 'svg');
 }
 
 /**
- * Función auxiliar para validar imágenes
- * @param {string} imgString URL de la imagen
- * @param {string} format Formato de la imagen ('png', 'svg', etc.)
- * @returns {string} URL de la imagen
+ * @name validateImage
+ * @description Helper function to validate images
+ * @param {string} imgString Image URL
+ * @param {string} format Image format ('png', 'svg', etc.)
+ * @returns {string} Image URL
  */
 function validateImage(imgString, format) {
   if (!imgString || typeof imgString !== 'string') {
-    throw new APIError(`La insignia personalizada no es válida ('${imgString || undefined}') debe ser un archivo ${format}`);
+    throw new APIError(`Custom badge is not valid ('${imgString || undefined}') must be a file ${format}`);
   }
   const URL = imgString.split('.');
   const imgType = URL[URL.length - 1];
   const imgCheck = new RegExp(`(${format})`, 'gi').test(imgType);
 
   if (!imgCheck) {
-    throw new APIError(`La insignia personalizada no es válida ('${imgString || undefined}') debe ser un archivo ${format}`);
+    throw new APIError(`Custom badge is invalid ('${imgString || undefined}') must be a ${format} file`);
   }
 
   return imgString;

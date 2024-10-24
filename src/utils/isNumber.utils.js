@@ -1,14 +1,15 @@
 const APIError = require("./error.utils");
 
 /**
- * Verificar si el parámetro es un número
- * @param {number} param Parámetro
- * @param {string} type Tipo de parámetro
- * @returns Parámetro
+ * @name isNumber
+ * @description Checks if the parameter is a number
+ * @param {number} param Parameter to check
+ * @param {string} type Parameter type
+ * @returns {number} Parameter
  */
 function isNumber(param, type) {
   if (isNaN(param))
-    throw new APIError(`${type} no válido (${param || undefined}), debe ser un número`);
+    throw new APIError(`${type} is invalid (${param || undefined}), must be a number`);
 
   return param;
 }

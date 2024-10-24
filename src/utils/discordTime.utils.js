@@ -1,7 +1,8 @@
 /**
- * Convierte la marca de tiempo regular en una hora similar a la de Discord.
- * @param {Date|number} time Marca de tiempo para convertir
- * @returns {string} Cadena de tiempo similar a Discord
+ * @name discordTime
+ * @description Convert regular timestamp to Discord-like time.
+ * @param {Date|number} time Timestamp to convert
+ * @returns {string} Discord-like time chain
  */
 function discordTime(time = new Date()) {
   const date = time instanceof Date ? time : new Date();

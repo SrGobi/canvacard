@@ -13,7 +13,7 @@ const {
 const APIError = require("./utils/error.utils");
 /**
  * @kind class
- * @description Creador de tarjetas de rango
+ * @description Rank card creator
  * <details open>
  *  <summary>PREVIEW</summary>
  * <br>
@@ -34,13 +34,13 @@ const rank = new canvacard.Rank(data.id)
   .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
   .setBanner(data.bannerURL, true)
   .setBadges(data.flags, data.bot, true)
+  .setBorder(["#22274a", "#001eff"], "vertical")
   .setCurrentXP(userData.xp)
   .setRequiredXP(userData.requiredXP)
   .setRank(1, "RANK", true)
   .setLevel(20, "LEVEL", true)
   .setStatus("online")
   .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
-  .setOverlay("#000000", 1, true)
   .setUsername(data.global_name, data.discriminator)
   .setCreatedTimestamp(data.createdTimestamp);
 
@@ -50,7 +50,7 @@ canvacard.write(rankImage, "./rank.png");
  */
 class Rank {
   /**
-   * @param {string} userId ID del usuario
+   * @param {string} userId User ID
    */
   constructor(userId) {
     this.data = {
@@ -150,12 +150,12 @@ class Rank {
   /**
    * @method setAvatar
    * @name setAvatar
-   * @description Establece el avatar del usuario
-   * @param {string} avatarUrl URL del avatar
-   * @param {string} AvatarDecorationData Asset de decoración del avatar
-   * @param {boolean} squareAvatar Cambiar la forma del avatar a un cuadrado
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the user avatar
+   * @param {string} avatarUrl Avatar URL
+   * @param {string} AvatarDecorationData Avatar decoration asset
+   * @param {boolean} squareAvatar Square avatar
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setAvatar(avatarUrl, AvatarDecorationData, squareAvatar = false) {
     if (!avatarUrl) throw new APIError(`Invalid avatar type "${typeof avatarUrl}"!`);
@@ -168,19 +168,19 @@ class Rank {
   /**
    * @method setBanner
    * @name setBanner
-   * @description Establece el banner del usuario
-   * @param {string} bannerUrl URL del banner
-   * @param {boolean} moreBackgroundBlur Más desenfoque de fondo
-   * @param {boolean} disableBackgroundBlur Desactivar desenfoque de fondo
-   * @param {number} backgroundBrightness Brillo de fondo
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the user banner
+   * @param {string} bannerUrl Banner URL
+   * @param {boolean} moreBackgroundBlur More background blur
+   * @param {boolean} disableBackgroundBlur Disable background blur
+   * @param {number} backgroundBrightness Background brightness
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setBanner(bannerUrl, moreBackgroundBlur = false, disableBackgroundBlur = false, backgroundBrightness = 0) {
     if (!bannerUrl) throw new Error(`Invalid banner type "${typeof bannerUrl}"!`);
-    if (typeof moreBackgroundBlur !== "boolean") throw new Error(`El tipo de desenfoque de fondo debe ser un booleano, recibido ${typeof moreBackgroundBlur}!`);
-    if (typeof disableBackgroundBlur !== "boolean") throw new Error(`El tipo de desenfoque de fondo debe ser un booleano, recibido ${typeof disableBackgroundBlur}!`);
-    if (backgroundBrightness && typeof backgroundBrightness !== "number") throw new Error(`El tipo de brillo de fondo debe ser un número, recibido ${typeof backgroundBrightness}!`);
+    if (typeof moreBackgroundBlur !== "boolean") throw new Error(`The background blur type must be a boolean, received ${typeof moreBackgroundBlur}!`);
+    if (typeof disableBackgroundBlur !== "boolean") throw new Error(`The background blur type must be a boolean, received ${typeof disableBackgroundBlur}!`);
+    if (backgroundBrightness && typeof backgroundBrightness !== "number") throw new Error(`The background brightness type must be a number, received ${typeof backgroundBrightness}!`);
     this.data.user.bannerURL = bannerUrl;
     this.data.bannerData.moreBackgroundBlur = moreBackgroundBlur;
     this.data.bannerData.disableBackgroundBlur = disableBackgroundBlur;
@@ -193,16 +193,16 @@ class Rank {
   /**
    * @method setBadges
    * @name setBadges
-   * @description Establece las insignias del usuario
-   * @param {number} flags Insignias del usuario
-   * @param {boolean} bot Si el usuario es un bot o no
-   * @param {boolean} frame Marco de insignias
-   * @param {string[]} customBadges Insignias personalizadas
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the user badges and frame
+   * @param {number} flags User flags
+   * @param {boolean} bot Whether the user is a bot or not
+   * @param {boolean} frame Badge frame
+   * @param {string[]} customBadges Custom badges
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setBadges(flags, bot = false, frame = false, customBadges = []) {
-    if (typeof flags !== "number") throw new APIError(`El tipo de insignias debe ser un número, recibido ${typeof flags}!`);
+    if (typeof flags !== "number") throw new APIError(`The type of badges must be a number, received ${typeof flags}!`);
     this.data.user.flags = flags;
     this.data.user.bot = bot && typeof bot === "boolean" ? bot : false;
     this.data.options.badgesFrame = !!frame;
@@ -213,15 +213,15 @@ class Rank {
   /**
    * @method setBorder
    * @name setBorder
-   * @description Establece el borde de la tarjeta
-   * @param {string | string[]} color Color HEX del borde, puede ser degradado si se usan 2 colores 
-   * @param {string} allign Alineación de degradado si se usan 2 colores 
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the border of the card
+   * @param {string | string[]} color HEX color of the border, can be gradient if 2 colors are used
+   * @param {string} allign Gradient alignment if 2 colors are used 
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setBorder(color, allign = "") {
-    if (typeof color !== "string" && !Array.isArray(color)) throw new APIError(`El tipo de color debe ser una cadena o un array, recibido ${typeof color}!`);
-    if (typeof allign !== "string") throw new Error(`El tipo de alineación de degradado debe ser una cadena, recibido ${typeof allign}!`);
+    if (typeof color !== "string" && !Array.isArray(color)) throw new APIError(`The color type must be a string or array, received ${typeof color}!`);
+    if (typeof allign !== "string") throw new Error(`The gradient alignment type must be a string, received ${typeof allign}!`);
     this.data.options.borderColor = color.slice(0, 20);
     this.data.options.borderAllign = allign;
     return this;
@@ -230,17 +230,17 @@ class Rank {
   /**
    * @method setUsername
    * @name setUsername
-   * @description Establece el nombre de usuario
-   * @param {string} name Nombre de usuario
-   * @param {string} [discriminator="0"] Discriminador del usuario
-   * @param {string} [color="#FFFFFF"] Color del texto
-   * @param {string} customUsername Nombre de usuario personalizado
-   * @param {string} customTag Tag personalizado
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the username of the user
+   * @param {string} name Username of the user
+   * @param {string} [discriminator="0"] Discriminator of the user
+   * @param {string} [color="#FFFFFF"] Color of the username
+   * @param {string} customUsername Custom username
+   * @param {string} customTag Custom tag
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setUsername(name, discriminator, color = "#FFFFFF", customUsername, customTag) {
-    if (typeof name !== "string") throw new APIError(`Se espera que el nombre de usuario sea una cadena, se recibe ${typeof name}!`);
+    if (typeof name !== "string") throw new APIError(`The username is expected to be a string, it is received ${typeof name}!`);
     this.data.user.username = name;
     this.data.user.discriminator = discriminator && typeof discriminator === "string" ? discriminator : "0";
     color === "string" ? color : "#FFFFFF";
@@ -257,14 +257,14 @@ class Rank {
   /**
    * @method setCurrentXP
    * @name setCurrentXP
-   * @description Establece el nivel de experiencia actual
-   * @param {number} data Datos de experiencia actual
-   * @param {string} [color="#FFFFFF"] Color del texto
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the current experience
+   * @param {number} data Current experience data
+   * @param {string} [color="#FFFFFF"] Text color
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setCurrentXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new APIError(`El tipo de dato xp actual debe ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new APIError(`The current xp data type must be a number, received ${typeof data}!`);
     this.data.rankData.currentXP.data = data;
     this.data.rankData.currentXP.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
@@ -273,14 +273,14 @@ class Rank {
   /**
    * @method setRequiredXP
    * @name setRequiredXP
-   * @description Establece la experiencia requerida
-   * @param {number} data Datos de experiencia requerida
-   * @param {string} [color="#FFFFFF"] Color del texto
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the required experience
+   * @param {number} data Required experience data
+   * @param {string} [color="#FFFFFF"] Text color
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setRequiredXP(data, color = "#FFFFFF") {
-    if (typeof data !== "number") throw new APIError(`El tipo de dato requerido xp debe ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new APIError(`The required data type xp must be a number, received ${typeof data}!`);
     this.data.rankData.requiredXP.data = data;
     this.data.rankData.requiredXP.color = color && typeof color === "string" ? color : "#FFFFFF";
     return this;
@@ -289,12 +289,12 @@ class Rank {
   /**
    * @method setRank
    * @name setRank
-   * @description Establece el ranking del usuario
-   * @param {number} data Datos de ranking
-   * @param {string} [text="RANK"] Texto de visualización
-   * @param {boolean} [display=false] Mostrar o no el sistema de rango
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the user rank
+   * @param {number} data Rank data
+   * @param {string} [text="RANK"] Display text
+   * @param {boolean} [display=false] Display system rank or not
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setRank(data, text = "RANK", display = false) {
     if (typeof data !== "number") throw new APIError(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
@@ -308,13 +308,13 @@ class Rank {
    * @method setLevel
    * @name setLevel
    * @description Establece el nivel del usuario
-   * @param {number} data Datos de nivel
-   * @param {string} [text="LEVEL"] Texto de visualización
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @param {number} data Level data
+   * @param {string} [text="LEVEL"] Display text
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setLevel(data, text = "LEVEL") {
-    if (typeof data !== "number") throw new APIError(`Los datos de nivel deben ser un número, recibido ${typeof data}!`);
+    if (typeof data !== "number") throw new APIError(`Level data must be a number, received ${typeof data}!`);
     this.data.rankData.level.data = data;
     this.data.rankData.level.displayText = text;
     return this;
@@ -323,24 +323,24 @@ class Rank {
   /**
    * @method setProgressBar
    * @name setProgressBar
-   * @description Establece la barra de progreso
-   * @param {string | string[]} color Color de la barra de progreso
-   * @param {string} [fillType="COLOR"] Tipo de relleno
-   * @param {boolean} [rounded=true] Redondear o no
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the progress bar
+   * @param {string | string[]} color Color of the progress bar, can be gradient if 2 colors are used
+   * @param {string} [fillType="COLOR"] Type of progress bar
+   * @param {boolean} [rounded=true] Rounded corners of the progress bar
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setProgressBar(color, fillType = "COLOR", rounded = true) {
     if (fillType === "COLOR") {
-      if (typeof color !== "string") throw new APIError(`El tipo de color debe ser una cadena, recibida ${typeof color}!`);
+      if (typeof color !== "string") throw new APIError(`The color type must be a string, received ${typeof color}!`);
       this.data.rankData.progressBar.bar.color = color;
       this.data.rankData.progressBar.bar.type = "color";
     } else if (fillType === "GRADIENT") {
-      if (!Array.isArray(color)) throw new APIError(`El tipo de color debe ser Array, recibido ${typeof color}!`);
+      if (!Array.isArray(color)) throw new APIError(`Color type must be Array, received ${typeof color}!`);
       this.data.rankData.progressBar.bar.color = color.slice(0, 20);
       this.data.rankData.progressBar.bar.type = "gradient";
     } else {
-      throw new APIError(`Tipo de barra de progreso no compatible "${fillType}"!`);
+      throw new APIError(`Unsupported progress bar type "${fillType}"!`);
     }
     this.data.rankData.progressBar.rounded = !!rounded;
     return this;
@@ -349,13 +349,13 @@ class Rank {
   /**
    * @method setStatus
    * @name setStatus
-   * @description Establece el estado del usuario
-   * @param {string} presenceStatus Estado del usuario
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the user presence status
+   * @param {string} presenceStatus Presence status
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setStatus(presenceStatus) {
-    if (typeof presenceStatus !== "string") throw new APIError(`El tipo de estado de presencia debe ser una cadena, recibido ${typeof presenceStatus}!`);
+    if (typeof presenceStatus !== "string") throw new APIError(`The presence state type must be a string, received ${typeof presenceStatus}!`);
     this.data.options.presenceStatus = presenceStatus;
     return this;
   }
@@ -363,14 +363,14 @@ class Rank {
   /**
    * @method setCreatedTimestamp
    * @name setCreatedTimestamp
-   * @description Establece la marca de tiempo de creación
-   * @param {number} timestamp Marca de tiempo de creación
-   * @param {string | Date} customDate Fecha o texto personalizado para usar en lugar de cuando el usuario se unió a Discord
-   * @returns {Rank} La instancia de la clase Rank
-   * @throws {APIError} Si el URL o el asset no son válidos
+   * @description Set the user created timestamp
+   * @param {number} timestamp Timestamp of when the user joined Discord
+   * @param {string | Date} customDate Custom date format for the timestamp
+   * @returns {Rank} The current instance of Rank
+   * @throws {APIError} If the URL or asset is invalid
    */
   setCreatedTimestamp(timestamp, customDate) {
-    if (typeof timestamp !== "number") throw new APIError(`El tipo de marca de tiempo debe ser un número, recibido ${typeof timestamp}!`);
+    if (typeof timestamp !== "number") throw new APIError(`The timestamp type must be a number, received ${typeof timestamp}!`);
     this.data.user.createdTimestamp = timestamp;
     if (customDate) {
       this.data.options.customDate = customDate;
@@ -381,14 +381,14 @@ class Rank {
   /**
    * @method build
    * @name build
-   * @description Construye la tarjeta de rango
-   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
-   * @returns {Promise<Buffer>} Imagen de la tarjeta de rango en formato de buffer
-   * @throws {APIError} Faltan datos
+   * @description Build the rank card
+   * @param {string} [font="Arial"] Font to use in the card
+   * @returns {Promise<Buffer>} Card image in buffer format
+   * @throws {APIError} Missing field: data
    */
   async build(font = "Arial") {
-    if (!this.data.user.avatarURL) throw new APIError("Avatar no disponible.");
-    if (!this.data.user.username) throw new APIError("Nombre de usuario no disponible.");
+    if (!this.data.user.avatarURL) throw new APIError("Avatar not available.");
+    if (!this.data.user.username) throw new APIError("Username not available.");
 
     const canvas = createCanvas(this.data.width, this.data.height);
     const ctx = canvas.getContext("2d");
@@ -396,28 +396,28 @@ class Rank {
     const userAvatar = (this.data.user.avatarURL ?? this.data.user.defaultAvatarURL) + '?size=512';
     const userBanner = this.data.user.bannerURL ? this.data.user.bannerURL + '?size=512' : null;
 
-    // Obtener badges y generar canvas junto con su longitud
+    // Get badges and generate canvas along with its length
     const badgesData = await generateBadgesCanvas(this.data.user, this.data.options);
 
-    // Establecer fondo y recorte inicial
+    // Set background and initial crop
     ctx.roundRect(0, 0, this.data.width, this.data.height, [34]);
     ctx.clip();
 
-    // Dibujar base (fondo)
+    // Draw base (background)
     const cardBase = await genBase(this.data.bannerData, userAvatar, userBanner);
     ctx.drawImage(cardBase, 0, 0);
 
-    // Dibujar el marco decorativo
+    // Draw the decorative frame
     const cardFrame = await genFrame(badgesData, this.data.options);
     ctx.drawImage(cardFrame, 0, 0);
 
-    // Dibujar el avatar y los textos
+    // Draw the avatar and the texts
     const cardTextAndAvatar = await genTextAndAvatar(this.data.user, this.data.rankData, this.data.options, userAvatar, font);
     const textAvatarShadow = addShadow(cardTextAndAvatar);
     ctx.drawImage(textAvatarShadow, 0, 0);
     ctx.drawImage(cardTextAndAvatar, 0, 0);
 
-    // Dibujar barra de experiencia si está activada
+    // Draw experience bar if enabled
     if (this.data.rankData.rank.display) {
       const xpBar = genXpBar({
         rankData: {
@@ -433,13 +433,13 @@ class Rank {
       ctx.drawImage(xpBar, 0, 0);
     }
 
-    // Dibujar bordes personalizados
+    // Draw custom borders
     if (this.data.options.borderColor) {
       const border = await genBorder(this.data.options);
       ctx.drawImage(border, 0, 0);
     }
 
-    // Dibujar insignias y verificación de bot
+    // Draw Badges and Bot Verification
     if (this.data.user?.bot) {
       const botVerifBadge = await genBotVerifBadge(this.data.user, font);
       const shadowVerifBadge = addShadow(botVerifBadge);
@@ -447,7 +447,7 @@ class Rank {
       ctx.drawImage(botVerifBadge, 0, 0);
     }
 
-    // Dibujar marco del avatar si existe
+    // Draw avatar frame if exists
     if (this.data.user?.avatar_decoration_data?.asset) {
       const avatarFrame = await genAvatarFrame(this.data.user, this.data.options);
       ctx.drawImage(avatarFrame, 0, 0);

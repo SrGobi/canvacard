@@ -1,8 +1,8 @@
 /**
  * @typedef {object} Plugins
- * @property {Function} circle Complemento de círculo
- * @property {Function} convolute Complemento convolute
- * @property {Function} abbrev Complemento de abreviaturas
+ * @property {Function} circle Complement of circle
+ * @property {Function} convolute Convolute complement
+ * @property {Function} abbrev Complement of abbreviations
  */
 const data = {
   circle: require("../plugins/circle"),

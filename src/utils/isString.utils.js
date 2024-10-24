@@ -1,14 +1,15 @@
 const APIError = require("./error.utils");
 
 /**
- * Verificar si el parámetro es una cadena
- * @param {string} param Parámetro
- * @param {string} type Tipo de parámetro
- * @returns Parámetro
+ * @name isString
+ * @description Checks if the parameter is a string
+ * @param {string} param Parameter to check
+ * @param {string} type Parameter type
+ * @returns {string} Parameter
  */
 function isString(param, type) {
   if (typeof param !== 'string')
-    throw new APIError(`${type} no válido (${param || undefined}), debe ser una cadena`);
+    throw new APIError(`${type} is invalid (${param || undefined}), must be a string`);
 
   return param;
 }

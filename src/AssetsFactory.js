@@ -3,15 +3,15 @@ const BASE_URL =
   "https://raw.githubusercontent.com/SrGobi/canvacard/assets/images";
 
 /**
- * Prepara la URL completa para una imagen.
- * @param {string} path - El nombre de la imagen.
- * @returns {string} - URL completa de la imagen.
+ * Prepares the full URL for an image.
+ * @param {string} path - The name of the image.
+ * @returns {string} - Full image URL.
  * @private
  */
 const prepareURL = (path) => `${BASE_URL}/${path}`;
 
 /**
- * ImageFactory: Proporciona las URLs de los datos (imagenes o documentos json) que se pueden usar en Canvacard.
+ * ImageFactory: Provides URLs for data (images or json documents) that can be used in Canvacard.
  */
 const ImageFactory = {
   BATSLAP: prepareURL("BATSLAP.png"),
@@ -45,5 +45,5 @@ const ImageFactory = {
   base64: prepareURL("base64.files.json"),
 
 };
-// Exportar con CommonJS
+
 module.exports = { ImageFactory };

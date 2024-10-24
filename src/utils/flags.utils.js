@@ -1,10 +1,11 @@
 const APIError = require('./error.utils');
 
 /**
- * Función para verificar flags y obtener las insignias.
- * @param {Object} flags Insignias
- * @param {BigInt | string} flagNumber Número de insignias
- * @returns {Array<string>} Insignias
+ * @name checkFlags
+ * @description Function to check flags and get the badges.
+ * @param {Object} flags Badges object
+ * @param {BigInt | string} flagNumber Badges number
+ * @returns {Array<string>} Badges array
  */
 function checkFlags(flags, flagNumber) {
   let results = [];

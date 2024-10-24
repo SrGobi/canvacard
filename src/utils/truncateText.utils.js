@@ -1,9 +1,10 @@
 /**
- * Trunca el texto a una longitud especificada y agrega puntos suspensivos si es necesario.
- * @param {string} text - El texto a truncar.
- * @param {number} [limit=25] - La longitud máxima del texto antes del truncamiento (el valor predeterminado es 25).
- * @param {boolean} [fromEnd=false] - Si es verdadero, el truncamiento se realizará desde el final del texto (el valor predeterminado es falso).
- * @returns {string} - El texto original o truncado.
+ * @name truncateText
+ * @description Truncates text to a specified length and adds an ellipsis if necessary.
+ * @param {string} text The text to be truncated.
+ * @param {number} [limit=25] The maximum length of text before truncation (default is 25).
+ * @param {boolean} [fromEnd=false] If true, truncation will be performed from the end of the text (default is false).
+ * @returns {string} The original or truncated text.
  */
 function truncateText(text, limit = 25, fromEnd = false) {
   if (text.length > limit) {

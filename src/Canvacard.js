@@ -17,7 +17,7 @@ const APIError = require("./utils/error.utils");
 
 /**
  * @kind class
- * @description Generador de imágenes
+ * @description Image generator
  * @example
  * ```js
 const canvacard = require("canvacard");
@@ -36,7 +36,7 @@ class Canvacard {
   /**
    * @method trigger
    * @name trigger
-   * @description Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
+   * @description Trigger an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -46,20 +46,20 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen para activar
-   * @returns {Promise<Buffer>} Imagen "triggered"
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to trigger
+   * @returns {Promise<Buffer>} Triggered image
+   * @throws {APIError} If image is not provided
    */
   static async trigger(image) {
-    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Expected image, received nothing!");
     await Canvacard.__wait();
-    return await Trigger(image, ImageFactory.TRIGGERED);  // Se usa la imagen desde ImageFactory
+    return await Trigger(image, ImageFactory.TRIGGERED);  // The image is used from ImageFactory
   }
 
   /**
    * @method invert
    * @name invert
-   * @description Invierte el color de la imagen
+   * @description Invert an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -69,19 +69,19 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen para invertir
-   * @returns {Promise<Buffer>} Imagen invertida
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to invert
+   * @returns {Promise<Buffer>} Inverted image
+   * @throws {APIError} If image is not provided
    */
   static async invert(image) {
-    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Expected image, received nothing!");
     return await Invert(image);
   }
 
   /**
    * @method sepia
    * @name sepia
-   * @description Aplicar lavado sepia en img
+   * @description Sepia an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -91,19 +91,19 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen
-   * @returns {Promise<Buffer>} Imagen sep
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to sepia
+   * @returns {Promise<Buffer>} Sepia image
+   * @throws {APIError} If image is not provided
    */
   static async sepia(image) {
-    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Expected image, received nothing!");
     return await Sepia(image);
   }
 
   /**
    * @method greyscale
    * @name greyscale
-   * @description Efecto de escala de grises sobre la imagen
+   * @description Greyscale an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -113,19 +113,19 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen
-   * @returns {Promise<Buffer>} Imagen en escala de grises
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to greyscale
+   * @returns {Promise<Buffer>} Greyscale image
+   * @throws {APIError} If image is not provided
    */
   static async greyscale(image) {
-    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
+    if (!image) throw new APIError("Expected image, received nothing!");
     return await Greyscale(image);
   }
 
   /**
    * @method brightness
    * @name brightness
-   * @description Editar el brillo de la imagen
+   * @description Edit the brightness of the image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -135,21 +135,21 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen
-   * @param {number} amount Cantidad de brillo
-   * @returns {Promise<Buffer>} Imagen con brillo
-   * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
+   * @param {string|Buffer} image Image to brighten
+   * @param {number} amount Amount of brightness
+   * @returns {Promise<Buffer>} Brightened image
+   * @throws {APIError} If image is not provided o la cantidad no es un número
    */
   static async brightness(image, amount) {
-    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
-    if (isNaN(amount)) throw new APIError("¡La cantidad debe ser un número!");
+    if (!image) throw new APIError("Expected image, received nothing!");
+    if (isNaN(amount)) throw new APIError("The quantity must be a number!");
     return await Brightness(image, amount);
   }
 
   /**
    * @method darkness
    * @name darkness
-   * @description Editar la oscuridad de la imagen
+   * @description Darken an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -159,21 +159,21 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen
-   * @param {number} amount Cantidad de oscuridad
-   * @returns {Promise<Buffer>} Imagen oscura
-   * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
+   * @param {string|Buffer} image Image to darken
+   * @param {number} amount Amount of darkness
+   * @returns {Promise<Buffer>} Darkened image
+   * @throws {APIError} If image is not provided o la cantidad no es un número
    */
   static async darkness(image, amount) {
-    if (!image) throw new APIError("Imagen esperada, no recibí nada!");
-    if (isNaN(amount)) throw new APIError("¡La cantidad debe ser un número!");
+    if (!image) throw new APIError("Expected image, received nothing!");
+    if (isNaN(amount)) throw new APIError("The quantity must be a number!");
     return await Darkness(image, amount);
   }
 
   /**
    * @method threshold
    * @name threshold
-   * @descrioption Umbral de imagen
+   * @descrioption Threshold an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -183,21 +183,21 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} img Imagen
-   * @param {number} amount Cantidad límite
-   * @returns {Promise<Buffer>} Imagen umbralizada
-   * @throws {APIError} Si no se proporciona la imagen o la cantidad no es un número
+   * @param {string|Buffer} image Image to threshold
+   * @param {number} amount Amount of threshold
+   * @returns {Promise<Buffer>} Thresholded image
+   * @throws {APIError} If image is not provided o la cantidad no es un número
    */
-  static async threshold(img, amount) {
-    if (!img) throw new APIError("Imagen esperada, no recibí nada!");
-    if (isNaN(amount)) throw new APIError("¡La cantidad debe ser un número!");
-    return await Threshold(img, amount);
+  static async threshold(image, amount) {
+    if (!image) throw new APIError("Expected image, received nothing!");
+    if (isNaN(amount)) throw new APIError("The quantity must be a number!");
+    return await Threshold(image, amount);
   }
 
   /**
    * @method convolute
    * @name convolute
-   * @description Convolución de la imagen
+   * @description Convolute an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -208,22 +208,22 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} img Imagen
-   * @param {number[]} matrix Matriz de convolución
-   * @param {boolean} opaque Si la convolución debe ser opaca
-   * @returns {Promise<Buffer>} Imagen convolucionada
-   * @throws {APIError} Si no se proporciona la imagen o la matriz no es un Array
+   * @param {string|Buffer} image Image to convolute
+   * @param {number[]} matrix Convolution matrix
+   * @param {boolean} opaque If the image should be opaque
+   * @returns {Promise<Buffer>} Convoluted image
+   * @throws {APIError} If image is not provided o la matriz no es un Array
    */
-  static async convolute(img, matrix, opaque) {
-    if (!img) throw new APIError("Imagen esperada, no recibí nada!");
-    if (!Array.isArray(matrix)) throw new APIError("La matriz de convolución debe ser Array.");
-    return await Convolute(img, matrix, opaque);
+  static async convolute(image, matrix, opaque) {
+    if (!image) throw new APIError("Expected image, received nothing!");
+    if (!Array.isArray(matrix)) throw new APIError("The convolution matrix must be Array.");
+    return await Convolute(image, matrix, opaque);
   }
 
   /**
    * @method pixelate
    * @name pixelate
-   * @description Pixelar
+   * @description Pixelate an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -232,13 +232,13 @@ class Canvacard {
       canvacard.write(pixelated, "pixelated.png");
     })
     .catch(console.error);
-   * @param {string|Buffer} image Imagen para pixelar
-   * @param {number} pixels Pixeles
-   * @returns {Promise<Buffer>} Imagen pixelada
-   * @throws {APIError} Si no se proporciona la imagen o los píxeles no son un número
+   * @param {string|Buffer} image Image to pixelate
+   * @param {number} pixels Amount of pixels
+   * @returns {Promise<Buffer>} Pixelated image
+   * @throws {APIError} If image is not provided o los píxeles no son un número
    */
   static async pixelate(image, pixels = 5) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     if (!pixels || typeof pixels !== "number") pixels = 100;
     if (pixels < 1) pixels = 100;
     if (pixels > 100) pixels = 100;
@@ -258,7 +258,7 @@ class Canvacard {
   /**
    * @method sharpen
    * @name sharpen
-   * @description Agudizar una imagen
+   * @description Sharpen an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -268,21 +268,21 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Imagen para enfocar
-   * @param {number} lvl intensidad de la nitidez
-   * @returns {Promise<Buffer>} Imagen enfocada
-   * @throws {APIError} Si no se proporciona la imagen o el nivel no es un número
+   * @param {string|Buffer} image Image to sharpen
+   * @param {number} lvl Level of sharpening
+   * @returns {Promise<Buffer>} Sharpened image
+   * @throws {APIError} If image is not provided o el nivel no es un número
    */
   static async sharpen(image, lvl = 1) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
-    if (isNaN(lvl)) throw new APIError("¡El nivel debe ser un número!");
+    if (!image) throw new APIError("Image was not provided!");
+    if (isNaN(lvl)) throw new APIError("Level must be a number!");
     return await Convolute(image, Canvacard.CONVOLUTION_MATRIX.SHARPEN, true, lvl);
   }
 
   /**
    * @method burn
    * @name burn
-   * @description Aplica efecto de quemado en una imagen.
+   * @description Burn an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -292,21 +292,21 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen 
-   * @param {number} lvl intensidad
-   * @returns {Promise<Buffer>} Imagen quemada
-   * @throws {APIError} Si no se proporciona la imagen o el nivel no es un número
+   * @param {string|Buffer} image Image to burn
+   * @param {number} lvl Level of burning
+   * @returns {Promise<Buffer>} Burned image
+   * @throws {APIError} If image is not provided o el nivel no es un número
    */
   static async burn(image, lvl = 1) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
-    if (isNaN(lvl)) throw new APIError("¡El nivel debe ser un número!");
+    if (!image) throw new APIError("Image was not provided!");
+    if (isNaN(lvl)) throw new APIError("Level must be a number!");
     return await Convolute(image, Canvacard.CONVOLUTION_MATRIX.BURN, true, lvl);
   }
 
   /**
    * @method circle
    * @name circle
-   * @description Crea una imagen circular
+   * @description Circle an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -316,12 +316,12 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>} Imagen circular
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to circle
+   * @returns {Promise<Buffer>} Circled image
+   * @throws {APIError} If image is not provided
    */
   static async circle(image) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     const img = await loadImage(image);
     const canvas = createCanvas(img.width, img.height);
     const ctx = canvas.getContext("2d");
@@ -333,7 +333,7 @@ class Canvacard {
   /**
    * @method fuse
    * @name fuse
-   * @description Fusiona dos imágenes
+   * @description Fuse two images
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -343,14 +343,14 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image1 Primera imagen
-   * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>} Imagen fusionada
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image1 First image
+   * @param {string|Buffer} image2 Second image
+   * @returns {Promise<Buffer>} Fused image
+   * @throws {APIError} If image is not provided
    */
   static async fuse(image1, image2) {
-    if (!image1) throw new APIError("Falta el parámetro 'imagen1'.");
-    if (!image2) throw new APIError("Falta el parámetro 'imagen2'.");
+    if (!image1) throw new APIError("The parameter 'image1' is missing.");
+    if (!image2) throw new APIError("The parameter 'image2' is missing.");
 
     const img1 = await loadImage(image1);
     const img2 = await loadImage(image2);
@@ -367,7 +367,7 @@ class Canvacard {
   /**
    * @method resize
    * @name resize
-   * @description Cambiar el tamaño de una imagen
+   * @description Resize an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -377,14 +377,14 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @param {number} width ancho
-   * @param {number} height altura
-   * @returns {Promise<Buffer>} Imagen redimensionada
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to resize
+   * @param {number} width Width
+   * @param {number} height Height
+   * @returns {Promise<Buffer>} Resized image
+   * @throws {APIError} If image is not provided
    */
   static async resize(image, width, height) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     const img = await loadImage(image);
     const w = width && !isNaN(width) ? width : img.width;
     const h = height && !isNaN(height) ? width : img.height;
@@ -397,7 +397,7 @@ class Canvacard {
   /**
    * @method kiss
    * @name kiss
-   * @description Besarse ( ͡° ͜ʖ ͡°)
+   * @description Kiss someone ( ͡° ͜ʖ ͡°)
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -407,14 +407,14 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image1 Primera imagen
-   * @param {string|Buffer} image2 Segunda imagen
+   * @param {string|Buffer} image1 First image
+   * @param {string|Buffer} image2 Second image
    * @returns {Promise<Buffer>} Imagen de beso
-   * @throws {APIError} Si no se proporciona la imagen
+   * @throws {APIError} If image is not provided
    */
   static async kiss(image1, image2) {
-    if (!image1) throw new APIError("¡La primera imagen no fue proporcionada!");
-    if (!image2) throw new APIError("¡La segunda imagen no fue proporcionada!");
+    if (!image1) throw new APIError("The parameter 'image1' is missing.");
+    if (!image2) throw new APIError("The parameter 'image2' is missing.");
     await this.__wait();
     const canvas = createCanvas(768, 574);
     const ctx = canvas.getContext("2d");
@@ -430,7 +430,7 @@ class Canvacard {
   /**
    * @method spank
    * @name spank
-   * @description Azotar a alguien ( ͡° ͜ʖ ͡°)
+   * @description To spank someone ( ͡° ͜ʖ ͡°)
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -440,14 +440,14 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image1 Primera imagen
-   * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>} Imagen de "spank"
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image1 First image
+   * @param {string|Buffer} image2 Second image
+   * @returns {Promise<Buffer>} Image of spank
+   * @throws {APIError} If image is not provided
    */
   static async spank(image1, image2) {
-    if (!image1) throw new APIError("¡La primera imagen no fue proporcionada!");
-    if (!image2) throw new APIError("¡La segunda imagen no fue proporcionada!");
+    if (!image1) throw new APIError("The parameter 'image1' is missing.");
+    if (!image2) throw new APIError("The parameter 'image2' is missing.");
     await this.__wait();
     const canvas = createCanvas(500, 500);
     const ctx = canvas.getContext("2d");
@@ -463,7 +463,7 @@ class Canvacard {
   /**
    * @method slap
    * @name slap
-   * @description Abofetear a alguien ( ͡° ͜ʖ ͡°)
+   * @description Slap someone ( ͡° ͜ʖ ͡°)
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -473,14 +473,14 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image1 Primera imagen
-   * @param {string|Buffer} image2 Segunda imagen
-   * @returns {Promise<Buffer>} Imagen de "slap"
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image1 First image
+   * @param {string|Buffer} image2 Second image
+   * @returns {Promise<Buffer>} Image of slap
+   * @throws {APIError} If image is not provided
    */
   static async slap(image1, image2) {
-    if (!image1) throw new APIError("¡La imagen no fue proporcionada!");
-    if (!image2) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image1) throw new APIError("The parameter 'image1' is missing.");
+    if (!image2) throw new APIError("The parameter 'image2' is missing.");
     await this.__wait();
     const canvas = createCanvas(1000, 500);
     const ctx = canvas.getContext("2d");
@@ -496,7 +496,7 @@ class Canvacard {
   /**
    * @method facepalm
    * @name facepalm
-   * @description Hacer una imagen de palma en la cara
+   * @description Facepalm someone
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -506,12 +506,12 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>} Imagen de facepalm
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to facepalm
+   * @returns {Promise<Buffer>} Image of facepalm
+   * @throws {APIError} If image is not provided
    */
   static async facepalm(image) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     await this.__wait();
     let layer = await loadImage(ImageFactory.FACEPALM);
     let canvas = createCanvas(632, 357);
@@ -527,7 +527,7 @@ class Canvacard {
   /**
    * @method colorfy
    * @name colorfy
-   * @description Actualiza el color de la imagen
+   * @description Colorfy an image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -537,13 +537,13 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @param {string} color Color HTML5
-   * @returns {Promise<Buffer>} Imagen coloreada
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to colorfy
+   * @param {string} color Color to apply to the image (hex)
+   * @returns {Promise<Buffer>} Colorfied image
+   * @throws {APIError} If image is not provided
    */
   static async colorfy(image, color) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     const img = await loadImage(image);
     const canvas = createCanvas(img.width, img.height);
     const ctx = canvas.getContext("2d");
@@ -559,7 +559,7 @@ class Canvacard {
   /**
    * @method distracted
    * @name distracted
-   * @description Crear una imagen de meme de distracción
+   * @description Distract someone
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -569,15 +569,15 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image1 Rostro para la niña en color rojo.
-   * @param {string|Buffer} image2 Cara para el chico
-   * @param {string|Buffer} image3 Cara para la otra chica [opcional]
-   * @returns {Promise<Buffer>} Imagen de distracción
-   * @throws {APIError} Si no se proporciona la primera imagen
+   * @param {string|Buffer} image1 Face for the girl in red.
+   * @param {string|Buffer} image2 Face for the boy.
+   * @param {string|Buffer} image3 Face for the other girl [optional]
+   * @returns {Promise<Buffer>} Distracted image
+   * @throws {APIError} If image is not provided
    */
   static async distracted(image1, image2, image3 = null) {
-    if (!image1) throw new APIError("¡No se proporcionó la primera imagen!");
-    if (!image2) throw new APIError("¡No se proporcionó la segunda imagen!");
+    if (!image1) throw new APIError("The parameter 'image1' is missing.");
+    if (!image2) throw new APIError("The parameter 'image2' is missing.");
     await this.__wait();
     const background = await loadImage(ImageFactory.DISTRACTED);
     const avatar1 = await loadImage(await Canvacard.circle(image1));
@@ -598,7 +598,7 @@ class Canvacard {
   /**
    * @method jail
    * @name jail
-   * @description Crear una imagen de celda
+   * @description Create a jail image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -608,13 +608,13 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @param {boolean} greyscale Si debe ser una imagen en escala de grises
-   * @returns {Promise<Buffer>} Imagen de la celda
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to jail
+   * @param {boolean} greyscale If the image should be greyscale
+   * @returns {Promise<Buffer>} Jailed image
+   * @throws {APIError} If image is not provided
    */
   static async jail(image, greyscale = false) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     await this.__wait();
     const img = await loadImage(greyscale ? await Canvacard.greyscale(image) : image);
     const bg = await loadImage(ImageFactory.JAIL);
@@ -631,7 +631,7 @@ class Canvacard {
   /**
    * @method bed
    * @name bed
-   * @description Crear una imagen de cama
+   * @description Create a bed image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -641,14 +641,14 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image1 Primera imagen
-   * @param {string|Buffer} image2 Segunda imagen
+   * @param {string|Buffer} image1 First image
+   * @param {string|Buffer} image2 Second image
    * @returns {Promise<Buffer>} Imagen de cama
-   * @throws {APIError} Si no se proporciona la imagen
+   * @throws {APIError} If image is not provided
    */
   static async bed(image1, image2) {
-    if (!image1) throw new APIError("¡No se proporcionó la primera imagen!");
-    if (!image2) throw new APIError("¡No se proporcionó la segunda imagen!");
+    if (!image1) throw new APIError("The parameter 'image1' is missing.");
+    if (!image2) throw new APIError("The parameter 'image2' is missing.");
     await this.__wait();
     const avatar = await loadImage(image1);
     const avatar1 = await loadImage(image2);
@@ -669,7 +669,7 @@ class Canvacard {
   /**
    * @method delete
    * @name delete
-   * @description Crear una imagen eliminada
+   * @description Create a deleted image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -679,13 +679,13 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @param {boolean} dark Si la imagen debe estar en modo oscuro
-   * @returns {Promise<Buffer>} Imagen eliminada
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to delete
+   * @param {boolean} dark If the image should be dark
+   * @returns {Promise<Buffer>} Deleted image
+   * @throws {APIError} If image is not provided
    */
   static async delete(image, dark = false) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     await this.__wait();
     const img = await loadImage(image);
     const bg = await loadImage(dark ? await Canvacard.invert(ImageFactory.DELETE) : ImageFactory.DELETE);
@@ -702,7 +702,7 @@ class Canvacard {
   /**
    * @method gradient
    * @name gradient
-   * @description Crear una imagen degradada
+   * @description Create a gradient image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -712,16 +712,16 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string} colorFrom Color inicial
-   * @param {string} colorTo Color final
-   * @param {number} width Ancho de la imagen
-   * @param {number} height Altura de imagen
-   * @returns {Promise<Buffer>} Imagen degradada
-   * @throws {APIError} Si no se proporciona el color inicial o final
+   * @param {string} colorFrom First color
+   * @param {string} colorTo Second color
+   * @param {number} width Width of image
+   * @param {number} height Height of image
+   * @returns {Promise<Buffer>} Gradient image
+   * @throws {APIError} If colorFrom or colorTo is not provided
    */
   static gradient(colorFrom, colorTo, width, height) {
-    if (!colorFrom) throw new APIError("¡ColorFrom no fue proporcionado!");
-    if (!colorTo) throw new APIError("ColorTo no fue proporcionado!");
+    if (!colorFrom) throw new APIError("ColorFrom was not provided!");
+    if (!colorTo) throw new APIError("ColorTo was not provided!");
 
     const canvas = createCanvas(width || 400, height || 200);
     const ctx = canvas.getContext("2d");
@@ -738,28 +738,28 @@ class Canvacard {
   /**
    * @method quote
    * @name quote
-   * @description Crear una imagen de cita falsa
+   * @description Create a fake quote image
    * @example
    * ```js
     const canvacard = require("canvacard");
-    canvacard.Canvas.quote({ image: "./image.png", message: "¡Esto es increíble!", username: "Clyde", color: "#FFFFFF" })
+    canvacard.Canvas.quote({ image: "./image.png", message: "This is amazing!", username: "Clyde", color: "#FFFFFF" })
     .then(quote => {
       canvacard.write(quote, "quote.png");
     })
     .catch(console.error);
    * ```
-   * @param {object} options Opciones
-   * @param {Buffer|string} [options.image] Imagen
-   * @param {string} [options.message] Mensaje
-   * @param {string} [options.username] Nombre de usuario
+   * @param {object} options Options
+   * @param {Buffer|string} [options.image] Image
+   * @param {string} [options.message] Message
+   * @param {string} [options.username] Username
    * @param {string} [options.color] Color
-   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
-   * @returns {Promise<Buffer>} Imagen de cita falsa
+   * @param {string} [font="Arial"] Text font for the card
+   * @returns {Promise<Buffer>} Quote image
    */
   static async quote(options = { image, message, username, color }, font = "Arial") {
     await this.__wait();
     if (!options.image) options.image = ImageFactory.CLYDE;
-    if (!options.message) options.message = "Por favor, proporcione un mensaje de texto.";
+    if (!options.message) options.message = "Please provide a text message.";
     if (!options.username) options.username = "Clyde";
     if (!options.color) options.color = "#FFFFFF";
 
@@ -794,28 +794,28 @@ class Canvacard {
   /**
    * @method phub
    * @name phub
-   * @description Comentario de PornHub
+   * @description PornHub Comment
    * @example
    * ```js
     const canvacard = require("canvacard");
-    canvacard.Canvas.phub({ username: "Clyde", message: "¡Esto es increíble!", image: "./image.png" })
+    canvacard.Canvas.phub({ username: "Clyde", message: "This is amazing!", image: "./image.png" })
     .then(phub => {
       canvacard.write(phub, "phub.png");
     })
     .catch(console.error);
    * ```
-   * @param {Object} options Opciones
-   * @param {String} [options.username] Nombre de usuario
-   * @param {String} [options.message] Comentario
-   * @param {String|Buffer} [options.image] Imagen
-   * @param {string} [font="Arial"] Fuente de texto para la tarjeta
-   * @returns {Promise<Buffer>} Imagen de comentario de PornHub
-   * @throws {APIError} Si no se proporciona el nombre de usuario, el mensaje o la imagen
+   * @param {Object} options Options
+   * @param {String} [options.username] Username
+   * @param {String} [options.message] Message
+   * @param {String|Buffer} [options.image] Image
+   * @param {string} [font="Arial"] Text font for card
+   * @returns {Promise<Buffer>} PornHub Comment image
+   * @throws {APIError} If username, message or image is not provided
    */
   static async phub(options = { username: null, message: null, image: null }, font = "Arial") {
-    if (!options.username) throw new APIError("¡El nombre de usuario no puede estar vacío!");
-    if (!options.message) throw new APIError("¡El mensaje no puede estar vacío!");
-    if (!options.image) throw new APIError("¡La imagen no puede estar vacía!");
+    if (!options.username) throw new APIError("Username cannot be empty!");
+    if (!options.message) throw new APIError("Message cannot be empty!");
+    if (!options.image) throw new APIError("The image cannot be empty!");
 
     await this.__wait();
     let image = await loadImage(options.image);
@@ -843,7 +843,7 @@ class Canvacard {
   /**
    * @method wanted
    * @name wanted
-   * @description Crear una imagen de se busca
+   * @description Create a "wanted" image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -853,12 +853,12 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>} Imagen de "wanted"
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to wanted
+   * @returns {Promise<Buffer>} Wanted image
+   * @throws {APIError} If image is not provided
    */
   static async wanted(image) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     await this.__wait();
     const img = await loadImage(image);
     const bg = await loadImage(ImageFactory.WANTED);
@@ -875,7 +875,7 @@ class Canvacard {
   /**
    * @method wasted
    * @name wasted
-   * @description Crear una imagen de "wasted"
+   * @description Create a "wasted" image
    * @example
    * ```js
     const canvacard = require("canvacard");
@@ -885,12 +885,12 @@ class Canvacard {
     })
     .catch(console.error);
    * ```
-   * @param {string|Buffer} image Fuente de imagen
-   * @returns {Promise<Buffer>} Imagen de "wasted"
-   * @throws {APIError} Si no se proporciona la imagen
+   * @param {string|Buffer} image Image to wasted
+   * @returns {Promise<Buffer>} Wasted image
+   * @throws {APIError} If image is not provided
    */
   static async wasted(image) {
-    if (!image) throw new APIError("¡La imagen no fue proporcionada!");
+    if (!image) throw new APIError("Image was not provided!");
     await this.__wait();
     const img = await loadImage(await Canvacard.greyscale(image));
     const bg = await loadImage(ImageFactory.WASTED);
@@ -907,28 +907,28 @@ class Canvacard {
   /**
    * @method youtube
    * @name youtube
-   * @description Comentario de YouTube
+   * @description Create a YouTube comment image
    * @example
    * ```js
     const canvacard = require("canvacard");
-    canvacard.Canvas.youtube({ username: "Clyde", content: "¡Esto es increíble!", avatar: "./image.png" })
+    canvacard.Canvas.youtube({ username: "Clyde", content: "This is amazing!", avatar: "./image.png" })
     .then(youtube => {
       canvacard.write(youtube, "youtube.png");
     })
     .catch(console.error);
    * ```
-   * @param {object} ops Opciones de comentarios de YouTube
-   * @param {string} [ops.username] Nombre de usuario del autor del comentario
-   * @param {string} [ops.content] El comentario
-   * @param {string|Buffer} [ops.avatar] Fuente de avatar
-   * @param {boolean} [ops.dark=false] ¿Modo oscuro?
-   * @returns {Promise<Buffer>} Imagen de comentario de YouTube
-   * @throws {APIError} Si no se proporciona el nombre de usuario, el contenido o el avatar
+   * @param {object} ops Options
+   * @param {string} [ops.username] Username
+   * @param {string} [ops.content] Content
+   * @param {string|Buffer} [ops.avatar] Avatar
+   * @param {boolean} [ops.dark=false] Dark mode
+   * @returns {Promise<Buffer>} YouTube comment image
+   * @throws {APIError} If username, content or avatar is not provided
    */
   static async youtube(ops = { username: null, content: null, avatar: null, dark: false }) {
-    if (!ops.username || typeof ops.username !== "string") throw new APIError("¡El nombre de usuario no puede estar vacío!");
-    if (!ops.content || typeof ops.content !== "string") throw new APIError("¡El contenido no puede estar vacío!");
-    if (!ops.avatar) throw new APIError("¡Es posible que la fuente del avatar no esté vacía!");
+    if (!ops.username || typeof ops.username !== "string") throw new APIError("Username cannot be empty!");
+    if (!ops.content || typeof ops.content !== "string") throw new APIError("Content cannot be empty!");
+    if (!ops.avatar) throw new APIError("The avatar font may not be empty!");
     ops.dark = !!ops.dark;
 
     await this.__wait();
@@ -965,9 +965,9 @@ class Canvacard {
   /**
    * @method write
    * @name write
-   * @description Escribe los datos como archivo
-   * @param {Buffer} data datos para escribir
-   * @param {string} name nombre del archivo
+   * @description Writes data as a file
+   * @param {Buffer} data data to write
+   * @param {string} name file name
    * @returns {void}
    */
   static write(data, name) {
@@ -977,18 +977,18 @@ class Canvacard {
   /**
    * @method reply
    * @name reply
-   * @description Clon de respuesta de discord
-   * @param {object} options Opciones
-   * @param {string|Buffer} [options.avatar1] Avatar de la persona que respondió
-   * @param {string|Buffer} [options.avatar2] Avatar de la otra persona
-   * @param {string} [options.user1] Nombre de usuario de la persona que respondió
-   * @param {string} [options.user2] Nombre de usuario de la otra persona
-   * @param {string} [options.hex1] Color hexadecimal de la persona que respondió
-   * @param {string} [options.hex2] Color hexadecimal de la otra persona
-   * @param {string} [options.mainText] El mensaje
-   * @param {string} [options.replyText] El mensaje de respuesta
-   * @returns {Promise<Buffer>} Imagen de respuesta de discord
-   * @throws {APIError} Si no se proporciona el avatar, el nombre de usuario o el mensaje
+   * @description Discord Reply Clone
+   * @param {object} options Options
+   * @param {string|Buffer} [options.avatar1] Avatar of the person who responded
+   * @param {string|Buffer} [options.avatar2] Avatar of the other person
+   * @param {string} [options.user1] Username of the person who responded
+   * @param {string} [options.user2] Username of the other person
+   * @param {string} [options.hex1] Hexadecimal color of the person who responded
+   * @param {string} [options.hex2] Hexadecimal color of the other person
+   * @param {string} [options.mainText] Message of the person who responded
+   * @param {string} [options.replyText] Message of the other person
+   * @returns {Promise<Buffer>} Reply image
+   * @throws {APIError} If the avatar, username or message is not provided
    * @example
   const img = "https://cdn.discordapp.com/embed/avatars/0.png";
   const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
@@ -1007,12 +1007,12 @@ class Canvacard {
   static async reply(options = { avatar1: null, avatar2: null, user1: null, user2: null, hex1: null, hex2: null, mainText: null, replyText: null }) {
     const { avatar1, avatar2, user1, user2, hex1, hex2, mainText, replyText } = options;
 
-    if (!avatar1) throw new APIError("¡No se proporcionó el primer avatar!");
-    if (!avatar2) throw new APIError("¡No se proporcionó el segundo avatar!");
-    if (!user1) throw new APIError("¡No se proporcionó el primer nombre de usuario!");
-    if (!user2) throw new APIError("¡No se proporcionó el segundo nombre de usuario!");
-    if (!mainText || typeof mainText !== "string") throw new APIError("¡No se proporcionó el texto principal!");
-    if (!replyText || typeof replyText !== "string") throw new APIError("¡No se proporcionó el texto de respuesta!");
+    if (!avatar1) throw new APIError("The first avatar was not provided!");
+    if (!avatar2) throw new APIError("The second avatar was not provided!");
+    if (!user1) throw new APIError("First username not provided!");
+    if (!user2) throw new APIError("Second username not provided!");
+    if (!mainText || typeof mainText !== "string") throw new APIError("The main text was not provided!");
+    if (!replyText || typeof replyText !== "string") throw new APIError("Response text not provided!");
     if (!hex1 || typeof hex1 !== "string") hex1 = "#FFFFFF";
     if (!hex2 || typeof hex2 !== "string") hex2 = "#FFFFFF";
 
@@ -1040,9 +1040,9 @@ class Canvacard {
     ctx.fillStyle = "#d1d1d1";
     ctx.font = "38px Manrope";
 
-    ctx.fillText(" responder a ", 165 + usernameWidth + 20, 147);
+    ctx.fillText(" answer ", 165 + usernameWidth + 20, 147);
 
-    const repliedWidth = ctx.measureText(" responder a ").width;
+    const repliedWidth = ctx.measureText(" answer ").width;
 
     ctx.fillStyle = formatAndValidateHex(hex2, "#FFFFFF");
     ctx.font = "38px Whitney";
@@ -1105,9 +1105,9 @@ class Canvacard {
   }
 
   /**
-   * Método de Canvacard utilizado para `wait`.
-   * @param {number} dur Número de milisegundos a esperar
-   * @returns {Promise<void>} Promesa resuelta después de la espera
+   * Canvacard method used for `wait`.
+   * @param {number} dur Number of milliseconds to wait
+   * @returns {Promise<void>} Promise fulfilled after the wait
    * @private
    */
   static __wait(dur) {
@@ -1117,7 +1117,7 @@ class Canvacard {
   }
 
   /**
-   * Matriz de convolución Canvacard
+   * Canvacard convolution matrix
    * @typedef {object} ConvolutionMatrix
    * @property {number[]} EDGES Edges Matrix
    * @property {number[]} BLUR Blur Matrix
@@ -1127,7 +1127,7 @@ class Canvacard {
    */
 
   /**
-   * Datos de matriz para **Canvacard.convolute()**
+   * Array data for **Canvacard.convolute()**
    * @type {ConvolutionMatrix}
    * @private
    */

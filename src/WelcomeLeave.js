@@ -1,10 +1,9 @@
-// canvacard/src/WelcomeLeave.js
 const { createCanvas, loadImage } = require("@napi-rs/canvas");
 const APIError = require("./utils/error.utils");
 const shorten = require("./utils/shorten.utils");
 /**
  * @kind class
- * @description Creador de tarjetas de bienvenida o despedida
+ * @description Welcome or Leave card creator
  * <details open>
  *  <summary>PREVIEW</summary>
  * <br>
@@ -37,64 +36,64 @@ canvacard.write(welcomeImage, "./welcomer.png");
 class WelcomeLeave {
   constructor() {
     /**
-     * Fondo de la tarjeta
-     * @property {object} backgroundGlobal Fondo de la tarjeta
-     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Tipo de fondo
+     * Card background
+     * @property {object} backgroundGlobal Card background
+     * @property {"IMAGE"|"COLOR"} [backgroundGlobal.type="color"] Type of fund
      * @private
      */
     this.backgroundGlobal = { type: "COLOR", image: "#23272A" };
     /**
-     * Avatar de la tarjeta
+     * Avatar of card
      * @property {string}
      * @private
      */
-    this.avatar = `${__dirname}/../assets/img/default-avatar.png`;
+    this.avatar = `${__dirname}/../assets/images/default-avatar.png`;
     /**
-     * Título creado con Canvacard
+     * Title
      * @property {string}
      * @private
      */
-    this.titulo = "Titulo personalizable!";
+    this.titulo = "Custom Title!";
     /**
-     * Subtítulo creado con Canvacard
+     * Subtitle
      * @property {string}
      * @private
      */
-    this.subtitulo = "Descripcion personalizable!";
+    this.subtitulo = "Custom Subtitle!";
     /**
-     * Color del título creado con Canvacard
+     * Color of the Title
      * @property {string}
      * @private
      */
     this.colorTitulo = "#FFFFFF";
     /**
-     * Color del Subtítulo creado con Canvacard
+     * Color of the Subtitle
      * @property {string}
      * @private
      */
     this.colorSubtitulo = "#5865f2";
     /**
-     * Color del circulo
+     * Color of the circle
      * @property {string}
      * @private
      */
     this.colorCircle = "#FFFFFF";
     /**
-     * Color del overlay
+     * Color of the overlay
      * @property {string}
      * @private
      */
     this.colorOverlay = "#000000";
     /**
-     * Opacidad del overlay
+     * Opacity of the overlay
      * @property {number}
      * @private
      */
     this.opacityOverlay = 0.4;
     /**
-     * Tipo de overlay
-     * @property {object} typeOverlay Tipo de overlay
-     * @property {"RECTANGLE"|"ROUNDED"} [typeOverlay.type="ROUNDED"] Tipo de overlay
+     * Type of overlay
+     * @property {object} typeOverlay Type of overlay
+     * @property {"RECTANGLE"|"ROUNDED"} [typeOverlay.type="ROUNDED"] Type of overlay
      * @private
      */
     this.typeOverlay = { type: "ROUNDED" };
@@ -102,10 +101,10 @@ class WelcomeLeave {
   /**
    * @method setAvatar
    * @name setAvatar
-   * @description Establecer el avatar de la tarjeta
-   * @param {string|Buffer} value URL de la imagen o Buffer de la imagen
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} El avatar debe ser un string o un Buffer
+   * @description Set the avatar of the card
+   * @param {string|Buffer} value Avatar URL or Buffer
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} Missing field: avatar
    */
   setAvatar(value) {
     if (!value) throw new APIError("Falta campo: avatar");
@@ -116,16 +115,16 @@ class WelcomeLeave {
   /**
    * @method setTitulo
    * @name setTitulo
-   * @description Establecer el título de la tarjeta
-   * @param {string} value Valor del título
-   * @param {string} color Código de color HTML5 "#000000"
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} El título debe ser un string
+   * @description Set the title of the card
+   * @param {string} value Title value
+   * @param {string} color HTML5 color code "#000000"
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} The title must be a string
    */
   setTitulo(value, color) {
-    if (typeof value !== 'string') throw new APIError("El título debe ser un string");
+    if (typeof value !== 'string') throw new APIError("The title must be a string");
     this.titulo = value;
-    if (typeof color !== 'string') throw new APIError("La opacidad debe ser un string");
+    if (typeof color !== 'string') throw new APIError("The color must be a string");
     this.colorTitulo = color;
     return this;
   }
@@ -133,16 +132,16 @@ class WelcomeLeave {
   /**
    * @method setSubtitulo
    * @name setSubtitulo
-   * @description Establecer el subtítulo de la tarjeta
-   * @param {string} value Valor del subtítulo
-   * @param {string} color Código de color HTML5 "#000000"
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} El subtítulo debe ser un string
+   * @description Set the subtitle of the card
+   * @param {string} value Subtitle value
+   * @param {string} color HTML5 color code "#000000"
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} The subtitle must be a string
    */
   setSubtitulo(value, color) {
-    if (typeof value !== 'string') throw new APIError("El subtítulo debe ser un string");
+    if (typeof value !== 'string') throw new APIError("The subtitle must be a string");
     this.subtitulo = value;
-    if (typeof color !== 'string') throw new APIError("La opacidad debe ser un string");
+    if (typeof color !== 'string') throw new APIError("The color must be a string");
     this.colorSubtitulo = color;
     return this;
   }
@@ -150,13 +149,13 @@ class WelcomeLeave {
   /**
    * @method setColorCircle
    * @name setColorCircle
-   * @description Establecer el color del circulo
-   * @param {string} value Código de color HTML5 "#000000"
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} La opacidad debe ser un string
+   * @description Set the color of the circle
+   * @param {string} value HTML5 color code "#000000"
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} The color must be a string
    */
   setColorCircle(value) {
-    if (typeof value !== 'string') throw new APIError("La opacidad debe ser un string");
+    if (typeof value !== 'string') throw new APIError("The color must be a string");
     this.colorCircle = value;
     return this;
   }
@@ -164,13 +163,13 @@ class WelcomeLeave {
   /**
    * @method setColorOverlay
    * @name setColorOverlay
-   * @description Establecer el color del overlay
-   * @param {string} value Código de color HTML5 "#000000"
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} La opacidad debe ser un string
+   * @description Set the color of the overlay
+   * @param {string} value HTML5 color code "#000000"
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} The color must be a string
    */
   setColorOverlay(value) {
-    if (typeof value !== 'string') throw new APIError("La opacidad debe ser un string");
+    if (typeof value !== 'string') throw new APIError("The color must be a string");
     this.colorOverlay = value;
     return this;
   }
@@ -178,13 +177,13 @@ class WelcomeLeave {
   /**
    * @method setOpacityOverlay
    * @name setOpacityOverlay
-   * @description Establecer la opacidad del overlay
-   * @param {number} value Valor de 0 a 1 para la opacidad
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} La opacidad debe ser un número
+   * @description Set the opacity of the overlay
+   * @param {number} value Opacity value (0 to 1)
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} The opacity must be a number
    */
   setOpacityOverlay(value) {
-    if (isNaN(value)) throw new APIError("La opacidad debe ser un número");
+    if (isNaN(value)) throw new APIError("The opacity must be a number");
     this.opacityOverlay = value;
     return this;
   }
@@ -192,14 +191,14 @@ class WelcomeLeave {
   /**
    * @method setBackground
    * @name setBackground
-   * @description Establecer imagen / color de fondo
-   * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-   * @param {string} data URL de la imagen o código de color HTML
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} Tipo de fondo no admitido
+   * @description Set background image/color of the card
+   * @param {"COLOR"|"IMAGE"} type Type of background
+   * @param {string} data Image URL or HTML color code
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} Missing field: data
    */
   setBackground(type, data) {
-    if (!data) throw new APIError("Falta campo: datos");
+    if (!data) throw new APIError("Missing field: data");
     if (type === "COLOR") {
       this.backgroundGlobal.type = "color";
       this.backgroundGlobal.image = typeof data === "string" ? data : "#23272A";
@@ -207,7 +206,7 @@ class WelcomeLeave {
       this.backgroundGlobal.type = "image";
       this.backgroundGlobal.image = data;
     } else {
-      throw new APIError(`Tipo de fondo no admitido "${type}"`);
+      throw new APIError(`Background type not supported "${type}"`);
     }
     return this;
   }
@@ -215,13 +214,13 @@ class WelcomeLeave {
   /**
    * @method setTypeOverlay
    * @name setTypeOverlay
-   * @description Establecer rectangle / rounded de overlay
-   * @param {"RECTANGLE"|"ROUNDED"} type Tipo de fondo
-   * @returns {WelcomeLeave} La instancia actual de WelcomeLeave
-   * @throws {APIError} Tipo de overlay no admitido
+   * @description Set the type of overlay
+   * @param {"RECTANGLE"|"ROUNDED"} type Type of overlay
+   * @returns {WelcomeLeave} The current instance of WelcomeLeave
+   * @throws {APIError} Missing field: type
    */
   setTypeOverlay(type) {
-    if (!type) throw new APIError("Falta campo: tipo");
+    if (!type) throw new APIError("Missing field: type");
     switch (type) {
       case "RECTANGLE":
         this.typeOverlay.type = "RECTANGLE";
@@ -230,7 +229,7 @@ class WelcomeLeave {
         this.typeOverlay.type = "ROUNDED";
         break;
       default:
-        throw new APIError(`Tipo de overlay no admitido "${type}"`);
+        throw new APIError(`Overlay type not supported "${type}"`);
     }
     return this;
   }
@@ -238,10 +237,10 @@ class WelcomeLeave {
   /**
    * @method build
    * @name build
-   * @description Construye la tarjeta de bienvenida
-   * @param {string} [font=Arial] Fuente de texto para la tarjeta
-   * @returns {Promise<Buffer>} Imagen de la tarjeta de bienvenida en formato de buffer
-   * @throws {APIError} Si no se puede cargar la imagen de fondo
+   * @description Build the card
+   * @param {string} [font=Arial] Font to use in the card
+   * @returns {Promise<Buffer>} Card image in buffer format
+   * @throws {APIError} Error loading background image
    */
   async build(font = "Arial") {
     const canvas = createCanvas(1100, 500);
@@ -257,11 +256,10 @@ class WelcomeLeave {
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
     } catch (error) {
-      throw new APIError("Error al cargar la imagen de fondo:", error);
-      // Podrías establecer un fondo predeterminado aquí si lo deseas
+      throw new APIError("Error loading background image:", error);
     }
 
-    // Dibujar overlay
+    // Draw Overlay
     ctx.fillStyle = this.colorOverlay;
     ctx.globalAlpha = this.opacityOverlay;
     if (this.typeOverlay.type === "RECTANGLE") {
@@ -274,7 +272,7 @@ class WelcomeLeave {
     ctx.fill();
     ctx.globalAlpha = 1;
 
-    // Dibujar Titulo
+    // Draw Title
     ctx.shadowBlur = 10;
     ctx.shadowColor = "black";
     ctx.fillStyle = this.colorTitulo;
@@ -282,12 +280,12 @@ class WelcomeLeave {
     ctx.font = `60px ${font}`;
     ctx.fillText(shorten(this.titulo, 30), canvas.width - 550, canvas.height - 120);
 
-    // Dibujar Subtitulo
+    // Draw Subtitle
     ctx.fillStyle = this.colorSubtitulo;
     ctx.font = `30px ${font}`;
     ctx.fillText(shorten(this.subtitulo, 50), canvas.width - 550, canvas.height - 70);
 
-    // Dibujar Avatar
+    // Draw Circle
     ctx.shadowBlur = 0;
     ctx.beginPath();
     ctx.lineWidth = 10;
@@ -297,6 +295,7 @@ class WelcomeLeave {
     ctx.closePath();
     ctx.clip();
 
+    // Draw Avatar
     const avatar = await loadImage(this.avatar);
     ctx.drawImage(avatar, canvas.width - 675, 65, 250, 250);
 

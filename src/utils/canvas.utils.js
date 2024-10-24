@@ -23,41 +23,42 @@ const alphaValue = 0.4;
 const clydeID = '1081004946872352958';
 
 /**
- * Generar el canvas de insignias
- * @param {Object} user Objeto de usuario
- * @param {string} user.bot Si el usuario es un bot
- * @param {string} user.id ID del usuario
- * @param {Object} user.flags Insignias del usuario
- * @param {string} user.discriminator Discriminador del usuario
- * @param {Object} options Objeto de opciones
- * @param {string[]} options.customBadges Insignias personalizadas
- * @param {boolean} options.overwriteBadges Sobreescribir las insignias
+ * @name generateBadgesCanvas
+ * @description Generate the badge canvas
+ * @param {Object} user User object
+ * @param {string} user.bot If the user is a bot
+ * @param {string} user.id User ID
+ * @param {Object} user.flags User Badges
+ * @param {string} user.discriminator User Discriminator
+ * @param {Object} options Object of options
+ * @param {string[]} options.customBadges Custom Badges
+ * @param {boolean} options.overwriteBadges Overwrite the badges
  * @returns {Promise<Buffer>} Canvas
  */
 async function generateBadgesCanvas(user, options) {
   const { bot, id, flags, discriminator } = user;
 
-  // Cargar las flags desde una URL raw de GitHub (JSON) con fetch
+  // Loading flags from a GitHub raw URL (JSON) with fetch
   const userFlags = await fetch(ImageFactory.FLAGS.USER).then((res) => res.json());
   const applicationFlags = await fetch(ImageFactory.FLAGS.APPLICATION).then((res) => res.json());
 
   try {
-    // Obtener las insignias según los flags
+    // Get the badges according to the flags
     const userFlagBadges = checkFlags(userFlags, flags).map((flag) => userFlags[flag]?.icon).filter(Boolean);
     const applicationFlagBadges = checkFlags(applicationFlags, flags).map((flag) => applicationFlags[flag]?.icon).filter(Boolean);
 
-    // Combinar todas las insignias
+    // Combine all the badges
     const allBadgeIcons = [
       ...userFlagBadges,
       ...applicationFlagBadges,
     ].map(getIconPath);
 
-    // Insignias de nombre de usuario heredado
+    // Legacy Username Badges
     if (discriminator === "0") {
       allBadgeIcons.push(getIconPath(ImageFactory.FLAGS.ICONS.USERNAME));
     }
 
-    // Lógica adicional para bots
+    // Additional logic for bots
     if (bot) {
       const botFetch = await fetch(`https://discord.com/api/v10/applications/${id}/rpc`);
       if (!botFetch.ok) {
@@ -79,51 +80,51 @@ async function generateBadgesCanvas(user, options) {
       }
     }
 
-    // Crear el canvas para dibujar las insignias
+    // Create the canvas to draw the badges
     const canvas = createCanvas(885, 303);
     const ctx = canvas.getContext('2d');
 
-    let x = 808; // Posición inicial para las insignias
+    let x = 808; // Starting position for badges
     for (const iconPath of allBadgeIcons) {
       try {
         const badgeImage = await loadImage(iconPath);
-        ctx.drawImage(badgeImage, x, 22, 48, 48); // Tamaño y posición del badge
-        x -= 60; // Ajuste de espacio entre insignias
+        ctx.drawImage(badgeImage, x, 22, 48, 48); // Badge size and position
+        x -= 60; // Adjusting the gap between badges
       } catch (error) {
         throw new APIError(`Could not load badge image from path: ${iconPath}, ${error.message}`);
       }
     }
 
     console.log(options.customBadges);
-    // Manejo de badges personalizados
+    // Handling custom badges
     if (options?.customBadges?.length) {
       if (options?.overwriteBadges) {
-        x = 808; // Resetear posición si se sobreescriben las insignias
+        x = 808; // Reset position if badges are overwritten
       }
 
       for (const customBadge of options.customBadges) {
         let badgeImage;
         try {
-          const extension = customBadge.split('.').pop().toLowerCase(); // Obtener la extensión del archivo
+          const extension = customBadge.split('.').pop().toLowerCase(); // Get the file extension
 
-          // Verificar la extensión y usar el parser adecuado
+          // Check the extension and use the appropriate parser
           if (extension === 'png') {
             badgeImage = await loadImage(parsePng(customBadge));
           } else if (extension === 'svg') {
             badgeImage = await loadImage(parseSvg(customBadge));
           } else {
-            throw new APIError(`Formato de imagen no válido: ${extension}. Solo se permiten archivos PNG o SVG.`);
+            throw new APIError(`Invalid image format: ${extension}. Only PNG or SVG files are allowed.`);
           }
 
-          // Si la imagen se cargó correctamente, dibujarla en el canvas
+          // If the image was uploaded correctly, draw it on the canvas
           if (badgeImage) {
-            ctx.drawImage(badgeImage, x, 22, 48, 48); // Tamaño y posición del custom badge
-            x -= 60; // Ajuste de espacio entre insignias
+            ctx.drawImage(badgeImage, x, 22, 48, 48); // Size and position of the custom badge
+            x -= 60; // Adjusting the gap between badges
           }
         } catch (error) {
           const truncatedBadge = truncateText(customBadge, 30);
           throw new APIError(
-            `No se pudo cargar la insignia personalizada: (${truncatedBadge}), asegúrate de que la imagen exista y sea válida.`
+            `Could not load custom badge: (${truncatedBadge}), please make sure the image exists and is valid.`
           );
         }
       }
@@ -136,10 +137,11 @@ async function generateBadgesCanvas(user, options) {
 }
 
 /**
- * Genera el fondo de la tarjeta
- * @param {Object} options Objeto de opciones
- * @param {string} avatarData URL del avatar
- * @param {string} bannerData URL del banner
+ * @name genBase
+ * @description Generate the card background
+ * @param {Object} options Object of options
+ * @param {string} avatarData Avatar URL
+ * @param {string} bannerData Banner URL
  * @returns {Promise<Buffer>} Canvas
  */
 async function genBase(options, avatarData, bannerData) {
@@ -193,26 +195,27 @@ async function genBase(options, avatarData, bannerData) {
 }
 
 /**
- * Genera el marco de la tarjeta
+ * @name genFrame
+ * @description Generate the card frame
  * @param {Object} badgesData
  * @param {CanvasElemet} badgesData.canvas
  * @param {string} badgesData.badgesLength
  * @param {Object} options 
  * @param {string} options.badgesFrame
- * @returns Canvas
+ * @returns {Promise<Buffer>} Canvas
  */
 async function genFrame(badgesData, options) {
 
-  // Crear un canvas para el marco
+  // Create a canvas for the frame
   const canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
 
-  // Cargar e insertar el marco base
+  // Load and insert the base frame
   const cardFrame = await loadImage(Buffer.from(otherImgs.frame, 'base64'));
   ctx.globalAlpha = 0.5;
   ctx.drawImage(cardFrame, 0, 0, 885, 303);
 
-  // Dibujar un fondo negro con transparencia si se requiere
+  // Draw a black background with transparency if required
   ctx.globalAlpha = alphaValue;
   ctx.fillStyle = '#000';
   ctx.beginPath();
@@ -220,11 +223,11 @@ async function genFrame(badgesData, options) {
   ctx.fill();
   ctx.globalAlpha = 1;
 
-  // Ajustar el marco para las insignias
+  // Adjust the frame for the badges
   if (options?.badgesFrame && badgesData.canvas) {
     const { canvas: badgesCanvas, badgesLength } = badgesData;
 
-    // Ajustar el rectángulo de fondo para badges según la longitud
+    // Adjust background rectangle for badges based on length
     ctx.fillStyle = '#000';
     ctx.globalAlpha = alphaValue;
     ctx.beginPath();
@@ -232,7 +235,7 @@ async function genFrame(badgesData, options) {
     ctx.fill();
 
     ctx.globalAlpha = 1;
-    // Dibujar el canvas de badges en la posición correcta
+    // Draw the badge canvas in the correct position
     ctx.drawImage(badgesCanvas, 0, 0);
   }
 
@@ -240,84 +243,86 @@ async function genFrame(badgesData, options) {
 }
 
 /**
- * Genera los bordes de la tarjeta con un gradiente de varios colores
- * @param {Object} options 
- * @param {string|string[]} options.borderColor - Puede ser un color o un array de colores
- * @param {string} options.borderAllign - Dirección del borde ('vertical' o 'horizontal')
- * @returns Canvas
+ * @name genBorder
+ * @description Generate the edges of the card with a multi-color gradient
+ * @param {Object} options Options object
+ * @param {string|string[]} options.borderColor It can be a color or an array of colors
+ * @param {string} options.borderAllign Edge direction ('vertical' or 'horizontal')
+ * @returns {Promise<Buffer>} Canvas
  */
 async function genBorder(options) {
   const canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
 
-  // Manejar la opción de color como string o array de strings
+  // Handling color option as string or array of strings
   let borderColors = [];
   if (typeof options.borderColor === 'string') {
-    borderColors.push(formatAndValidateHex(options.borderColor)); // Validar si es un solo color
+    borderColors.push(formatAndValidateHex(options.borderColor)); // Validate if it is a single color
   } else if (Array.isArray(options.borderColor)) {
-    borderColors = options.borderColor.map(color => formatAndValidateHex(color)); // Validar si es array
+    borderColors = options.borderColor.map(color => formatAndValidateHex(color)); // Validate if it is array
   } else {
-    throw new APIError('El color del borde debe ser un string o un array de strings');
+    throw new APIError('The border color must be a string or an array of strings');
   }
 
-  // Verificar que no exceda el límite de colores
+  // Check that it does not exceed the color limit
   if (borderColors.length > 20) {
     throw new APIError(
-      `La cantidad de colores del borde no es válida (${borderColors.length}), máximo permitido es 20`
+      `The number of border colors is invalid (${borderColors.length}), maximum allowed is 20`
     );
   }
 
-  // Establecer la dirección del gradiente en base a la alineación del borde
+  // Set gradient direction based on edge alignment
   const gradX = options.borderAllign === 'vertical' ? 0 : 885;
   const gradY = options.borderAllign === 'vertical' ? 303 : 0;
 
-  // Crear el gradiente
+  // Create the gradient
   const grd = ctx.createLinearGradient(0, 0, gradX, gradY);
 
-  // Añadir cada color al gradiente con su correspondiente parada (stop)
+  // Add each color to the gradient with its corresponding stop.
   for (let i = 0; i < borderColors.length; i++) {
-    const stop = i / (borderColors.length - 1); // Calcular la posición del color en el gradiente
+    const stop = i / (borderColors.length - 1); // Calculate the position of the color in the gradient
     grd.addColorStop(stop, borderColors[i]);
   }
 
-  // Aplicar el gradiente como estilo de relleno
+  // Apply gradient as fill style
   ctx.fillStyle = grd;
   ctx.beginPath();
-  ctx.fillRect(0, 0, 885, 303); // Dibujar el rectángulo con el gradiente
+  ctx.fillRect(0, 0, 885, 303); // Draw the rectangle with the gradient
 
-  // Definir la operación de mezcla para recortar el borde interior
+  // Define blend operation to trim inner edge
   ctx.globalCompositeOperation = 'destination-out';
 
-  // Dibujar un rectángulo redondeado en el centro para recortar el borde
+  // Draw a rounded rectangle in the center to trim the edge
   ctx.beginPath();
-  ctx.roundRect(9, 9, 867, 285, [25]); // Rectángulo interior con bordes redondeados
+  ctx.roundRect(9, 9, 867, 285, [25]); // Inner rectangle with rounded edges
   ctx.fill();
 
-  return canvas; // Devolver el canvas con el borde generado
+  return canvas; // Return the canvas with the generated border
 }
 
 /**
- * Genera el texto y el avatar de la tarjeta
- * @param {Object} user Datos del usuario
- * @param {string} user.username Nombre de usuario
- * @param {string} user.discriminator Discriminador
- * @param {boolean} user.bot Es un bot
- * @param {number} user.createdTimestamp Marca de tiempo de creación
- * @param {string} user.id ID del usuario
- * @param {Object} options Opciones de la tarjeta
- * @param {string} options.customUsername Nombre de usuario personalizado
- * @param {string} options.usernameColor Color del nombre de usuario
- * @param {string} options.customSubtitle Subtítulo personalizado
- * @param {string} options.subtitleColor Color del subtítulo
- * @param {string | Date} options.customDate Fecha personalizada
- * @param {string} options.localDateType Formato local para la fecha, por ejemplo, 'en' | 'es', etc.
- * @param {string} options.customTag Tag personalizado
- * @param {string} options.tagColor Color HEX de la etiqueta 
- * @param {boolean} options.squareAvatar Cambiar la forma del avatar a un cuadrado
- * @param {boolean} options.presenceStatus Mostrar el estado de presencia
- * @param {Object} rankData Datos de rango
- * @param {string} avatarData URL del avatar
- * @param {string} [font="Arial"] Familia tipográfica
+ * @name genTextAndAvatar
+ * @description Generate the card text and avatar
+ * @param {Object} user User data
+ * @param {string} user.username User name
+ * @param {string} user.discriminator User discriminator
+ * @param {boolean} user.bot If the user is a bot
+ * @param {number} user.createdTimestamp User creation timestamp
+ * @param {string} user.id User ID
+ * @param {Object} options Options object
+ * @param {string} options.customUsername Custom username
+ * @param {string} options.usernameColor Username color
+ * @param {string} options.customSubtitle Custom subtitle
+ * @param {string} options.subtitleColor Subtitle color
+ * @param {string | Date} options.customDate Custom date
+ * @param {string} options.localDateType Local format for the date, for example, 'en' | 'es', etc.
+ * @param {string} options.customTag Custom tag
+ * @param {string} options.tagColor HEX Color of the label
+ * @param {boolean} options.squareAvatar Change the shape of the avatar to a square
+ * @param {boolean} options.presenceStatus Show presence status
+ * @param {Object} rankData Range data
+ * @param {string} avatarData Avatar URL
+ * @param {string} [font="Arial"] Typeface family
  * @returns {Promise<Buffer>}
  */
 async function genTextAndAvatar(user, rankData, options, avatarData, font) {
@@ -418,12 +423,13 @@ async function genTextAndAvatar(user, rankData, options, avatarData, font) {
 }
 
 /**
- * Esta función genera el marco del avatar
- * @param {Object} user Objeto del usuario
- * @param {Object} user.avatar_decoration_data Datos de decoración del avatar
- * @param {string} user.avatar_decoration_data.asset Asset de decoración del avatar
- * @param {Object} options Objeto de opciones
- * @param {string} options.presenceStatus Presencia del usuario
+ * @name genAvatarFrame
+ * @description This function generates the avatar frame
+ * @param {Object} user User data
+ * @param {Object} user.avatar_decoration_data Avatar decoration data
+ * @param {string} user.avatar_decoration_data.asset Avatar decoration asset
+ * @param {Object} options Object of options
+ * @param {string} options.presenceStatus User presence
  * @returns {Promise<Buffer>} Canvas
  */
 async function genAvatarFrame(user, options) {
@@ -443,10 +449,11 @@ async function genAvatarFrame(user, options) {
 }
 
 /**
- * Esta función corta el estado de presencia en la tarjeta
- * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
- * @param {Object} options Objeto de opciones
- * @param {string} options.presenceStatus Presencia del usuario
+ * @name cutAvatarStatus
+ * @description This function cuts the presence status on the card
+ * @param {Image | Canvas} canvasToEdit Image or canvas to edit
+ * @param {Object} options Object of options
+ * @param {string} options.presenceStatus User presence
  * @returns {Promise<Buffer>} Canvas
  */
 async function cutAvatarStatus(canvasToEdit, options) {
@@ -471,10 +478,11 @@ async function cutAvatarStatus(canvasToEdit, options) {
 }
 
 /**
- * Establece el estado de presencia en la tarjeta
- * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
- * @param {Object} options Objeto de opciones
- * @param {string} options.presenceStatus Presencia del usuario
+ * @name genStatus
+ * @description Sets the presence status on the card
+ * @param {Image | Canvas} canvasToEdit Image or canvas to edit
+ * @param {Object} options Object of options
+ * @param {string} options.presenceStatus User presence
  * @returns {Promise<Buffer>} Canvas
  */
 async function genStatus(canvasToEdit, options) {
@@ -523,11 +531,12 @@ async function genStatus(canvasToEdit, options) {
 }
 
 /**
- * Generar la insignia de verificación de bot
- * @param {Object} user Objeto de usuario
- * @param {string} user.username Nombre de usuario
- * @param {number} user.flags Valor numérico de las flags del usuario
- * @param {string} [font="Arial"] Familia tipográfica
+ * @name genBotVerifBadge
+ * @description Generate the bot verification badge
+ * @param {Object} user User object
+ * @param {string} user.username User name
+ * @param {number} user.flags Numeric value of the user flags
+ * @param {string} [font="Arial"] Typeface family
  * @returns {Promise<Buffer>} Canvas
  */
 async function genBotVerifBadge(user, font) {
@@ -536,7 +545,7 @@ async function genBotVerifBadge(user, font) {
   const canvas = createCanvas(885, 303);
   const ctx = canvas.getContext('2d');
 
-  // Parsear el nombre para calcular la longitud del texto
+  // Parse name to calculate text length
   const { textLength } = parseUsername(
     username,
     ctx,
@@ -545,33 +554,33 @@ async function genBotVerifBadge(user, font) {
     470
   );
 
-  // Verificar si el usuario es un bot verificado usando el valor de flags
+  // Check if the user is a verified bot using the flags value
   const isVerifiedBot = (flags & (1 << 16)) !== 0;
 
-  // Determinar el badge a usar según las flags
+  // Determine the badge to use according to the flags
   const badgeName = isVerifiedBot ? 'botVerif' : 'botNoVerif';
 
-  // Cargar la imagen del badge
+  // Upload badge image
   const botBadgeBase64 = otherImgs[badgeName];
   const botBadge = await loadImage(Buffer.from(botBadgeBase64, 'base64'));
 
-  // Dibujar la imagen en la posición correcta
+  // Draw the image in the correct position
   ctx.drawImage(botBadge, textLength + 310, 110);
 
   return canvas;
 }
 
 /**
- * Generar la barra de experiencia
- * @param {Object} options 
- * @param {Object} options.rankData
- * @param {number} options.rankData.currentXp
- * @param {number} options.rankData.requiredXp
- * @param {number} options.rankData.level
- * @param {number} options.rankData.rank
- * @param {string | string[]} options.rankData.barColor
- * @param {string} options.rankData.levelColor
- * @param {boolean} options.rankData.autoColorRank
+ * Generate the experience bar
+ * @param {Object} options Options object
+ * @param {Object} options.rankData Rank data
+ * @param {number} options.rankData.currentXp User current XP
+ * @param {number} options.rankData.requiredXp XP required to level up
+ * @param {number} options.rankData.level User level
+ * @param {number} options.rankData.rank User rank
+ * @param {string | string[]} options.rankData.barColor Color of the XP bar
+ * @param {string} options.rankData.levelColor Color of the level text
+ * @param {boolean} options.rankData.autoColorRank Automatically color the rank
  * @returns {Promise<Buffer>} Canvas
  */
 function genXpBar(options, font) {
@@ -594,15 +603,15 @@ function genXpBar(options, font) {
   const ctx = canvas.getContext('2d');
   const mY = 8;
 
-  // Fondo de la barra de XP
+  // XP bar background
   ctx.fillStyle = '#000';
-  ctx.globalAlpha = 0.5; // ajusta el alpha según sea necesario
+  ctx.globalAlpha = 0.5; // adjust alpha as needed
   ctx.beginPath();
   ctx.roundRect(304, 248, 380, 33, [12]);
   ctx.fill();
   ctx.globalAlpha = 1;
 
-  // Texto de XP
+  // XP Text
   ctx.font = `21px ${font}`;
   ctx.textAlign = 'left';
   ctx.fillStyle = '#dadada';
@@ -612,7 +621,7 @@ function genXpBar(options, font) {
     273
   );
 
-  // Texto del Rango y Nivel
+  // Rank and Level Text
   const rankString = !isNaN(rank)
     ? `RANK #${abbreviateNumber(isNumber(rank, 'rankData:rank'))}`
     : '';
@@ -620,7 +629,7 @@ function genXpBar(options, font) {
     ? `Lvl ${abbreviateNumber(isNumber(level, 'rankData:level'))}`
     : '';
 
-  // Definir colores del rango
+  // Define range colors
   const rankColors = {
     gold: '#F1C40F',
     silver: '#a1a4c9',
@@ -647,7 +656,7 @@ function genXpBar(options, font) {
   ctx.fillStyle = levelColor ? formatAndValidateHex(levelColor) : '#dadada';
   ctx.fillText(`${lvlString}`, 674, 273);
 
-  // Fondo de la barra de progreso
+  // Progress bar background
   ctx.globalAlpha = 0.5;
   ctx.fillStyle = '#000';
   ctx.beginPath();
@@ -655,33 +664,33 @@ function genXpBar(options, font) {
   ctx.fill();
   ctx.globalAlpha = 1;
 
-  // Manejar la opción de color como string o array de strings
+  // Handling color option as string or array of strings
   let barColors = [];
   if (typeof options.rankData.barColor === 'string') {
-    barColors.push(formatAndValidateHex(options.rankData.barColor)); // Validar si es un solo color
+    barColors.push(formatAndValidateHex(options.rankData.barColor)); // Validate if it is a single color
   } else if (Array.isArray(options.rankData.barColor)) {
-    barColors = options.rankData.barColor.map(color => formatAndValidateHex(color)); // Validar si es array
+    barColors = options.rankData.barColor.map(color => formatAndValidateHex(color)); // Validate if it is array
   } else {
-    throw new APIError('El color de la barra debe ser un string o un array de strings');
+    throw new APIError('The color of the bar must be a string or an array of strings');
   }
 
   if (barColors.length > 20) {
     throw new APIError(
-      `La longitud de barra de color no válida (${barColors.length}) debe tener un máximo de 20 colores`
+      `Invalid color bar length (${barColors.length}) must have a maximum of 20 colors`
     );
   }
 
-  // Calcular el ancho de la barra de progreso según el XP
+  // Calculate progress bar width based on XP
   const barWidth = Math.round((currentXp * 556) / requiredXp);
 
-  // Crear el degradado para la barra
+  // Create the gradient for the bar
   const grd = ctx.createLinearGradient(304, 197, 860, 197);
   for (let i = 0; i < barColors.length; i++) {
-    const stop = i / (barColors.length - 1); // Distribuir los colores equitativamente
+    const stop = i / (barColors.length - 1); // Distribute the colors evenly
     grd.addColorStop(stop, barColors[i]);
   }
 
-  // Dibujar la barra de progreso
+  // Draw the progress bar
   ctx.fillStyle = grd;
   ctx.beginPath();
   ctx.roundRect(304, 187 - mY, barWidth, 36, [14]);
@@ -691,8 +700,9 @@ function genXpBar(options, font) {
 }
 
 /**
- * Sombras para el canvas
- * @param {Image | Canvas} canvasToEdit Imagen o canvas a editar
+ * @name addShadow
+ * @description Shadows for the canvas
+ * @param {Image | Canvas} canvasToEdit Image or canvas to edit
  * @returns {Promise<Buffer>} Canvas
  */
 function addShadow(canvasToEdit) {

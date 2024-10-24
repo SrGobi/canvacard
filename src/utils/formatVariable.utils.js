@@ -1,8 +1,9 @@
 /**
- * Obtiene variables y tipos.
- * @param {object} prefix El tipo de variable
- * @param {object} variable La variable a cambiar
- * @returns La variable formateada
+ * @name formatVariable
+ * @description Gets variables and types.
+ * @param {object} prefix The type of variable
+ * @param {object} variable The variable to change
+ * @returns {string} The formatted variable
  */
 function formatVariable(prefix, variable) {
   return prefix + variable.toLowerCase()
