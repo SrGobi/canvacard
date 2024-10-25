@@ -185,12 +185,12 @@ declare class Rank {
      * @param {string} name Username of the user
      * @param {string} [discriminator="0"] Discriminator of the user
      * @param {string} [color="#FFFFFF"] Color of the username
-     * @param {string} customUsername Custom username
-     * @param {string} customTag Custom tag
+     * @param {string} [customUsername=null] Custom username
+     * @param {string} [customTag=null] Custom tag
      * @returns {Rank} The current instance of Rank
      * @throws {APIError} If the URL or asset is invalid
      */
-    setUsername(name: string, discriminator?: string, color?: string, customUsername: string, customTag: string): Rank;
+    setUsername(name: string, discriminator?: string, color?: string, customUsername?: string, customTag?: string): Rank;
     /**
      * @method setCurrentXP
      * @name setCurrentXP
