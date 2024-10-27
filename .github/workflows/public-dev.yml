@@ -55,7 +55,7 @@ jobs:
         if: steps.release-check.outputs.release == '1'
         id: publish
         run: |
-          pnpm version release --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
+          pnpm version prerelease --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
           pnpm publish --provenance --tag dev --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }} # Autenticación con NPM
