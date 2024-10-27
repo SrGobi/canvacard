@@ -44,6 +44,6 @@ jobs:
 
       # Publicar el paquete en NPM
       - name: Publish to NPM
-        run: pnpm publish --access public --no-git-checks  # Publica el paquete en NPM
+        run: pnpm publish --provenance --access public --no-git-checks  # Publica el paquete en NPM
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}  # Autenticación con NPM

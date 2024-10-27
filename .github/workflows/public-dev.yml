@@ -3,7 +3,7 @@ name: Publish Dev Version
 
 on:
   schedule:
-    - cron: '0 */12 * * *' # Se ejecuta cada 12 horas
+    - cron: '0 0 * * *' # Se ejecuta cada 24 horas a medianoche
   workflow_dispatch: # También se puede ejecutar manualmente
 
 jobs:
@@ -36,18 +36,27 @@ jobs:
           cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
 
+      # Comprobar la versión actual de desarrollo
+      - name: Check current dev version
+        id: release-check
+        run: |
+          if [[ $(npm view ${{ github.event.repository.name }}@dev version | grep -e "$(git rev-parse --short HEAD)") ]]; \
+            then echo "RELEASE=0" >> "$GITHUB_OUTPUT"; \
+            else echo "RELEASE=1" >> "$GITHUB_OUTPUT"; \
+          fi
+
       # Instalar las dependencias
       - name: Install dependencies
+        if: steps.release-check.outputs.release == '1'
         run: pnpm install --frozen-lockfile --ignore-scripts
 
       # Publicar una versión de desarrollo en NPM
       - name: Publish Dev Version
+        if: steps.release-check.outputs.release == '1'
         id: publish
         run: |
-          TIMESTAMP=$(date +%s)
-          COMMIT=$(git rev-parse --short HEAD)
-          pnpm version prerelease --preid "dev.$TIMESTAMP-$COMMIT"
-          pnpm publish --tag dev --access public --no-git-checks
+          pnpm version release --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
+          pnpm publish --provenance --tag dev --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }} # Autenticación con NPM
 

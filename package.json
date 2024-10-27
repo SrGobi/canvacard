@@ -91,6 +91,10 @@
   "bugs": {
     "url": "https://github.com/SrGobi/Canvacard/issues"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "homepage": "https://canvacard.srgobi.com",
   "dependencies": {
     "@napi-rs/canvas": "^0.1.58",
