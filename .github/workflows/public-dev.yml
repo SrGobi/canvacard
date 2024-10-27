@@ -62,6 +62,7 @@ jobs:
 
       # Deprecate prior development releases
       - name: Deprecate prior development releases
+        if: steps.release-check.outputs.release == '1'
         run: |
           for version in $(npm view ${{ github.event.repository.name }} versions --json | jq -r '.[] | select(. | contains("dev."))'); do
             pnpm exec npm deprecate ${{ github.event.repository.name }}@$version "This version is deprecated. Please use a newer version."
