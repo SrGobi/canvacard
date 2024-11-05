@@ -2,8 +2,6 @@
 name: Publish Dev Version
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Se ejecuta cada 24 horas a medianoche
   workflow_dispatch: # También se puede ejecutar manualmente
 
 jobs:
