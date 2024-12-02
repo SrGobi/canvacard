@@ -37,6 +37,7 @@ export declare namespace MSX {
     let Threshold: (img: any, amount?: number) => Promise<Buffer>;
     let Trigger: (image: any, TRIGGERED: any) => Promise<any>;
 }
+export declare function registerFont(filePath: any, options: any): void;
 export declare let write: typeof import("./src/Canvacard").write;
 export declare let author: string;
 export declare let version: any;
