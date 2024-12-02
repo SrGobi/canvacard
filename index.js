@@ -25,7 +25,6 @@ module.exports = {
   registerFont: (filePath, nameAlias) => {
     try {
       Canvas.GlobalFonts.registerFromPath(filePath, nameAlias); // Registrar la fuente usando la biblioteca canvas
-      console.log(`Fuente registrada: ${nameAlias}`);
     } catch (error) {
       console.error(`Error al registrar la fuente: ${error}`);
     }
