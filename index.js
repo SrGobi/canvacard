@@ -1,6 +1,6 @@
 // Created and maintained by SrGobi
 const Canvacard = require("./src/Canvacard");
-const { registerFont } = require("canvas");
+const Canvas = require("@napi-rs/canvas");
 
 module.exports = {
   Canvas: Canvacard,
@@ -22,12 +22,12 @@ module.exports = {
     Threshold: require("./libs/Threshold"),
     Trigger: require("./libs/Trigger")
   },
-  registerFont: (filePath, options) => {
+  registerFont: (filePath, nameAlias) => {
     try {
-      registerFont(filePath, options); // Registrar la fuente usando la biblioteca canvas
-      console.log(`Fuente registrada: ${options.family}`);
+      Canvas.GlobalFonts.registerFromPath(filePath, nameAlias); // Registrar la fuente usando la biblioteca canvas
+      console.log(`Fuente registrada: ${nameAlias}`);
     } catch (error) {
-      console.error(`Error al registrar la fuente: ${error.message}`);
+      console.error(`Error al registrar la fuente: ${error}`);
     }
   },
   write: Canvacard.write,
