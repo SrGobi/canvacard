@@ -19,7 +19,7 @@ const canvacard = require("canvacard");
 ```
 
 For **EsModule** And **TypeScript**
-```javascript
+```typescript
 import canvacard from "canvacard";
 ```
 
@@ -40,6 +40,34 @@ import canvacard from "canvacard";
 - 🛠️ **Object Oriented Design** - Canvacard is built with an object-oriented programming approach, making it easy to reuse and create complex cards.
 
 - 🤓 **Ideal for beginners** - The API and documentation are simple, making it accessible even to those with little experience handling images.
+
+- 🔡 **Register fonts** - Not only can you use the fonts from your machine, if you also use it for a server you can register the fonts you want!
+
+For **CommonJS**
+```javascript
+const { registerFont } = require("canvacard");
+
+// Path to source file and alias
+const fontPath = "./path/to/font.ttf";
+const fontName = "CustomFont";
+
+registerFont(fontPath, fontName);
+
+console.log(`Fuente ${fontName} registrada exitosamente.`);
+```
+
+For **EsModule** And **TypeScript**
+```typescript
+import { registerFont } from "canvacard";
+
+// Define types for clarity
+const fontPath: string = "./path/to/font.ttf";
+const fontName: string = "CustomFont";
+
+registerFont(fontPath, fontName);
+
+console.log(`Fuente ${fontName} registrada exitosamente.`);
+```
 
 # 📦Examples
 

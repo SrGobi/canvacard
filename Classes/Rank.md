@@ -20,7 +20,7 @@
 <dt><a href="#setBorder">setBorder(color, allign)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
 <dd><p>Set the border of the card</p>
 </dd>
-<dt><a href="#setUsername">setUsername(name, [discriminator], [color], customUsername, customTag)</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
+<dt><a href="#setUsername">setUsername(name, [discriminator], [color], [customUsername], [customTag])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
 <dd><p>Set the username of the user</p>
 </dd>
 <dt><a href="#setCurrentXP">setCurrentXP(data, [color])</a> ⇒ <code><a href="#Rank">Rank</a></code></dt>
@@ -56,20 +56,7 @@
 <a name="new_Rank_new"></a>
 
 ### new Rank(userId)
-Rank card creator
-<details open>
- <summary>PREVIEW</summary>
-<br>
-  <a>
-    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
-  </a>
-  <a>
-    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
-  </a>
-  <a>
-    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
-  </a>
-</details>
+Rank card creator<details open> <summary>PREVIEW</summary><br>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">  </a>  <a>    <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">  </a></details>
 
 
 | Param | Type | Description |
@@ -93,8 +80,7 @@ const rank = new canvacard.Rank(data.id)
   .setCreatedTimestamp(data.createdTimestamp);
 
 const rankImage = await rank.build("Cascadia Code PL");
-canvacard.write(rankImage, "./rank.png");
-```
+canvacard.write(rankImage, "./rank.png");```
 <a name="setAvatar"></a>
 
 ## setAvatar(avatarUrl, AvatarDecorationData, squareAvatar) ⇒ [<code>Rank</code>](#Rank)
@@ -170,7 +156,7 @@ Set the border of the card
 
 <a name="setUsername"></a>
 
-## setUsername(name, [discriminator], [color], customUsername, customTag) ⇒ [<code>Rank</code>](#Rank)
+## setUsername(name, [discriminator], [color], [customUsername], [customTag]) ⇒ [<code>Rank</code>](#Rank)
 Set the username of the user
 
 **Kind**: global function  
@@ -185,8 +171,8 @@ Set the username of the user
 | name | <code>string</code> |  | Username of the user |
 | [discriminator] | <code>string</code> | <code>&quot;\&quot;0\&quot;&quot;</code> | Discriminator of the user |
 | [color] | <code>string</code> | <code>&quot;\&quot;#FFFFFF\&quot;&quot;</code> | Color of the username |
-| customUsername | <code>string</code> |  | Custom username |
-| customTag | <code>string</code> |  | Custom tag |
+| [customUsername] | <code>string</code> | <code>null</code> | Custom username |
+| [customTag] | <code>string</code> | <code>null</code> | Custom tag |
 
 <a name="setCurrentXP"></a>
 
