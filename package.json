@@ -1,6 +1,6 @@
 {
   "name": "canvacard",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "Powerful image manipulation package for beginners.",
   "main": "index.js",
   "types": "typings/index.d.ts",
@@ -97,11 +97,11 @@
   },
   "homepage": "https://canvacard.srgobi.com",
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.58",
+    "@napi-rs/canvas": "^0.1.65",
     "@skyra/gifenc": "^1.0.1"
   },
   "devDependencies": {
-    "@types/node": "^22.7.9",
-    "typescript": "^5.6.3"
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
   }
 }
