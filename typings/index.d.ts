@@ -28,13 +28,13 @@ export declare let Plugins: {
 };
 export declare let Assets: typeof import("./src/AssetsFactory");
 export declare namespace MSX {
-    let Brightness: (img: any, amount: any) => Promise<Buffer>;
-    let Convolute: (img: any, matrix: any, opaque: any, lvl: any) => Promise<Buffer>;
-    let Darkness: (img: any, amount: any) => Promise<Buffer>;
-    let Greyscale: (img: any) => Promise<Buffer>;
-    let Invert: (img: any) => Promise<Buffer>;
-    let Sepia: (img: any) => Promise<Buffer>;
-    let Threshold: (img: any, amount?: number) => Promise<Buffer>;
+    let Brightness: (img: any, amount: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Convolute: (img: any, matrix: any, opaque: any, lvl: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Darkness: (img: any, amount: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Greyscale: (img: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Invert: (img: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Sepia: (img: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Threshold: (img: any, amount?: number) => Promise<Buffer<ArrayBufferLike>>;
     let Trigger: (image: any, TRIGGERED: any) => Promise<any>;
 }
 export declare function registerFont(filePath: any, nameAlias: any): void;

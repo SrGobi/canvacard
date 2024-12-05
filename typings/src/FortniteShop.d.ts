@@ -57,9 +57,6 @@ declare class FortniteShop {
      * @throws {APIError} If the token is not provided
      */
     build(font?: string): Promise<Buffer>;
-    getRarityValue(rarity: any): any;
     getRarityColors(rarity: any): any;
-    drawItemName(ctx: any, text: any, x: any, y: any, maxWidth: any, font: any): void;
-    drawItemPrice(ctx: any, price: any, x: any, y: any, maxWidth: any, font: any): Promise<void>;
 }
 //# sourceMappingURL=FortniteShop.d.ts.map
