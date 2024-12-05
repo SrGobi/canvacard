@@ -96,7 +96,6 @@ class FortniteShop {
         }));
 
         items = items.concat(itemData);
-        console.log(items);
       }
     }
 
