@@ -3,6 +3,7 @@ const fs = require("fs");
 const APIError = require("./utils/error.utils");
 const formatVariable = require("./utils/formatVariable.utils");
 const parseSvg = require("./utils/parseSvg.utils");
+const formatAndValidateHex = require("./utils/formatAndValidateHex.utils");
 
 /**
  * @kind class
@@ -109,12 +110,7 @@ class FortniteShop {
           image: entry.bundle.image,
           price: entry.finalPrice,
           section: entry.section?.name || "Featured",
-          colors: entry.bundle.colors || {
-            "color1": "00baceff",
-            "color2": "003659ff",
-            "color3": "1eb076ff",
-            "textBackgroundColor": "003659ff"
-          } // Colors for gradient
+          colors: entry.colors // Colors for gradient
         });
       } else if (entry.brItems) {
         const itemData = entry.brItems.map(item => ({
@@ -125,7 +121,7 @@ class FortniteShop {
           image: item.images?.featured || item.images?.icon || item.images?.smallIcon || "",
           price: entry.finalPrice,
           section: entry.section?.name || "Daily",
-          colors: item.series?.colors || ["#ffffff", "#000000"] // Array of colors for gradient
+          colors: item?.series?.colors // Array of colors for gradient
         }));
         items = items.concat(itemData);
       }
@@ -152,12 +148,8 @@ class FortniteShop {
     // Calculate total height based on sections
     const rows = Math.ceil(items.filter(i => i.type === "item").length / itemsPerRow) + Math.ceil(items.filter(i => i.type === "bundle").length / itemsPerRow);
 
-    console.log("Rows", rows);
-
     const canvasHeight = rows * (itemHeight + padding) + (headerHeight + sectionPadding) + 300;
 
-    console.log("Total width", canvasWidth);
-    console.log("Total height", canvasHeight);
     const canvas = createCanvas(canvasWidth, canvasHeight);
     const ctx = canvas.getContext("2d");
 
@@ -231,15 +223,37 @@ class FortniteShop {
     return canvas.toBuffer("image/png");
   }
 
+  // New method to draw colored rounded rectangles
+  getItemColors(item) {
+    if (item.type === "bundle") {
+      // Validar los colores a hexadecimal
+      const color1 = formatAndValidateHex(item.colors.color1);
+      const color2 = formatAndValidateHex(item.colors.color2);
+      return [color1, color2];
+    } else if (item.type === "item") {
+      if (item.colors) {
+        // Si tiene colores, toma los dos primeros y los valida
+        const color1 = formatAndValidateHex(item.colors[0]);
+        const color2 = formatAndValidateHex(item.colors[1]);
+        return [color1, color2];
+      } else {
+        // Si no tiene series.colors, obtiene los colores por rareza
+        return this.getRarityColors(item.rarity);
+      }
+    }
+    // Si no hay colores definidos, usa un gradiente por defecto
+    return ["#ffffff", "#000000"];
+  }
+
   // New method to draw individual item cards
   async drawItemCard(ctx, item, x, y, width, height, font) {
-    // Get rarity colors
-    const colors = this.getRarityColors(item.rarity);
+
+    const colors = this.getItemColors(item);
 
     // Draw card background with gradient
     const cardGradient = ctx.createLinearGradient(x, y, x, y + height);
-    cardGradient.addColorStop(0, colors.colorCenter);
-    cardGradient.addColorStop(1, colors.colorBorder);
+    cardGradient.addColorStop(0, colors[0]);
+    cardGradient.addColorStop(1, colors[1]);
 
     // Card shadow
     ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
@@ -283,26 +297,11 @@ class FortniteShop {
   // Updated rarity colors method
   getRarityColors(rarity) {
     const rarities = {
-      "EFortRarity::Legendary": {
-        colorBorder: '#ea8d23',
-        colorCenter: 'rgba(233, 141, 75, 0.9)'
-      },
-      "EFortRarity::Epic": {
-        colorBorder: '#c359ff',
-        colorCenter: 'rgba(233, 94, 255, 0.9)'
-      },
-      "EFortRarity::Rare": {
-        colorBorder: '#2cc1ff',
-        colorCenter: 'rgba(55, 209, 255, 0.9)'
-      },
-      "EFortRarity::Uncommon": {
-        colorBorder: '#69bb1e',
-        colorCenter: 'rgba(135, 227, 57, 0.9)'
-      },
-      "EFortRarity::Common": {
-        colorBorder: '#bebebe',
-        colorCenter: 'rgba(177, 177, 177, 0.9)'
-      }
+      "EFortRarity::Legendary": ['#ea8d23', 'rgba(233, 141, 75, 0.9)'],
+      "EFortRarity::Epic": ['#c359ff', 'rgba(233, 94, 255, 0.9)'],
+      "EFortRarity::Rare": ['#2cc1ff', 'rgba(55, 209, 255, 0.9)'],
+      "EFortRarity::Uncommon": ['#69bb1e', 'rgba(135, 227, 57, 0.9)'],
+      "EFortRarity::Common": ['#bebebe', 'rgba(177, 177, 177, 0.9)'],
     };
     return rarities[rarity] || rarities["EFortRarity::Uncommon"];
   }

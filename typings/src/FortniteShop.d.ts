@@ -30,6 +30,7 @@ declare class FortniteShop {
         lang: string;
         dateFormat: string;
     };
+    rows: number;
     /**
      * @method setToken
      * @name setToken
@@ -39,6 +40,15 @@ declare class FortniteShop {
      * @throws {APIError} If the value is not a string
      */
     setToken(value: string): FortniteShop;
+    /**
+     * @method setRows
+     * @name setRows
+     * @description Set the number of rows for the Fortnite Shop card
+     * @param {number} value Number of rows to set for the card
+     * @returns {FortniteShop} The current instance of FortniteShop
+     * @throws {APIError} If the value is not a number
+     */
+    setRows(value: number): FortniteShop;
     /**
      * @method setText
      * @name setText
@@ -57,6 +67,8 @@ declare class FortniteShop {
      * @throws {APIError} If the token is not provided
      */
     build(font?: string): Promise<Buffer>;
+    getItemColors(item: any): any;
+    drawItemCard(ctx: any, item: any, x: any, y: any, width: any, height: any, font: any): Promise<void>;
     getRarityColors(rarity: any): any;
 }
 //# sourceMappingURL=FortniteShop.d.ts.map
