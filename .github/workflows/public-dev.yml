@@ -8,6 +8,9 @@ jobs:
   publish-dev:
     name: Build & Publish Dev Version
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
 
     steps:
       # Checkout del código del repositorio
@@ -54,7 +57,7 @@ jobs:
         id: publish
         run: |
           pnpm version prerelease --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
-          pnpm publish --provenance --tag dev --access public --no-git-checks
+          pnpm publish --provenance --tag dev --access public --no-git-checks --no-provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }} # Autenticación con NPM
 
