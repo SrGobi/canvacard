@@ -84,133 +84,212 @@ class FortniteShop {
     const shopData = await shopRequest.json();
     const entries = shopData.data.entries || [];
 
+    // Process items same as before
     let items = [];
     for (const entry of entries) {
-      if (entry.brItems) {
+      if (entry.bundle) {
+        items.push({
+          type: "bundle",
+          name: entry.bundle.name,
+          image: entry.bundle.image,
+          price: entry.finalPrice,
+          section: entry.section?.name || "Featured",
+          colors: entry.bundle.colors || {
+            "color1": "00baceff",
+            "color2": "003659ff",
+            "color3": "1eb076ff",
+            "textBackgroundColor": "003659ff"
+          } // Colors for gradient
+        });
+      } else if (entry.brItems) {
         const itemData = entry.brItems.map(item => ({
+          type: "item",
           name: item.name,
           description: item.description,
-          rarity: item.rarity?.backendValue || "Unknown",
-          image: item.images?.icon || item.images?.small || item.images?.large || "",
+          rarity: item.rarity?.backendValue || "Common",
+          image: item.images?.featured || item.images?.icon || item.images?.smallIcon || "",
           price: entry.finalPrice,
+          section: entry.section?.name || "Daily",
+          colors: item.series?.colors || ["#ffffff", "#000000"] // Array of colors for gradient
         }));
-
         items = items.concat(itemData);
       }
     }
 
-    // Configuración del canvas
-    const itemsPerRow = 8;
-    const itemWidth = 384;
-    const itemHeight = 384;
-    const padding = 15;
-    const rows = Math.ceil(items.length / itemsPerRow);
-    const canvasWidth = itemsPerRow * itemWidth + (itemsPerRow - 1) * padding;
-    const canvasHeight = rows * itemHeight + (rows - 1) * padding + 300;
+    // Group items by section
+    const sections = {};
+    items.forEach(item => {
+      if (!sections[item.section]) sections[item.section] = [];
+      sections[item.section].push(item);
+    });
 
+    // Canvas setup with new dimensions
+    const itemsPerRow = 12;
+    const itemWidth = 512;
+    const itemHeight = 512;
+    const padding = 20;
+    const headerHeight = 100;
+    const sectionPadding = 60;
+
+    // Calculate total width based on sections
+    const canvasWidth = itemsPerRow * (itemWidth + padding) + padding;
+
+    // Calculate total height based on sections
+    const rows = Math.ceil(items.filter(i => i.type === "item").length / itemsPerRow) + Math.ceil(items.filter(i => i.type === "bundle").length / itemsPerRow);
+
+    console.log("Rows", rows);
+
+    const canvasHeight = rows * (itemHeight + padding) + (headerHeight + sectionPadding) + 300;
+
+    console.log("Total width", canvasWidth);
+    console.log("Total height", canvasHeight);
     const canvas = createCanvas(canvasWidth, canvasHeight);
     const ctx = canvas.getContext("2d");
 
-    // Create a blue circular radial gradient
-    const gradient = ctx.createRadialGradient(
-      canvasWidth / 2,   // X center of gradient
-      canvasHeight / 2,  // Y center of gradient
-      0,                 // Start radius (0 to start at a point)
-      canvasWidth / 2,   // X center of gradient
-      canvasHeight / 2,  // Y center of gradient
-      canvasWidth    // Final radius set to canvas width
-    );
-    gradient.addColorStop(0, '#0064BD');  // Light Blue (SkyBlue)
-    gradient.addColorStop(1, '#001E8E');  // Dark blue
-
-    // Apply gradient as background
+    // Create gradient background
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, '#1e3c72');
+    gradient.addColorStop(1, '#2a5298');
     ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     // Draw header
-    ctx.fillStyle = "#ffffff";
-    ctx.font = `70px ${font}`;
-    ctx.textAlign = "center";
-    ctx.fillText(this.textHeader, canvas.width / 2, 100);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold 60px ${font}`;
+    ctx.textAlign = 'center';
+    ctx.fillText(this.textHeader.toUpperCase(), canvas.width / 2, 70);
 
-    // Initialize position variables
-    let currentRow = 0;
-    let currentColumn = 0;
+    // Draw date
+    const date = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    ctx.font = `30px ${font}`;
+    ctx.fillText(date, canvas.width / 2, 110);
 
-    // Iterate over the items and draw them on the canvas
-    for (const item of items) {
+    // Draw sections
+    let currentY = headerHeight + padding;
 
-      // Calculate item position based on current column and row
-      const x = currentColumn * (itemWidth + padding);
-      const y = 200 + currentRow * (itemHeight + padding);
+    for (const [sectionName, sectionItems] of Object.entries(sections)) {
+      // Section header
+      ctx.font = `bold 40px ${font}`;
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'left';
+      ctx.fillText(sectionName.toUpperCase(), padding, currentY + 40);
+      currentY += 60;
 
-      // Get colors by rarity
-      const rarityColors = this.getRarityColors(item.rarity || 'EFortRarity::Common');
+      // Draw items in grid
+      let currentX = padding;
+      let maxRowHeight = 0;
 
-      // Draw the item background
-      ctx.fillStyle = rarityColors.colorCenter;
-      ctx.fillRect(x, y, itemWidth, itemHeight); // Background for the article
+      for (let i = 0; i < sectionItems.length; i++) {
+        const item = sectionItems[i];
 
-      ctx.beginPath();
+        if (currentX + itemWidth > canvas.width - padding) {
+          currentX = padding;
+          currentY += maxRowHeight + padding;
+          maxRowHeight = 0;
+        }
 
-      // Imagen
-      try {
-        const image = await loadImage(item.image);
-        ctx.drawImage(image, x, y, itemWidth, itemHeight);
-      } catch {
-        console.error("Error cargando imagen de item", item.name);
+        // Draw item card
+        await this.drawItemCard(ctx, item, currentX, currentY, itemWidth, itemHeight, font);
+
+        currentX += itemWidth + padding;
+        maxRowHeight = Math.max(maxRowHeight, itemHeight);
+
+        if (i === sectionItems.length - 1) {
+          currentY += maxRowHeight + padding;
+        }
       }
 
-      ctx.globalAlpha = 1;
-      ctx.closePath();
-      ctx.save();
-
-      ctx.beginPath();
-      const overlay = await loadImage(`${__dirname}/../assets/images/fortnite/shop/SmallOverlay.png`);
-      ctx.drawImage(overlay, x, y, itemWidth, itemHeight);
-
-      ctx.closePath();
-      ctx.save();
-
-      // Nombre
-      ctx.fillStyle = "#FFFFFF";
-      ctx.font = `30px ${font}`;
-      ctx.fillText(item.name, x + itemWidth / 2, y + itemHeight - 50);
-
-      // Precio
-      ctx.fillStyle = "#FFFFFF";
-      ctx.font = `30px ${font}`;
-      ctx.fillText(`${item.price}`, x + itemWidth / 2, y + itemHeight - 20);
-
-      currentColumn++;
-      if (currentColumn >= itemsPerRow) {
-        currentColumn = 0;
-        currentRow++;
-      }
+      currentY += sectionPadding;
     }
 
-    // Pie de página
-    ctx.fillStyle = "#ffffff";
-    ctx.font = `50px ${font}`;
-    ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 50);
-
-    // Save Image
-    const outputPath = `${__dirname}/../assets/images/fortnite/shop/output.png`;
-    const buffer = canvas.toBuffer("image/png");
-    fs.writeFileSync(outputPath, buffer);
+    // Draw footer
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `30px ${font}`;
+    ctx.textAlign = 'center';
+    ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 30);
 
     return canvas.toBuffer("image/png");
   }
-  // Function to get colors based on item rarity
+
+  // New method to draw individual item cards
+  async drawItemCard(ctx, item, x, y, width, height, font) {
+    // Get rarity colors
+    const colors = this.getRarityColors(item.rarity);
+
+    // Draw card background with gradient
+    const cardGradient = ctx.createLinearGradient(x, y, x, y + height);
+    cardGradient.addColorStop(0, colors.colorCenter);
+    cardGradient.addColorStop(1, colors.colorBorder);
+
+    // Card shadow
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 5;
+
+    // Draw rounded rectangle
+    ctx.beginPath();
+    ctx.roundRect(x, y, width, height, 15);
+    ctx.fillStyle = cardGradient;
+    ctx.fill();
+
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+
+    // Draw item image
+    try {
+      const image = await loadImage(item.image);
+      const imageSize = Math.min(width - 40, height - 100);
+      const imageX = x + (width - imageSize) / 2;
+      const imageY = y + 20;
+
+      ctx.drawImage(image, imageX, imageY, imageSize, imageSize);
+    } catch (error) {
+      console.error(`Error loading image for ${item.name}:`, error);
+    }
+
+    // Draw item name
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold 20px ${font}`;
+    ctx.textAlign = 'center';
+    ctx.fillText(item.name, x + width / 2, y + height - 60, width - 20);
+
+    // Draw price with V-Bucks icon
+    ctx.font = `bold 24px ${font}`;
+    ctx.fillText(`${item.price} V-Bucks`, x + width / 2, y + height - 20);
+  }
+
+  // Updated rarity colors method
   getRarityColors(rarity) {
     const rarities = {
-      "EFortRarity::Legendary": { colorBorder: "#e98d4b", colorCenter: "#ea8d23" },
-      "EFortRarity::Epic": { colorBorder: "#e95eff", colorCenter: "#c359ff" },
-      "EFortRarity::Rare": { colorBorder: "#37d1ff", colorCenter: "#2cc1ff" },
-      "EFortRarity::Uncommon": { colorBorder: "#87e339", colorCenter: "#69bb1e" },
-      "EFortRarity::Common": { colorBorder: "#b1b1b1", colorCenter: "#bebebe" }
+      "EFortRarity::Legendary": {
+        colorBorder: '#ea8d23',
+        colorCenter: 'rgba(233, 141, 75, 0.9)'
+      },
+      "EFortRarity::Epic": {
+        colorBorder: '#c359ff',
+        colorCenter: 'rgba(233, 94, 255, 0.9)'
+      },
+      "EFortRarity::Rare": {
+        colorBorder: '#2cc1ff',
+        colorCenter: 'rgba(55, 209, 255, 0.9)'
+      },
+      "EFortRarity::Uncommon": {
+        colorBorder: '#69bb1e',
+        colorCenter: 'rgba(135, 227, 57, 0.9)'
+      },
+      "EFortRarity::Common": {
+        colorBorder: '#bebebe',
+        colorCenter: 'rgba(177, 177, 177, 0.9)'
+      }
     };
-    return rarities[rarity] || rarities.common;  // Use common by default
+    return rarities[rarity] || rarities["EFortRarity::Uncommon"];
   }
 }
 
