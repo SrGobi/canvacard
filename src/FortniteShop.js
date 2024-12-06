@@ -33,6 +33,7 @@ class FortniteShop {
     this.textHeader = "FORTNITE ITEMS SHOP";
     this.textFooter = "Generated with canvascard";
     this.options = { lang: "es", dateFormat: "dddd, MMMM Do YYYY" };
+    this.rows = 8;
   }
 
   /**
@@ -46,6 +47,20 @@ class FortniteShop {
   setToken(value) {
     if (!value || typeof value !== "string") throw new APIError("Please provide a valid token for fortnite-api.com!");
     this.token = value;
+    return this;
+  }
+
+  /**
+   * @method setRows
+   * @name setRows
+   * @description Set the number of rows for the Fortnite Shop card
+   * @param {number} value Number of rows to set for the card
+   * @returns {FortniteShop} The current instance of FortniteShop
+   * @throws {APIError} If the value is not a number
+   */
+  setRows(value) {
+    if (!value || typeof value !== "number") throw new APIError("Please provide a valid number of rows for fortnite-api.com!");
+    this.rows = value;
     return this;
   }
 
@@ -124,7 +139,7 @@ class FortniteShop {
     });
 
     // Canvas setup with new dimensions
-    const itemsPerRow = 12;
+    const itemsPerRow = this.rows;
     const itemWidth = 512;
     const itemHeight = 512;
     const padding = 20;
