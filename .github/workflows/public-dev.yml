@@ -57,7 +57,7 @@ jobs:
         id: publish
         run: |
           pnpm version prerelease --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
-          pnpm publish --provenance --tag dev --access public --no-git-checks --no-provenance
+          pnpm publish --no-provenance --tag dev --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }} # Autenticación con NPM
 
