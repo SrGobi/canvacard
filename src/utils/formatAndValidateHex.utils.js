@@ -13,13 +13,15 @@ function formatAndValidateHex(hex, alt = "#000000") {
   // Quitar el '#' si existe
   hex = hex.replace("#", "");
 
-  // Validar longitud y expandir si es necesario
-  if (hex.length === 3) {
+  // Si el código hexadecimal es menor a 6 caracteres, duplicar los caracteres
+  if (hex.length < 6) {
     hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
   }
 
-  // Validar que el código tenga 6 caracteres
-  if (hex.length !== 6) return alt;
+  // Si el código hexadecimal es mayor a 6 caracteres, cortar a 6 caracteres
+  if (hex.length > 6) {
+    hex = hex.slice(0, 6);
+  }
 
   // Regex para validar caracteres válidos
   const hexRegex = /^[A-Fa-f0-9]{6}$/;
