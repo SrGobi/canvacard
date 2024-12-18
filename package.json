@@ -1,0 +1,107 @@
+{
+  "name": "canvacard",
+  "version": "6.0.4",
+  "description": "Powerful image manipulation package for beginners.",
+  "main": "index.js",
+  "types": "typings/index.d.ts",
+  "files": [
+    "assets",
+    "libs",
+    "plugins",
+    "src",
+    "typings",
+    "index.js"
+  ],
+  "scripts": {
+    "test": "cd ../test && node .",
+    "types": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SrGobi/Canvacard.git"
+  },
+  "keywords": [
+    "api",
+    "assets",
+    "canvacard",
+    "canvas",
+    "canvas-constructor",
+    "canvacord",
+    "canvafy",
+    "card",
+    "cards",
+    "chart",
+    "chart.js",
+    "commonjs",
+    "configuration",
+    "constructor",
+    "discanvas",
+    "discord",
+    "discord-canvas",
+    "discord.js",
+    "discord-arts",
+    "easy",
+    "es6",
+    "esm",
+    "fast",
+    "fortnite",
+    "function",
+    "functions",
+    "graphic",
+    "graphics",
+    "image",
+    "images",
+    "leave",
+    "leaver",
+    "level",
+    "level-card",
+    "level-up",
+    "levelcard",
+    "levelup",
+    "manipulation",
+    "memegen",
+    "napi-rs",
+    "napi-rs/canvas",
+    "node-canvas",
+    "nodejs",
+    "png",
+    "profile",
+    "rank",
+    "rankcard",
+    "ship",
+    "simple",
+    "skia",
+    "skia-canvas",
+    "spotify",
+    "spotify-card",
+    "ts",
+    "ts-node",
+    "typescript",
+    "util",
+    "utils",
+    "welcome",
+    "welcomer"
+  ],
+  "author": "SrGobi",
+  "funding": {
+    "type": "individual",
+    "url": "https://paypal.me/SrGobiY"
+  },
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/SrGobi/Canvacard/issues"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "homepage": "https://canvacard.srgobi.com",
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.65",
+    "@skyra/gifenc": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
+  }
+}
