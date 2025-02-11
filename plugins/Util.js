@@ -7,10 +7,10 @@ momentDurationFormatSetup(moment);
 class Util {
 
     /**
-     * Canvacard Util
+     * Utilidades Canvacard
      */
     constructor() {
-        throw new Error(`La clase ${this.constructor.name} no puede ser instanciada`);
+        throw new Error(`The ${this.constructor.name} class may not be instantiated!`);
     }
 
     /**
@@ -24,7 +24,7 @@ class Util {
     }
 
     /**
-     * Convierte la marca de tiempo regular en discordia como el tiempo
+     * Convierte la marca de tiempo regular en discord como el tiempo
      * @param {Date|number} time Marca de tiempo para convertir
      * @returns {string}
      */
@@ -36,7 +36,7 @@ class Util {
     }
 
     /**
-     * Formatea el tiempo
+     * Formatea la hora
      * @param {number} time Hora de formatear
      * @returns {string}
      */
@@ -62,7 +62,7 @@ class Util {
     }
 
     /**
-     * Convierte números en unidades como `1K`, `1M`, `1B` etc.
+     * Convierte números en unidades como "1K", "1M", "1B", etc.
      * @param {number|string} num
      * @returns {string} 
      * @returns {string}
@@ -74,7 +74,7 @@ class Util {
     /**
      * Renderiza texto con emoji
      * @param {CanvasRenderingContext2D} ctx CanvasRenderingContext2D
-     * @param {string} msg Mensaje
+     * @param {string} msg Message
      * @param {number} x X
      * @param {number} y Y
      * @returns {Promise<void>}
