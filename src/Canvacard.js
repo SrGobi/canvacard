@@ -16,7 +16,7 @@ const Util = require("./Util");
 
 
 /**
- * Generador De Memes
+ * Canvacard Generador De Memes
  * @example const Canvacard = require("canvacard");
  * 
  * Canvacard.Canvas.trigger("./image.png")
@@ -36,115 +36,115 @@ class Canvacard {
 
     /**
      * Este método se puede utilizar para aplicar el efecto Disparado en la imagen.
-     * @param {string|Buffer} image Image to trigger
+     * @param {string|Buffer} image Imagen para activar
      * @returns {Promise<Buffer>}
      */
     static async trigger(image) {
-        if (!image) throw new Error("Expected image, received nothing!");
+        if (!image) throw new Error("Imagen esperada, no recibí nada!");
         await Canvacard.__wait();
-        return await Trigger(image, assets("IMAGE").TRIGGERED);
+        return await Trigger(image, Canvacard.assets.image.get("TRIGGERED"));
     }
 
     /**
      * Invierte el color de la imagen
-     * @param {string|Buffer} image Img to invert
+     * @param {string|Buffer} image Imagen para invertir
      * @returns {Promise<Buffer>}
      */
     static async invert(image) {
-        if (!image) throw new Error("Expected image, received nothing!");
+        if (!image) throw new Error("Imagen esperada, no recibí nada!");
         return await Invert(image);
     }
 
     /**
      * Aplicar lavado sepia en img
-     * @param {string|Buffer} image Img
+     * @param {string|Buffer} image Imagen
      * @returns {Promise<Buffer>}
      */
     static async sepia(image) {
-        if (!image) throw new Error("Expected image, received nothing!");
+        if (!image) throw new Error("Imagen esperada, no recibí nada!");
         return await Sepia(image);
     }
 
     /**
      * Efecto de escala de grises sobre la imagen
-     * @param {string|Buffer} image Img
+     * @param {string|Buffer} image Imagen
      * @returns {Promise<Buffer>}
      */
     static async greyscale(image) {
-        if (!image) throw new Error("Expected image, received nothing!");
+        if (!image) throw new Error("Imagen esperada, no recibí nada!");
         return await Greyscale(image);
     }
 
     /**
      * Editar el brillo de la imagen
-     * @param {string|Buffer} image Img
-     * @param {number} amount Brightness amount
+     * @param {string|Buffer} image Imagen
+     * @param {number} amount Cantidad de brillo
      * @returns {Promise<Buffer>}
      */
     static async brightness(image, amount) {
-        if (!image) throw new Error("Expected image, received nothing!");
-        if (isNaN(amount)) throw new Error("Amount must be a number!");
+        if (!image) throw new Error("Imagen esperada, no recibí nada!");
+        if (isNaN(amount)) throw new Error("¡La cantidad debe ser un número!");
         return await Brightness(image, amount);
     }
 
     /**
      * Editar la oscuridad de la imagen
-     * @param {string|Buffer} image Img
-     * @param {number} amount Darkness amount
+     * @param {string|Buffer} image Imagen
+     * @param {number} amount Cantidad de oscuridad
      * @returns {Promise<Buffer>}
      */
     static async darkness(image, amount) {
-        if (!image) throw new Error("Expected image, received nothing!");
-        if (isNaN(amount)) throw new Error("Amount must be a number!");
+        if (!image) throw new Error("Imagen esperada, no recibí nada!");
+        if (isNaN(amount)) throw new Error("¡La cantidad debe ser un número!");
         return await Darkness(image, amount);
     }
 
     /**
      * Umbral de imagen
-     * @param {string|Buffer} img Image
-     * @param {number} amount Threshold amount
+     * @param {string|Buffer} img Imagen
+     * @param {number} amount Cantidad límite
      * @returns {Promise<Buffer>}
      */
     static async threshold(img, amount) {
-        if (!img) throw new Error("Expected image, received nothing!");
-        if (isNaN(amount)) throw new Error("Amount must be a number!");
+        if (!img) throw new Error("Imagen esperada, no recibí nada!");
+        if (isNaN(amount)) throw new Error("¡La cantidad debe ser un número!");
         return await Threshold(img, amount);
     }
 
     /**
-     * Image Convolution
-     * @param {string|Buffer} img Image
-     * @param {number[]} matrix Convolution matrix
-     * @param {boolean} opaque If convolution should be opaque
+     * Convolución de la imagen
+     * @param {string|Buffer} img Imagen
+     * @param {number[]} matrix Matriz de convolución
+     * @param {boolean} opaque Si la convolución debe ser opaca
      * @returns {Promise<Buffer>}
      */
     static async convolute(img, matrix, opaque) {
-        if (!img) throw new Error("Expected image, received nothing!");
-        if (!Array.isArray(matrix)) throw new Error("Convolution matrix must be Array.");
+        if (!img) throw new Error("Imagen esperada, no recibí nada!");
+        if (!Array.isArray(matrix)) throw new Error("La matriz de convolución debe ser Array.");
         return await Convolute(img, matrix, opaque);
     }
 
     /**
-     * Creates Progress bar
-     * @param {object} track Progressbar track options
-     * @param {number} [track.x] The x-axis
-     * @param {number} [track.y] The y-axis
-     * @param {number} [track.width] Progressbar track width
-     * @param {number} [track.height] Progressbar track height
-     * @param {string} [track.color] Progressbar track color
-     * @param {boolean} [track.stroke] Use stroke for track
-     * @param {number} [track.lineWidth] This param will be used if `track.stroke` is set to `true`
-     * @param {object} bar Progressbar options
-     * @param {number} [bar.width] Progressbar width
-     * @param {string} [bar.color] Progressbar color
+     * Crea barra de progreso
+     * @param {object} track Opciones de pista de la barra de progreso
+     * @param {number} [track.x] El eje x
+     * @param {number} [track.y] El eje y
+     * @param {number} [track.width] Ancho de pista de la barra de progreso
+     * @param {number} [track.height] Altura de la pista de la barra de progreso
+     * @param {string} [track.color] Color de la pista de la barra de progreso
+     * @param {boolean} [track.stroke] Usar trazo para pista
+     * @param {number} [track.lineWidth] Este parámetro se utilizará si `track.stroke` se establece en` true`
+     * @param {object} bar Opciones de la barra de progreso
+     * @param {number} [bar.width] Ancho de la barra de progreso
+     * @param {string} [bar.color] Color de la barra de progreso
      * @returns {Buffer}
      */
     static createProgressBar(
         track = { x: false, y: false, width: false, height: false, color: false, stroke: false, lineWidth: false },
         bar = { width: false, color: false }
     ) {
-        if (!track) throw new Error("Invalid track args!");
-        if (!bar) throw new Error("Invalid progressbar args!");
+        if (!track) throw new Error("¡Args de pista no válidos!");
+        if (!bar) throw new Error("¡Args de la barra de progreso no válidos!");
 
         const canvas = Canvas.createCanvas(track.width, track.height);
         const ctx = canvas.getContext("2d");
@@ -164,12 +164,12 @@ class Canvacard {
     }
 
     /**
-     * Blur an image
-     * @param {string|Buffer} image Image to blur 
+     * Desenfocar una imagen
+     * @param {string|Buffer} image Imagen para difuminar 
      * @returns {Promise<Buffer>}
      */
     static async blur(image) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         const img = await Canvas.loadImage(image);
         const canvas = Canvas.createCanvas(img.width, img.height);
         const ctx = canvas.getContext("2d");
@@ -184,13 +184,13 @@ class Canvacard {
     }
 
     /**
-     * Pixelate
-     * @param {string|Buffer} image Image to pixelate 
-     * @param {number} pixels Pixels
+     * Pixelar
+     * @param {string|Buffer} image Imagen para pixelar
+     * @param {number} pixels Pixeles
      * @returns {Promise<Buffer>}
      */
     static async pixelate(image, pixels = 5) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         if (!pixels || typeof pixels !== "number") pixels = 100;
         if (pixels < 1) pixels = 100;
         if (pixels > 100) pixels = 100;
@@ -208,33 +208,33 @@ class Canvacard {
     }
 
     /**
-     * Sharpen an image
-     * @param {string|Buffer} image Image to sharpen 
-     * @param {number} lvl sharpness intensity
+     * Agudizar una imagen
+     * @param {string|Buffer} image Imagen para enfocar
+     * @param {number} lvl intensidad de la nitidez
      * @returns {Promise<Buffer>}
      */
     static async sharpen(image, lvl = 1) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         return await Convolute(image, Canvacard.CONVOLUTION_MATRIX.SHARPEN, true, lvl);
     }
 
     /**
-     * Applies burn effect on an image
-     * @param {string|Buffer} image Image source 
-     * @param {number} lvl intensity
+     * Aplica efecto de quemado en una imagen.
+     * @param {string|Buffer} image Fuente de imagen 
+     * @param {number} lvl intensidad
      * @returns {Promise<Buffer>}
      */
     static async burn(image, lvl = 1) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         return await Convolute(image, Canvacard.CONVOLUTION_MATRIX.BURN, true, lvl);
     }
 
     /**
-     * HTML5 color to image
-     * @param {string} color HTML5 color
-     * @param {boolean} displayHex If it should display hex
-     * @param {number} height Image height
-     * @param {number} width Image width
+     * HTML5 color a imagen
+     * @param {string} color Color HTML5
+     * @param {boolean} displayHex Si debe mostrar hexadecimal
+     * @param {number} height Altura de imagen
+     * @param {number} width Ancho de la imagen
      * @returns {Buffer}
      */
     static color(color = "#FFFFFF", displayHex = false, height = 1024, width = 1024) {
@@ -254,12 +254,12 @@ class Canvacard {
     }
 
     /**
-     * Creates circular image
-     * @param {string|Buffer} image Image source
+     * Crea una imagen circular
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async circle(image) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         const img = await Canvas.loadImage(image);
         const canvas = Canvas.createCanvas(img.width, img.height);
         const ctx = canvas.getContext("2d");
@@ -269,14 +269,14 @@ class Canvacard {
     }
 
     /**
-     * Creates a rectangle
-     * @param {number} x x-axis
-     * @param {number} y y-axis
-     * @param {number} width width
-     * @param {number} height height
+     * Crea un rectángulo
+     * @param {number} x eje x
+     * @param {number} y eje y
+     * @param {number} width ancho
+     * @param {number} height altura
      * @param {string} color color
-     * @param {boolean} stroke If it should stroke
-     * @param {number} lineWidth line width
+     * @param {boolean} stroke Si debe acariciar
+     * @param {number} lineWidth ancho de línea
      * @returns {Buffer}
      */
     static rectangle(x, y, width, height, color, stroke, lineWidth) {
@@ -288,14 +288,14 @@ class Canvacard {
     }
 
     /**
-     * Fuse two images
-     * @param {string|Buffer} image1 First image
-     * @param {string|Buffer} image2 Second image
+     * Imágenes de fusion two
+     * @param {string|Buffer} image1 Primera imagen
+     * @param {string|Buffer} image2 Segunda imagen
      * @returns {Promise<Buffer>}
      */
     static async fuse(image1, image2) {
-        if (!image1) throw new Error("Missing parameter 'image1'!");
-        if (!image2) throw new Error("Missing parameter 'image2'!");
+        if (!image1) throw new Error("Falta el parámetro 'imagen1'.");
+        if (!image2) throw new Error("Falta el parámetro 'imagen2'.");
 
         const img1 = await Canvas.loadImage(image1);
         const img2 = await Canvas.loadImage(image2);
@@ -310,14 +310,14 @@ class Canvacard {
     }
 
     /**
-     * Resize an image
-     * @param {string|Buffer} image Image source
-     * @param {number} width width
-     * @param {number} height height
+     * Cambiar el tamaño de una imagen
+     * @param {string|Buffer} image Fuente de imagen
+     * @param {number} width ancho
+     * @param {number} height altura
      * @returns {Promise<Buffer>}
      */
     static async resize(image, width, height) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         const img = await Canvas.loadImage(image);
         const w = width && !isNaN(width) ? width : img.width;
         const h = height && !isNaN(height) ? width : img.height;
@@ -328,18 +328,18 @@ class Canvacard {
     }
 
     /**
-     * Kiss each other ( ͡° ͜ʖ ͡°)
-     * @param {string|Buffer} image1 First image
-     * @param {string|Buffer} image2 Second image
+     * Besarse ( ͡° ͜ʖ ͡°)
+     * @param {string|Buffer} image1 Primera imagen
+     * @param {string|Buffer} image2 Segunda imagen
      * @returns {Promise<Buffer>}
      */
     static async kiss(image1, image2) {
-        if (!image1) throw new Error("First image was not provided!");
-        if (!image2) throw new Error("Second image was not provided!");
+        if (!image1) throw new Error("¡La primera imagen no fue proporcionada!");
+        if (!image2) throw new Error("¡La segunda imagen no fue proporcionada!");
         await this.__wait();
         const canvas = Canvas.createCanvas(768, 574);
         const ctx = canvas.getContext("2d");
-        const background = await Canvas.loadImage(Canvacard.assets("IMAGE").KISS);
+        const background = await Canvas.loadImage(Canvacard.assets.image.get("KISS"));
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
         const avatar = await Canvas.loadImage(image1);
         const avatar1 = await Canvas.loadImage(image2);
@@ -349,18 +349,18 @@ class Canvacard {
     }
 
     /**
-     * Spank someone ( ͡° ͜ʖ ͡°)
-     * @param {string|Buffer} image1 First image
-     * @param {string|Buffer} image2 Second image
+     * Azotar a alguien ( ͡° ͜ʖ ͡°)
+     * @param {string|Buffer} image1 Primera imagen
+     * @param {string|Buffer} image2 Segunda imagen
      * @returns {Promise<Buffer>}
      */
     static async spank(image1, image2) {
-        if (!image1) throw new Error("First image was not provided!");
-        if (!image2) throw new Error("Second image was not provided!");
+        if (!image1) throw new Error("¡La primera imagen no fue proporcionada!");
+        if (!image2) throw new Error("¡La segunda imagen no fue proporcionada!");
         await this.__wait();
         const canvas = Canvas.createCanvas(500, 500);
         const ctx = canvas.getContext("2d");
-        const background = await Canvas.loadImage(Canvacard.assets("IMAGE").SPANK);
+        const background = await Canvas.loadImage(Canvacard.assets.image.get("SPANK"));
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
         const avatar = await Canvas.loadImage(image1);
         const avatar1 = await Canvas.loadImage(image2);
@@ -370,45 +370,48 @@ class Canvacard {
     }
 
     /**
-     * Loads font
-     * @param {any[]} fontArray Font array
+     * Cargar fuentes
+     * @param {any[]} fontArray Matriz de fuentes
      * @returns {Promise<void>}
      */
     static async registerFonts(fontArray = []) {
+        if (!Canvacard.assets.font.loaded) await Canvacard.assets.font.load();
+        if (!Canvacard.assets.image.loaded) await Canvacard.assets.image.load();
+
         if (!fontArray.length) {
             await Canvacard.__wait();
             // default fonts
-            Canvas.registerFont(assets("FONT").MANROPE_BOLD, {
+            Canvas.registerFont(Canvacard.assets.font.get("MANROPE_BOLD"), {
                 family: "Manrope",
                 weight: "bold",
                 style: "normal"
             });
 
-            Canvas.registerFont(assets("FONT").MANROPE_REGULAR, {
+            Canvas.registerFont(Canvacard.assets.font.get("MANROPE_REGULAR"), {
                 family: "Manrope",
                 weight: "regular",
                 style: "normal"
             });
 
-            Canvas.registerFont(assets("FONT").WHITNEY_MEDIUM, {
+            Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
                 family: "Whitney",
                 weight: "regular",
                 style: "normal"
             });
 
-            Canvas.registerFont(assets("FONT").WHITNEY_BOOK, {
+            Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_BOOK"), {
                 family: "Whitney",
                 weight: "bold",
                 style: "normal"
             });
 
-            Canvas.registerFont(assets("FONT").ROBOTO_LIGHT, {
+            Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_LIGHT"), {
                 family: "Roboto",
                 weight: "light",
                 style: "normal"
             });
 
-            Canvas.registerFont(assets("FONT").ROBOTO_REGULAR, {
+            Canvas.registerFont(Canvacard.assets.font.get("ROBOTO_REGULAR"), {
                 family: "Roboto",
                 weight: "regular",
                 style: "normal"
@@ -423,18 +426,18 @@ class Canvacard {
     }
 
     /**
-     * Slap someone ( ͡° ͜ʖ ͡°)
-     * @param {string|Buffer} image1 First image
-     * @param {string|Buffer} image2 Second image
+     * Abofetear a alguien ( ͡° ͜ʖ ͡°)
+     * @param {string|Buffer} image1 Primera imagen
+     * @param {string|Buffer} image2 Segunda imagen
      * @returns {Promise<Buffer>}
      */
     static async slap(image1, image2) {
-        if (!image1) throw new Error("First image was not provided!");
-        if (!image2) throw new Error("Second image was not provided!");
+        if (!image1) throw new Error("¡La imagen no fue proporcionada!");
+        if (!image2) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const canvas = Canvas.createCanvas(1000, 500);
         const ctx = canvas.getContext("2d");
-        const background = await Canvas.loadImage(Canvacard.assets("IMAGE").BATSLAP);
+        const background = await Canvas.loadImage(Canvacard.assets.image.get("BATSLAP"));
         ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
         const avatar = await Canvas.loadImage(image1);
         const avatar1 = await Canvas.loadImage(image2);
@@ -444,15 +447,15 @@ class Canvacard {
     }
 
     /**
-     * Oh this? This is beautiful!
-     * @param {string|Buffer} image Source image
+     * ¿Oh esto? ¡Esto es hermoso!
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async beautiful(image) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(image);
-        const base = await Canvas.loadImage(Canvacard.assets("IMAGE").BEAUTIFUL);
+        const base = await Canvas.loadImage(Canvacard.assets.image.get("BEAUTIFUL"));
         const canvas = Canvas.createCanvas(376, 400);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
@@ -464,13 +467,13 @@ class Canvacard {
 
     /**
      * facepalm
-     * @param {string|Buffer} image image
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async facepalm(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
-        let layer = await Canvas.loadImage(Canvacard.assets("IMAGE").FACEPALM);
+        let layer = await Canvas.loadImage(Canvacard.assets.image.get("FACEPALM"));
         let canvas = Canvas.createCanvas(632, 357);
         let ctx = canvas.getContext("2d");
         ctx.fillStyle = "black";
@@ -483,13 +486,13 @@ class Canvacard {
 
     /**
      * Rainbow ( ͡° ͜ʖ ͡°)
-     * @param {string|Buffer} image Image source
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async rainbow(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
-        let bg = await Canvas.loadImage(Canvacard.assets("IMAGE").GAY);
+        let bg = await Canvas.loadImage(Canvacard.assets.image.get("GAY"));
         let img = await Canvas.loadImage(image);
         const canvas = Canvas.createCanvas(img.width, img.height);
         const ctx = canvas.getContext("2d");
@@ -499,15 +502,15 @@ class Canvacard {
     }
 
     /**
-     * "F" in the chat
-     * @param {string|Buffer} image image source
+     * "F" en el chat
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async rip(image) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(image);
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").RIP);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("RIP"));
         const canvas = Canvas.createCanvas(244, 253);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -516,16 +519,16 @@ class Canvacard {
     }
 
     /**
-     * Trash?
-     * @param {string|Buffer} image Image source
+     * ¿Basura?
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async trash(image) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const blur = await Canvacard.blur(image);
         const img = await Canvas.loadImage(blur);
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").TRASH);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("TRASH"));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
         const ctx = canvas.getContext("2d");
@@ -535,15 +538,15 @@ class Canvacard {
     }
 
     /**
-     * Worse than hitler
-     * @param {string|Buffer} image Source image
+     * Peor que hitler
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async hitler(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(image);
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").HITLER);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("HITLER"));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
         const ctx = canvas.getContext("2d");
@@ -555,13 +558,13 @@ class Canvacard {
     }
 
     /**
-     * Updates image color
-     * @param {string|Buffer} image Image source
-     * @param {string} color HTML5 color
+     * Actualiza el color de la imagen
+     * @param {string|Buffer} image Fuente de imagen
+     * @param {string} color Color HTML5
      * @returns {Promise<Buffer>}
      */
     static async colorfy(image, color) {
-        if (!image) throw new Error("Image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         const img = await Canvas.loadImage(image);
         const canvas = Canvas.createCanvas(img.width, img.height);
         const ctx = canvas.getContext("2d");
@@ -576,13 +579,13 @@ class Canvacard {
 
     /**
      * whoosh
-     * @param {string|Buffer} image Image source
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async jokeOverHead(image) {
-        if (!image) throw new Error("Image wasn ot provided!");
+        if (!image) throw new Error("¡La imagen no se proporcionó!");
         await this.__wait();
-        const layer = await Canvas.loadImage(Canvacard.assets("IMAGE").JOKEOVERHEAD);
+        const layer = await Canvas.loadImage(Canvacard.assets.image.get("JOKEOVERHEAD"));
         const img = await Canvas.loadImage(image)
         const canvas = Canvas.createCanvas(425, 404);
         const ctx = canvas.getContext("2d");
@@ -594,17 +597,17 @@ class Canvacard {
     }
 
     /**
-     * Distracted boyfriend
-     * @param {string|Buffer} image1 Face for the girl in red color
-     * @param {string|Buffer} image2 Face for the boy
-     * @param {string|Buffer} image3 Face for the other girl [optional]
+     * Novio distraído
+     * @param {string|Buffer} image1 Rostro para la niña en color rojo.
+     * @param {string|Buffer} image2 Cara para el chico
+     * @param {string|Buffer} image3 Cara para la otra chica [opcional]
      * @returns {Promise<Buffer>}
      */
     static async distracted(image1, image2, image3 = null) {
-        if (!image1) throw new Error("First image was not provided!");
-        if (!image2) throw new Error("Second image was not provided!");
+        if (!image1) throw new Error("¡No se proporcionó la primera imagen!");
+        if (!image2) throw new Error("¡No se proporcionó la segunda imagen!");
         await this.__wait();
-        const background = await Canvas.loadImage(Canvacard.assets("IMAGE").DISTRACTED);
+        const background = await Canvas.loadImage(Canvacard.assets.image.get("DISTRACTED"));
         const avatar1 = await Canvas.loadImage(await Canvacard.circle(image1));
         const avatar2 = await Canvas.loadImage(await Canvacard.circle(image2));
         const avatar3 = image3 ? await Canvas.loadImage(await Canvacard.circle(image3)) : null;
@@ -621,15 +624,15 @@ class Canvacard {
     }
 
     /**
-     * No, it doesn't affect my baby.
-     * @param {string|Buffer} image Source image
+     * No, no afecta a mi bebé.
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async affect(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(image);
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").AFFECT);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("AFFECT"));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
         const ctx = canvas.getContext("2d");
@@ -641,16 +644,16 @@ class Canvacard {
     }
 
     /**
-     * Jail
-     * @param {string|Buffer} image Source image
-     * @param {boolean} greyscale If it should greyscale image
+     * Celda
+     * @param {string|Buffer} image Fuente de imagen
+     * @param {boolean} greyscale Si debe ser una imagen en escala de grises
      * @returns {Promise<Buffer>}
      */
     static async jail(image, greyscale = false) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(greyscale ? await Canvacard.greyscale(image) : image);
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").JAIL);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("JAIL"));
 
         const canvas = Canvas.createCanvas(350, 350);
         const ctx = canvas.getContext("2d");
@@ -662,18 +665,18 @@ class Canvacard {
     }
 
     /**
-     * bed
-     * @param {string|Buffer} image1 First image
-     * @param {string|Buffer} image2 Second image
+     * cama
+     * @param {string|Buffer} image1 Primera imagen
+     * @param {string|Buffer} image2 Segunda imagen
      * @returns {Promise<Buffer>}
      */
     static async bed(image1, image2) {
-        if (!image1) throw new Error("First image was not provided!");
-        if (!image2) throw new Error("Second image was not provided!");
+        if (!image1) throw new Error("¡No se proporcionó la primera imagen!");
+        if (!image2) throw new Error("¡No se proporcionó la segunda imagen!");
         await this.__wait();
         const avatar = await Canvas.loadImage(image1);
         const avatar1 = await Canvas.loadImage(image2);
-        const background = await Canvas.loadImage(Canvacard.assets("IMAGE").BED);
+        const background = await Canvas.loadImage(Canvacard.assets.image.get("BED"));
 
         const canvas = Canvas.createCanvas(background.width, background.height);
         const ctx = canvas.getContext("2d");
@@ -688,16 +691,16 @@ class Canvacard {
     }
 
     /**
-     * Delete
-     * @param {string|Buffer} image Source image
-     * @param {boolean} dark If image should be in dark mode
+     * Borrar
+     * @param {string|Buffer} image Fuente de imagen
+     * @param {boolean} dark Si la imagen debe estar en modo oscuro
      * @returns {Promise<Buffer>}
      */
     static async delete(image, dark = false) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(image);
-        const bg = await Canvas.loadImage(dark ? await Canvacard.invert(Canvacard.assets("IMAGE").DELETE) : Canvacard.assets("IMAGE").DELETE);
+        const bg = await Canvas.loadImage(dark ? await Canvacard.invert(Canvacard.assets.image.get("DELETE")) : Canvacard.assets.image.get("DELETE"));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
         const ctx = canvas.getContext("2d");
@@ -710,21 +713,21 @@ class Canvacard {
 
     /**
      * TicTacToe
-     * @param {object} fill TicTacToe params
-     * @param {"X"|"O"} [fill.a1] a1 value
-     * @param {"X"|"O"} [fill.b1] b1 value
-     * @param {"X"|"O"} [fill.c1] c1 value
-     * @param {"X"|"O"} [fill.a2] a2 value
-     * @param {"X"|"O"} [fill.b2] b2 value
-     * @param {"X"|"O"} [fill.c2] c2 value
-     * @param {"X"|"O"} [fill.a3] a3 value
-     * @param {"X"|"O"} [fill.b3] b3 value
-     * @param {"X"|"O"} [fill.c3] c3 value
-     * @param {object} color Color params
-     * @param {string} [color.bg] Background clolor
-     * @param {string} [color.bar] TicTacToe bar color
-     * @param {string} [color.x] Color of **X**
-     * @param {string} [color.o] Color of **O**
+     * @param {object} fill Parámetros de TicTacToe
+     * @param {"X"|"O"} [fill.a1] valor a1
+     * @param {"X"|"O"} [fill.b1] valor b1
+     * @param {"X"|"O"} [fill.c1] valor c1
+     * @param {"X"|"O"} [fill.a2] valor a2
+     * @param {"X"|"O"} [fill.b2] valor b2
+     * @param {"X"|"O"} [fill.c2] valor c2
+     * @param {"X"|"O"} [fill.a3] valor a3
+     * @param {"X"|"O"} [fill.b3] valor b3
+     * @param {"X"|"O"} [fill.c3] valor c3
+     * @param {object} color Parámetros de color
+     * @param {string} [color.bg] Color de fondo
+     * @param {string} [color.bar] Color de la barra TicTacToe
+     * @param {string} [color.x] Color de **X**
+     * @param {string} [color.o] Color de **O**
      * @returns {Buffer}
      */
     static tictactoe(fill = { a1: 0, b1: 0, c1: 0, a2: 0, b2: 0, c2: 0, a3: 0, b3: 0, c3: 0 }, color = { bg: 0, bar: 0, x: 0, o: 0 }) {
@@ -838,16 +841,16 @@ class Canvacard {
     }
 
     /**
-     * Opinion
-     * @param {string|Buffer} avatar Image
-     * @param {string} msg Message
+     * Opinión
+     * @param {string|Buffer} avatar Imagen
+     * @param {string} msg Mensaje
      * @returns {Promise<Buffer>}
      */
     static async opinion(avatar, msg) {
-        if (!avatar) throw new Error("Avatar was not provided!");
-        if (!msg) throw new Error("Message was not provided!");
+        if (!avatar) throw new Error("Avatar no fue proporcionado!");
+        if (!msg) throw new Error("¡No se proporcionó el mensaje!");
         await this.__wait();
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").OPINION);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("OPINION"));
         const ava = await Canvas.loadImage(avatar);
 
         const canvas = Canvas.createCanvas(482, 481);
@@ -865,16 +868,16 @@ class Canvacard {
     }
 
     /**
-     * Creates Gradient
-     * @param {string} colorFrom Starting color
-     * @param {string} colorTo Ending color
-     * @param {number} width Image width
-     * @param {number} height Image height
+     * Crea degradado
+     * @param {string} colorFrom Color inicial
+     * @param {string} colorTo Color final
+     * @param {number} width Ancho de la imagen
+     * @param {number} height Altura de imagen
      * @returns {Buffer}
      */
     static gradient(colorFrom, colorTo, width, height) {
-        if (!colorFrom) throw new Error("ColorFrom was not provided!");
-        if (!colorTo) throw new Error("ColorTo was not provided!");
+        if (!colorFrom) throw new Error("¡ColorFrom no fue proporcionado!");
+        if (!colorTo) throw new Error("ColorTo no fue proporcionado!");
 
         const canvas = Canvas.createCanvas(width || 400, height || 200);
         const ctx = canvas.getContext("2d");
@@ -889,14 +892,14 @@ class Canvacard {
     }
 
     /**
-     * Oh no! It's Stupid.
-     * @param {string} message Message
+     * ¡Oh, no! Es estúpido.
+     * @param {string} message Mensaje
      * @returns {Promise<Buffer>}
      */
     static async ohno(message) {
-        if (!message) throw new Error("Message was not provided!");
+        if (!message) throw new Error("¡No se proporcionó el mensaje!");
         await Canvacard.__wait();
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").OHNO);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("OHNO"));
         const canvas = Canvas.createCanvas(1000, 1000);
         const ctx = canvas.getContext("2d");
 
@@ -910,15 +913,15 @@ class Canvacard {
     }
 
     /**
-     * Change my mind (taken from jgoralcz/image-microservice)
-     * @param {String} text Text
+     * Cambiar de opinión (tomado de jgoralcz/image-microservice)
+     * @param {String} text Texto
      * @see https://github.com/jgoralcz/image-microservice/blob/master/src/workers/canvas/ChangeMyMind.js
      * @returns {Promise<Buffer>}
      */
     static async changemymind(text) {
         if (!text) throw new Error("missing text!");
         await this.__wait();
-        const base = await Canvas.loadImage(Canvacard.assets("IMAGE").CHANGEMYMIND);
+        const base = await Canvas.loadImage(Canvacard.assets.image.get("CHANGEMYMIND"));
         const canvas = Canvas.createCanvas(base.width, base.height);
         const ctx = canvas.getContext("2d");
         ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
@@ -965,21 +968,21 @@ class Canvacard {
 
     /**
      * Clyde
-     * @param {string} message Message
+     * @param {string} message Mensaje
      * @returns {Promise<Buffer>}
      */
     static async clyde(message) {
         if (!message) messgae = "Please provide text!";
         await this.__wait()
-        let avatar = await Canvas.loadImage(await Canvacard.circle(Canvacard.assets("IMAGE").CLYDE));
-        let badge = await Canvas.loadImage(Canvacard.assets("IMAGE").BOTBADGE);
-        Canvas.registerFont(Canvacard.assets("FONT").WHITNEY_MEDIUM, {
+        let avatar = await Canvas.loadImage(await Canvacard.circle(Canvacard.assets.image.get("CLYDE")));
+        let badge = await Canvas.loadImage(Canvacard.assets.image.get("BOTBADGE"));
+        Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
             family: "Whitney",
             weight: "regular",
             style: "normal"
         });
 
-        Canvas.registerFont(Canvacard.assets("FONT").MANROPE_REGULAR, {
+        Canvas.registerFont(Canvacard.assets.font.get("MANROPE_REGULAR"), {
             family: "Manrope",
             weight: "regular",
             style: "normal"
@@ -1012,41 +1015,41 @@ class Canvacard {
         ctx.font = "20px Manrope";
         ctx.fillStyle = "#7D7D7D";
         ctx.textAlign = "start";
-        ctx.fillText("Only you can see this  —", 240, 190);
+        ctx.fillText("Solo tú puedes ver esto:", 240, 190);
 
         ctx.font = "20px Manrope";
         ctx.fillStyle = "#2785C7";
         ctx.textAlign = "start";
-        ctx.fillText("delete this message.", 240 + ctx.measureText("Only you can see this  —").width + 10, 190);
+        ctx.fillText("eliminar este mensaje.", 240 + ctx.measureText("Solo tú puedes ver esto:").width + 10, 190);
 
         return canvas.toBuffer();
     }
 
     /**
-     * Fake Quote
-     * @param {object} options Options
-     * @param {Buffer|string} [options.image] Image
-     * @param {string} [options.message] Message
-     * @param {string} [options.username] Username
+     * Cita falsa
+     * @param {object} options Opciones
+     * @param {Buffer|string} [options.image] Imagen
+     * @param {string} [options.message] Mensaje
+     * @param {string} [options.username] Nombre de usuario
      * @param {string} [options.color] Color
      * @returns {Promise<Buffer>}
      */
     static async quote(options = { image, message, username, color }) {
         await this.__wait();
-        if (!options.image) options.image = Canvacard.assets("IMAGE").CLYDE;
-        if (!options.message) options.message = "Please provide text!";
+        if (!options.image) options.image = Canvacard.assets.image.get("CLYDE");
+        if (!options.message) options.message = "Por favor, proporcione un mensaje de texto.";
         if (!options.username) options.username = "Clyde";
         if (!options.color) options.color = "#FFFFFF";
 
         let image = await Canvas.loadImage(await Canvacard.circle(options.image));
 
-        Canvas.registerFont(Canvacard.assets("FONT").WHITNEY_MEDIUM, {
+        Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
             family: "Whitney",
             weight: "regular",
             style: "normal"
         });
 
-        Canvas.registerFont(Canvacard.assets("FONT").MANROPE_REGULAR, {
+        Canvas.registerFont(Canvacard.assets.font.get("MANROPE_REGULAR"), {
             family: "Manrope",
             weight: "regular",
             style: "normal"
@@ -1079,21 +1082,21 @@ class Canvacard {
     }
 
     /**
-     * PornHub Comment
-     * @param {Object} options Options
-     * @param {String} [options.username] Username
-     * @param {String} [options.message] Comment
-     * @param {String|Buffer} [options.image] Image
+     * Comentario de PornHub
+     * @param {Object} options Opciones
+     * @param {String} [options.username] Nombre de usuario
+     * @param {String} [options.message] Comentario
+     * @param {String|Buffer} [options.image] Imagen
      * @returns {Promise<Buffer>}
      */
     static async phub(options = { username: null, message: null, image: null }) {
-        if (!options.username) throw new Error("Username may not be empty!");
-        if (!options.message) throw new Error("Message may not be empty!");
-        if (!options.image) throw new Error("Image may not be empty!");
+        if (!options.username) throw new Error("¡El nombre de usuario no puede estar vacío!");
+        if (!options.message) throw new Error("¡El mensaje no puede estar vacío!");
+        if (!options.image) throw new Error("¡La imagen no puede estar vacía!");
 
         await this.__wait();
         let image = await Canvas.loadImage(options.image);
-        let baseImage = await Canvas.loadImage(Canvacard.assets("IMAGE").PHUB);
+        let baseImage = await Canvas.loadImage(Canvacard.assets.image.get("PHUB"));
 
         let canvas = Canvas.createCanvas(baseImage.width, baseImage.height);
         let ctx = canvas.getContext("2d");
@@ -1116,14 +1119,14 @@ class Canvacard {
 
     /**
      * Wanted
-     * @param {string|Buffer} image Source image
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async wanted(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(image);
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").WANTED);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("WANTED"));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
         const ctx = canvas.getContext("2d");
@@ -1136,14 +1139,14 @@ class Canvacard {
 
     /**
      * Wasted
-     * @param {string|Buffer} image Source image
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async wasted(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(await Canvacard.greyscale(image));
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").WASTED);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("WASTED"));
 
         const canvas = Canvas.createCanvas(512, 512);
         const ctx = canvas.getContext("2d");
@@ -1155,22 +1158,22 @@ class Canvacard {
     }
 
     /**
-     * YouTube comment
-     * @param {object} ops YouTube comment options
-     * @param {string} [ops.username] Comment author username
-     * @param {string} [ops.content] The comment
-     * @param {string|Buffer} [ops.avatar] Avatar source
-     * @param {boolean} [ops.dark=false] Dark mode?
+     * Comentario de YouTube
+     * @param {object} ops Opciones de comentarios de YouTube
+     * @param {string} [ops.username] Nombre de usuario del autor del comentario
+     * @param {string} [ops.content] El comentario
+     * @param {string|Buffer} [ops.avatar] Fuente de avatar
+     * @param {boolean} [ops.dark=false] ¿Modo oscuro?
      * @returns {Promise<Buffer>}
      */
     static async youtube(ops = { username: null, content: null, avatar: null, dark: false }) {
-        if (!ops.username || typeof ops.username !== "string") throw new Error("Username may not be empty!");
-        if (!ops.content || typeof ops.content !== "string") throw new Error("Content may not be empty!");
-        if (!ops.avatar) throw new Error("Avatar source may not be empty!");
+        if (!ops.username || typeof ops.username !== "string") throw new Error("¡El nombre de usuario no puede estar vacío!");
+        if (!ops.content || typeof ops.content !== "string") throw new Error("¡El contenido no puede estar vacío!");
+        if (!ops.avatar) throw new Error("¡Es posible que la fuente del avatar no esté vacía!");
         ops.dark = !!ops.dark;
 
         await this.__wait();
-        const bg = await Canvas.loadImage(!ops.dark ? Canvacard.assets("IMAGE").YOUTUBE : await Canvacard.invert(Canvacard.assets("IMAGE").YOUTUBE));
+        const bg = await Canvas.loadImage(!ops.dark ? Canvacard.assets.image.get("YOUTUBE") : await Canvacard.invert(Canvacard.assets.image.get("YOUTUBE")));
         const avatar = await Canvas.loadImage(await Canvacard.circle(ops.avatar));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
@@ -1201,15 +1204,15 @@ class Canvacard {
     }
 
     /**
-     * Oh Shit!
-     * @param {string|Buffer} image Source image
+     * ¡Oh, mierda!
+     * @param {string|Buffer} image Fuente de imagen
      * @returns {Promise<Buffer>}
      */
     static async shit(image) {
-        if (!image) throw new Error("image was not provided!");
+        if (!image) throw new Error("¡La imagen no fue proporcionada!");
         await this.__wait();
         const img = await Canvas.loadImage(await Canvacard.circle(image));
-        const bg = await Canvas.loadImage(Canvacard.assets("IMAGE").SHIT);
+        const bg = await Canvas.loadImage(Canvacard.assets.image.get("SHIT"));
 
         const canvas = Canvas.createCanvas(bg.width, bg.height);
         const ctx = canvas.getContext("2d");
@@ -1221,9 +1224,9 @@ class Canvacard {
     }
 
     /**
-     * Writes the data as file
-     * @param {Buffer} data data to write
-     * @param {string} name file name
+     * Escribe los datos como archivo
+     * @param {Buffer} data datos para escribir
+     * @param {string} name nombre del archivo
      * @returns {void}
      */
     static write(data, name) {
@@ -1231,8 +1234,8 @@ class Canvacard {
     }
 
     /**
-     * Returns default icon of a discord server
-     * @param {string} name Guild name
+     * Devuelve el icono predeterminado de un servidor de discord
+     * @param {string} name Nombre del servidor
      * @param {number} size Icon size. Valid: `16`, `32`, `64`, `128`, `256`, `512`, `1024`, `2048` & `4096`
      * @returns {Promise<Buffer>}
      */
@@ -1255,16 +1258,16 @@ class Canvacard {
     }
 
     /**
-     * Discord Reply Clone
-     * @param {object} options Options
-     * @param {string|Buffer} [options.avatar1] Avatar of the person who replied
-     * @param {string|Buffer} [options.avatar2] Avatar of the other person
-     * @param {string} [options.user1] Username of the person who replied
-     * @param {string} [options.user2] Username of the other person
-     * @param {string} [options.hex1] Hex color of the person who replied
-     * @param {string} [options.hex2] Hex color of the other person
-     * @param {string} [options.mainText] The message
-     * @param {string} [options.replyText] The reply message
+     * Clon de respuesta de discord
+     * @param {object} options Opciones
+     * @param {string|Buffer} [options.avatar1] Avatar de la persona que respondió
+     * @param {string|Buffer} [options.avatar2] Avatar de la otra persona
+     * @param {string} [options.user1] Nombre de usuario de la persona que respondió
+     * @param {string} [options.user2] Nombre de usuario de la otra persona
+     * @param {string} [options.hex1] Color hexadecimal de la persona que respondió
+     * @param {string} [options.hex2] Color hexadecimal de la otra persona
+     * @param {string} [options.mainText] El mensaje
+     * @param {string} [options.replyText] El mensaje de respuesta
      * @returns {Promise<Buffer>}
      * @example const img = "https://cdn.discordapp.com/embed/avatars/0.png";
      * const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
@@ -1283,25 +1286,25 @@ class Canvacard {
     static async reply(options = { avatar1: null, avatar2: null, user1: null, user2: null, hex1: null, hex2: null, mainText: null, replyText: null }) {
         const { avatar1, avatar2, user1, user2, hex1, hex2, mainText, replyText } = options;
 
-        if (!avatar1) throw new Error("First avatar was not provided!");
-        if (!avatar2) throw new Error("Second avatar was not provided!");
-        if (!user1) throw new Error("First username was not provided!");
-        if (!user2) throw new Error("Second username was not provided!");
-        if (!mainText || typeof mainText !== "string") throw new Error("Main text was not provided!");
-        if (!replyText || typeof replyText !== "string") throw new Error("Reply text was not provided!");
+        if (!avatar1) throw new Error("¡No se proporcionó el primer avatar!");
+        if (!avatar2) throw new Error("¡No se proporcionó el segundo avatar!");
+        if (!user1) throw new Error("¡No se proporcionó el primer nombre de usuario!");
+        if (!user2) throw new Error("¡No se proporcionó el segundo nombre de usuario!");
+        if (!mainText || typeof mainText !== "string") throw new Error("¡No se proporcionó el texto principal!");
+        if (!replyText || typeof replyText !== "string") throw new Error("¡No se proporcionó el texto de respuesta!");
         if (!hex1 || typeof hex1 !== "string") hex1 = "#FFFFFF";
         if (!hex2 || typeof hex2 !== "string") hex2 = "#FFFFFF";
 
         const img1 = await Canvas.loadImage(avatar1);
         const img2 = await Canvas.loadImage(avatar2);
 
-        Canvas.registerFont(Canvacard.assets("FONT").WHITNEY_MEDIUM, {
+        Canvas.registerFont(Canvacard.assets.font.get("WHITNEY_MEDIUM"), {
             family: "Whitney",
             weight: "regular",
             style: "normal"
         });
 
-        Canvas.registerFont(Canvacard.assets("FONT").MANROPE_REGULAR, {
+        Canvas.registerFont(Canvacard.assets.font.get("MANROPE_REGULAR"), {
             family: "Manrope",
             weight: "regular",
             style: "normal"
@@ -1328,9 +1331,9 @@ class Canvacard {
         ctx.fillStyle = "#d1d1d1";
         ctx.font = "38px Manrope";
 
-        ctx.fillText(" replied to ", 165 + usernameWidth + 20, 147);
+        ctx.fillText(" responder a ", 165 + usernameWidth + 20, 147);
 
-        const repliedWidth = ctx.measureText(" replied to ").width;
+        const repliedWidth = ctx.measureText(" responder a ").width;
 
         ctx.fillStyle = Util.formatHex(hex2, "#FFFFFF");
         ctx.font = "38px Whitney";
@@ -1402,8 +1405,8 @@ class Canvacard {
     }
 
     /**
-     * Canvacard method used to `wait`.
-     * @param {number} dur Number of milliseconds to wait
+     * Método de Canvacard utilizado para `wait`.
+     * @param {number} dur Número de milisegundos a esperar
      * @returns {Promise<void>}
      */
     static __wait(dur) {
@@ -1413,7 +1416,7 @@ class Canvacard {
     }
 
     /**
-     * Canvacard convolution matrix
+     * Matriz de convolución Canvacard
      * @typedef {object} ConvolutionMatrix
      * @property {number[]} EDGES Edges Matrix
      * @property {number[]} BLUR Blur Matrix
@@ -1422,7 +1425,7 @@ class Canvacard {
      */
 
     /**
-     * Matrix data for **Canvacard.convolute()**
+     * Datos de matriz para **Canvacard.convolute()**
      * @type {ConvolutionMatrix}
      */
     static get CONVOLUTION_MATRIX() {
