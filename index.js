@@ -1,8 +1,8 @@
-// Created and maintained by SrGobi
+// Creado y mantenido por SrGobi
 
 const Canvacard = require("./src/Canvacard");
 
-// load default fonts
+// Cargar fuentes predeterminadas
 try {
     setTimeout(() => {
         Canvacard.registerFonts();
@@ -10,7 +10,7 @@ try {
 } catch(e) {}
 
 /**
- * @param {stirng} moduleName module name
+ * @param {stirng} moduleName Nombre del módulo
  */
 function load(moduleName) {
     try {
@@ -22,7 +22,10 @@ function load(moduleName) {
 
 module.exports = {
     Canvas: Canvacard,
+    Canvacard,
     ConvolutionMatrix: Canvacard.CONVOLUTION_MATRIX,
+    Welcomer: load("./src/Welcomer"),
+    Leaver: load("./src/Leaver"),
     CaptchaGen: load("captcha-canvas") ? load("captcha-canvas").CaptchaGenerator : null,
     Plugins: require("./src/Plugins"),
     Util: require("./src/Util"),
