@@ -1,33 +1,48 @@
 {
   "name": "canvacard",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
+  "types": "typings/index.d.ts",
+  "files": [
+    "libs",
+    "plugins",
+    "src",
+    "index.js",
+    "typings"
+  ],
   "scripts": {
-    "test": "cd test && node ."
+    "docs": "jsdoc -c jsdoc.json"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SrGobi/canvacard.git"
+    "url": "git+https://github.com/SrGobi/Canvacard.git"
   },
   "keywords": [],
   "author": "SrGobi",
+  "funding": {
+    "type": "individual",
+    "url": "https://paypal.me/SrGobiY"
+  },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/SrGobi/canvacard/issues"
+    "url": "https://github.com/SrGobi/Canvacord/issues"
   },
+  "homepage": "https://canvacard.js.org",
   "dependencies": {
-    "@canvacord/assets": "^1.0.2",
+    "@canvacord/assets": "^2.1.0",
     "@canvacord/emoji-parser": "^1.0.1",
-    "canvas": "^2.7.0",
+    "canvas": "^2.8.0",
+    "clean-jsdoc-theme": "^3.2.8",
     "gifencoder": "^2.0.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
-    "@types/node": "^14.14.40",
-    "captcha-canvas": "^2.2.2",
-    "discord-canvascard": "github:srgobi/discord-canvascard",
-    "discord.js-docgen": "github:discordjs/docgen"
+    "@discordjs/docgen": "discordjs/docgen",
+    "@types/node": "^16.4.7",
+    "captcha-canvas": "^2.3.1",
+    "discord-canvascard": "github:SrGobi/discord-canvascard",
+    "jsdoc": "^3.6.7"
   }
 }
