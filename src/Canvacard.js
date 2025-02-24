@@ -8,7 +8,7 @@ const Brightness = require('../libs/Brightness');
 const Threshold = require('../libs/Threshold');
 const Convolute = require('../libs/Convolute');
 const rect = require('../plugins/rect');
-const Canvas = require('canvas');
+const { createCanvas, GlobalFonts, loadImage } = require('@napi-rs/canvas');
 const Darkness = require('../libs/Darkness');
 const circle = require('../plugins/circle');
 const round = require('../plugins/round');
@@ -141,7 +141,7 @@ class Canvacard {
 		if (!track) throw new Error('¡Args de pista no válidos!');
 		if (!bar) throw new Error('¡Args de la barra de progreso no válidos!');
 
-		const canvas = Canvas.createCanvas(track.width, track.height);
+		const canvas = createCanvas(track.width, track.height);
 		const ctx = canvas.getContext('2d');
 
 		if (bar.width > track.width) bar.width = track.width;
@@ -165,8 +165,8 @@ class Canvacard {
 	 */
 	static async blur(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
-		const img = await Canvas.loadImage(image);
-		const canvas = Canvas.createCanvas(img.width, img.height);
+		const img = await loadImage(image);
+		const canvas = createCanvas(img.width, img.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.fillStyle = '#ffffff';
@@ -190,8 +190,8 @@ class Canvacard {
 		if (pixels < 1) pixels = 100;
 		if (pixels > 100) pixels = 100;
 
-		const img = await Canvas.loadImage(image);
-		const canvas = Canvas.createCanvas(img.width, img.height);
+		const img = await loadImage(image);
+		const canvas = createCanvas(img.width, img.height);
 		const ctx = canvas.getContext('2d');
 		const pixel = pixels / 100;
 
@@ -233,7 +233,7 @@ class Canvacard {
 	 * @returns {Buffer}
 	 */
 	static color(color = '#FFFFFF', displayHex = false, height = 1024, width = 1024) {
-		const canvas = Canvas.createCanvas(width, height);
+		const canvas = createCanvas(width, height);
 		const ctx = canvas.getContext('2d');
 
 		rect(ctx, 0, 0, height, width, color);
@@ -255,8 +255,8 @@ class Canvacard {
 	 */
 	static async circle(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
-		const img = await Canvas.loadImage(image);
-		const canvas = Canvas.createCanvas(img.width, img.height);
+		const img = await loadImage(image);
+		const canvas = createCanvas(img.width, img.height);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(img, 0, 0);
 		circle(ctx, canvas.width, canvas.height);
@@ -275,7 +275,7 @@ class Canvacard {
 	 * @returns {Buffer}
 	 */
 	static rectangle(x, y, width, height, color, stroke, lineWidth) {
-		const canvas = Canvas.createCanvas(width, height);
+		const canvas = createCanvas(width, height);
 		const ctx = canvas.getContext('2d');
 		rect(ctx, x, y, canvas.height, canvas.width, color, !!stroke, lineWidth);
 		round(ctx, x, y, canvas.width, canvas.height);
@@ -292,10 +292,10 @@ class Canvacard {
 		if (!image1) throw new Error("Falta el parámetro 'imagen1'.");
 		if (!image2) throw new Error("Falta el parámetro 'imagen2'.");
 
-		const img1 = await Canvas.loadImage(image1);
-		const img2 = await Canvas.loadImage(image2);
+		const img1 = await loadImage(image1);
+		const img2 = await loadImage(image2);
 
-		const canvas = Canvas.createCanvas(img1.width, img1.height);
+		const canvas = createCanvas(img1.width, img1.height);
 		const ctx = canvas.getContext('2d');
 		ctx.globalAlpha = 0.5;
 		ctx.drawImage(img1, 0, 0);
@@ -313,10 +313,10 @@ class Canvacard {
 	 */
 	static async resize(image, width, height) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
-		const img = await Canvas.loadImage(image);
+		const img = await loadImage(image);
 		const w = width && !isNaN(width) ? width : img.width;
 		const h = height && !isNaN(height) ? width : img.height;
-		const canvas = await Canvas.createCanvas(w, h);
+		const canvas = await createCanvas(w, h);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 		return canvas.toBuffer();
@@ -332,12 +332,12 @@ class Canvacard {
 		if (!image1) throw new Error('¡La primera imagen no fue proporcionada!');
 		if (!image2) throw new Error('¡La segunda imagen no fue proporcionada!');
 		await this.__wait();
-		const canvas = Canvas.createCanvas(768, 574);
+		const canvas = createCanvas(768, 574);
 		const ctx = canvas.getContext('2d');
-		const background = await Canvas.loadImage(Canvacard.assets.image.get('KISS'));
+		const background = await loadImage(Canvacard.assets.image.get('KISS'));
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-		const avatar = await Canvas.loadImage(image1);
-		const avatar1 = await Canvas.loadImage(image2);
+		const avatar = await loadImage(image1);
+		const avatar1 = await loadImage(image2);
 		ctx.drawImage(avatar1, 370, 25, 200, 200);
 		ctx.drawImage(avatar, 150, 25, 200, 200);
 		return canvas.toBuffer();
@@ -353,107 +353,35 @@ class Canvacard {
 		if (!image1) throw new Error('¡La primera imagen no fue proporcionada!');
 		if (!image2) throw new Error('¡La segunda imagen no fue proporcionada!');
 		await this.__wait();
-		const canvas = Canvas.createCanvas(500, 500);
+		const canvas = createCanvas(500, 500);
 		const ctx = canvas.getContext('2d');
-		const background = await Canvas.loadImage(Canvacard.assets.image.get('SPANK'));
+		const background = await loadImage(Canvacard.assets.image.get('SPANK'));
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-		const avatar = await Canvas.loadImage(image1);
-		const avatar1 = await Canvas.loadImage(image2);
+		const avatar = await loadImage(image1);
+		const avatar1 = await loadImage(image2);
 		ctx.drawImage(avatar1, 350, 220, 120, 120);
 		ctx.drawImage(avatar, 225, 5, 140, 140);
 		return canvas.toBuffer();
 	}
 
 	/**
-	 * Cargar fuentes
-	 * @param {any[]} fontArray Matriz de fuentes
+	 * Loads font
+	 * @param {any[]} fontArray Font array
 	 * @returns {Promise<void>}
 	 */
 	static async registerFonts(fontArray = []) {
-		if (!Canvacard.assets.font.loaded) await Canvacard.assets.font.load();
-		if (!Canvacard.assets.image.loaded) await Canvacard.assets.image.load();
-
 		if (!fontArray.length) {
-			await Canvacard.__wait();
-			// Default fonts
-			Canvas.registerFont(Canvacard.assets.font.get('UNI_SANS'), {
-				family: 'Sans Heavy',
-				weight: 'bold',
-				style: 'normal'
-			});
+			// GlobalFonts.loadFontsFromDir(`${Canvacard.assets.ASSETS_DIR}/fonts`)
+			const fonts = Canvacard.assets.font.all();
 
-			Canvas.registerFont(Canvacard.assets.font.get('BURBANK_BIG_CONSDENSED'), {
-				family: 'Burkank Big Condensed'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('KEEP_CALM_MED'), {
-				family: 'Keep Calm Medium'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('LUCKIEST_GUY'), {
-				family: 'Luckiest Guy'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('MANROPE_BOLD'), {
-				family: 'Manrope Bold',
-				weight: 'bold',
-				style: 'normal'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('MANROPE_REGULAR'), {
-				family: 'Manrope',
-				weight: 'regular',
-				style: 'normal'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('ROBOTO_BLACK'), {
-				family: 'Roboto Black',
-				weight: 'black',
-				style: 'normal'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('ROBOTO_LIGHT'), {
-				family: 'Roboto Light',
-				weight: 'light',
-				style: 'normal'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('ROBOTO_REGULAR'), {
-				family: 'Roboto',
-				weight: 'regular',
-				style: 'normal'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('SKETCH_MATCH'), {
-				family: 'SketchMatch'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('THE_BOLT_FONT'), {
-				family: 'The Bolt Font'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('TWEMOJI'), {
-				family: 'Twitter Color Emoji'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('WHITNEY_BOOK'), {
-				family: 'Whitney-Book',
-				weight: 'bold',
-				style: 'normal'
-			});
-
-			Canvas.registerFont(Canvacard.assets.font.get('WHITNEY_MEDIUM'), {
-				family: 'Whitney',
-				weight: 'regular',
-				style: 'normal'
-			});
+			for (const font in fonts) {
+				GlobalFonts.registerFromPath(fonts[font].path, fonts[font].name);
+			}
 		} else {
 			fontArray.forEach((font) => {
-				Canvas.registerFont(font.path, font.face);
+				GlobalFonts.registerFromPath(font.path, font.name || font.face?.family);
 			});
 		}
-
-		return;
 	}
 
 	/**
@@ -466,12 +394,12 @@ class Canvacard {
 		if (!image1) throw new Error('¡La imagen no fue proporcionada!');
 		if (!image2) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const canvas = Canvas.createCanvas(1000, 500);
+		const canvas = createCanvas(1000, 500);
 		const ctx = canvas.getContext('2d');
-		const background = await Canvas.loadImage(Canvacard.assets.image.get('BATSLAP'));
+		const background = await loadImage(Canvacard.assets.image.get('BATSLAP'));
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
-		const avatar = await Canvas.loadImage(image1);
-		const avatar1 = await Canvas.loadImage(image2);
+		const avatar = await loadImage(image1);
+		const avatar1 = await loadImage(image2);
 		ctx.drawImage(avatar1, 580, 260, 200, 200);
 		ctx.drawImage(avatar, 350, 70, 220, 220);
 		return canvas.toBuffer();
@@ -485,9 +413,9 @@ class Canvacard {
 	static async beautiful(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(image);
-		const base = await Canvas.loadImage(Canvacard.assets.image.get('BEAUTIFUL'));
-		const canvas = Canvas.createCanvas(376, 400);
+		const img = await loadImage(image);
+		const base = await loadImage(Canvacard.assets.image.get('BEAUTIFUL'));
+		const canvas = createCanvas(376, 400);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 258, 28, 84, 95);
@@ -504,12 +432,12 @@ class Canvacard {
 	static async facepalm(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		let layer = await Canvas.loadImage(Canvacard.assets.image.get('FACEPALM'));
-		let canvas = Canvas.createCanvas(632, 357);
+		let layer = await loadImage(Canvacard.assets.image.get('FACEPALM'));
+		let canvas = createCanvas(632, 357);
 		let ctx = canvas.getContext('2d');
 		ctx.fillStyle = 'black';
 		ctx.fillRect(0, 0, 632, 357);
-		let avatar = await Canvas.loadImage(image);
+		let avatar = await loadImage(image);
 		ctx.drawImage(avatar, 199, 112, 235, 235);
 		ctx.drawImage(layer, 0, 0, 632, 357);
 		return canvas.toBuffer();
@@ -523,9 +451,9 @@ class Canvacard {
 	static async rainbow(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		let bg = await Canvas.loadImage(Canvacard.assets.image.get('GAY'));
-		let img = await Canvas.loadImage(image);
-		const canvas = Canvas.createCanvas(img.width, img.height);
+		let bg = await loadImage(Canvacard.assets.image.get('GAY'));
+		let img = await loadImage(image);
+		const canvas = createCanvas(img.width, img.height);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -540,9 +468,9 @@ class Canvacard {
 	static async rip(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(image);
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('RIP'));
-		const canvas = Canvas.createCanvas(244, 253);
+		const img = await loadImage(image);
+		const bg = await loadImage(Canvacard.assets.image.get('RIP'));
+		const canvas = createCanvas(244, 253);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 		ctx.drawImage(img, 63, 110, 90, 90);
@@ -558,10 +486,10 @@ class Canvacard {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
 		const blur = await Canvacard.blur(image);
-		const img = await Canvas.loadImage(blur);
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('TRASH'));
+		const img = await loadImage(blur);
+		const bg = await loadImage(Canvacard.assets.image.get('TRASH'));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(bg, 0, 0);
 		ctx.drawImage(img, 309, 0, 309, 309);
@@ -576,10 +504,10 @@ class Canvacard {
 	static async hitler(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(image);
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('HITLER'));
+		const img = await loadImage(image);
+		const bg = await loadImage(Canvacard.assets.image.get('HITLER'));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, 0, 0);
@@ -596,8 +524,8 @@ class Canvacard {
 	 */
 	static async colorfy(image, color) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
-		const img = await Canvas.loadImage(image);
-		const canvas = Canvas.createCanvas(img.width, img.height);
+		const img = await loadImage(image);
+		const canvas = createCanvas(img.width, img.height);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 		if (color) {
@@ -616,9 +544,9 @@ class Canvacard {
 	static async jokeOverHead(image) {
 		if (!image) throw new Error('¡La imagen no se proporcionó!');
 		await this.__wait();
-		const layer = await Canvas.loadImage(Canvacard.assets.image.get('JOKEOVERHEAD'));
-		const img = await Canvas.loadImage(image);
-		const canvas = Canvas.createCanvas(425, 404);
+		const layer = await loadImage(Canvacard.assets.image.get('JOKEOVERHEAD'));
+		const img = await loadImage(image);
+		const canvas = createCanvas(425, 404);
 		const ctx = canvas.getContext('2d');
 		ctx.fillStyle = 'black';
 		ctx.fillRect(0, 0, 425, 404);
@@ -638,12 +566,12 @@ class Canvacard {
 		if (!image1) throw new Error('¡No se proporcionó la primera imagen!');
 		if (!image2) throw new Error('¡No se proporcionó la segunda imagen!');
 		await this.__wait();
-		const background = await Canvas.loadImage(Canvacard.assets.image.get('DISTRACTED'));
-		const avatar1 = await Canvas.loadImage(await Canvacard.circle(image1));
-		const avatar2 = await Canvas.loadImage(await Canvacard.circle(image2));
-		const avatar3 = image3 ? await Canvas.loadImage(await Canvacard.circle(image3)) : null;
+		const background = await loadImage(Canvacard.assets.image.get('DISTRACTED'));
+		const avatar1 = await loadImage(await Canvacard.circle(image1));
+		const avatar2 = await loadImage(await Canvacard.circle(image2));
+		const avatar3 = image3 ? await loadImage(await Canvacard.circle(image3)) : null;
 
-		const canvas = Canvas.createCanvas(background.width, background.height);
+		const canvas = createCanvas(background.width, background.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
@@ -662,10 +590,10 @@ class Canvacard {
 	static async affect(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(image);
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('AFFECT'));
+		const img = await loadImage(image);
+		const bg = await loadImage(Canvacard.assets.image.get('AFFECT'));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, 0, 0);
@@ -683,10 +611,10 @@ class Canvacard {
 	static async jail(image, greyscale = false) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(greyscale ? await Canvacard.greyscale(image) : image);
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('JAIL'));
+		const img = await loadImage(greyscale ? await Canvacard.greyscale(image) : image);
+		const bg = await loadImage(Canvacard.assets.image.get('JAIL'));
 
-		const canvas = Canvas.createCanvas(350, 350);
+		const canvas = createCanvas(350, 350);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -705,11 +633,11 @@ class Canvacard {
 		if (!image1) throw new Error('¡No se proporcionó la primera imagen!');
 		if (!image2) throw new Error('¡No se proporcionó la segunda imagen!');
 		await this.__wait();
-		const avatar = await Canvas.loadImage(image1);
-		const avatar1 = await Canvas.loadImage(image2);
-		const background = await Canvas.loadImage(Canvacard.assets.image.get('BED'));
+		const avatar = await loadImage(image1);
+		const avatar1 = await loadImage(image2);
+		const background = await loadImage(Canvacard.assets.image.get('BED'));
 
-		const canvas = Canvas.createCanvas(background.width, background.height);
+		const canvas = createCanvas(background.width, background.height);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(background, 0, 0, canvas.width, canvas.height);
 
@@ -730,10 +658,10 @@ class Canvacard {
 	static async delete(image, dark = false) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(image);
-		const bg = await Canvas.loadImage(dark ? await Canvacard.invert(Canvacard.assets.image.get('DELETE')) : Canvacard.assets.image.get('DELETE'));
+		const img = await loadImage(image);
+		const bg = await loadImage(dark ? await Canvacard.invert(Canvacard.assets.image.get('DELETE')) : Canvacard.assets.image.get('DELETE'));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -769,7 +697,7 @@ class Canvacard {
 			o: color.o || 'blue'
 		};
 
-		const canvas = Canvas.createCanvas(2048, 2048);
+		const canvas = createCanvas(2048, 2048);
 		const ctx = canvas.getContext('2d');
 
 		const drawO = (x, y) => {
@@ -881,10 +809,10 @@ class Canvacard {
 		if (!avatar) throw new Error('Avatar no fue proporcionado!');
 		if (!msg) throw new Error('¡No se proporcionó el mensaje!');
 		await this.__wait();
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('OPINION'));
-		const ava = await Canvas.loadImage(avatar);
+		const bg = await loadImage(Canvacard.assets.image.get('OPINION'));
+		const ava = await loadImage(avatar);
 
-		const canvas = Canvas.createCanvas(482, 481);
+		const canvas = createCanvas(482, 481);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(ava, 62, 340, 85, 85);
@@ -910,7 +838,7 @@ class Canvacard {
 		if (!colorFrom) throw new Error('¡ColorFrom no fue proporcionado!');
 		if (!colorTo) throw new Error('ColorTo no fue proporcionado!');
 
-		const canvas = Canvas.createCanvas(width || 400, height || 200);
+		const canvas = createCanvas(width || 400, height || 200);
 		const ctx = canvas.getContext('2d');
 		const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
 
@@ -930,8 +858,8 @@ class Canvacard {
 	static async ohno(message) {
 		if (!message) throw new Error('¡No se proporcionó el mensaje!');
 		await Canvacard.__wait();
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('OHNO'));
-		const canvas = Canvas.createCanvas(1000, 1000);
+		const bg = await loadImage(Canvacard.assets.image.get('OHNO'));
+		const canvas = createCanvas(1000, 1000);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -952,8 +880,8 @@ class Canvacard {
 	static async changemymind(text) {
 		if (!text) throw new Error('missing text!');
 		await this.__wait();
-		const base = await Canvas.loadImage(Canvacard.assets.image.get('CHANGEMYMIND'));
-		const canvas = Canvas.createCanvas(base.width, base.height);
+		const base = await loadImage(Canvacard.assets.image.get('CHANGEMYMIND'));
+		const canvas = createCanvas(base.width, base.height);
 		const ctx = canvas.getContext('2d');
 		ctx.drawImage(base, 0, 0, canvas.width, canvas.height);
 		let x = text.length;
@@ -1005,21 +933,10 @@ class Canvacard {
 	static async clyde(message) {
 		if (!message) messgae = 'Please provide text!';
 		await this.__wait();
-		let avatar = await Canvas.loadImage(await Canvacard.circle(Canvacard.assets.image.get('CLYDE')));
-		let badge = await Canvas.loadImage(Canvacard.assets.image.get('BOTBADGE'));
-		Canvas.registerFont(Canvacard.assets.font.get('WHITNEY_MEDIUM'), {
-			family: 'Whitney',
-			weight: 'regular',
-			style: 'normal'
-		});
+		let avatar = await loadImage(await Canvacard.circle(Canvacard.assets.image.get('CLYDE')));
+		let badge = await loadImage(Canvacard.assets.image.get('BOTBADGE'));
 
-		Canvas.registerFont(Canvacard.assets.font.get('MANROPE_REGULAR'), {
-			family: 'Manrope',
-			weight: 'regular',
-			style: 'normal'
-		});
-
-		const canvas = Canvas.createCanvas(1500, 300);
+		const canvas = createCanvas(1500, 300);
 
 		const ctx = canvas.getContext('2d');
 		ctx.fillStyle = '#36393E';
@@ -1072,21 +989,9 @@ class Canvacard {
 		if (!options.username) options.username = 'Clyde';
 		if (!options.color) options.color = '#FFFFFF';
 
-		let image = await Canvas.loadImage(await Canvacard.circle(options.image));
+		let image = await loadImage(await Canvacard.circle(options.image));
 
-		Canvas.registerFont(Canvacard.assets.font.get('WHITNEY_MEDIUM'), {
-			family: 'Whitney',
-			weight: 'regular',
-			style: 'normal'
-		});
-
-		Canvas.registerFont(Canvacard.assets.font.get('MANROPE_REGULAR'), {
-			family: 'Manrope',
-			weight: 'regular',
-			style: 'normal'
-		});
-
-		const canvas = Canvas.createCanvas(1500, 300);
+		const canvas = createCanvas(1500, 300);
 
 		const ctx = canvas.getContext('2d');
 		ctx.fillStyle = '#36393E';
@@ -1126,10 +1031,10 @@ class Canvacard {
 		if (!options.image) throw new Error('¡La imagen no puede estar vacía!');
 
 		await this.__wait();
-		let image = await Canvas.loadImage(options.image);
-		let baseImage = await Canvas.loadImage(Canvacard.assets.image.get('PHUB'));
+		let image = await loadImage(options.image);
+		let baseImage = await loadImage(Canvacard.assets.image.get('PHUB'));
 
-		let canvas = Canvas.createCanvas(baseImage.width, baseImage.height);
+		let canvas = createCanvas(baseImage.width, baseImage.height);
 		let ctx = canvas.getContext('2d');
 
 		ctx.drawImage(baseImage, 0, 0, canvas.width, canvas.height);
@@ -1156,10 +1061,10 @@ class Canvacard {
 	static async wanted(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(image);
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('WANTED'));
+		const img = await loadImage(image);
+		const bg = await loadImage(Canvacard.assets.image.get('WANTED'));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -1176,10 +1081,10 @@ class Canvacard {
 	static async wasted(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(await Canvacard.greyscale(image));
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('WASTED'));
+		const img = await loadImage(await Canvacard.greyscale(image));
+		const bg = await loadImage(Canvacard.assets.image.get('WASTED'));
 
-		const canvas = Canvas.createCanvas(512, 512);
+		const canvas = createCanvas(512, 512);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
@@ -1204,10 +1109,10 @@ class Canvacard {
 		ops.dark = !!ops.dark;
 
 		await this.__wait();
-		const bg = await Canvas.loadImage(!ops.dark ? Canvacard.assets.image.get('YOUTUBE') : await Canvacard.invert(Canvacard.assets.image.get('YOUTUBE')));
-		const avatar = await Canvas.loadImage(await Canvacard.circle(ops.avatar));
+		const bg = await loadImage(!ops.dark ? Canvacard.assets.image.get('YOUTUBE') : await Canvacard.invert(Canvacard.assets.image.get('YOUTUBE')));
+		const avatar = await loadImage(await Canvacard.circle(ops.avatar));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, -3, -3, canvas.width + 6, canvas.height + 6);
@@ -1242,10 +1147,10 @@ class Canvacard {
 	static async shit(image) {
 		if (!image) throw new Error('¡La imagen no fue proporcionada!');
 		await this.__wait();
-		const img = await Canvas.loadImage(await Canvacard.circle(image));
-		const bg = await Canvas.loadImage(Canvacard.assets.image.get('SHIT'));
+		const img = await loadImage(await Canvacard.circle(image));
+		const bg = await loadImage(Canvacard.assets.image.get('SHIT'));
 
-		const canvas = Canvas.createCanvas(bg.width, bg.height);
+		const canvas = createCanvas(bg.width, bg.height);
 		const ctx = canvas.getContext('2d');
 
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
@@ -1275,7 +1180,7 @@ class Canvacard {
 		if (!str) throw new Error("Couldn't parse acronym!");
 		if (typeof size !== 'number' || size < 0 || size > 4096 || size % 16 !== 0) throw new Error('Invalid icon size!');
 
-		const canvas = Canvas.createCanvas(size, size);
+		const canvas = createCanvas(size, size);
 		const ctx = canvas.getContext('2d');
 
 		ctx.fillStyle = '#7289DA';
@@ -1326,22 +1231,10 @@ class Canvacard {
 		if (!hex1 || typeof hex1 !== 'string') hex1 = '#FFFFFF';
 		if (!hex2 || typeof hex2 !== 'string') hex2 = '#FFFFFF';
 
-		const img1 = await Canvas.loadImage(avatar1);
-		const img2 = await Canvas.loadImage(avatar2);
+		const img1 = await loadImage(avatar1);
+		const img2 = await loadImage(avatar2);
 
-		Canvas.registerFont(Canvacard.assets.font.get('WHITNEY_MEDIUM'), {
-			family: 'Whitney',
-			weight: 'regular',
-			style: 'normal'
-		});
-
-		Canvas.registerFont(Canvacard.assets.font.get('MANROPE_REGULAR'), {
-			family: 'Manrope',
-			weight: 'regular',
-			style: 'normal'
-		});
-
-		const canvas = Canvas.createCanvas(1300, 250);
+		const canvas = createCanvas(1300, 250);
 		const ctx = canvas.getContext('2d');
 
 		ctx.fillStyle = '#36393E';
