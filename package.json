@@ -1,6 +1,6 @@
 {
   "name": "canvacard",
-  "version": "3.0.0",
+  "version": "3.5.0",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
@@ -30,10 +30,10 @@
   },
   "homepage": "https://canvacard.srgobi.com/",
   "dependencies": {
-    "@canvacard/assets": "^1.0.0",
+    "@canvacard/assets": "^1.0.1",
     "@canvacard/emoji-parser": "^1.0.1",
-    "canvas": "^2.8.0",
-    "clean-jsdoc-theme": "^3.2.8",
+    "canvas": "^2.9.1",
+    "clean-jsdoc-theme": "^3.3.4",
     "gifencoder": "^2.0.1",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2"
