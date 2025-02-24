@@ -1,10 +1,12 @@
 {
   "name": "canvacard",
-  "version": "3.5.0",
+  "version": "4.0.0",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
+  "bin": "./bin/canvacard.js",
   "files": [
+    "bin",
     "libs",
     "plugins",
     "src",
@@ -12,13 +14,33 @@
     "typings"
   ],
   "scripts": {
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "test": "cd test && node .",
+    "types": "tsc",
+    "postinstall": "node scripts/postinstall.mjs"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SrGobi/Canvacard.git"
   },
-  "keywords": [],
+  "keywords": [
+    "canvacard",
+    "canvas",
+    "image",
+    "manipulation",
+    "easy",
+    "simple",
+    "fast",
+    "api",
+    "rank",
+    "card",
+    "rankcard",
+    "welcomer",
+    "leaver",
+    "spotify",
+    "memegen",
+    "fortnite"
+  ],
   "author": "SrGobi",
   "funding": {
     "type": "individual",
@@ -26,23 +48,23 @@
   },
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/SrGobi/Canvacord/issues"
+    "url": "https://github.com/SrGobi/Canvacard/issues"
   },
-  "homepage": "https://canvacard.srgobi.com/",
+  "homepage": "https://canvacard.srgobi.com",
   "dependencies": {
-    "@canvacard/assets": "^1.0.1",
-    "@canvacard/emoji-parser": "^1.0.1",
-    "canvas": "^2.9.1",
-    "clean-jsdoc-theme": "^3.3.4",
-    "gifencoder": "^2.0.1",
-    "moment": "^2.29.1",
+    "@napi-rs/canvas": "^0.1.47",
+    "@skyra/gifenc": "^1.0.1",
+    "chalk": "^5.3.0",
+    "fortnite": "^4.3.2",
+    "fortnite-9812": "^1.0.4",
+    "moment": "^2.30.1",
     "moment-duration-format": "^2.3.2"
   },
   "devDependencies": {
-    "@discordjs/docgen": "discordjs/docgen",
-    "@types/node": "^16.4.7",
-    "captcha-canvas": "^3.1.0",
-    "discord-canvascard": "github:SrGobi/discord-canvascard",
-    "jsdoc": "^3.6.10"
+    "@types/node": "^20.11.19",
+    "captcha-canvas": "^3.2.1",
+    "clean-jsdoc-theme": "^4.2.17",
+    "jsdoc": "^4.0.2",
+    "typescript": "^5.3.3"
   }
 }
