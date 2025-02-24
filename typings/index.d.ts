@@ -481,55 +481,56 @@ declare module 'canvacard' {
 		 * <p>Establecer opacidad</p>
 		 * @param opacityBorder - <p>Código de opacidad HTML5</p>
 		 */
-		setOpacityBorder(opacityBorder: string): Greeting;
+		setOpacityBorder(opacityBorder: string): Welcomer;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorBorder - <p>Código de color HTML5</p>
 		 */
-		setColorBorder(colorBorder: string): Greeting;
+		setColorBorder(colorBorder: string): Welcomer;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorCircle - <p>Código de color HTML5</p>
 		 */
-		setColorCircle(colorCircle: string): Greeting;
+		setColorCircle(colorCircle: string): Welcomer;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorSubtitle - <p>Código de color HTML5</p>
 		 */
-		setColorSubtitulo(colorSubtitle: string): Greeting;
+		setColorSubtitulo(colorSubtitle: string): Welcomer;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorTitle - <p>Código de color HTML5</p>
 		 */
-		setColorTitulo(colorTitle: string): Greeting;
-		/**
-		 * <p>Recuento de miembros de ser</p>
-		 * @param memberCount - <p>Recuento de miembros del gremio</p>
-		 */
-		setMemberCount(memberCount?: number | string): Welcomer;
+		setColorTitulo(colorTitle: string): Welcomer;
 		/**
 		 * <p>Establecer subtítulo</p>
 		 * @param textSubtitle - <p>Subtítulo para configurar</p>
 		 */
-		setSubtitulo(textSubtitle: string): Greeting;
+		setSubtitulo(textSubtitle: string): Welcomer;
 		/**
 		 * <p>Establecer título</p>
 		 * @param textTitle - <p>Título para establecer</p>
 		 */
-		setTitulo(textTitle: string): Greeting;
+		setTitulo(textTitle: string): Welcomer;
 		/**
 		 * <p>Establecer imagen / color de fondo</p>
 		 * @param type - <p>Tipo de fondo</p>
 		 * @param [data] - <p>Color o imagen de fondo</p>
 		 */
-		setBackground(type: 'COLOR' | 'IMAGE', data?: string | Buffer): Greeting;
+		setBackground(type: 'COLOR' | 'IMAGE', data?: string | Buffer): Welcomer;
 		/**
 		 * <p>Avatar de usuario</p>
 		 * @param data - <p>Datos de avatar</p>
 		 */
-		setAvatar(data: string | Buffer): Greeting;
+		setAvatar(data: string | Buffer): Welcomer;
 		/**
 		 * <p>Crea una imagen de bienvenida</p>
+		 */
+		/**
+		 * <p>Construye carta de bienvenida</p>
+		 * @param ops - <p>Fuentes</p>
+		 * @param [ops.fontX = "Manrope"] - <p>Familia tipográfica Bold</p>
+		 * @param [ops.fontY = "Manrope"] - <p>Familia tipográfica regular</p>
 		 */
 		build(ops: { fontX?: string; fontY?: string }): Promise<Buffer>;
 	}
@@ -598,37 +599,32 @@ declare module 'canvacard' {
 		 * <p>Establecer opacidad</p>
 		 * @param opacityBorder - <p>Código de opacidad HTML5</p>
 		 */
-		setOpacityBorder(opacityBorder: string): Greeting;
+		setOpacityBorder(opacityBorder: string): Leaver;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorBorder - <p>Código de color HTML5</p>
 		 */
-		setColorBorder(colorBorder: string): Greeting;
+		setColorBorder(colorBorder: string): Leaver;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorCircle - <p>Código de color HTML5</p>
 		 */
-		setColorCircle(colorCircle: string): Greeting;
+		setColorCircle(colorCircle: string): Leaver;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorSubtitle - <p>Código de color HTML5</p>
 		 */
-		setColorSubtitulo(colorSubtitle: string): Greeting;
+		setColorSubtitulo(colorSubtitle: string): Leaver;
 		/**
 		 * <p>Establecer color</p>
 		 * @param colorTitle - <p>Código de color HTML5</p>
 		 */
-		setColorTitulo(colorTitle: string): Greeting;
-		/**
-		 * <p>Recuento de miembros de ser</p>
-		 * @param memberCount - <p>Recuento de miembros del gremio</p>
-		 */
-		setMemberCount(memberCount?: number | string): Welcomer;
+		setColorTitulo(colorTitle: string): Leaver;
 		/**
 		 * <p>Establecer subtítulo</p>
 		 * @param textSubtitle - <p>Subtítulo para configurar</p>
 		 */
-		setSubtitulo(textSubtitle: string): Greeting;
+		setSubtitulo(textSubtitle: string): Leaver;
 		/**
 		 * <p>Establecer título</p>
 		 * @param textTitle - <p>Título para establecer</p>
@@ -647,6 +643,12 @@ declare module 'canvacard' {
 		setAvatar(data: string | Buffer): Greeting;
 		/**
 		 * <p>Crea una imagen de abandono</p>
+		 */
+		/**
+		 * <p>Construye carta de abandono</p>
+		 * @param ops - <p>Fuentes</p>
+		 * @param [ops.fontX = "Manrope"] - <p>Familia tipográfica Bold</p>
+		 * @param [ops.fontY = "Manrope"] - <p>Familia tipográfica regular</p>
 		 */
 		build(ops: { fontX?: string; fontY?: string }): Promise<Buffer>;
 	}
