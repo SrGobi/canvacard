@@ -1,6 +1,6 @@
 {
   "name": "canvacard",
-  "version": "2.0.0",
+  "version": "2.5.0",
   "description": "Potente paquete de manipulación de imágenes para principiantes.",
   "main": "index.js",
   "types": "typings/index.d.ts",
@@ -28,10 +28,10 @@
   "bugs": {
     "url": "https://github.com/SrGobi/Canvacord/issues"
   },
-  "homepage": "https://canvacard.js.org",
+  "homepage": "https://canvacard.srgobi.com/",
   "dependencies": {
-    "@canvacord/assets": "^2.1.0",
-    "@canvacord/emoji-parser": "^1.0.1",
+    "@canvacard/assets": "^1.0.0",
+    "@canvacard/emoji-parser": "^1.0.1",
     "canvas": "^2.8.0",
     "clean-jsdoc-theme": "^3.2.8",
     "gifencoder": "^2.0.1",
@@ -41,8 +41,8 @@
   "devDependencies": {
     "@discordjs/docgen": "discordjs/docgen",
     "@types/node": "^16.4.7",
-    "captcha-canvas": "^2.3.1",
+    "captcha-canvas": "^3.1.0",
     "discord-canvascard": "github:SrGobi/discord-canvascard",
-    "jsdoc": "^3.6.7"
+    "jsdoc": "^3.6.10"
   }
 }
