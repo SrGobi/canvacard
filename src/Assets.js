@@ -1,3 +1,3 @@
-const assets = require("@canvacord/assets");
+const assets = require('@canvacard/assets');
 
 module.exports = assets;
