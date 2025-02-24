@@ -29,7 +29,7 @@ module.exports = {
     CaptchaGen: load("captcha-canvas") ? load("captcha-canvas").CaptchaGenerator : null,
     Plugins: require("./src/Plugins"),
     Util: require("./src/Util"),
-    Assets: require("@canvacord/assets"),
+    Assets: require("@canvacard/assets"),
     MSX: {
         Brightness: require("./libs/Brightness"),
         Convolute: require("./libs/Convolute"),
