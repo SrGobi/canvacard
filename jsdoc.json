@@ -1,0 +1,39 @@
+{
+  "title": "Canvascard",
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": [
+      "jsdoc",
+      "closure"
+    ]
+  },
+  "source": {
+    "include": [
+      "index.js",
+      "./typings",
+      "./src",
+      "./plugins",
+      "./libs"
+    ],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "plugins": [
+    "plugins/markdown"
+  ],
+  "markdown": {
+    "excludeTags": [
+      "author"
+    ]
+  },
+  "opts": {
+    "template": "./node_modules/clean-jsdoc-theme",
+    "theme_opts": {
+      "theme": "light"
+    },
+    "private": false,
+    "recurse": true,
+    "encoding": "utf8",
+    "destination": "docs/"
+  }
+}
