@@ -1,295 +1,379 @@
-const { createCanvas, loadImage } = require('@napi-rs/canvas');
-const Util = require('./Util');
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
+const formatTime = require("./utils/formatTime.utils");
+const shorten = require("./utils/shorten.utils");
+const APIError = require("./utils/error.utils");
 
 /**
- * Creador de tarjetas de presencia de Spotify
+ * @kind class
+ * @description Spotify card creator
+ * <details open>
+ *  <summary>PREVIEW</summary>
+ * <br>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/spotify.png" alt="Spotify Card Preview">
+ *   </a>
+ * </details>
+ * 
+ * @example
+ * ```js
+const spotify = new canvacard.Spotify()
+  .setAuthor("SAIKO")
+  .setAlbum("SAKURA 👋")
+  .setStartTimestamp(Date.now() - 10000)
+  .setEndTimestamp(Date.now() + 50000)
+  .setImage("https://i.scdn.co/image/ab67616d00001e02e346fc6f767ca2ac8365fe60")
+  .setTitle("YO LO SOÑÉ");
+const spotifyImage = await spotify.build("Cascadia Code PL");
+canvacard.write(spotifyImage, "./spotify.png");
+ * ```
  */
 class Spotify {
-	/**
-   * Crea una tarjeta de presencia de Spotify
-   * @example
-   * const card = new canvacard.Spotify()
-      .setAuthor("Indila")
-      .setAlbum("Mini World")
-      .setStartTimestamp(Date.now() - 10000)
-      .setEndTimestamp(Date.now() + 50000)
-      .setImage("https://is5-ssl.mzstatic.com/image/thumb/Features111/v4/a4/89/a1/a489a1cb-4543-6861-a276-4470d41d6a90/mzl.zcdmhnlk.jpg/800x800bb.jpeg")
-      .setTitle("S.O.S");
+  constructor() {
 
-  card.build()
-      .then(data => {
-          canvacard.write(data, "./images/spotify.png");
-      });
+    /**
+     * Title of the song
+     * @property {string}
+     * @private
+     */
+    this.title = "Title of the song";
+
+    /**
+     * Image of the song
+     * @property {string|Buffer|Canvas.Image}
+     * @private
+     */
+    this.image = null;
+
+    /**
+     * Name of the artist
+     * @property {string}
+     * @private
+     */
+    this.artist = "Artist Name";
+
+    /**
+     * Name of the album
+     * @property {string}
+     * @private
+     */
+    this.album = "Album Name";
+
+    /**
+     * Start timestamp
+     * @property {number}
+     * @private
+     */
+    this.start = null;
+
+    /**
+     * End timestamp
+     * @property {number}
+     * @private
+     */
+    this.end = null;
+
+    /**
+     * Background of the card
+     * @property {object} background Background
+     * @property {number} background.type Type of background
+     * @property {string|Buffer} background.data Background data
+     * @private
+     */
+    this.background = {
+      type: 0,
+      data: "#2F3136"
+    };
+
+    /**
+     * Progress bar details
+     * @property {object} progressBar Progress bar details
+     * @property {string} progressBar.bgColor Progress bar bg color
+     * @property {string} progressBar.color Progress bar color
+     * @private
+     */
+    this.progressBar = {
+      bgColor: "#E8E8E8",
+      color: "#1DB954"
+    };
+
+    /**
+     * Width of the card
+     * @property {number}
+     * @default 775
+     * @private
+     */
+    this.width = 775;
+
+    /**
+     * Height of the card
+     * @property {number}
+     * @default 300
+     * @private
+     */
+    this.height = 300;
+  }
+
+  /**
+   * @method setProgressBar
+   * @name setProgressBar
+   * @description Set progress bar details
+   * @param {"TRACK"|"BAR"} type Type of progress bar
+   * @param {string} color Color of the progress bar
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Invalid progress bar type
    */
-	constructor() {
-		/**
-		 * Título de la canción
-		 * @type {string}
-		 */
-		this.title = null;
+  setProgressBar(type, color) {
+    switch (type) {
 
-		/**
-		 * Thumbnail
-		 * @type {string|Buffer|Canvas.Image}
-		 */
-		this.image = null;
+      case "BAR":
+        this.progressBar.color = color && typeof color === "string" ? color : "#1DB954";
+        break;
+      case "TRACK":
+        this.progressBar.bgColor = color && typeof color === "string" ? color : "#E8E8E8";
+        break;
+      default:
+        throw new APIError(`Invalid progress bar type "${type}"!`);
+    }
 
-		/**
-		 * Artista de la canción
-		 * @type {string}
-		 */
-		this.artist = null;
+    return this;
+  }
 
-		/**
-		 * Nombre del álbum de Spotify
-		 * @type {string}
-		 */
-		this.album = null;
+  /**
+   * @method setTitle
+   * @name setTitle
+   * @description Set title
+   * @param {string} title Title of the song
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Title expected but not received
+   */
+  setTitle(title) {
+    if (!title || typeof title !== "string") throw new APIError(`Expected title, received ${typeof title}!`);
+    this.title = title;
+    return this;
+  }
 
-		/**
-		 * Marca de tiempo de inicio de presencia de discord
-		 * @type {number}
-		 */
-		this.start = null;
+  /**
+   * @method setImage
+   * @name setImage
+   * @description Establecer imagen
+   * @param {string|Buffer|Canvas.Image} source Fuente de imagen
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Image source expected but not received
+   */
+  setImage(source) {
+    if (!source) throw new APIError(`Image source expected, received ${typeof title}!`);
+    this.image = source;
+    return this;
+  }
 
-		/**
-		 * Marca de tiempo de finalización de presencia de discord
-		 * @type {number}
-		 */
-		this.end = null;
+  /**
+   * @method setAuthor
+   * @name setAuthor
+   * @description Set the name of the artist
+   * @param {string} name Name of the artist
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Artist name expected but not received
+   */
+  setAuthor(name) {
+    if (!name || typeof name !== "string") throw new APIError(`Expected artist name, received ${typeof name}!`);
+    this.artist = name;
+    return this;
+  }
 
-		/**
-		 * @typedef {object} SpotifyDataBG
-		 * @property {number} type Tipo de fondo
-		 * @property {string|Buffer} data Datos de fondo
-		 */
+  /**
+   * @method setAlbum
+   * @name setAlbum
+   * @description Set the name of the album
+   * @param {string} name Name of the album
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Album name expected but not received
+   */
+  setAlbum(name) {
+    if (!name || typeof name !== "string") throw new Error(`Expected album name, received ${typeof name}!`);
+    this.album = name;
+    return this;
+  }
 
-		/**
-		 * Fondo
-		 * @type {SpotifyDataBG}
-		 */
-		this.background = {
-			type: 0,
-			data: '#2F3136'
-		};
+  /**
+   * @method setStartTimestamp
+   * @name setStartTimestamp
+   * @description Set start timestamp
+   * @param {Date|number} time Timestamp
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Timestamp expected but not received
+   */
+  setStartTimestamp(time) {
+    if (!time) throw new APIError(`Expected timestamp, received ${typeof time}!`);
+    if (time instanceof Date) time = time.getTime();
+    this.start = time;
+    return this;
+  }
 
-		/**
-		 * @typedef {object} SpotifyProgressBarData
-		 * @property {string} bgColor Barra de progreso bg color
-		 * @property {string} color Barra de progreso bg color
-		 */
+  /**
+   * @method setEndTimestamp
+   * @name setEndTimestamp
+   * @description Set end timestamp
+   * @param {Date|number} time Timestamp
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Timestamp expected but not received
+   */
+  setEndTimestamp(time) {
+    if (!time) throw new APIError(`Expected timestamp, received ${typeof time}!`);
+    if (time instanceof Date) time = time.getTime();
+    this.end = time;
+    return this;
+  }
 
-		/**
-		 * Detalles de la barra de progreso
-		 * @type {SpotifyProgressBarData}
-		 */
-		this.progressBar = {
-			bgColor: '#E8E8E8',
-			color: '#1DB954'
-		};
-	}
+  /**
+   * @method setBackground
+   * @name setBackground
+   * @description Set background image/color of the card
+   * @param {"COLOR"|"IMAGE"} type Type of background
+   * @param {string|Buffer|Canvas.Image} data Image URL or HTML color code
+   * @returns {Spotify} The current instance of Spotify
+   * @throws {APIError} Missing background data
+   */
+  setBackground(type = "COLOR", data = "#2F3136") {
+    switch (type) {
+      case "COLOR":
+        this.background.type = 0;
+        this.background.data = data && typeof data === "string" ? data : "#2F3136";
+        break;
+      case "IMAGE":
+        if (!data) throw new APIError("Background data is missing!");
+        this.background.type = 1;
+        this.background.data = data;
+        break;
+      default:
+        throw new APIError(`Invalid fund type "${type}"!`);
+    }
+    return this;
+  }
 
-	/**
-	 * Establecer detalles de la barra de progreso
-	 * @param {"TRACK"|"BAR"} type Tipo de barra de progreso
-	 * @param {string} color Color para establecer
-	 * @returns {Spotify}
-	 */
-	setProgressBar(type, color) {
-		switch (type) {
-			case 'BAR':
-				this.progressBar.color = color && typeof color === 'string' ? color : '#1DB954';
-				break;
-			case 'TRACK':
-				this.progressBar.bgColor = color && typeof color === 'string' ? color : '#E8E8E8';
-				break;
-			default:
-				throw new Error(`Tipo de barra de progreso no válido "${type}"!`);
-		}
+  /**
+   * @method build
+   * @name build
+   * @description Build the Spotify presence card
+   * @param {string} [font="Arial"] Font to use in the card
+   * @returns {Promise<Buffer>} Card image in buffer format
+   * @throws {APIError} Missing of options
+   */
+  async build(font = "Arial") {
+    if (!this.title) throw new APIError('"Title" is missing from the options.');
+    if (!this.artist) throw new APIError('"Artist" is missing from the options.');
+    if (!this.start) throw new APIError('"Start" is missing from the options.');
+    if (!this.end) throw new APIError('"Final" is missing from the options.');
 
-		return this;
-	}
+    const total = this.end - this.start;
+    const progress = Date.now() - this.start;
+    const progressF = formatTime(progress > total ? total : progress);
+    const ending = formatTime(total);
 
-	/**
-	 * Establecer título
-	 * @param {string} title Título para establecer
-	 * @returns {Spotify}
-	 */
-	setTitle(title) {
-		if (!title || typeof title !== 'string') throw new Error(`Título esperado, recibido ${typeof title}!`);
-		this.title = title;
-		return this;
-	}
+    const canvas = createCanvas(this.width, this.height);
+    const ctx = canvas.getContext("2d");
 
-	/**
-	 * Establecer imagen
-	 * @param {string|Buffer|Canvas.Image} source Fuente de imagen
-	 * @returns {Spotify}
-	 */
-	setImage(source) {
-		if (!source) throw new Error(`Fuente de imagen esperada, recibida ${typeof title}!`);
-		this.image = source;
-		return this;
-	}
+    // Crop the image with rounded edges
+    ctx.roundRect(0, 0, this.width, this.height, [34]);
+    ctx.clip();
 
-	/**
-	 * Establecer nombre de artista
-	 * @param {string} name Nombre del artista
-	 * @returns {Spotify}
-	 */
-	setAuthor(name) {
-		if (!name || typeof name !== 'string') throw new Error(`Nombre esperado del artista, recibido ${typeof name}!`);
-		this.artist = name;
-		return this;
-	}
+    // Draw the background
+    ctx.beginPath();
+    if (this.background.type === 0) {
+      ctx.rect(0, 0, this.width, this.height);
+      ctx.fillStyle = this.background.data || "#2F3136";
+      ctx.fillRect(0, 0, this.width, this.height);
+    } else {
+      const background = await loadImage(this.background.data);
+      ctx.drawImage(background, 0, 0, this.width, this.height);
+    }
+    ctx.closePath();
 
-	/**
-	 * Establecer el nombre del álbum
-	 * @param {string} name Nombre del álbum
-	 * @returns {Spotify}
-	 */
-	setAlbum(name) {
-		if (!name || typeof name !== 'string') throw new Error(`Nombre del álbum esperado, recibido ${typeof name}!`);
-		this.album = name;
-		return this;
-	}
+    // Save the context to clip the image
+    ctx.save();
 
-	/**
-	 * Establecer marca de tiempo de inicio
-	 * @param {Date|number} time Marca de tiempo
-	 * @returns {Spotify}
-	 */
-	setStartTimestamp(time) {
-		if (!time) throw new Error(`Marca de tiempo esperada, recibida ${typeof time}!`);
-		if (time instanceof Date) time = time.getTime();
-		this.start = time;
-		return this;
-	}
+    // Crop the image with rounded edges
+    const size = 240;
+    const x = 30;
+    const y = 30;
+    ctx.beginPath();
+    ctx.roundRect(x, y, size, size, [34]);
+    ctx.clip();
+    const img = await loadImage(this.image);
+    ctx.drawImage(img, x, y, size, size);
+    ctx.closePath();
 
-	/**
-	 * Establecer marca de tiempo de finalización
-	 * @param {Date|number} time Marca de tiempo
-	 * @returns {Spotify}
-	 */
-	setEndTimestamp(time) {
-		if (!time) throw new Error(`Marca de tiempo esperada, recibida ${typeof time}!`);
-		if (time instanceof Date) time = time.getTime();
-		this.end = time;
-		return this;
-	}
+    // Restore the context to draw the text
+    ctx.restore();
 
-	/**
-	 * Definir fondo
-	 * @param {"COLOR"|"IMAGE"} type Tipo de fondo
-	 * @param {string|Buffer|Canvas.Image} data Datos de fondo
-	 * @returns {Spotify}
-	 */
-	setBackground(type = 'COLOR', data = '#2F3136') {
-		switch (type) {
-			case 'COLOR':
-				this.background.type = 0;
-				this.background.data = data && typeof data === 'string' ? data : '#2F3136';
-				break;
-			case 'IMAGE':
-				if (!data) throw new Error('¡Faltan datos de fondo!');
-				this.background.type = 1;
-				this.background.data = data;
-				break;
-			default:
-				throw new Error(`Tipo de fondo no válido "${type}"!`);
-		}
+    const sizeX = x + 280;
+    const sizeY = y + 80;
 
-		return this;
-	}
+    // Draw the title of the song
+    ctx.fillStyle = "#FFFFFF";
+    ctx.font = `bold 50px ${font}`;
+    ctx.fillText(shorten(this.title, 30), sizeX, sizeY);
 
-	/**
-	 * Esta función convierte los datos sin procesar en una tarjeta de presencia de Spotify.
-	 * @param {object} ops Fuentes
-	 * @param {string} [ops.fontX="Manrope"] Familia tipográfica Bold
-	 * @param {string} [ops.fontY="Manrope"] Familia tipográfica regular
-	 * @returns {Promise<Buffer>}
-	 */
-	async build(ops = { fontX: 'Manrope', fontY: 'Manrope' }) {
-		if (!this.title) throw new Error('Falta el "título" en las opciones.');
-		if (!this.artist) throw new Error('Falta "artista" en las opciones.');
-		if (!this.start) throw new Error('Falta "inicio" en las opciones.');
-		if (!this.end) throw new Error('Falta "final" en las opciones.');
+    // Draw the name of the album
+    if (this.album && typeof this.album === "string") {
+      ctx.fillStyle = "#F1F1F1";
+      ctx.font = `32px ${font}`;
+      ctx.fillText(shorten(this.album, 40), sizeX, sizeY + 40);
+    }
 
-		const total = this.end - this.start;
-		const progress = Date.now() - this.start;
-		const progressF = Util.formatTime(progress > total ? total : progress);
-		const ending = Util.formatTime(total);
 
-		const canvas = createCanvas(600, 150);
-		const ctx = canvas.getContext('2d');
+    // Draw the name of the artist
+    ctx.fillStyle = "#F1F1F1";
+    ctx.font = `24px ${font}`;
+    ctx.fillText(shorten(this.artist, 40), sizeX, sizeY + 70);
 
-		// fondo
-		ctx.beginPath();
-		if (this.background.type === 0) {
-			ctx.rect(0, 0, canvas.width, canvas.height);
-			ctx.fillStyle = this.background.data || '#2F3136';
-			ctx.fillRect(0, 0, canvas.width, canvas.height);
-		} else {
-			let img = await loadImage(this.background.data);
-			ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-		}
+    // Draw the progress bar and the progress text
+    const progressBarWidth = 400;
+    const progressBarHeight = 8;
+    const radius = 4; // The radius of the rounded edges (half the height to make it completely round)
 
-		// dibujar imagen
-		const img = await loadImage(this.image);
-		ctx.drawImage(img, 30, 15, 120, 120);
+    // Draw time ending
+    ctx.fillStyle = "#B3B3B3";
+    ctx.font = `14px ${font}`;
+    ctx.fillText(ending, sizeX + 360, sizeY + 120 + progressBarHeight);
 
-		// dibujar el nombre de la canción
-		ctx.fillStyle = '#FFFFFF';
-		ctx.font = `bold 20px ${ops.fontX}`;
-		await Util.renderEmoji(ctx, Util.shorten(this.title, 30), 170, 40);
+    // Draw time progress
+    ctx.fillStyle = "#B3B3B3";
+    ctx.font = `14px ${font}`;
+    ctx.fillText(progressF, sizeX, sizeY + 120 + progressBarHeight);
 
-		// dibujar el nombre del artista
-		ctx.fillStyle = '#F1F1F1';
-		ctx.font = `14px ${ops.fontY}`;
-		await Util.renderEmoji(ctx, `por ${Util.shorten(this.artist, 40)}`, 170, 70);
+    // Progress bar track (background)
+    ctx.beginPath();
+    ctx.roundRect(sizeX, sizeY + 100, progressBarWidth, progressBarHeight, [radius]);
+    ctx.fillStyle = "#E8E8E8";
+    ctx.fill();
+    ctx.closePath();
 
-		// agregar álbum
-		if (this.album && typeof this.album === 'string') {
-			ctx.fillStyle = '#F1F1F1';
-			ctx.font = `14px ${ops.fontY}`;
-			await Util.renderEmoji(ctx, `en ${Util.shorten(this.album, 40)}`, 170, 90);
-		}
+    // Progress bar (the green part)
+    const progressWidth = this.__calculateProgress(progress, total);
 
-		// punto final
-		ctx.fillStyle = '#B3B3B3';
-		ctx.font = `14px ${ops.fontY}`;
-		await Util.renderEmoji(ctx, ending, 430, 130);
+    ctx.beginPath();
+    ctx.roundRect(sizeX, sizeY + 100, progressWidth, progressBarHeight, [radius]);
+    ctx.fillStyle = "#1DB954";
+    ctx.fill();
+    ctx.closePath();
 
-		// Progreso
-		ctx.fillStyle = '#B3B3B3';
-		ctx.font = `14px ${ops.fontY}`;
-		await Util.renderEmoji(ctx, progressF, 170, 130);
 
-		// pista de la barra de progreso
-		ctx.rect(170, 170, 300, 4);
-		ctx.fillStyle = '#E8E8E8';
-		ctx.fillRect(170, 110, 300, 4);
+    return canvas.toBuffer("image/png");
+  }
 
-		// barra de progreso
-		ctx.fillStyle = '#1DB954';
-		ctx.fillRect(170, 110, this.__calculateProgress(progress, total), 4);
+  /**
+   * Returns progress
+   * @type {number}
+   * @private
+   * @ignore
+   */
+  __calculateProgress(progress, total) {
+    let prg = (progress / total) * 300;
+    if (isNaN(prg) || prg < 0) return 0;
+    if (prg > 300) return 300;
+    return prg;
+  }
 
-		// regreso
-		return canvas.toBuffer();
-	}
-
-	/**
-	 * Progreso de devoluciones
-	 * @type {number}
-	 * @private
-	 * @ignore
-	 */
-	__calculateProgress(progress, total) {
-		let prg = (progress / total) * 300;
-		if (isNaN(prg) || prg < 0) return 0;
-		if (prg > 300) return 300;
-		return prg;
-	}
 }
 
 module.exports = Spotify;
