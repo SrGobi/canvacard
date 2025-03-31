@@ -16,7 +16,7 @@ const Util = require('./Util');
 
 /**
  * Canvacard Generador De Memes
- * @example 
+ * @example
  * const Canvacard = require("canvacard");
  * Canvacard.Canvas.trigger("./image.png")
  *  .then(triggered => {
@@ -1205,7 +1205,7 @@ class Canvacard {
 	 * @param {string} [options.mainText] El mensaje
 	 * @param {string} [options.replyText] El mensaje de respuesta
 	 * @returns {Promise<Buffer>}
-	 * @example 
+	 * @example
 	 * const img = "https://cdn.discordapp.com/embed/avatars/0.png";
 	 * const img2 = "https://cdn.discordapp.com/embed/avatars/4.png";
 	 * canvacard.Canvas.reply({
