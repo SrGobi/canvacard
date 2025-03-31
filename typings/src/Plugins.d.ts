@@ -1,27 +1,15 @@
 export type Plugins = {
     /**
-     * Complemento de círculo
+     * Complement of circle
      */
     circle: Function;
     /**
-     * Complemento convolute
+     * Convolute complement
      */
     convolute: Function;
     /**
-     * Complemento de rectángulo
-     */
-    rectangle: Function;
-    /**
-     * Complemento redondo
-     */
-    round: Function;
-    /**
-     * Complemento de abreviaturas
+     * Complement of abbreviations
      */
     abbrev: Function;
-    /**
-     * Complemento de renderizado de emoji
-     */
-    renderEmoji: Function;
 };
 //# sourceMappingURL=Plugins.d.ts.map
