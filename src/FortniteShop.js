@@ -1,1144 +1,310 @@
-const { createCanvas, loadImage } = require('@napi-rs/canvas');
-const fortnite = require('fortnite-9812');
-const fs = require('fs');
-const moment = require('moment');
-const APIError = require('./utils/error');
+const { createCanvas, loadImage } = require("@napi-rs/canvas");
+const fs = require("fs");
+const APIError = require("./utils/error.utils");
+const formatVariable = require("./utils/formatVariable.utils");
+const parseSvg = require("./utils/parseSvg.utils");
+const formatAndValidateHex = require("./utils/formatAndValidateHex.utils");
 
 /**
- * Obtiene variables y tipos
- * @param {object} prefix El tipo de variable
- * @param {object} variable La variable a cambiar
- * @returns La variable formateada
- */
-const formatVariable = (prefix, variable) => {
-	const formattedVariable = variable
-		.toLowerCase()
-		.split('-')
-		.map((word) => word.charAt(0).toUpperCase() + word.substr(1, word.length).toLowerCase())
-		.join('');
-	return prefix + formattedVariable;
-};
+ * @kind class
+ * @description Fortnite Shop card creator
+ * <details open>
+ *  <summary>PREVIEW</summary>
+ * <br>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/fortnite_shop.png" alt="Fortnite Shop Card Preview">
+ *   </a>
+ * </details>
+ * 
+ * To obtain a Fortnite API token, visit [fortnite-api.com](https://fortnite-api.com/)
+ * 
+ * @example
+ * ```js
+const shop = new canvacard.FortniteShop()
+  .setToken("f4a26b940ef54a9a4238cef040bd08fa9001cd6c")
+  .setText("footer", "ESP CUSTOMS X FORTNITE")
 
-/**
- * Obtiene variables y tipos
- * @param {object} canvas El lienzo
- * @param {object} text El texto
- * @param {object} defaultFontSize El tamaño de píxel de fuente predeterminado
- * @param {object} width El ancho máximo del texto
- * @param {object} font La fuente del texto
- * @returns La variable formateada
+const FortniteShopImage = await shop.build("Luckiest Guy");
+canvacard.write(FortniteShopImage, "./fortnite_shop.png");
+ * ```
  */
-const applyText = (canvas, text, defaultFontSize, width, font) => {
-	const ctx = canvas.getContext('2d');
-	do {
-		ctx.font = `${(defaultFontSize -= 1)}px ${font}`;
-	} while (ctx.measureText(text).width > width);
-	return ctx.font;
-};
-
-/**
- * Creador de imagen de la tienda de fortnite
- */
-
 class FortniteShop {
-	/**
-   * FortniteShop image builder
-   * @example
-   *  const FortniteShopCardURL = await new FortniteShop()
-        .setToken("3533192f-66bc-48b2-8df9-c03bfeb75957")
-        .setText("footer", "ESP CUSTOMS X FORTNITE")
-        .toAttachment();
-      await channel.send({ files: [{ attachment: FortniteShopCardURL, name: 'FortniteShop.png' }] })
+  constructor() {
+    this.token = ""; // Requiere token válido
+    this.textHeader = "FORTNITE ITEMS SHOP";
+    this.textFooter = "Generated with canvascard";
+    this.options = { lang: "es", dateFormat: "dddd, MMMM Do YYYY" };
+    this.rows = 8;
+  }
+
+  /**
+   * @method setToken
+   * @name setToken
+   * @description Set the Fortnite API token
+   * @param {string} value Fortnite API token
+   * @returns {FortniteShop} The current instance of FortniteShop
+   * @throws {APIError} If the value is not a string
    */
+  setToken(value) {
+    if (!value || typeof value !== "string") throw new APIError("Please provide a valid token for fortnite-api.com!");
+    this.token = value;
+    return this;
+  }
 
-	constructor() {
-		/**
-		 * Token
-		 * @type {string}
-		 */
-		this.token = '642ce759-161a-4241-b10f-957a94c7305a';
-		/**
-		 * Texto del encabezado
-		 * @type {string}
-		 */
-		this.textHeader = 'TIENDA DE ARTÍCULOS FORTNITE';
-		/**
-		 * Texto del dia
-		 * @type {string}
-		 */
-		this.textDaily = 'DIARIO';
-		/**
-		 * Texto de destacados
-		 * @type {string}
-		 */
-		this.textFeatured = 'DESTACADOS';
-		/**
-		 * Textos de datos
-		 * @type {string}
-		 */
-		this.textDate = 'Tienda Fortnite de {date}';
-		/**
-		 * Texto del footer
-		 * @type {string}
-		 */
-		this.textFooter = 'Generado con canvascard';
-		this.options = {
-			lang: 'es',
-			dateFormat: 'dddd, MMMM Do YYYY'
-		};
-		/**
-		 * imagen de fondo
-		 * @type {string}
-		 */
-		this.background = `${__dirname}/../assets/img/fortnite/shop/background.png`;
-	}
+  /**
+   * @method setRows
+   * @name setRows
+   * @description Set the number of rows for the Fortnite Shop card
+   * @param {number} value Number of rows to set for the card
+   * @returns {FortniteShop} The current instance of FortniteShop
+   * @throws {APIError} If the value is not a number
+   */
+  setRows(value) {
+    if (!value || typeof value !== "number") throw new APIError("Please provide a valid number of rows for fortnite-api.com!");
+    this.rows = value;
+    return this;
+  }
 
-	/**
-	 * Valor del Token
-	 * @param {string} value
-	 * @returns {FortniteShop}
-	 */
-	setToken(value) {
-		this.token = value;
-		return this;
-	}
+  /**
+   * @method setText
+   * @name setText
+   * @description Set the text for the Fortnite Shop card
+   * @param {string} value Text to set for the card
+   * @returns {FortniteShop} The current instance of FortniteShop
+   * @throws {APIError} If the value is not a string
+   */
+  setText(variable, value) {
+    if (typeof value !== "string") throw new APIError("The value must be a text string!");
+    const formattedVariable = formatVariable("text", variable);
+    if (this[formattedVariable]) this[formattedVariable] = value;
+    return this;
+  }
 
-	/**
-	 * Valor del background
-	 * @param {string} value
-	 * @returns {FortniteShop}
-	 */
-	setBackground(value) {
-		this.background = value;
-		return this;
-	}
+  /**
+   * @method build
+   * @name build
+   * @description Build the Fortnite Shop card
+   * @param {string} [font="Arial"] Font to use for the card
+   * @returns {Promise<Buffer>} Card image in buffer format
+   * @throws {APIError} If the token is not provided
+   */
+  async build(font = "Arial") {
+    if (!this.token) throw new APIError("Please provide a valid token for fortnite-api.com!");
 
-	/**
-	 * Valor del texto
-	 * @param {string} value
-	 * @returns {FortniteShop}
-	 */
-	setText(variable, value) {
-		const formattedVariable = formatVariable('text', variable);
-		if (this[formattedVariable]) this[formattedVariable] = value;
-		return this;
-	}
+    const shopRequest = await fetch("https://fortnite-api.com/v2/shop?language=es", {
+      headers: { "x-api-key": this.token }
+    });
 
-	/**
-	 * Valor del idioma
-	 * @param {string} value
-	 * @returns {FortniteShop}
-	 */
-	lang(value) {
-		this.options.lang = value;
-		return this;
-	}
+    if (!shopRequest.ok) throw new APIError("Error al obtener datos de la tienda: " + shopRequest.statusText);
 
-	/**
-	 * Valor del formato de fecha
-	 * @param {string} value
-	 * @returns {FortniteShop}
-	 */
-	dateFormat(value) {
-		this.options.dateFormat = value;
-		return this;
-	}
+    const shopData = await shopRequest.json();
+    const entries = shopData.data.entries || [];
 
-	async toAttachment() {
-		if (!this.token) return console.log('Please enter a valid token fnbr.co !');
+    // Process items same as before
+    let items = [];
+    for (const entry of entries) {
+      if (entry.bundle) {
+        items.push({
+          type: "bundle",
+          name: entry.bundle.name,
+          image: entry.bundle.image,
+          price: entry.finalPrice,
+          section: entry.section?.name || "Featured",
+          colors: entry.colors // Colors for gradient
+        });
+      } else if (entry.brItems) {
+        const itemData = entry.brItems.map(item => ({
+          type: "item",
+          name: item.name,
+          description: item.description,
+          rarity: item.rarity?.backendValue || "Common",
+          image: item.images?.featured || item.images?.icon || item.images?.smallIcon || "",
+          price: entry.finalPrice,
+          section: entry.section?.name || "Daily",
+          colors: item?.series?.colors // Array of colors for gradient
+        }));
+        items = items.concat(itemData);
+      }
+    }
 
-		const rarityCard = (value) => {
-			let colorBorder = '#b1b1b1',
-				colorCenter = '#bebebe',
-				colorExt = '#646464';
+    // Group items by section
+    const sections = {};
+    items.forEach(item => {
+      if (!sections[item.section]) sections[item.section] = [];
+      sections[item.section].push(item);
+    });
 
-			if (value === 'legendary') {
-				colorBorder = '#e98d4b';
-				colorCenter = '#ea8d23';
-				colorExt = '#78371d';
-			} else if (value === 'epic') {
-				colorBorder = '#e95eff';
-				colorCenter = '#c359ff';
-				colorExt = '#4b2483';
-			} else if (value === 'rare') {
-				colorBorder = '#37d1ff';
-				colorCenter = '#2cc1ff';
-				colorExt = '#143977';
-			} else if (value === 'uncommon') {
-				colorBorder = '#87e339';
-				colorCenter = '#69bb1e';
-				colorExt = '#175117';
-			} else if (value === 'common') {
-				colorBorder = '#b1b1b1';
-				colorCenter = '#bebebe';
-				colorExt = '#646464';
-			} else if (value === 'dark') {
-				colorBorder = '#ff42e7';
-				colorCenter = '#fb22df';
-				colorExt = '#520c6f';
-			} else if (value === 'dc') {
-				colorBorder = '#6094ce';
-				colorCenter = '#5475c7';
-				colorExt = '#243461';
-			} else if (value === 'marvel') {
-				colorBorder = '#ef3537';
-				colorCenter = '#c53334';
-				colorExt = '#761b1b';
-			} else if (value === 'lava') {
-				colorBorder = '#d19635';
-				colorCenter = '#ea8d23';
-				colorExt = '#6a0a31';
-			} else if (value === 'frozen') {
-				colorBorder = '#c4dff7';
-				colorCenter = '#94dfff';
-				colorExt = '#269ed6';
-			} else if (value === 'slurp') {
-				colorBorder = '#53f0ff';
-				colorCenter = '#29f1a3';
-				colorExt = '#12a9a4';
-			} else if (value === 'icon_series') {
-				colorBorder = '#52e0e0';
-				colorCenter = '#256b6b';
-				colorExt = '#12a9a4';
-			} else if (value === 'shadow') {
-				colorBorder = '#949494';
-				colorCenter = '#717171';
-				colorExt = '#191919';
-			} else if (value === 'star_wars') {
-				colorBorder = '#e7c413';
-				colorCenter = '#1b366e';
-				colorExt = '#081737';
-			}
+    // Canvas setup with new dimensions
+    const itemsPerRow = this.rows;
+    const itemWidth = 512;
+    const itemHeight = 512;
+    const padding = 20;
+    const headerHeight = 100;
+    const sectionPadding = 60;
 
-			return {
-				colorBorder: colorBorder,
-				colorCenter: colorCenter,
-				colorExt: colorExt
-			};
-		};
+    // Calculate total width based on sections
+    const canvasWidth = itemsPerRow * (itemWidth + padding) + padding;
 
-		const fortniteClient = new fortnite.Client({ fnbrToken: this.token });
+    // Calculate total height based on sections
+    const rows = Math.ceil(items.filter(i => i.type === "item").length / itemsPerRow) + Math.ceil(items.filter(i => i.type === "bundle").length / itemsPerRow);
 
-		let shop = await fortniteClient.fnbrShop();
+    const canvasHeight = rows * (itemHeight + padding) + (headerHeight + sectionPadding) + 300;
 
-		const filesDir = `${__dirname}/../assets/img/fortnite/shop/cache`;
+    const canvas = createCanvas(canvasWidth, canvasHeight);
+    const ctx = canvas.getContext("2d");
 
-		fs.readdir(filesDir, function (err, files) {
-			//error de manejo
-			if (error) {
-				throw new APIError(`Unable to scan directory: ${error.message}`);
-			}
+    // Create gradient background
+    const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+    gradient.addColorStop(0, '#1e3c72');
+    gradient.addColorStop(1, '#2a5298');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-			files.forEach(function (file) {
-				if (file.split('.')[1] === 'png') {
-					if (Number(file.split('_')[0]) < Date.now() - 86400000 * 5) {
-						fs.unlinkSync(`${__dirname}/../assets/img/fortnite/shop/cache/${file}`);
-					}
-				}
-			});
-		});
+    // Draw header
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold 60px ${font}`;
+    ctx.textAlign = 'center';
+    ctx.fillText(this.textHeader.toUpperCase(), canvas.width / 2, 70);
 
-		const path = `${__dirname}/../assets/img/fortnite/shop/cache/${new Date(shop.data.date).getTime()}_${this.options.lang}.png`;
+    // Draw date
+    const date = new Date().toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
+    });
+    ctx.font = `30px ${font}`;
+    ctx.fillText(date, canvas.width / 2, 110);
 
-		if (fs.existsSync(path)) {
-			return path;
-		} else {
-			let dateShop = this.textDate.replace('{date}', moment(shop.data.date).locale(this.options.lang).format(this.options.dateFormat)),
-				dailyHeight = shop.data.daily.length < 9 ? Math.ceil(shop.data.daily.length / 2) * 297 : Math.ceil(shop.data.daily.length / 3) * 297,
-				featuredHeight = shop.data.featured.length < 9 ? Math.ceil(shop.data.featured.length / 2) * 297 : Math.ceil(shop.data.featured.length / 3) * 297,
-				canvas = shop.data.daily.length < 9 && shop.data.featured.length < 9 ? (shop.data.daily.length >= shop.data.featured.length ? createCanvas(1220, 250 + dailyHeight) : createCanvas(1220, 250 + featuredHeight)) : shop.data.daily.length >= shop.data.featured.length ? createCanvas(1220 + 297 * 2, 250 + dailyHeight) : createCanvas(1220 + 297 * 2, 250 + featuredHeight),
-				ctx = canvas.getContext('2d');
+    // Draw sections
+    let currentY = headerHeight + padding;
 
-			/* BACKGROUND */
-			if (this.background.startsWith('#')) {
-				let background = this.background;
-				ctx.fillStyle = background;
-				if (canvas.height > 2026) {
-					ctx.fillRect(0, 0, (canvas.height * 3268) / 2027, canvas.height);
-				} else {
-					ctx.fillRect(0, 0, 3268, 2027);
-				}
-			} else {
-				let background = await loadImage(`${__dirname}/../assets/img/fortnite/shop/background.png`);
-				if (canvas.height > 2026) {
-					ctx.drawImage(background, 0, 0, (canvas.height * 3268) / 2027, canvas.height);
-				} else {
-					ctx.drawImage(background, 0, 0, 3268, 2027);
-				}
-			}
-			// Título del sorteo
-			ctx.fillStyle = '#ffffff';
-			ctx.font = '70px Luckiest Guy';
-			ctx.textAlign = 'center';
-			ctx.fillText(this.textHeader, canvas.width / 2, 71);
-			ctx.font = '50px Luckiest Guy';
-			if (shop.data.daily.length < 9 && shop.data.featured.length < 9) {
-				// Dibujar destacados
-				ctx.fillText(this.textFeatured, 298, 185);
-				// Dibujar diariamente
-				ctx.fillText(this.textDaily, 923, 185);
-			} else {
-				// Dibujar destacados
-				ctx.fillText(this.textFeatured, 447, 185);
-				// Dibujar diariamente
-				ctx.fillText(this.textDaily, canvas.width - 447, 185);
-			}
-			// Dibujar pie de página
-			ctx.font = '43px Roboto';
-			ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 18);
-			// Extraer y extraer la fecha de la tienda
-			ctx.font = '49px Luckiest Guy';
-			ctx.fillText(dateShop, canvas.width / 2, 125);
+    for (const [sectionName, sectionItems] of Object.entries(sections)) {
+      // Section header
+      ctx.font = `bold 40px ${font}`;
+      ctx.fillStyle = '#ffffff';
+      ctx.textAlign = 'left';
+      ctx.fillText(sectionName.toUpperCase(), padding, currentY + 40);
+      currentY += 60;
 
-			if (shop.data.daily.length < 9 && shop.data.featured.length < 9) {
-				for (let i = 0; i < shop.data.featured.length; i++) {
-					if (i & 1) {
-						if (shop.data.featured[i].images.featured) {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
+      // Draw items in grid
+      let currentX = padding;
+      let maxRowHeight = 0;
 
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(313, 51 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(313 + 3 + (268 - 3 * 2) / 2, 51 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 313 + 3, (268 - 3 * 2) / 2 + 51 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(313 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+      for (let i = 0; i < sectionItems.length; i++) {
+        const item = sectionItems[i];
 
-							let item = await loadImage(shop.data.featured[i].images.featured);
-							ctx.drawImage(item, 313 + 3, 51 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(313 + 3, 51 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.featured[i].name, 313 + 134, 51 + 192 + 32 + 149 * i);
-							let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 313 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 122, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 313 + 100, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 129, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 313 + 107, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 136, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 313 + 114, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 143, 51 + 192 + 65 + 149 * i);
-							}
-						} else {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
+        if (currentX + itemWidth > canvas.width - padding) {
+          currentX = padding;
+          currentY += maxRowHeight + padding;
+          maxRowHeight = 0;
+        }
 
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(313, 51 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(313 + 3 + (268 - 3 * 2) / 2, 51 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 313 + 3, (268 - 3 * 2) / 2 + 51 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(313 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+        // Draw item card
+        await this.drawItemCard(ctx, item, currentX, currentY, itemWidth, itemHeight, font);
 
-							let item = await loadImage(shop.data.featured[i].images.icon);
-							ctx.drawImage(item, 313 + 3, 51 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(313 + 3, 51 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.featured[i].name, 313 + 134, 51 + 192 + 32 + 149 * i);
-							let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 313 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 122, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 313 + 100, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 129, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 313 + 107, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 136, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 313 + 114, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 313 + 143, 51 + 192 + 65 + 149 * i);
-							}
-						}
-					} else {
-						if (shop.data.featured[i].images.featured) {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(15, 200 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(15 + 3 + (268 - 3 * 2) / 2, 200 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 15 + 3, (268 - 3 * 2) / 2 + 200 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(15 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+        currentX += itemWidth + padding;
+        maxRowHeight = Math.max(maxRowHeight, itemHeight);
 
-							let item = await loadImage(shop.data.featured[i].images.featured);
-							ctx.drawImage(item, 15 + 3, 200 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(15 + 3, 200 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.featured[i].name, 15 + 134, 200 + 192 + 32 + 149 * i);
-							let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 122, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 15 + 100, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 129, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 15 + 107, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 136, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 15 + 114, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 143, 200 + 192 + 65 + 149 * i);
-							}
-						} else {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(15, 200 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(15 + 3 + (268 - 3 * 2) / 2, 200 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 15 + 3, (268 - 3 * 2) / 2 + 200 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(15 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+        if (i === sectionItems.length - 1) {
+          currentY += maxRowHeight + padding;
+        }
+      }
 
-							let item = await loadImage(shop.data.featured[i].images.icon);
-							ctx.drawImage(item, 15 + 3, 200 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(15 + 3, 200 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.featured[i].name, 15 + 134, 200 + 192 + 32 + 149 * i);
-							let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 122, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 15 + 100, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 129, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 15 + 107, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 136, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 15 + 114, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.featured[i].price, 15 + 143, 200 + 192 + 65 + 149 * i);
-							}
-						}
-					}
-				}
-				for (let i = 0; i < shop.data.daily.length; i++) {
-					if (i & 1) {
-						if (shop.data.daily[i].images.daily) {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(938, 51 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(938 + 3 + (268 - 3 * 2) / 2, 51 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 938 + 3, (268 - 3 * 2) / 2 + 51 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(938 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+      currentY += sectionPadding;
+    }
 
-							let item = await loadImage(shop.data.daily[i].images.daily);
-							ctx.drawImage(item, 938 + 3, 51 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(938 + 3, 51 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.daily[i].name, 938 + 134, 51 + 192 + 32 + 149 * i);
-							let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 938 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 122, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 938 + 100, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 129, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 938 + 107, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 136, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 938 + 114, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 143, 51 + 192 + 65 + 149 * i);
-							}
-						} else {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(938, 51 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(938 + 3 + (268 - 3 * 2) / 2, 51 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 938 + 3, (268 - 3 * 2) / 2 + 51 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(938 + 3, 51 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Draw footer
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `30px ${font}`;
+    ctx.textAlign = 'center';
+    ctx.fillText(this.textFooter, canvas.width / 2, canvas.height - 30);
 
-							let item = await loadImage(shop.data.daily[i].images.icon);
-							ctx.drawImage(item, 938 + 3, 51 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(938 + 3, 51 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.daily[i].name, 938 + 134, 51 + 192 + 32 + 149 * i);
-							let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 938 + 93, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 122, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 938 + 100, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 129, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 938 + 107, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 136, 51 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 938 + 114, 51 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 938 + 143, 51 + 192 + 65 + 149 * i);
-							}
-						}
-					} else {
-						if (shop.data.daily[i].images.daily) {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(640, 200 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(640 + 3 + (268 - 3 * 2) / 2, 200 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 640 + 3, (268 - 3 * 2) / 2 + 200 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(640 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+    return canvas.toBuffer("image/png");
+  }
 
-							let item = await loadImage(shop.data.daily[i].images.daily);
-							ctx.drawImage(item, 640 + 3, 200 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(640 + 3, 200 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.daily[i].name, 640 + 134, 200 + 192 + 32 + 149 * i);
-							let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 640 + 93, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 122, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 640 + 100, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 129, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 640 + 107, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 136, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 640 + 114, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 143, 200 + 192 + 65 + 149 * i);
-							}
-						} else {
-							const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-							ctx.fillStyle = colorBorder;
-							ctx.fillRect(640, 200 + 149 * i, 268, 268);
-							const grd = ctx.createRadialGradient(640 + 3 + (268 - 3 * 2) / 2, 200 + 149 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 640 + 3, (268 - 3 * 2) / 2 + 200 + 149 * i + 3, (268 - 3 * 2) * 0.8);
-							grd.addColorStop(0, colorCenter);
-							grd.addColorStop(1, colorExt);
-							ctx.fillStyle = grd;
-							ctx.fillRect(640 + 3, 200 + 149 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+  // New method to draw colored rounded rectangles
+  getItemColors(item) {
+    if (item.type === "bundle") {
+      // Validar los colores a hexadecimal
+      const color1 = formatAndValidateHex(item.colors.color1);
+      const color2 = formatAndValidateHex(item.colors.color2);
+      return [color1, color2];
+    } else if (item.type === "item") {
+      if (item.colors) {
+        // Si tiene colores, toma los dos primeros y los valida
+        const color1 = formatAndValidateHex(item.colors[0]);
+        const color2 = formatAndValidateHex(item.colors[1]);
+        return [color1, color2];
+      } else {
+        // Si no tiene series.colors, obtiene los colores por rareza
+        return this.getRarityColors(item.rarity);
+      }
+    }
+    // Si no hay colores definidos, usa un gradiente por defecto
+    return ["#ffffff", "#000000"];
+  }
 
-							let item = await loadImage(shop.data.daily[i].images.icon);
-							ctx.drawImage(item, 640 + 3, 200 + 3 + 149 * i, 262, 262);
-							ctx.globalAlpha = 0.4;
-							ctx.fillStyle = '#000000';
-							ctx.fillRect(640 + 3, 200 + 192 + 149 * i, 262, 73);
-							ctx.globalAlpha = 1;
-							ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-							ctx.fillStyle = '#ffffff';
-							ctx.textAlign = 'center';
-							ctx.fillText(shop.data.daily[i].name, 640 + 134, 200 + 192 + 32 + 149 * i);
-							let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-								vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-							ctx.textAlign = 'left';
-							ctx.font = '30px Luckiest Guy';
-							if (price >= 1000) {
-								ctx.drawImage(vbuck, 640 + 93, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 122, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 100 && price < 1000) {
-								ctx.drawImage(vbuck, 640 + 100, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 129, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 10 && price < 100) {
-								ctx.drawImage(vbuck, 640 + 107, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 136, 200 + 192 + 65 + 149 * i);
-							}
-							if (price >= 0 && price < 10) {
-								ctx.drawImage(vbuck, 640 + 114, 200 + 192 + 42 + 149 * i, 25, 25);
-								ctx.fillText(shop.data.daily[i].price, 640 + 143, 200 + 192 + 65 + 149 * i);
-							}
-						}
-					}
-				}
-			} else {
-				let i1Featured = Math.ceil(shop.data.featured.length / 3),
-					i2Featured = Math.ceil((shop.data.featured.length - i1Featured) / 2),
-					i3Featured = Math.ceil(shop.data.featured.length - (i1Featured + i2Featured)),
-					i1Daily = Math.ceil(shop.data.daily.length / 3),
-					i2Daily = Math.ceil((shop.data.daily.length - i1Daily) / 2),
-					i3Daily = Math.ceil(shop.data.daily.length - (i1Daily + i2Daily));
-				for (let i = 0; i < i1Featured; i++) {
-					if (shop.data.featured[i].images.featured) {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(15, 200 + 298 * i, 268, 268);
-						const grd = ctx.createRadialGradient(15 + 3 + (268 - 3 * 2) / 2, 200 + 298 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 15 + 3, (268 - 3 * 2) / 2 + 200 + 298 * i + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(15 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+  // New method to draw individual item cards
+  async drawItemCard(ctx, item, x, y, width, height, font) {
 
-						let item = await loadImage(shop.data.featured[i].images.featured);
-						ctx.drawImage(item, 15 + 3, 200 + 3 + 298 * i, 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(15 + 3, 200 + 192 + 298 * i, 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.featured[i].name, 15 + 134, 200 + 192 + 32 + 298 * i);
-						let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 122, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 15 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 129, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 15 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 136, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 15 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 143, 200 + 192 + 65 + 298 * i);
-						}
-					} else {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(15, 200 + 298 * i, 268, 268);
-						const grd = ctx.createRadialGradient(15 + 3 + (268 - 3 * 2) / 2, 200 + 298 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 15 + 3, (268 - 3 * 2) / 2 + 200 + 298 * i + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(15 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+    const colors = this.getItemColors(item);
 
-						let item = await loadImage(shop.data.featured[i].images.icon);
-						ctx.drawImage(item, 15 + 3, 200 + 3 + 298 * i, 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(15 + 3, 200 + 192 + 298 * i, 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.featured[i].name, 15 + 134, 200 + 192 + 32 + 298 * i);
-						let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 15 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 122, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 15 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 129, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 15 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 136, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 15 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 15 + 143, 200 + 192 + 65 + 298 * i);
-						}
-					}
-				}
-				for (let i = i1Featured; i < i1Featured + i2Featured; i++) {
-					if (shop.data.featured[i].images.featured) {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(313, 200 + 298 * (i - i1Featured), 268, 268);
-						const grd = ctx.createRadialGradient(313 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - i1Featured) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 313 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Featured) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(313 + 3, 200 + 298 * (i - i1Featured) + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Draw card background with gradient
+    const cardGradient = ctx.createLinearGradient(x, y, x, y + height);
+    cardGradient.addColorStop(0, colors[0]);
+    cardGradient.addColorStop(1, colors[1]);
 
-						let item = await loadImage(shop.data.featured[i].images.featured);
-						ctx.drawImage(item, 313 + 3, 200 + 3 + 298 * (i - i1Featured), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(313 + 3, 200 + 192 + 298 * (i - i1Featured), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.featured[i].name, 313 + 134, 200 + 192 + 32 + 298 * (i - i1Featured));
-						let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 313 + 93, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 122, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 313 + 100, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 129, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 313 + 107, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 136, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 313 + 114, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 143, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-					} else {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(313, 200 + 298 * (i - i1Featured), 268, 268);
-						const grd = ctx.createRadialGradient(313 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - i1Featured) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 313 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Featured) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(313 + 3, 200 + 298 * (i - i1Featured) + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Card shadow
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+    ctx.shadowBlur = 15;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 5;
 
-						let item = await loadImage(shop.data.featured[i].images.icon);
-						ctx.drawImage(item, 313 + 3, 200 + 3 + 298 * (i - i1Featured), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(313 + 3, 200 + 192 + 298 * (i - i1Featured), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.featured[i].name, 313 + 134, 200 + 192 + 32 + 298 * (i - i1Featured));
-						let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 313 + 93, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 122, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 313 + 100, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 129, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 313 + 107, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 136, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 313 + 114, 200 + 192 + 42 + 298 * (i - i1Featured), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 313 + 143, 200 + 192 + 65 + 298 * (i - i1Featured));
-						}
-					}
-				}
-				for (let i = i1Featured + i2Featured; i < i1Featured + i2Featured + i3Featured; i++) {
-					if (shop.data.featured[i].images.featured) {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(611, 200 + 298 * (i - (i1Featured + i2Featured)), 268, 268);
-						const grd = ctx.createRadialGradient(611 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - (i1Featured + i2Featured)) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 611 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - (i1Featured + i2Featured)) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(611 + 3, 200 + 298 * (i - (i1Featured + i2Featured)) + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Draw rounded rectangle
+    ctx.beginPath();
+    ctx.roundRect(x, y, width, height, 15);
+    ctx.fillStyle = cardGradient;
+    ctx.fill();
 
-						let item = await loadImage(shop.data.featured[i].images.featured);
-						ctx.drawImage(item, 611 + 3, 200 + 3 + 298 * (i - (i1Featured + i2Featured)), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(611 + 3, 200 + 192 + 298 * (i - (i1Featured + i2Featured)), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.featured[i].name, 611 + 134, 200 + 192 + 32 + 298 * (i - (i1Featured + i2Featured)));
-						let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 611 + 93, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 122, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 611 + 100, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 129, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 611 + 107, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 136, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 611 + 114, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 143, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-					} else {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.featured[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(611, 200 + 298 * (i - (i1Featured + i2Featured)), 268, 268);
-						const grd = ctx.createRadialGradient(611 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - (i1Featured + i2Featured)) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 611 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - (i1Featured + i2Featured)) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(611 + 3, 200 + 298 * (i - (i1Featured + i2Featured)) + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Reset shadow
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
 
-						let item = await loadImage(shop.data.featured[i].images.icon);
-						ctx.drawImage(item, 611 + 3, 200 + 3 + 298 * (i - (i1Featured + i2Featured)), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(611 + 3, 200 + 192 + 298 * (i - (i1Featured + i2Featured)), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.featured[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.featured[i].name, 611 + 134, 200 + 192 + 32 + 298 * (i - (i1Featured + i2Featured)));
-						let price = shop.data.featured[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.featured[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 611 + 93, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 122, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 611 + 100, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 129, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 611 + 107, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 136, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 611 + 114, 200 + 192 + 42 + 298 * (i - (i1Featured + i2Featured)), 25, 25);
-							ctx.fillText(shop.data.featured[i].price, 611 + 143, 200 + 192 + 65 + 298 * (i - (i1Featured + i2Featured)));
-						}
-					}
-				}
-				for (let i = 0; i < i1Daily; i++) {
-					if (shop.data.daily[i].images.daily) {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(939, 200 + 298 * i, 268, 268);
-						const grd = ctx.createRadialGradient(939 + 3 + (268 - 3 * 2) / 2, 200 + 298 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 939 + 3, (268 - 3 * 2) / 2 + 200 + 298 * i + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(939 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Draw item image
+    try {
+      const image = await loadImage(item.image);
+      const imageSize = Math.min(width - 40, height - 100);
+      const imageX = x + (width - imageSize) / 2;
+      const imageY = y + 20;
 
-						let item = await loadImage(shop.data.featured[i].images.featured);
-						ctx.drawImage(item, 939 + 3, 200 + 3 + 298 * i, 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(939 + 3, 200 + 192 + 298 * i, 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.daily[i].name, 939 + 134, 200 + 192 + 32 + 298 * i);
-						let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 939 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 122, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 939 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 129, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 939 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 136, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 939 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 143, 200 + 192 + 65 + 298 * i);
-						}
-					} else {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(939, 200 + 298 * i, 268, 268);
-						const grd = ctx.createRadialGradient(939 + 3 + (268 - 3 * 2) / 2, 200 + 298 * i + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 939 + 3, (268 - 3 * 2) / 2 + 200 + 298 * i + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(939 + 3, 200 + 298 * i + 3, 268 - 3 * 2, 268 - 3 * 2);
+      ctx.drawImage(image, imageX, imageY, imageSize, imageSize);
+    } catch (error) {
+      console.error(`Error loading image for ${item.name}:`, error);
+    }
 
-						let item = await loadImage(shop.data.daily[i].images.icon);
-						ctx.drawImage(item, 939 + 3, 200 + 3 + 298 * i, 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(939 + 3, 200 + 192 + 298 * i, 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.daily[i].name, 939 + 134, 200 + 192 + 32 + 298 * i);
-						let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 939 + 93, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 122, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 939 + 100, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 129, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 939 + 107, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 136, 200 + 192 + 65 + 298 * i);
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 939 + 114, 200 + 192 + 42 + 298 * i, 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 939 + 143, 200 + 192 + 65 + 298 * i);
-						}
-					}
-				}
-				for (let i = i1Daily; i < i1Daily + i2Daily; i++) {
-					if (shop.data.daily[i].images.daily) {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(1237, 200 + 298 * (i - i1Daily), 268, 268);
-						const grd = ctx.createRadialGradient(1237 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - i1Daily) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 1237 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Daily) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(1237 + 3, 200 + 298 * (i - i1Daily) + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Draw item name
+    ctx.fillStyle = '#ffffff';
+    ctx.font = `bold 20px ${font}`;
+    ctx.textAlign = 'center';
+    ctx.fillText(item.name, x + width / 2, y + height - 60, width - 20);
 
-						let item = await loadImage(shop.data.daily[i].images.daily);
-						ctx.drawImage(item, 1237 + 3, 200 + 3 + 298 * (i - i1Daily), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(1237 + 3, 200 + 192 + 298 * (i - i1Daily), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.daily[i].name, 1237 + 134, 200 + 192 + 32 + 298 * (i - i1Daily));
-						let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 1237 + 93, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 122, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 1237 + 100, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 129, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 1237 + 107, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 136, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 1237 + 114, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 143, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-					} else {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(1237, 200 + 298 * (i - i1Daily), 268, 268);
-						const grd = ctx.createRadialGradient(1237 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - i1Daily) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 1237 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - i1Daily) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(1237 + 3, 200 + 298 * (i - i1Daily) + 3, 268 - 3 * 2, 268 - 3 * 2);
+    // Draw price with V-Bucks icon
+    ctx.font = `bold 24px ${font}`;
+    ctx.fillText(`${item.price} V-Bucks`, x + width / 2, y + height - 20);
+  }
 
-						let item = await loadImage(shop.data.daily[i].images.icon);
-						ctx.drawImage(item, 1237 + 3, 200 + 3 + 298 * (i - i1Daily), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(1237 + 3, 200 + 192 + 298 * (i - i1Daily), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.daily[i].name, 1237 + 134, 200 + 192 + 32 + 298 * (i - i1Daily));
-						let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 1237 + 93, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 122, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 1237 + 100, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 129, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 1237 + 107, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 136, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 1237 + 114, 200 + 192 + 42 + 298 * (i - i1Daily), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1237 + 143, 200 + 192 + 65 + 298 * (i - i1Daily));
-						}
-					}
-				}
-				for (let i = i1Daily + i2Daily; i < i1Daily + i2Daily + i3Daily; i++) {
-					if (shop.data.daily[i].images.daily) {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(1535, 200 + 298 * (i - (i1Daily + i2Daily)), 268, 268);
-						const grd = ctx.createRadialGradient(1535 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - (i1Daily + i2Daily)) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 1535 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - (i1Daily + i2Daily)) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(1535 + 3, 200 + 298 * (i - (i1Daily + i2Daily)) + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-						let item = await loadImage(shop.data.daily[i].images.daily);
-						ctx.drawImage(item, 1535 + 3, 200 + 3 + 298 * (i - (i1Daily + i2Daily)), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(1535 + 3, 200 + 192 + 298 * (i - (i1Daily + i2Daily)), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.daily[i].name, 1535 + 134, 200 + 192 + 32 + 298 * (i - (i1Daily + i2Daily)));
-						let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 1535 + 93, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 122, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 1535 + 100, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 129, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 1535 + 107, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 136, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 1535 + 114, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 143, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-					} else {
-						const { colorBorder, colorCenter, colorExt } = rarityCard(shop.data.daily[i].rarity);
-						ctx.fillStyle = colorBorder;
-						ctx.fillRect(1535, 200 + 298 * (i - (i1Daily + i2Daily)), 268, 268);
-						const grd = ctx.createRadialGradient(1535 + 3 + (268 - 3 * 2) / 2, 200 + 298 * (i - (i1Daily + i2Daily)) + 3 + (268 - 3 * 2) / 2, 4, (268 - 3 * 2) / 2 + 1535 + 3, (268 - 3 * 2) / 2 + 200 + 298 * (i - (i1Daily + i2Daily)) + 3, (268 - 3 * 2) * 0.8);
-						grd.addColorStop(0, colorCenter);
-						grd.addColorStop(1, colorExt);
-						ctx.fillStyle = grd;
-						ctx.fillRect(1535 + 3, 200 + 298 * (i - (i1Daily + i2Daily)) + 3, 268 - 3 * 2, 268 - 3 * 2);
-
-						let item = await loadImage(shop.data.daily[i].images.icon);
-						ctx.drawImage(item, 1535 + 3, 200 + 3 + 298 * (i - (i1Daily + i2Daily)), 262, 262);
-						ctx.globalAlpha = 0.4;
-						ctx.fillStyle = '#000000';
-						ctx.fillRect(1535 + 3, 200 + 192 + 298 * (i - (i1Daily + i2Daily)), 262, 73);
-						ctx.globalAlpha = 1;
-						ctx.font = applyText(canvas, shop.data.daily[i].name, 38, 260, 'Luckiest Guy');
-						ctx.fillStyle = '#ffffff';
-						ctx.textAlign = 'center';
-						ctx.fillText(shop.data.daily[i].name, 1535 + 134, 200 + 192 + 32 + 298 * (i - (i1Daily + i2Daily)));
-						let price = shop.data.daily[i].price.replace(/[,]/gi, ''),
-							vbuck = await loadImage(shop.data.daily[i].priceIconLink);
-						ctx.textAlign = 'left';
-						ctx.font = '30px Luckiest Guy';
-						if (price >= 1000) {
-							ctx.drawImage(vbuck, 1535 + 93, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 122, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-						if (price >= 100 && price < 1000) {
-							ctx.drawImage(vbuck, 1535 + 100, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 129, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-						if (price >= 10 && price < 100) {
-							ctx.drawImage(vbuck, 1535 + 107, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 136, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-						if (price >= 0 && price < 10) {
-							ctx.drawImage(vbuck, 1535 + 114, 200 + 192 + 42 + 298 * (i - (i1Daily + i2Daily)), 25, 25);
-							ctx.fillText(shop.data.daily[i].price, 1535 + 143, 200 + 192 + 65 + 298 * (i - (i1Daily + i2Daily)));
-						}
-					}
-				}
-			}
-
-			await fs.writeFileSync(path, canvas.toBuffer());
-
-			return path;
-		}
-	}
+  // Updated rarity colors method
+  getRarityColors(rarity) {
+    const rarities = {
+      "EFortRarity::Legendary": ['#ea8d23', 'rgba(233, 141, 75, 0.9)'],
+      "EFortRarity::Epic": ['#c359ff', 'rgba(233, 94, 255, 0.9)'],
+      "EFortRarity::Rare": ['#2cc1ff', 'rgba(55, 209, 255, 0.9)'],
+      "EFortRarity::Uncommon": ['#69bb1e', 'rgba(135, 227, 57, 0.9)'],
+      "EFortRarity::Common": ['#bebebe', 'rgba(177, 177, 177, 0.9)'],
+    };
+    return rarities[rarity] || rarities["EFortRarity::Uncommon"];
+  }
 }
 
 module.exports = FortniteShop;
