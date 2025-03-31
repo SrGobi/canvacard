@@ -16,5 +16,5 @@ module.exports = async (img) => {
 
   ctx.putImageData(imgData, 0, 0);
 
-  return canvas.toBuffer();
+  return canvas.toBuffer("image/png");
 }

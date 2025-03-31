@@ -1,2 +1,6 @@
+# Dependency directories
 node_modules/
+
+# Locks files
 package-lock.json
+pnpm-lock.yaml

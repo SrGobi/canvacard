@@ -27,7 +27,7 @@ import canvacard from "canvacard";
 # Features
 
 - Súper simple y fácil de usar 😎
-- Más rápido que canvacard v3 🚀
+- Más rápido que canvacard v4 🚀
 - ¿Más de **50 métodos** ...? ¡Hurra! 🎉
 - Construido sobre un lienzo de nodos y sin tonterías involucradas 🔥
 - Orientado a objetos 💻
@@ -135,17 +135,17 @@ const client = new Discord.Client();
 const canvacard = require('canvacard');
 
 client.on('ready', () => {
-  console.log('¡Estoy en línea!');
+	console.log('¡Estoy en línea!');
 });
 
 client.on('messageCreate', async (message) => {
-  if (message.author.bot) return;
-  if (message.content === '!triggered') {
-    let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
-    let image = await canvacard.Canvas.trigger(avatar);
-    let attachment = new Discord.MessageAttachment(image, 'triggered.gif');
-    return message.channel.send(attachment);
-  }
+	if (message.author.bot) return;
+	if (message.content === '!triggered') {
+		let avatar = message.author.displayAvatarURL({ dynamic: false, format: 'png' });
+		let image = await canvacard.Canvas.trigger(avatar);
+		let attachment = new Discord.MessageAttachment(image, 'triggered.gif');
+		return message.channel.send(attachment);
+	}
 });
 
 client.login('Tu_Bot_Token_aqui');
