@@ -1,320 +1,275 @@
 export = Rank;
 /**
- * @typedef {object} CanvacardRankData
- * @property {number} width Ancho de la tarjeta de rango
- * @property {number} height Altura de la tarjeta de rango
- * @property {object} background Datos de antecedentes de la tarjeta de rango
- * @property {"image"|"color"} [background.type="color"] Tipo de fondo
- * @property {string|Buffer} [background.image="#23272A"] Imagen de fondo (o color)
- * @property {object} progressBar Datos de la barra de progreso
- * @property {boolean} [progressBar.rounded=true] Si la barra de progreso debe redondearse
- * @property {number} [progressBar.x=275.5] Barra de progreso X
- * @property {number} [progressBar.y=183.75] Barra de progreso Y
- * @property {number} [progressBar.height=37.5] Altura de la barra de progreso
- * @property {number} [progressBar.width=596.5] Ancho de la barra de progreso
- * @property {object} [progressBar.track] Pista de la barra de progreso
- * @property {string} [progressBar.track.color="#484b4E"] Color de la pista de la barra de progreso
- * @property {object} [progressBar.bar] Datos de la barra de progreso
- * @property {"color"|"gradient"} [progressBar.bar.type="color"] Tipo de barra de progreso
- * @property {string|string[]} [progressBar.bar.color="#FFFFFF"] Color de la barra de la barra de progreso
- * @property {object} overlay Superposición de la barra de progreso
- * @property {boolean} [overlay.display=true] Si debería mostrar superposición
- * @property {number} [overlay.level=0.5] Nivel de opacidad de superposición
- * @property {string} [overlay.color="#333640"] Superposición de color de fondo
- * @property {object} avatar Datos de avatar de la tarjeta de rango
- * @property {string|Buffer} [avatar.source=null] Fuente de avatar
- * @property {number} [avatar.x=70] X
- * @property {number} [avatar.y=50] Y
- * @property {number} [avatar.height=180] altura
- * @property {number} [avatar.width=180] ancho
- * @property {object} status Estado de la tarjeta de rango
- * @property {number} [status.width=5] Ancho de estado
- * @property {"online"|"dnd"|"idle"|"offline"|"streaming"} [status.type] Tipo de estado
- * @property {string} [status.color="#43B581"] Color de estado
- * @property {boolean} [status.circle=false] ¿Estado circular?
- * @property {object} rank Datos de rango de la tarjeta de clasificación
- * @property {boolean} [rank.display=true] Si debe mostrar rango
- * @property {number} [rank.data=1] El rango
- * @property {string} [rank.textColor="#FFFFFF"] Rango de color del texto
- * @property {string} [rank.color="#F3F3F3"] Color de rango
- * @property {string} [rank.displayText="RANK"] Texto de visualización de rango
- * @property {object} level Datos de nivel de tarjeta de rango
- * @property {boolean} [level.display=true] Si debería mostrar el nivel
- * @property {number} [level.data=1] El nivel
- * @property {string} [level.textColor="#FFFFFF"] color de texto de nivel
- * @property {string} [level.color="#F3F3F3"] color de nivel
- * @property {string} [level.displayText="LEVEL"] texto de visualización de nivel
- * @property {object} previousRankXP tarjeta xp de rango anterior opcional
- * @property {number} [previousRankXP.data=null] xp de rango anterior opcional
- * @property {string} [previousRankXP.color=null] Tabla de rango de color de rango xp anterior opcional
- * @property {object} currentXP Tarjeta de rango xp actual
- * @property {number} [currentXP.data=0] XP actual
- * @property {string} [currentXP.color="#FFFFFF"] Carta de rango color xp actual
- * @property {object} requiredXP Tarjeta de rango requerida xp
- * @property {number} [requiredXP.data=0] requerido xp
- * @property {string} [requiredXP.color="#FFFFFF"] Se requiere tarjeta de rango xp color
- * @property {object} username Datos de nombre de usuario
- * @property {string} [username.name=null] Nombre de usuario de la tarjeta de clasificación
- * @property {string} [username.color="#FFFFFF"] Color de nombre de usuario de la tarjeta de rango
- * @property {boolean} [renderEmojis=true] Si debería renderizar emojis
+ * @kind class
+ * @description Rank card creator
+ * <details open>
+ *  <summary>PREVIEW</summary>
+ * <br>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_1.png" alt="Rank Card Preview 1">
+ *   </a>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_2.png" alt="Rank Card Preview 2">
+ *   </a>
+ *   <a>
+ *     <img src="https://raw.githubusercontent.com/SrGobi/canvacard/refs/heads/test/rank_3.png" alt="Rank Card Preview 3">
+ *   </a>
+ * </details>
+ *
+ * @example
+ * ```js
+const rank = new canvacard.Rank(data.id)
+  .setAvatar(data.avatarURL, data.avatar_decoration_data.asset)
+  .setBanner(data.bannerURL, true)
+  .setBadges(data.flags, data.bot, true)
+  .setBorder(["#22274a", "#001eff"], "vertical")
+  .setCurrentXP(userData.xp)
+  .setRequiredXP(userData.requiredXP)
+  .setRank(1, "RANK", true)
+  .setLevel(20, "LEVEL", true)
+  .setStatus("online")
+  .setProgressBar(["#14C49E", "#FF0000"], "GRADIENT", true)
+  .setUsername(data.global_name, data.discriminator)
+  .setCreatedTimestamp(data.createdTimestamp);
+
+const rankImage = await rank.build("Cascadia Code PL");
+canvacard.write(rankImage, "./rank.png");
+ * ```
  */
 declare class Rank {
     /**
-     * Rank card data
-     * @type {CanvacardRankData}
+     * @param {string} userId User ID
      */
-    data: CanvacardRankData;
+    constructor(userId: string);
+    data: {
+        width: number;
+        height: number;
+        background: {
+            type: string;
+            image: string;
+        };
+        user: {
+            id: string;
+            username: any;
+            bot: boolean;
+            avatar: {
+                source: any;
+                x: number;
+                y: number;
+                height: number;
+                width: number;
+            };
+            discriminator: string;
+            public_flags: number;
+            flags: number;
+            banner: any;
+            accent_color: number;
+            avatar_decoration_data: {
+                asset: any;
+                sku_id: any;
+                expires_at: any;
+            };
+            clan: any;
+            tag: any;
+            createdAt: any;
+            createdTimestamp: number;
+            defaultAvatarURL: any;
+            avatarURL: any;
+            bannerURL: any;
+        };
+        rankData: {
+            rank: {
+                display: boolean;
+                data: number;
+                textColor: string;
+                color: string;
+                displayText: string;
+            };
+            level: {
+                data: number;
+                textColor: string;
+                color: string;
+                displayText: string;
+            };
+            currentXP: {
+                data: number;
+                color: string;
+            };
+            requiredXP: {
+                data: number;
+                color: string;
+            };
+            progressBar: {
+                rounded: boolean;
+                x: number;
+                y: number;
+                height: number;
+                width: number;
+                bar: {
+                    type: string;
+                    color: string;
+                };
+            };
+        };
+        bannerData: {
+            moreBackgroundBlur: boolean;
+            disableBackgroundBlur: boolean;
+            backgroundBrightness: number;
+        };
+        options: {
+            badgesFrame: boolean;
+            customBadges: any[];
+            borderColor: any;
+            borderAllign: any;
+            presenceStatus: any;
+            customUsername: any;
+            usernameColor: any;
+            customSubtitle: any;
+            subtitleColor: any;
+            customDate: any;
+            customTag: any;
+            tagColor: any;
+            localDateType: string;
+            squareAvatar: any;
+        };
+    };
     /**
-     * Carga la fuente
-     * @param {any[]} fontArray Matriz de fuentes
-     * @returns {Rank}
+     * @method setAvatar
+     * @name setAvatar
+     * @description Set the user avatar
+     * @param {string} avatarUrl Avatar URL
+     * @param {string} AvatarDecorationData Avatar decoration asset
+     * @param {boolean} squareAvatar Square avatar
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    registerFonts(fontArray?: any[]): Rank;
+    setAvatar(avatarUrl: string, AvatarDecorationData: string, squareAvatar?: boolean): Rank;
     /**
-     * Si debe mostrar el nombre de usuario con emojis (si los hay)
-     * @param {boolean} [apply=false] Establécelo a `true` para mostrar emojis.
-     * @returns {Rank}
+     * @method setBanner
+     * @name setBanner
+     * @description Set the user banner
+     * @param {string} bannerUrl Banner URL
+     * @param {boolean} moreBackgroundBlur More background blur
+     * @param {boolean} disableBackgroundBlur Disable background blur
+     * @param {number} backgroundBrightness Background brightness
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    renderEmojis(apply?: boolean): Rank;
+    setBanner(bannerUrl: string, moreBackgroundBlur?: boolean, disableBackgroundBlur?: boolean, backgroundBrightness?: number): Rank;
     /**
-     * Tamaño de letra
-     * @param {string} size
-     * @returns {Rank}
+     * @method setBadges
+     * @name setBadges
+     * @description Set the user badges and frame
+     * @param {number} flags User flags
+     * @param {boolean} bot Whether the user is a bot or not
+     * @param {boolean} frame Badge frame
+     * @param {string[]} customBadges Custom badges
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setFontSize(size: string): Rank;
+    setBadges(flags: number, bot?: boolean, frame?: boolean, customBadges?: string[]): Rank;
     /**
-     * Establecer nombre de usuario
-     * @param {string} name Username
-     * @param {string} color Username color
-     * @returns {Rank}
+     * @method setBorder
+     * @name setBorder
+     * @description Set the border of the card
+     * @param {string | string[]} color HEX color of the border, can be gradient if 2 colors are used
+     * @param {string} allign Gradient alignment if 2 colors are used
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setUsername(name: string, color?: string): Rank;
+    setBorder(color: string | string[], allign?: string): Rank;
     /**
-     * Definir el estilo de la barra de progreso
-     * @param {string|string[]} color Progressbar Color
-     * @param {"COLOR"|"GRADIENT"} [fillType] Progressbar type
-     * @param {boolean} [rounded=true] If progressbar should have rounded edges
-     * @returns {Rank}
+     * @method setUsername
+     * @name setUsername
+     * @description Set the username of the user
+     * @param {string} name Username of the user
+     * @param {string} [discriminator="0"] Discriminator of the user
+     * @param {string} [color="#FFFFFF"] Color of the username
+     * @param {string} [customUsername=null] Custom username
+     * @param {string} [customTag=null] Custom tag
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setProgressBar(color: string | string[], fillType?: "COLOR" | "GRADIENT", rounded?: boolean): Rank;
+    setUsername(name: string, discriminator?: string, color?: string, customUsername?: string, customTag?: string): Rank;
     /**
-     * Fijar la pista de la barra de progreso
-     * @param {string} color Track color
-     * @returns {Rank}
-     */
-    setProgressBarTrack(color: string): Rank;
-    /**
-     * Establecer superposición de tarjetas
-     * @param {string} color Overlay color
-     * @param {number} [level=0.5] Opacity level
-     * @param {boolean} [display=true] IF it should display overlay
-     * @returns {Rank}
-     */
-    setOverlay(color: string, level?: number, display?: boolean): Rank;
-    /**
-     * Establecer xp requerido
-     * @param {number} data Required xp
-     * @param {string} color Color
-     * @returns {Rank}
-     */
-    setRequiredXP(data: number, color?: string): Rank;
-    /**
-     * Fijar xp actual
-     * @param {number} data Current xp
-     * @param {string} color Color
-     * @returns {Rank}
+     * @method setCurrentXP
+     * @name setCurrentXP
+     * @description Set the current experience
+     * @param {number} data Current experience data
+     * @param {string} [color="#FFFFFF"] Text color
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setCurrentXP(data: number, color?: string): Rank;
     /**
-     * Establecer rango
-     * @param {number} data Current Rank
-     * @param {string} text Display text
-     * @param {boolean} [display=true] If it should display rank
-     * @returns {Rank}
+     * @method setRequiredXP
+     * @name setRequiredXP
+     * @description Set the required experience
+     * @param {number} data Required experience data
+     * @param {string} [color="#FFFFFF"] Text color
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
+     */
+    setRequiredXP(data: number, color?: string): Rank;
+    /**
+     * @method setRank
+     * @name setRank
+     * @description Set the user rank
+     * @param {number} data Rank data
+     * @param {string} [text="RANK"] Display text
+     * @param {boolean} [display=false] Display system rank or not
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
     setRank(data: number, text?: string, display?: boolean): Rank;
     /**
-     * Establecer el color de visualización del rango
-     * @param {string} text text color
-     * @param {string} number Number color
-     * @returns {Rank}
+     * @method setLevel
+     * @name setLevel
+     * @description Establece el nivel del usuario
+     * @param {number} data Level data
+     * @param {string} [text="LEVEL"] Display text
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setRankColor(text?: string, number?: string): Rank;
+    setLevel(data: number, text?: string): Rank;
     /**
-     * Fijar color de nivel
-     * @param {string} text text color
-     * @param {string} number number color
-     * @returns {Rank}
+     * @method setProgressBar
+     * @name setProgressBar
+     * @description Set the progress bar
+     * @param {string | string[]} color Color of the progress bar, can be gradient if 2 colors are used
+     * @param {string} [fillType="COLOR"] Type of progress bar
+     * @param {boolean} [rounded=true] Rounded corners of the progress bar
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setLevelColor(text?: string, number?: string): Rank;
+    setProgressBar(color: string | string[], fillType?: string, rounded?: boolean): Rank;
     /**
-     * Establecer nivel
-     * @param {number} data Current Level
-     * @param {string} text Display text
-     * @param {boolean} [display=true] If it should display level
-     * @returns {Rank}
+     * @method setStatus
+     * @name setStatus
+     * @description Set the user presence status
+     * @param {string} presenceStatus Presence status
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setLevel(data: number, text?: string, display?: boolean): Rank;
+    setStatus(presenceStatus: string): Rank;
     /**
-     * Establecer color de estado personalizado
-     * @param {string} color Color to set
-     * @returns {Rank}
+     * @method setCreatedTimestamp
+     * @name setCreatedTimestamp
+     * @description Set the user created timestamp
+     * @param {number} timestamp Timestamp of when the user joined Discord
+     * @param {string | Date} customDate Custom date format for the timestamp
+     * @returns {Rank} The current instance of Rank
+     * @throws {APIError} If the URL or asset is invalid
      */
-    setCustomStatusColor(color: string): Rank;
+    setCreatedTimestamp(timestamp: number, customDate: string | Date): Rank;
     /**
-     * Establecer estado
-     * @param {"online"|"idle"|"dnd"|"offline"|"streaming"} status User status
-     * @param {boolean} circle Si el icono de estado debe ser circular.
-     * @param {number|boolean} width Anchura de estado
-     * @returns {Rank}
+     * @method build
+     * @name build
+     * @description Build the rank card
+     * @param {string} [font="Arial"] Font to use in the card
+     * @returns {Promise<Buffer>} Card image in buffer format
+     * @throws {APIError} Missing field: data
      */
-    setStatus(status: "online" | "idle" | "dnd" | "offline" | "streaming", circle?: boolean, width?: number | boolean): Rank;
-    /**
-     * Establecer imagen/color de fondo
-     * @param {"COLOR"|"IMAGE"} type Background type
-     * @param {string|Buffer} [data] Background color or image
-     * @returns {Rank}
-     */
-    setBackground(type: "COLOR" | "IMAGE", data?: string | Buffer): Rank;
-    /**
-     * Avatar de usuario
-     * @param {string|Buffer} data Avatar data
-     * @returns {Rank}
-     */
-    setAvatar(data: string | Buffer): Rank;
-    /**
-     * Construye la tarjeta de rango
-     * @param {object} ops Fonts
-     * @param {string} [ops.fontX="MANROPE_BOLD"] Bold font family
-     * @param {string} [ops.fontY="MANROPE_REGULAR"] Regular font family
-     * @returns {Promise<Buffer>}
-     */
-    build(ops?: {
-        fontX?: string;
-        fontY?: string;
-    }): Promise<Buffer>;
-    /**
-     * Calculates progress
-     * @type {number}
-     * @private
-     * @ignore
-     */
-    private get _calculateProgress();
+    build(font?: string): Promise<Buffer>;
 }
-declare namespace Rank {
-    export { CanvacardRankData };
-}
-type CanvacardRankData = {
-    /**
-     * Ancho de la tarjeta de rango
-     */
-    width: number;
-    /**
-     * Altura de la tarjeta de rango
-     */
-    height: number;
-    /**
-     * Datos de antecedentes de la tarjeta de rango
-     */
-    background: {
-        type?: "image" | "color";
-        image?: string | Buffer;
-    };
-    /**
-     * Datos de la barra de progreso
-     */
-    progressBar: {
-        rounded?: boolean;
-        x?: number;
-        y?: number;
-        height?: number;
-        width?: number;
-        track?: {
-            color?: string;
-        };
-        bar?: {
-            type?: "color" | "gradient";
-            color?: string | string[];
-        };
-    };
-    /**
-     * Superposición de la barra de progreso
-     */
-    overlay: {
-        display?: boolean;
-        level?: number;
-        color?: string;
-    };
-    /**
-     * Datos de avatar de la tarjeta de rango
-     */
-    avatar: {
-        source?: string | Buffer;
-        x?: number;
-        y?: number;
-        height?: number;
-        width?: number;
-    };
-    /**
-     * Estado de la tarjeta de rango
-     */
-    status: {
-        width?: number;
-        type?: "online" | "dnd" | "idle" | "offline" | "streaming";
-        color?: string;
-        circle?: boolean;
-    };
-    /**
-     * Datos de rango de la tarjeta de clasificación
-     */
-    rank: {
-        display?: boolean;
-        data?: number;
-        textColor?: string;
-        color?: string;
-        displayText?: string;
-    };
-    /**
-     * Datos de nivel de tarjeta de rango
-     */
-    level: {
-        display?: boolean;
-        data?: number;
-        textColor?: string;
-        color?: string;
-        displayText?: string;
-    };
-    /**
-     * tarjeta xp de rango anterior opcional
-     */
-    previousRankXP: {
-        data?: number;
-        color?: string;
-    };
-    /**
-     * Tarjeta de rango xp actual
-     */
-    currentXP: {
-        data?: number;
-        color?: string;
-    };
-    /**
-     * Tarjeta de rango requerida xp
-     */
-    requiredXP: {
-        data?: number;
-        color?: string;
-    };
-    /**
-     * Datos de nombre de usuario
-     */
-    username: {
-        name?: string;
-        color?: string;
-    };
-    /**
-     * Si debería renderizar emojis
-     */
-    renderEmojis?: boolean;
-};
 //# sourceMappingURL=Rank.d.ts.map
