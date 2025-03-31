@@ -1,5 +1,5 @@
 import Canvacard = require("./src/Canvacard");
-export declare const ConvolutionMatrix: {
+export declare let ConvolutionMatrix: {
     /**
      * Edges Matrix
      */
@@ -17,49 +17,29 @@ export declare const ConvolutionMatrix: {
      */
     BURN: number[];
 };
-export declare const Rank: typeof import("./src/Rank");
-export declare const Spotify: typeof import("./src/Spotify");
-export declare const Welcomer: typeof import("./src/Welcomer");
-export declare const Leaver: typeof import("./src/Leaver");
-export declare const CaptchaGen: any;
-export declare const FortniteShop: typeof import("./src/FortniteShop");
-export declare const FortniteStats: typeof import("./src/FortniteStats");
-export declare const Plugins: {
+export declare let Rank: typeof import("./src/Rank");
+export declare let Spotify: typeof import("./src/Spotify");
+export declare let WelcomeLeave: typeof import("./src/WelcomeLeave");
+export declare let FortniteShop: typeof import("./src/FortniteShop");
+export declare let Plugins: {
     circle: (ctx: any, w: any, h: any) => any;
     convolute: (ctx: any, canvas: any, matrix: any, opaque: any) => any;
-    rectangle: (ctx: any, x: any, y: any, height: any, width: any, color: any, stroke?: boolean, lineWidth?: number) => any;
-    round: (ctx: any, x: any, y: any, width: any, height: any, radius: any) => any;
     abbrev: (num: any) => string;
-    renderEmoji: (ctx: any, msg: any, x: any, y: any) => Promise<any>;
 };
-export declare const Util: typeof import("./src/Util");
-export declare const Assets: {
-    new (): import("./src/Assets");
-    load: (warnIfFailed?: boolean) => void;
-    ASSETS_DIR: string;
-    font: {
-        get(name: any): any;
-        getMetadata(name: any): any;
-        all(): {};
-    };
-    image: {
-        get(name: any): any;
-        getMetadata(name: any): any;
-        all(): {};
-    };
-};
+export declare let Assets: typeof import("./src/AssetsFactory");
 export declare namespace MSX {
-    const Brightness: (img: any, amount: any) => Promise<Buffer>;
-    const Convolute: (img: any, matrix: any, opaque: any, lvl: any) => Promise<Buffer>;
-    const Darkness: (img: any, amount: any) => Promise<Buffer>;
-    const Greyscale: (img: any) => Promise<Buffer>;
-    const Invert: (img: any) => Promise<Buffer>;
-    const Sepia: (img: any) => Promise<Buffer>;
-    const Threshold: (img: any, amount?: number) => Promise<Buffer>;
-    const Trigger: (image: any, TRIGGERED: any) => Promise<any>;
+    let Brightness: (img: any, amount: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Convolute: (img: any, matrix: any, opaque: any, lvl: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Darkness: (img: any, amount: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Greyscale: (img: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Invert: (img: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Sepia: (img: any) => Promise<Buffer<ArrayBufferLike>>;
+    let Threshold: (img: any, amount?: number) => Promise<Buffer<ArrayBufferLike>>;
+    let Trigger: (image: any, TRIGGERED: any) => Promise<any>;
 }
-export declare const write: typeof import("./src/Canvacard").write;
-export declare const author: string;
-export declare const version: any;
+export declare function registerFont(filePath: any, nameAlias: any): void;
+export declare let write: typeof import("./src/Canvacard").write;
+export declare let author: string;
+export declare let version: any;
 export { Canvacard as Canvas, Canvacard };
 //# sourceMappingURL=index.d.ts.map

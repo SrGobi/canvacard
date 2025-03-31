@@ -1,22 +1,6 @@
-// Creado y mantenido por SrGobi
-
+// Created and maintained by SrGobi
 const Canvacard = require("./src/Canvacard");
-
-// Cargar fuentes predeterminadas
-try {
-  Canvacard.registerFonts();
-} catch (e) { }
-
-/**
- * @param {stirng} moduleName Nombre del módulo
- */
-function load(moduleName) {
-  try {
-    return require(moduleName);
-  } catch (e) {
-    return null;
-  }
-}
+const Canvas = require("@napi-rs/canvas");
 
 module.exports = {
   Canvas: Canvacard,
@@ -24,14 +8,10 @@ module.exports = {
   ConvolutionMatrix: Canvacard.CONVOLUTION_MATRIX,
   Rank: require("./src/Rank"),
   Spotify: require("./src/Spotify"),
-  Welcomer: require("./src/Welcomer"),
-  Leaver: require("./src/Leaver"),
-  CaptchaGen: load("captcha-canvas") ? load("captcha-canvas").CaptchaGenerator : null,
+  WelcomeLeave: require("./src/WelcomeLeave"),
   FortniteShop: require("./src/FortniteShop"),
-  FortniteStats: require("./src/FortniteStats"),
   Plugins: require("./src/Plugins"),
-  Util: require("./src/Util"),
-  Assets: require("./src/Assets"),
+  Assets: require("./src/AssetsFactory"),
   MSX: {
     Brightness: require("./libs/Brightness"),
     Convolute: require("./libs/Convolute"),
@@ -41,6 +21,13 @@ module.exports = {
     Sepia: require("./libs/Sepia"),
     Threshold: require("./libs/Threshold"),
     Trigger: require("./libs/Trigger")
+  },
+  registerFont: (filePath, nameAlias) => {
+    try {
+      Canvas.GlobalFonts.registerFromPath(filePath, nameAlias); // Registrar la fuente usando la biblioteca canvas
+    } catch (error) {
+      console.error(`Error al registrar la fuente: ${error}`);
+    }
   },
   write: Canvacard.write,
   author: "SrGobi",
