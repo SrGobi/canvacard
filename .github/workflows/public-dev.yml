@@ -1,0 +1,72 @@
+# .github/workflows/dev.yml
+name: Publish Dev Version
+
+on:
+  workflow_dispatch: # También se puede ejecutar manualmente
+
+jobs:
+  publish-dev:
+    name: Build & Publish Dev Version
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      # Checkout del código del repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Configurar la identidad de Git desde secrets
+      - name: Set Git Identity
+        run: |
+          git config --global user.name "${{ secrets.GIT_USER_NAME }}"
+          git config --global user.email "${{ secrets.GIT_USER_EMAIL }}"
+
+      # Instalar pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: latest
+
+      # Instalar Node.js y configurar el registro de NPM
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+          registry-url: 'https://registry.npmjs.org'
+
+      # Comprobar la versión actual de desarrollo
+      - name: Check current dev version
+        id: release-check
+        run: |
+          if [[ $(npm view ${{ github.event.repository.name }}@dev version | grep -e "$(git rev-parse --short HEAD)") ]]; \
+            then echo "RELEASE=0" >> "$GITHUB_OUTPUT"; \
+            else echo "RELEASE=1" >> "$GITHUB_OUTPUT"; \
+          fi
+
+      # Instalar las dependencias
+      - name: Install dependencies
+        if: steps.release-check.outputs.release == '1'
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # Publicar una versión de desarrollo en NPM
+      - name: Publish Dev Version
+        if: steps.release-check.outputs.release == '1'
+        id: publish
+        run: |
+          pnpm version prerelease --preid "dev.$(date +%s)-$(git rev-parse --short HEAD)"
+          pnpm publish --no-provenance --tag dev --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }} # Autenticación con NPM
+
+      # Deprecate prior development releases
+      - name: Deprecate prior development releases
+        if: steps.release-check.outputs.release == '1'
+        run: |
+          for version in $(npm view ${{ github.event.repository.name }} versions --json | jq -r '.[] | select(. | contains("dev."))'); do
+            pnpm exec npm deprecate ${{ github.event.repository.name }}@$version "This version is deprecated. Please use a newer version."
+          done
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
