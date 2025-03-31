@@ -27,5 +27,19 @@ export namespace ImageFactory {
         let APPLICATION: string;
         let USER: string;
     }
+    namespace OTHER {
+        let FRAME: string;
+        let VERIFIED_APP: string;
+        let APP: string;
+    }
+    namespace STATUS {
+        let IDLE: string;
+        let DND: string;
+        let ONLINE: string;
+        let INVISIBLE: string;
+        let OFFLINE: string;
+        let STREAMING: string;
+        let PHONE: string;
+    }
 }
 //# sourceMappingURL=AssetsFactory.d.ts.map
