@@ -1,15 +1,16 @@
 {
   "name": "canvacard",
-  "version": "5.5.0",
-  "description": "Potente paquete de manipulación de imágenes para principiantes.",
+  "version": "6.0.0",
+  "description": "Powerful image manipulation package for beginners.",
   "main": "index.js",
   "types": "typings/index.d.ts",
   "files": [
+    "assets",
     "libs",
     "plugins",
     "src",
-    "index.js",
-    "typings"
+    "typings",
+    "index.js"
   ],
   "scripts": {
     "test": "cd ../test && node .",
@@ -20,23 +21,66 @@
     "url": "git+https://github.com/SrGobi/Canvacard.git"
   },
   "keywords": [
+    "api",
+    "assets",
     "canvacard",
     "canvas",
-    "image",
-    "manipulation",
-    "easy",
-    "simple",
-    "fast",
-    "api",
-    "rank",
+    "canvas-constructor",
+    "canvacord",
+    "canvafy",
     "card",
-    "rankcard",
-    "welcomer",
-    "leaver",
-    "spotify",
-    "memegen",
+    "cards",
+    "chart",
+    "chart.js",
+    "commonjs",
+    "configuration",
+    "constructor",
+    "discanvas",
+    "discord",
+    "discord-canvas",
+    "discord.js",
+    "discord-arts",
+    "easy",
+    "es6",
+    "esm",
+    "fast",
     "fortnite",
-    "canvacord"
+    "function",
+    "functions",
+    "graphic",
+    "graphics",
+    "image",
+    "images",
+    "leave",
+    "leaver",
+    "level",
+    "level-card",
+    "level-up",
+    "levelcard",
+    "levelup",
+    "manipulation",
+    "memegen",
+    "napi-rs",
+    "napi-rs/canvas",
+    "node-canvas",
+    "nodejs",
+    "png",
+    "profile",
+    "rank",
+    "rankcard",
+    "ship",
+    "simple",
+    "skia",
+    "skia-canvas",
+    "spotify",
+    "spotify-card",
+    "ts",
+    "ts-node",
+    "typescript",
+    "util",
+    "utils",
+    "welcome",
+    "welcomer"
   ],
   "author": "SrGobi",
   "funding": {
@@ -47,15 +91,17 @@
   "bugs": {
     "url": "https://github.com/SrGobi/Canvacard/issues"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "homepage": "https://canvacard.srgobi.com",
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.58",
-    "@skyra/gifenc": "^1.0.1",
-    "fortnite": "^4.3.2",
-    "fortnite-9812": "^1.0.4"
+    "@napi-rs/canvas": "^0.1.65",
+    "@skyra/gifenc": "^1.0.1"
   },
   "devDependencies": {
-    "@types/node": "^22.7.5",
-    "typescript": "^5.6.3"
+    "@types/node": "^22.10.1",
+    "typescript": "^5.7.2"
   }
 }
