@@ -27,6 +27,7 @@ const welcome = new canvacard.WelcomeLeave()
   .setColorCircle('#FFFFFF')
   .setColorOverlay('#5865F2')
   .setTypeOverlay('ROUNDED');
+    .setShadowOverlay(true);
 const welcomeImage = await welcome.build("Suravaram");
 canvacard.write(welcomeImage, "./welcomer.png");
  * ```
@@ -94,6 +95,12 @@ declare class WelcomeLeave {
      * @private
      */
     private typeOverlay;
+    /**
+     * Shadow of the overlay
+     * @property {boolean}
+     * @private
+     */
+    private shadowOverlay;
     /**
      * @method setAvatar
      * @name setAvatar
@@ -169,6 +176,14 @@ declare class WelcomeLeave {
      * @throws {APIError} Missing field: type
      */
     setTypeOverlay(type: "RECTANGLE" | "ROUNDED"): WelcomeLeave;
+    /**
+     * @method setShadowOverlay
+     * @name setShadowOverlay
+     * @description Set whether the overlay should have a shadow
+     * @param {boolean} value True to enable shadow, false to disable
+     * @returns {WelcomeLeave} The current instance of WelcomeLeave
+     */
+    setShadowOverlay(value: boolean): WelcomeLeave;
     /**
      * @method build
      * @name build
