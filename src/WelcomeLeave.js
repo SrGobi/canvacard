@@ -287,6 +287,9 @@ class WelcomeLeave {
 		// Draw Overlay - Rectángulo con opacidad aplicada al relleno completo
 		// Solo dibujar si la opacidad es mayor a 0
 		if (this.opacityOverlay > 0) {
+			// Guardar el estado del contexto
+			ctx.save();
+
 			// Configurar el color y la opacidad
 			const overlayColor = this.colorOverlay;
 			const opacity = this.opacityOverlay;
@@ -321,8 +324,8 @@ class WelcomeLeave {
 				ctx.fill();
 			}
 
-			// Resetear la sombra para no afectar otros elementos
-			ctx.shadowBlur = 0;
+			// Restaurar el estado del contexto (resetea sombra y otros estilos)
+			ctx.restore();
 		}
 
 		// Draw Title
