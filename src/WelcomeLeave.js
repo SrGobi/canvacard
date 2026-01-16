@@ -285,42 +285,45 @@ class WelcomeLeave {
 		}
 
 		// Draw Overlay - Rectángulo con opacidad aplicada al relleno completo
-		// Configurar el color y la opacidad
-		const overlayColor = this.colorOverlay;
-		const opacity = this.opacityOverlay;
+		// Solo dibujar si la opacidad es mayor a 0
+		if (this.opacityOverlay > 0) {
+			// Configurar el color y la opacidad
+			const overlayColor = this.colorOverlay;
+			const opacity = this.opacityOverlay;
 
-		// Convertir color hex a rgba para aplicar opacidad directamente
-		let r, g, b;
-		if (overlayColor.startsWith("#")) {
-			const hex = overlayColor.replace("#", "");
-			r = parseInt(hex.substring(0, 2), 16);
-			g = parseInt(hex.substring(2, 4), 16);
-			b = parseInt(hex.substring(4, 6), 16);
-		} else {
-			// Si no es hex, usar negro como fallback
-			r = g = b = 0;
+			// Convertir color hex a rgba para aplicar opacidad directamente
+			let r, g, b;
+			if (overlayColor.startsWith("#")) {
+				const hex = overlayColor.replace("#", "");
+				r = parseInt(hex.substring(0, 2), 16);
+				g = parseInt(hex.substring(2, 4), 16);
+				b = parseInt(hex.substring(4, 6), 16);
+			} else {
+				// Si no es hex, usar negro como fallback
+				r = g = b = 0;
+			}
+
+			// Aplicar sombra si está habilitada
+			if (this.shadowOverlay) {
+				ctx.shadowBlur = 10;
+				ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+			}
+
+			// Aplicar el color con opacidad usando rgba
+			ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
+
+			// Dibujar el rectángulo con esquinas redondeadas o recto
+			if (this.typeOverlay.type === "RECTANGLE") {
+				ctx.fillRect(55, 25, canvas.width - 110, canvas.height - 50);
+			} else if (this.typeOverlay.type === "ROUNDED") {
+				ctx.beginPath();
+				ctx.roundRect(55, 25, canvas.width - 110, canvas.height - 50, 10);
+				ctx.fill();
+			}
+
+			// Resetear la sombra para no afectar otros elementos
+			ctx.shadowBlur = 0;
 		}
-
-		// Aplicar sombra si está habilitada
-		if (this.shadowOverlay) {
-			ctx.shadowBlur = 10;
-			ctx.shadowColor = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-		}
-
-		// Aplicar el color con opacidad usando rgba
-		ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${opacity})`;
-
-		// Dibujar el rectángulo con esquinas redondeadas o recto
-		if (this.typeOverlay.type === "RECTANGLE") {
-			ctx.fillRect(55, 25, canvas.width - 110, canvas.height - 50);
-		} else if (this.typeOverlay.type === "ROUNDED") {
-			ctx.beginPath();
-			ctx.roundRect(55, 25, canvas.width - 110, canvas.height - 50, 10);
-			ctx.fill();
-		}
-
-		// Resetear la sombra para no afectar otros elementos
-		ctx.shadowBlur = 0;
 
 		// Draw Title
 		ctx.shadowBlur = 10;
